@@ -17,13 +17,13 @@ if (isset($_POST['action']) && $_POST['action'] === 'create') {
     $descripcion = trim($_POST['descripcion'] ?? '');
 
     if ($curso === '' || $modalidad === '' || $fecha === '' || $instructor === '' || $descripcion === '') {
-        $mensaje = "❌ Todos los campos son obligatorios.";
+        $mensaje = "Todos los campos son obligatorios.";
     } else {
         if ($model->create($curso, $modalidad, $fecha, $instructor, $descripcion)) {
             header("Location: " . $_SERVER['PHP_SELF'] . "?success=1");
             exit;
         } else {
-            $mensaje = "❌ Error al registrar el curso.";
+            $mensaje = "Error al registrar el curso.";
         }
     }
 }
@@ -41,7 +41,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'update') {
         header("Location: " . $_SERVER['PHP_SELF'] . "?success=2");
         exit;
     } else {
-        $mensaje = "❌ Error al actualizar el curso.";
+        $mensaje = "Error al actualizar el curso.";
     }
 }
 
@@ -52,7 +52,7 @@ if (isset($_GET['delete'])) {
         header("Location: " . $_SERVER['PHP_SELF'] . "?success=3");
         exit;
     } else {
-        $mensaje = "❌ Error al eliminar el curso.";
+        $mensaje = "Error al eliminar el curso.";
     }
 }
 
@@ -60,13 +60,13 @@ if (isset($_GET['delete'])) {
 if (isset($_GET['success'])) {
     switch ($_GET['success']) {
         case 1:
-            $mensaje = "✅ Curso registrado correctamente.";
+            $mensaje = "Curso registrado correctamente.";
             break;
         case 2:
-            $mensaje = "✅ Curso actualizado correctamente.";
+            $mensaje = "Curso actualizado correctamente.";
             break;
         case 3:
-            $mensaje = "✅ Curso eliminado correctamente.";
+            $mensaje = "Curso eliminado correctamente.";
             break;
     }
 }
