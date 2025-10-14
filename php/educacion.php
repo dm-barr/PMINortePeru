@@ -61,7 +61,7 @@ class EducacionModel_mysqli
     {
         $sql = "UPDATE {$this->table} 
                 SET curso = ?, modalidad = ?, fecha = ?, instructor = ?, descripcion = ?
-                WHERE id_Edu = ?";
+                WHERE id_Educacion = ?";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return false;
@@ -73,7 +73,7 @@ class EducacionModel_mysqli
     //Eliminar curso por ID
     public function delete($id)
     {
-        $sql = "DELETE FROM {$this->table} WHERE id_Edu = ?";
+        $sql = "DELETE FROM {$this->table} WHERE id_Educacion = ?";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return false;
@@ -85,7 +85,7 @@ class EducacionModel_mysqli
     //Obtener curso por ID
     public function getById($id)
     {
-        $sql = "SELECT * FROM {$this->table} WHERE id_Edu = ?";
+        $sql = "SELECT * FROM {$this->table} WHERE id_Educacion = ?";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return null;
