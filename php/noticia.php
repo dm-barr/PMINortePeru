@@ -27,12 +27,13 @@ class NoticiaModel_mysqli
     }
 
     // Obtener todas las noticias
-    public function getAll(){
+    public function getAll()
+    {
         $sql = "SELECT * FROM {$this->table} ORDER BY fecha_publicacion DESC";
         $result = $this->mysqli->query($sql);
 
         $noticias = [];
-        
+
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $noticias[] = $row;
@@ -43,47 +44,54 @@ class NoticiaModel_mysqli
     }
 
     // Crear noticia
-    public function create($titulo, $descripcion, $imagen) {
+    public function create($titulo, $descripcion, $imagen)
+    {
         $fecha_publicacion = date('Y-m-d');
         $sql = "INSERT INTO {$this->table} (titulo, descripcion, imagen, fecha_publicacion) VALUES (?, ?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
-        if(!$stmt) return false;
+        if (!$stmt)
+            return false;
         $stmt->bind_param('ssss', $titulo, $descripcion, $imagen, $fecha_publicacion);
         return $stmt->execute();
     }
 
     // Actualizar noticia por ID
-    public function update($id, $titulo, $descripcion, $imagen = null) {
+    public function update($id, $titulo, $descripcion, $imagen = null)
+    {
         if ($imagen !== null) {
-            // Si se proporciona imagen, se actualiza también
-            $sql = "UPDATE {$this->table} SET titulo = ?, descripcion = ?, imagen = ? WHERE id = ?";
+            $sql = "UPDATE {$this->table} SET titulo = ?, descripcion = ?, imagen = ? WHERE id_Noticia = ?";
             $stmt = $this->mysqli->prepare($sql);
-            if(!$stmt) return false;
+            if (!$stmt)
+                return false;
             $stmt->bind_param('sssi', $titulo, $descripcion, $imagen, $id);
         } else {
-            // Solo actualizar título y descripción
-            $sql = "UPDATE {$this->table} SET titulo = ?, descripcion = ? WHERE id = ?";
+            $sql = "UPDATE {$this->table} SET titulo = ?, descripcion = ? WHERE id_Noticia = ?";
             $stmt = $this->mysqli->prepare($sql);
-            if(!$stmt) return false;
+            if (!$stmt)
+                return false;
             $stmt->bind_param('ssi', $titulo, $descripcion, $id);
         }
         return $stmt->execute();
     }
 
     // Eliminar noticia por ID
-    public function delete($id) {
-        $sql = "DELETE FROM {$this->table} WHERE id = ?";
+    public function delete($id)
+    {
+        $sql = "DELETE FROM {$this->table} WHERE id_Noticia = ?";
         $stmt = $this->mysqli->prepare($sql);
-        if(!$stmt) return false;
+        if (!$stmt)
+            return false;
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
 
-    // Obtener noticia por ID (opcional para edición)
-    public function getById($id) {
-        $sql = "SELECT * FROM {$this->table} WHERE id = ?";
+    // Obtener noticia por ID
+    public function getById($id)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE id_Noticia = ?";
         $stmt = $this->mysqli->prepare($sql);
-        if(!$stmt) return null;
+        if (!$stmt)
+            return null;
         $stmt->bind_param('i', $id);
         $stmt->execute();
         $result = $stmt->get_result();
