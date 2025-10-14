@@ -29,7 +29,7 @@ class NoticiaModel_mysqli
     // Obtener todas las noticias
     public function getAll()
     {
-        $sql = "SELECT * FROM {$this->table} ORDER BY fecha_publicacion DESC";
+        $sql = "SELECT * FROM {$this->table} ORDER BY fecha DESC";
         $result = $this->mysqli->query($sql);
 
         $noticias = [];
@@ -47,7 +47,7 @@ class NoticiaModel_mysqli
     public function create($titulo, $descripcion, $imagen)
     {
         $fecha_publicacion = date('Y-m-d');
-        $sql = "INSERT INTO {$this->table} (titulo, descripcion, imagen, fecha_publicacion) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO {$this->table} (titulo, descripcion, imagen, fecha) VALUES (?, ?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return false;

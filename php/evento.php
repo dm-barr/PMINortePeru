@@ -25,7 +25,7 @@ class EventoModel_mysqli {
 
     // Obtener todos los eventos
     public function getAll() {
-        $sql = "SELECT * FROM {$this->table} ORDER BY fecha_evento DESC";
+        $sql = "SELECT * FROM {$this->table} ORDER BY fecha DESC";
         $result = $this->mysqli->query($sql);
 
         $eventos = [];
@@ -40,8 +40,8 @@ class EventoModel_mysqli {
     }
     // Crear evento
     public function create($nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen) {
-        $fecha_evento = date('Y-m-d');
-        $sql = "INSERT INTO {$this->table} (nombre, descripcion, comunidad, fecha_evento, modalidad, categoria, lugar, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $fecha = date('Y-m-d');
+        $sql = "INSERT INTO {$this->table} (nombre, descripcion, comunidad, fecha, modalidad, categoria, lugar, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return false;
@@ -52,13 +52,13 @@ class EventoModel_mysqli {
     // Actualizar por ID
     public function update($id, $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen = null) {
       if($imagen !== null) {
-        $sql = "UPDATE {$this->table} SET nombre = ?, descripcion = ?, comunidad = ?, modalidad = ?, categoria = ?, lugar = ?, imagen = ? WHERE ID_Evento = ?";
+        $sql = "UPDATE {$this->table} SET nombre = ?, descripcion = ?, comunidad = ?, modalidad = ?, categoria = ?, lugar = ?, imagen = ? WHERE id_Evento = ?";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return false;
         $stmt->bind_param('sssssssi', $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen, $id);
       }else {
-        $sql = "UPDATE {$this->table} SET nombre = ?, descripcion = ?, comunidad = ?, modalidad = ?, categoria = ?, lugar = ? WHERE ID_Evento = ?";
+        $sql = "UPDATE {$this->table} SET nombre = ?, descripcion = ?, comunidad = ?, modalidad = ?, categoria = ?, lugar = ? WHERE id_Evento = ?";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return false;
@@ -68,7 +68,7 @@ class EventoModel_mysqli {
     }
     // Eliminar por ID
     public function delete($id) {
-        $sql = "DELETE FROM {$this->table} WHERE ID_Evento = ?";
+        $sql = "DELETE FROM {$this->table} WHERE id_Evento = ?";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return false;
@@ -77,7 +77,7 @@ class EventoModel_mysqli {
     }
     // Obtener evento por ID
     public function getById($id) {
-        $sql =  "SELECT * FROM {$this->table} WHERE ID_Evento = ?";
+        $sql =  "SELECT * FROM {$this->table} WHERE id_Evento = ?";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return null;
