@@ -1,40 +1,99 @@
 <?php
-    //configuracion de conexion
-    $host = 'localhost'; 
-    $dbname = 'pminorte_paginaweb';
-    $username = 'pminorte_admin'; 
-    $password = 'm$GYzHub$}Ov';
+class EducacionModel_mysqli
+{
+    private $mysqli;
+    private $table = 'Educacion';
+    private $host = 'localhost';
+    private $dbname = 'pminorte_paginaweb';
+    private $username = 'pminorte_admin';
+    private $password = 'm$GYzHub$}Ov';
 
-    // Conexion para la base de datos
-    $conexion = new mysqli($host, $username, $password, $dbname);
-    if($conexion->connect_error) {
-        die("Error de conexión: " .$conexion->connet_error);
-    }
+    public function __construct()
+    {
+        $this->mysqli = new mysqli($this->host, $this->username, $this->password, $this->dbname);
 
-    //para el registro de uno nuevo
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $curso = $_POST["curso"];
-        $modalidad = $_POST["modalidad"];
-        $fecha = $_POST["fecha"];
-        $instructor = $_POST["instructor"];
-        $descripcion = $_POST["descripcion"];
-    }
-
-    //VALIDACION
-    if (!empty($curso) && !empty($modalidad) && !empty($fecha) && !empty($instructor)) {
-        $sql = "INSERT INTO Educacion (curso, modalidad, fecha, instructor, descripcion)
-                VALUES (?, ?, ?, ?, ?)";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("sssss", $curso, $modalidad, $fecha, $instructor, $descripcion);
-
-        if ($stmt->execute()) {
-            echo "<script>alert('Curso registrado correctamente');</script>";
-        } else {
-            echo "<script>alert('Error al registrar el curso');</script>";
+        if ($this->mysqli->connect_error) {
+            die('Error de conexión (' . $this->mysqli->connect_errno . ') ' . $this->mysqli->connect_error);
         }
-        
-        $stmt->close();
-    } else {
-        echo "<script>alert('Por favor, completa todos los campos obligatorios');</script>";
+
+        $this->mysqli->set_charset("utf8mb4");
     }
+
+    public function __destruct()
+    {
+        if ($this->mysqli) {
+            $this->mysqli->close();
+        }
+    }
+
+    //Obtener todos los cursos
+    public function getAll()
+    {
+        $sql = "SELECT * FROM {$this->table} ORDER BY fecha DESC";
+        $result = $this->mysqli->query($sql);
+
+        $cursos = [];
+
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $cursos[] = $row;
+            }
+            $result->free();
+        }
+        return $cursos;
+    }
+
+    //Crear un nuevo curso
+    public function create($curso, $modalidad, $fecha, $instructor, $descripcion)
+    {
+        $sql = "INSERT INTO {$this->table} (curso, modalidad, fecha, instructor, descripcion)
+                VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->mysqli->prepare($sql);
+        if (!$stmt)
+            return false;
+
+        $stmt->bind_param('sssss', $curso, $modalidad, $fecha, $instructor, $descripcion);
+        return $stmt->execute();
+    }
+
+    //Actualizar curso por ID
+    public function update($id, $curso, $modalidad, $fecha, $instructor, $descripcion)
+    {
+        $sql = "UPDATE {$this->table} 
+                SET curso = ?, modalidad = ?, fecha = ?, instructor = ?, descripcion = ?
+                WHERE id_Edu = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        if (!$stmt)
+            return false;
+
+        $stmt->bind_param('sssssi', $curso, $modalidad, $fecha, $instructor, $descripcion, $id);
+        return $stmt->execute();
+    }
+
+    //Eliminar curso por ID
+    public function delete($id)
+    {
+        $sql = "DELETE FROM {$this->table} WHERE id_Edu = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        if (!$stmt)
+            return false;
+
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+    //Obtener curso por ID
+    public function getById($id)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE id_Edu = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        if (!$stmt)
+            return null;
+
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+}
 ?>
