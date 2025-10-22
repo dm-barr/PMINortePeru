@@ -98,49 +98,6 @@ body {
 
 
 
-/* ---------- PANTALLA 1: HERO PRINCIPAL ---------- */
-.hero {
-  position: relative;
-  background: url("../img/portada/Portada.png") ; 
-  background-size: cover;       
-  height: 100vh;                 
-  width: 100%;                 
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  margin: 0;                    
-  padding: 0;   
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  /*colores anteriors 
-  background-image: linear-gradient(#001c25, #0e485c );
-  /*background: rgba(0, 25, 50, 0.6); / capa oscura encima de la imagen */
-}
-
-
-
-.hero-text h1 {
-  font-size: 2.5em;
-  font-weight: 700;
-  margin-bottom: 15px;
-}
-
-.hero-text p {
-  font-size: 1.1em;
-  margin-bottom: 25px;
-  line-height: 1.5;
-}
-
-
-
 
 
 /* ---------- PANTALLA 2: QUIÉNES SOMOS ---------- */
