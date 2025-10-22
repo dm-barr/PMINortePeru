@@ -1,0 +1,894 @@
+/* ---------- ESTILOS GENERALES ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #222;
+  background-color: #fff;
+}
+
+/* ---------- BARRA SUPERIOR ---------- */
+.topbar {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 50px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.topbar-left a {
+  color: #111;
+  text-decoration: none;
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  font-size: 0.95em;
+}
+
+.topbar-right .separator {
+  margin: 0 8px;
+  color: #777;
+}
+
+.topbar-right .contact-link {
+  color: #0072bc;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ---------- NAVBAR AZUL ---------- */
+.navbar {
+  background: linear-gradient(140deg, #502c68, #c55e14);
+  padding: 12px 50px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 50px;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95em;
+}
+
+.menu a:hover {
+  color: #5b60e7;
+}
+
+.btn-hazte {
+  background: linear-gradient(135deg,#94502f, #713187, #175978);
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.btn-hazte:hover {
+  background: #dfdfdf;
+  color: #003366;
+}
+
+
+
+
+/* ---------- PANTALLA 1: HERO PRINCIPAL ---------- */
+.hero {
+  position: relative;
+  background: url("../img/portada/Portada.png") ; 
+  background-size: cover;       
+  height: 100vh;                 
+  width: 100%;                 
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin: 0;                    
+  padding: 0;   
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /*colores anteriors 
+  background-image: linear-gradient(#001c25, #0e485c );
+  /*background: rgba(0, 25, 50, 0.6); / capa oscura encima de la imagen */
+}
+
+
+
+.hero-text h1 {
+  font-size: 2.5em;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.hero-text p {
+  font-size: 1.1em;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+
+
+
+
+/* ---------- PANTALLA 2: QUIÉNES SOMOS ---------- */
+.quienes-somos {
+  background: #f8f9fa;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.quienes-somos h2 {
+  color: #00b0f0;
+  font-size: 2em;
+  margin-bottom: 10px;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+.quienes-somos h2::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 3px;
+  background: #00b0f0;
+  margin: 8px auto 0;
+  border-radius: 3px;
+}
+
+.quienes-somos .descripcion {
+  max-width: 800px;
+  margin: 0 auto 50px;
+  color: #040404;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: linear-gradient(to bottom,  #3d2274 , #4f2713);
+  color: white;
+  border-radius: 20px;
+  width: 300px;
+  padding: 40px 25px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.icono-img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 6px rgba(0, 180, 255, 0.3));
+}
+
+.card h3 {
+  font-size: 1.3em;
+  margin-bottom: 10px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.card p {
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: #e5e5e5;
+}
+
+/* ---------- PANTALLA 3: PRÓXIMOS EVENTOS ---------- */
+.eventos {
+  background: #f8f9fa;
+  padding: 100px 20px;
+}
+
+.container-eventos {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ----- Encabezado ----- */
+.titulo-eventos {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.titulo-eventos h2 {
+  font-size: 2.5em;
+  font-weight: 800;
+  color: #7025c1;
+  line-height: 1.2;
+  border-right: 4px solid #7025c1;
+  padding-right: 20px;
+}
+
+.titulo-eventos span {
+  display: block;
+  color: #7025c1;
+}
+
+.titulo-eventos p {
+  flex: 1;
+  min-width: 300px;
+  font-size: 1em;
+  line-height: 1.6;
+  color: #040404;
+}
+
+/* ----- Filtros ----- */
+.filtros {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  
+  margin-bottom: 50px;
+}
+
+.filtros button {
+  background: linear-gradient(135deg,#e46f35, #2c8ab6);
+  text-align: left;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-weight: 600;
+  
+}
+
+.filtros button:hover {
+  background: #2085aa;
+}
+
+
+/* ----- Tarjetas ----- */
+.cards-eventos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  
+}
+
+.card-evento {
+  background: linear-gradient(to bottom,  #15062b, #2a0c5a);
+  border-radius: 25px;
+  padding: 20px;
+  color: #fff;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-evento:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.card-evento .fecha {
+  display: inline-block;
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 6px 14px;
+  font-size: 0.85em;
+  margin-bottom: 15px;
+}
+
+.card-evento img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.card-evento h3 {
+  font-size: 1em;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.card-evento p {
+  font-size: 0.9em;
+  color: #d5d5d5;
+}
+
+
+
+/* ---------- PANTALLA 4: LLAMADO A LA ACCIÓN ---------- */
+/* ---------- SECCIÓN CTA  ---------- */
+.cta {
+  position: relative;
+  background-image: url("../img/recursos/morado.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  border-radius: 40px;
+  margin: 50px auto;     
+  max-width: 1200px;       
+  text-align: center;
+  padding: 150px 20px;     
+  overflow: hidden;
+  
+}
+
+.cta-fondo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  height: 80%;
+  background: rgba(5, 7, 12, 0.4);
+  border-radius: 20px;
+  transform: translate(-50%, -50%);
+  
+  
+}
+ 
+
+
+
+/* contenido principal */
+.cta-content {
+  position: relative;
+  z-index: 1;
+  /*background: linear-gradient( rgba(5,7,12,0.40));*/
+ 
+ 
+}
+
+
+.cta h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.cta p {
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  color: #ddd;
+}
+
+/* botones */
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-cta {
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: #5f20d0;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #7a33f3;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: #1a0633;
+}
+
+.btn-secondary:hover {
+  background-color: #eee;
+}
+
+
+
+
+/* ---------- Pantalla 5  SECCIÓN FORMACIÓN ---------- */
+
+
+.container-formacion {
+  max-width: 1200px;
+  margin: 0 auto;
+   padding: 100px 0px;
+}
+
+/* Cabecera con título y texto */
+.formacion-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.formacion-header h2 {
+
+  font-size: 2.5em;
+  font-weight: 600;
+  color: #3FC0F0;
+  line-height: 1.2;
+  border-right: 4px solid #3FC0F0;
+  padding-right: 20px;       
+}
+
+
+
+.formacion-header p {
+  flex: 1;
+  min-width: 300px;
+  color: #040404;
+  line-height: 1.6;
+  font-size: 1rem;
+ 
+  padding-left: 18px;
+}
+
+/* Filtros (botones redondeados) */
+.filtros-formacion {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.filtros-formacion button {
+  background-color: #4F17A8;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.filtros-formacion button:hover {
+  background-color: #7a33f3;
+}
+
+/* Tarjetas */
+.cards-formacion {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.card-formacion {
+  background: linear-gradient(to bottom, #3d1603, #993707);
+  border-radius: 25px;
+  padding: 20px;
+  color: #fff;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-formacion img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.card-formacion .fecha {
+  display: inline-block;
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 6px 14px;
+  font-size: 0.85em;
+  margin-bottom: 10px;
+}
+
+.card-formacion h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-formacion p {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  margin-bottom: 15px;
+}
+
+.btn-card {
+  display: inline-block;
+  background: #fff;
+  color: #5f20d0;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+.card-formacion:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.btn-card:hover {
+  background: #e0e0e0;
+  
+}
+
+/* ---------- PANTALLA 6 SECCIÓN VOLUNTARIADO ---------- */
+.voluntariado {
+  position: relative;
+  background-image: url("../img/recursos/celeste.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  border-radius: 40px;
+  margin: 50px auto;     
+  max-width: 1200px;       
+  text-align: center;
+  padding: 150px 20px;     
+  overflow: hidden;
+  
+}
+
+/* Contenido principal */
+.voluntariado-content {
+  position: relative;
+  z-index: 1;
+}
+
+.voluntariado h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.voluntariado p {
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  color: #e0e0e0;
+}
+
+/* Botones */
+.voluntariado-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-vol {
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Botón azul */
+.btn-azul {
+  background-color: #00bcd4;
+  color: #fff;
+}
+
+.btn-azul:hover {
+  background-color: #04d2ec;
+}
+
+/* Botón blanco */
+.btn-blanco {
+  background-color: #fff;
+  color: #012b3c;
+}
+
+.btn-blanco:hover {
+  background-color: #eee;
+}
+
+
+
+/* ---------- PANTALLA 7: NOTICIAS RECIENTES ---------- */
+.noticias {
+  background: #f8f9fa;
+  padding: 80px 50px;
+}
+
+.container-noticias {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Título */
+.titulo-noticias {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.titulo-noticias h2 {
+  font-size: 2.5em;
+  font-weight: 800;
+  color: #7025c1;
+  line-height: 1.2;
+  border-right: 4px solid #7025c1;
+  padding-right: 20px;
+}
+
+.titulo-noticias span {
+  display: block;
+  color: #7025c1;
+}
+
+.titulo-noticias p {
+  flex: 1;
+  min-width: 300px;
+  font-size: 1em;
+  line-height: 1.6;
+  color: #040404;
+}
+
+/* Filtros */
+.filtros-noticias {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  
+  margin-bottom: 50px;
+}
+
+.filtros-noticias button {
+  background: #3FC0F0;
+  color: white;
+  border: none;
+  text-align: left;
+  border-radius: 25px;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-weight: 600;
+  
+}
+
+.filtros-noticias button:hover {
+  background: #2085aa;
+}
+
+
+
+/* Tarjetas */
+.cards-noticias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+ 
+  gap: 30px;
+}
+
+.card-noticia {
+  background: linear-gradient(to bottom, #15062b, #2a0c5a);
+  border-radius: 25px;
+  padding: 20px;
+  color: #fff;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-noticia:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.card-noticia .fecha {
+  display: inline-block;
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 6px 14px;
+  font-size: 0.85em;
+  margin-bottom: 15px;
+}
+
+.card-noticia img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.card-noticia h3 {
+  font-size: 1em;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.card-noticia p {
+  font-size: 0.9em;
+  color: #d5d5d5;    
+}
+
+/* ---------- PANTALLA 8: CONTÁCTANOS ---------- */
+
+.contacto {
+  background: #f5f5f5;
+  padding: 80px 20px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+.titulo-contacto {
+  color: #4F17A8;
+  font-size: 2.8em;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 35px;
+  position: relative;
+}
+
+
+.titulo-contacto::after {
+  content: "";
+  display: block;
+  width: 130px; 
+  height: 4px;
+  background-color: #4F17A8;
+  margin: 10px auto 0; 
+  border-radius: 2px;
+}
+
+/* Contenedor del formulario */
+.container-contacto {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(180deg,#15062b, #2a0c5a);
+  border-radius: 25px;
+  padding: 40px;
+ 
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Formulario */
+.form-contacto {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.form-contacto label {
+  color: white;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.form-contacto input,
+.form-contacto textarea {
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1em;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-contacto textarea {
+  resize: none;
+}
+
+/* Checkboxes */
+.check-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 15px 0 10px 0;
+}
+
+.check-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.check-group input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #5d17c5;
+  border-radius: 3px;
+  margin: 0;
+}
+
+/* Botón */
+.btn-enviar {
+  background: linear-gradient(90deg, #4b00cc, #7a2cf2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 15px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-enviar:hover {
+  background: linear-gradient(90deg, #36009c, #621fc7);
+}
+
+
+/* ===== FOOTER ===== */
+.footer {
+  background-color: #15062b; /* color oscuro */
+  color: #ffffff;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+
+
+
+#cta, .voluntariado {
+  scroll-margin-top: 80px; 
+}
+
+
