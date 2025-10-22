@@ -47,7 +47,7 @@ body {
 
 /* ---------- NAVBAR AZUL ---------- */
 .navbar {
-  background: #001c25;
+  background: linear-gradient(140deg, #502c68, #c55e14);
   padding: 12px 50px;
   position: sticky;
   top: 0;
@@ -82,7 +82,7 @@ body {
 }
 
 .btn-hazte {
-  background: #0072bc;
+  background: linear-gradient(135deg,#94502f, #713187, #175978);
   color: white;
   text-decoration: none;
   padding: 8px 16px;
@@ -91,7 +91,7 @@ body {
 }
 
 .btn-hazte:hover {
-  background: #5b60e7;
+  background: #dfdfdf;
   color: #003366;
 }
 
@@ -185,7 +185,7 @@ body {
 }
 
 .card {
-  background: linear-gradient(to bottom,  #0b2e3a , #1a6c8c);
+  background: linear-gradient(to bottom,  #3d2274 , #4f2713);
   color: white;
   border-radius: 20px;
   width: 300px;
@@ -273,7 +273,7 @@ body {
 }
 
 .filtros button {
-  background: #3FC0F0;
+  background: linear-gradient(135deg,#e46f35, #2c8ab6);
   text-align: left;
   color: white;
   border: none;
