@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once __DIR__ . '/php/EventoModel_mysqli.php';  // Ajusta el path si es necesario
+require_once __DIR__ . '/php/evento.php';
 $model = new EventoModel_mysqli();
 
 $mensaje = '';
@@ -27,8 +27,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'create') {
                 $ext = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
                 $nombreArchivo = uniqid('img_') . '.' . $ext;
                 $rutaDestino = __DIR__ . '/uploads/' . $nombreArchivo;
-                if (!is_dir(__DIR__ . '/uploads'))
-                    mkdir(__DIR__ . '/uploads', 0755, true);
+                if (!is_dir(__DIR__ . '/uploads')) mkdir(__DIR__ . '/uploads', 0755, true);
                 if (move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino)) {
                     $imagen = 'uploads/' . $nombreArchivo;
                 } else {
@@ -48,7 +47,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'create') {
 
 // ----- ACTUALIZAR EVENTO -----
 if (isset($_POST['action']) && $_POST['action'] === 'update') {
-    $id_Evento = intval($_POST['id_Evento']);
+    $id_Evento = intval($_POST['id_Evento'] ?? 0);
     $nombre = trim($_POST['nombre'] ?? '');
     $descripcion = trim($_POST['descripcion'] ?? '');
     $comunidad = trim($_POST['comunidad'] ?? '');
@@ -63,8 +62,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'update') {
             $ext = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
             $nombreArchivo = uniqid('img_') . '.' . $ext;
             $rutaDestino = __DIR__ . '/uploads/' . $nombreArchivo;
-            if (!is_dir(__DIR__ . '/uploads'))
-                mkdir(__DIR__ . '/uploads', 0755, true);
+            if (!is_dir(__DIR__ . '/uploads')) mkdir(__DIR__ . '/uploads', 0755, true);
             if (move_uploaded_file($_FILES['imagen']['tmp_name'], $rutaDestino)) {
                 $imagen = 'uploads/' . $nombreArchivo;
             }
@@ -93,15 +91,9 @@ if (isset($_GET['delete'])) {
 // Mensajes de éxito
 if (isset($_GET['success'])) {
     switch ($_GET['success']) {
-        case 1:
-            $mensaje = "✅ Evento creado correctamente.";
-            break;
-        case 2:
-            $mensaje = "✅ Evento actualizado correctamente.";
-            break;
-        case 3:
-            $mensaje = "✅ Evento eliminado correctamente.";
-            break;
+        case 1: $mensaje = "✅ Evento creado correctamente."; break;
+        case 2: $mensaje = "✅ Evento actualizado correctamente."; break;
+        case 3: $mensaje = "✅ Evento eliminado correctamente."; break;
     }
 }
 
@@ -148,48 +140,48 @@ if (isset($_GET['edit'])) {
             <form method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="<?= $editEvento ? 'update' : 'create' ?>">
                 <?php if ($editEvento): ?>
-                    <input type="hidden" name="id_Evento" value="<?= $editEvento['ID_Evento'] ?>">
+                    <input type="hidden" name="id_Evento" value="<?= htmlspecialchars($editEvento['id_Evento'] ?? '') ?>">
                 <?php endif; ?>
 
                 <div class="mb-3">
                     <label class="form-label">Nombre</label>
                     <input type="text" name="nombre" class="form-control" required
-                           value="<?= $editEvento ? htmlspecialchars($editEvento['nombre']) : '' ?>">
+                           value="<?= htmlspecialchars($editEvento['nombre'] ?? '') ?>">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Descripción</label>
-                    <textarea name="descripcion" class="form-control" rows="4" required><?= $editEvento ? htmlspecialchars($editEvento['descripcion']) : '' ?></textarea>
+                    <textarea name="descripcion" class="form-control" rows="4" required><?= htmlspecialchars($editEvento['descripcion'] ?? '') ?></textarea>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Comunidad</label>
                     <input type="text" name="comunidad" class="form-control"
-                           value="<?= $editEvento ? htmlspecialchars($editEvento['comunidad']) : '' ?>">
+                           value="<?= htmlspecialchars($editEvento['comunidad'] ?? '') ?>">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Modalidad</label>
                     <input type="text" name="modalidad" class="form-control"
-                           value="<?= $editEvento ? htmlspecialchars($editEvento['modalidad']) : '' ?>">
+                           value="<?= htmlspecialchars($editEvento['modalidad'] ?? '') ?>">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Categoría</label>
                     <input type="text" name="categoria" class="form-control"
-                           value="<?= $editEvento ? htmlspecialchars($editEvento['categoria']) : '' ?>">
+                           value="<?= htmlspecialchars($editEvento['categoria'] ?? '') ?>">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Lugar</label>
                     <input type="text" name="lugar" class="form-control"
-                           value="<?= $editEvento ? htmlspecialchars($editEvento['lugar']) : '' ?>">
+                           value="<?= htmlspecialchars($editEvento['lugar'] ?? '') ?>">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Imagen</label>
                     <input type="file" name="imagen" class="form-control" accept="image/*" id="imagenInput">
-                    <?php if ($editEvento && $editEvento['imagen']): ?>
+                    <?php if (!empty($editEvento['imagen'])): ?>
                         <img src="<?= htmlspecialchars($editEvento['imagen']) ?>" class="img-preview" id="imagenPreview">
                     <?php else: ?>
                         <img src="" class="img-preview" id="imagenPreview" style="display:none;">
@@ -198,7 +190,7 @@ if (isset($_GET['edit'])) {
 
                 <button type="submit" class="btn btn-success"><?= $editEvento ? 'Actualizar Evento' : 'Publicar Evento' ?></button>
                 <?php if ($editEvento): ?>
-                    <a href="<?= $_SERVER['PHP_SELF'] ?>" class="btn btn-secondary">Cancelar</a>
+                    <a href="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" class="btn btn-secondary">Cancelar</a>
                 <?php endif; ?>
             </form>
         </div>
@@ -219,21 +211,22 @@ if (isset($_GET['edit'])) {
                             <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" class="card-img-top" alt="Sin imagen">
                         <?php endif; ?>
                         <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($evento['nombre']) ?></h5>
-                            <p class="card-text"><?= nl2br(htmlspecialchars($evento['descripcion'])) ?></p>
+                            <h5 class="card-title"><?= htmlspecialchars($evento['nombre'] ?? 'Sin título') ?></h5>
+                            <p class="card-text"><?= nl2br(htmlspecialchars($evento['descripcion'] ?? '')) ?></p>
                         </div>
                         <div class="card-footer text-center">
                             <small class="text-muted">
-                                Fecha: <?= htmlspecialchars($evento['fecha']) ?> <br>
-                                Comunidad: <?= htmlspecialchars($evento['comunidad']) ?>
+                                Fecha: <?= htmlspecialchars($evento['fecha'] ?? 'No disponible') ?><br>
+                                Comunidad: <?= htmlspecialchars($evento['comunidad'] ?? 'N/A') ?>
                             </small>
                             <div class="mt-2">
                                 <?php
-                                $editUrl = $_SERVER['PHP_SELF'] . '?edit=' . intval($evento['ID_Evento']);
-                                $deleteUrl = $_SERVER['PHP_SELF'] . '?delete=' . intval($evento['ID_Evento']);
+                                $editUrl = $_SERVER['PHP_SELF'] . '?edit=' . intval($evento['id_Evento'] ?? 0);
+                                $deleteUrl = $_SERVER['PHP_SELF'] . '?delete=' . intval($evento['id_Evento'] ?? 0);
                                 ?>
                                 <a href="<?= htmlspecialchars($editUrl) ?>" class="btn btn-sm btn-primary">Editar</a>
-                                <a href="<?= htmlspecialchars($deleteUrl) ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este evento?');">Eliminar</a>
+                                <a href="<?= htmlspecialchars($deleteUrl) ?>" class="btn btn-sm btn-danger"
+                                   onclick="return confirm('¿Seguro que deseas eliminar este evento?');">Eliminar</a>
                             </div>
                         </div>
                     </div>
@@ -244,7 +237,6 @@ if (isset($_GET['edit'])) {
 </div>
 
 <script>
-// Preview de imagen
 const imagenInput = document.getElementById('imagenInput');
 const imagenPreview = document.getElementById('imagenPreview');
 

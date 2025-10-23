@@ -82,7 +82,7 @@ if (isset($_GET['delete'])) {
     }
 }
 
-// Mensajes de éxito
+// ----- MENSAJES DE ÉXITO -----
 if (isset($_GET['success'])) {
     switch ($_GET['success']) {
         case 1:
@@ -97,10 +97,10 @@ if (isset($_GET['success'])) {
     }
 }
 
-// Obtener todas las noticias
+// ----- OBTENER TODAS LAS NOTICIAS -----
 $noticias = $model->getAll();
 
-// Si se va a editar, obtener los datos de la noticia
+// ----- SI SE VA A EDITAR, OBTENER LOS DATOS DE LA NOTICIA -----
 $editNoticia = null;
 if (isset($_GET['edit'])) {
     $editId = intval($_GET['edit']);
@@ -110,7 +110,6 @@ if (isset($_GET['edit'])) {
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Noticias - PMI Norte Perú</title>
@@ -124,16 +123,15 @@ if (isset($_GET['edit'])) {
 </head>
 
 <body class="bg-light">
-
     <div class="container py-5">
         <h1 class="mb-4 text-center text-primary">📰 Noticias - PMI Norte Perú</h1>
 
-        <!-- Mensaje -->
+        <!-- MENSAJE -->
         <?php if (!empty($mensaje)): ?>
             <div class="alert alert-info"><?= htmlspecialchars($mensaje) ?></div>
         <?php endif; ?>
 
-        <!-- Formulario Crear / Editar -->
+        <!-- FORMULARIO CREAR / EDITAR -->
         <div class="card mb-5 shadow-sm">
             <div class="card-header bg-primary text-white">
                 <h5 class="mb-0"><?= $editNoticia ? 'Editar Noticia' : 'Agregar Nueva Noticia' ?></h5>
@@ -153,23 +151,23 @@ if (isset($_GET['edit'])) {
 
                     <div class="mb-3">
                         <label class="form-label">Descripción</label>
-                        <textarea name="descripcion" class="form-control" rows="4"
-                            required><?= $editNoticia ? htmlspecialchars($editNoticia['descripcion']) : '' ?></textarea>
+                        <textarea name="descripcion" class="form-control" rows="4" required><?= 
+                            $editNoticia ? htmlspecialchars($editNoticia['descripcion']) : '' ?></textarea>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Imagen</label>
                         <input type="file" name="imagen" class="form-control" accept="image/*" id="imagenInput">
                         <?php if ($editNoticia && $editNoticia['imagen']): ?>
-                            <img src="<?= htmlspecialchars($editNoticia['imagen']) ?>" class="img-preview"
-                                id="imagenPreview">
+                            <img src="<?= htmlspecialchars($editNoticia['imagen']) ?>" class="img-preview" id="imagenPreview">
                         <?php else: ?>
                             <img src="" class="img-preview" id="imagenPreview" style="display:none;">
                         <?php endif; ?>
                     </div>
 
-                    <button type="submit"
-                        class="btn btn-success"><?= $editNoticia ? 'Actualizar Noticia' : 'Publicar Noticia' ?></button>
+                    <button type="submit" class="btn btn-success">
+                        <?= $editNoticia ? 'Actualizar Noticia' : 'Publicar Noticia' ?>
+                    </button>
                     <?php if ($editNoticia): ?>
                         <a href="<?= $_SERVER['PHP_SELF'] ?>" class="btn btn-secondary">Cancelar</a>
                     <?php endif; ?>
@@ -177,7 +175,7 @@ if (isset($_GET['edit'])) {
             </div>
         </div>
 
-        <!-- Listado de noticias -->
+        <!-- LISTADO DE NOTICIAS -->
         <h2 class="mb-4 text-secondary">Últimas Noticias</h2>
         <div class="row">
             <?php if (empty($noticias)): ?>
@@ -187,11 +185,9 @@ if (isset($_GET['edit'])) {
                     <div class="col-md-4 mb-4">
                         <div class="card h-100 shadow-sm">
                             <?php if (!empty($noticia['imagen'])): ?>
-                                <img src="<?= htmlspecialchars($noticia['imagen']) ?>" class="card-img-top"
-                                    alt="Imagen de la noticia">
+                                <img src="<?= htmlspecialchars($noticia['imagen']) ?>" class="card-img-top" alt="Imagen de la noticia">
                             <?php else: ?>
-                                <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" class="card-img-top"
-                                    alt="Sin imagen">
+                                <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" class="card-img-top" alt="Sin imagen">
                             <?php endif; ?>
 
                             <div class="card-body">
@@ -200,8 +196,12 @@ if (isset($_GET['edit'])) {
                             </div>
 
                             <div class="card-footer text-center">
-                                <small class="text-muted">Publicado el
-                                    <?= htmlspecialchars($noticia['fecha_publicacion']) ?></small>
+                                <small class="text-muted">
+                                    Publicado el 
+                                    <?= !empty($noticia['fecha']) 
+                                        ? htmlspecialchars(date('d/m/Y H:i', strtotime($noticia['fecha']))) 
+                                        : 'Fecha no disponible'; ?>
+                                </small>
                                 <div class="mt-2">
                                     <?php
                                     $editUrl = $_SERVER['PHP_SELF'] . '?edit=' . intval($noticia['id_Noticia']);
@@ -220,7 +220,7 @@ if (isset($_GET['edit'])) {
     </div>
 
     <script>
-        // Preview de imagen
+        // PREVIEW DE IMAGEN
         const imagenInput = document.getElementById('imagenInput');
         const imagenPreview = document.getElementById('imagenPreview');
 
@@ -239,7 +239,5 @@ if (isset($_GET['edit'])) {
             }
         });
     </script>
-
 </body>
-
 </html>
