@@ -31,7 +31,9 @@
     <header class="navbar">
         <div class="nav-container">
             <img src="img/logo/logo_PMI.png" alt="Logo PMI Norte Perú" class="logo">
-            <nav>
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+            <nav id="nav_menu">
                 <ul class="menu">
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#nosotros">Nosotros ▾</a></li>
@@ -41,11 +43,12 @@
                     <li><a href="#noticias">Noticias ▾</a></li>
                     <li><a href="#voluntariado">Voluntariado ▾</a></li>
                     <li><a href="#recuerdos">Recuerdos</a></li>
+                    <a href="#" class="btn-hazte">Hazte miembro</a>
                 </ul>
             </nav>
-            <a href="#" class="btn-hazte">Hazte miembro</a>
         </div>
     </header>
+
 
     <!-- 🔹 HERO PRINCIPAL -->
     <section id="inicio" class="hero">
@@ -277,6 +280,16 @@
     <footer class="footer">
         <p>© 2025 PMI Norte Perú</p>
     </footer>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menuLinks = document.querySelectorAll('.menu a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.checked = false;
+                });
+            });
+        });
+    </script>
 </body>
 </html>
