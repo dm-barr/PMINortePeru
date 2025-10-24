@@ -78,11 +78,13 @@ body {
 }
 
 .menu a:hover {
-  color: #5b60e7;
+  color:  #00b0f0;
 }
 
 .btn-hazte {
-  background: linear-gradient(135deg,#94502f, #713187, #175978);
+
+  background: #00b0f0; 
+  /*linear-gradient(135deg,#94502f, #713187, #175978);*/
   color: white;
   text-decoration: none;
   padding: 8px 16px;
