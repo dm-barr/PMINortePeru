@@ -970,4 +970,8 @@ body {
   .menu-toggle:checked ~ nav .menu {
     display: flex;
   }
+  .topbar-right .email,
+  .topbar-right .separator {
+    display: none;
+  }
 }
