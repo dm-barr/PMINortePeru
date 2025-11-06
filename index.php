@@ -7,12 +7,12 @@ require_once __DIR__ . '/php/noticia.php';
 require_once __DIR__ . '/php/evento.php';
 require_once __DIR__ . '/php/educacion.php';
 
-$noticiaModel   = new NoticiaModel_mysqli();
-$eventoModel    = new EventoModel_mysqli();
+$noticiaModel = new NoticiaModel_mysqli();
+$eventoModel = new EventoModel_mysqli();
 $educacionModel = new EducacionModel_mysqli();
 
-$noticias    = $noticiaModel->getAll();
-$eventos     = $eventoModel->getAll();
+$noticias = $noticiaModel->getAll();
+$eventos = $eventoModel->getAll();
 $educaciones = $educacionModel->getAll();
 ?>
 
@@ -23,20 +23,23 @@ $educaciones = $educacionModel->getAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PMI Norte Perú</title>
-    <link rel="stylesheet" href="css/styes.css">
-    <!-- Fuente y librería de íconos -->
+
+    <!-- Estilos y fuentes -->
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- 🔹 BARRA SUPERIOR BLANCA -->
+    <!-- 🔹 BARRA SUPERIOR -->
     <div class="topbar">
         <div class="topbar-left">
-            <a href="https://www.instagram.com/pminorteperu?igsh=MWw1OGU1dWgxcHV2bw==" class="social"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/pminorteperu?igsh=MWw1OGU1dWgxcHV2bw==" class="social"><i
+                    class="fab fa-instagram"></i></a>
             <a href="https://www.facebook.com/share/1CfCowCGzB/" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.linkedin.com/company/pmi-norte-peru-chapter" class="social"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.linkedin.com/company/pmi-norte-peru-chapter" class="social"><i
+                    class="fab fa-linkedin-in"></i></a>
         </div>
         <div class="topbar-right">
             <span class="email">informes@pminorteperu.org</span>
@@ -45,11 +48,13 @@ $educaciones = $educacionModel->getAll();
         </div>
     </div>
 
-    <!-- 🔹 NAVBAR AZUL -->
+    <!-- 🔹 NAVBAR -->
     <header class="navbar">
         <div class="nav-container">
-            <img src="img/logo/logo_PMI.png" class="logo">
-            <nav>
+            <img src="img/logo/logo_PMI.png" alt="Logo PMI Norte Perú" class="logo">
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+            <nav id="nav_menu">
                 <ul class="menu">
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#nosotros">Nosotros ▾</a></li>
@@ -59,16 +64,33 @@ $educaciones = $educacionModel->getAll();
                     <li><a href="#noticias">Noticias ▾</a></li>
                     <li><a href="#voluntariado">Voluntariado ▾</a></li>
                     <li><a href="#recuerdos">Recuerdos</a></li>
+                    <a href="#" class="btn-hazte">Hazte miembro</a>
                 </ul>
             </nav>
-            <a href="#" class="btn-hazte">Hazte miembro</a>
         </div>
     </header>
 
-    <!-- 🔹 PANTALLA 1: HERO PRINCIPAL -->
-    <section id="inicio" class="hero"></section>
 
-    <!-- 🔹 PANTALLA 2: QUIÉNES SOMOS -->
+    <!-- 🔹 HERO PRINCIPAL -->
+    <section id="inicio" class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="video/hero.mp4" type="video/mp4">
+            <source src="video/hero.webm" type="video/webm">
+            Tu navegador no soporta el video.
+        </video>
+        <div class="hero-overlay">
+            <div class="hero-slice"></div>
+            <div class="hero-slice"></div>
+            <div class="hero-slice"></div>
+        </div>
+        <div class="hero-text">
+            <h1></h1>
+            <p></p>
+        </div>
+    </section>
+
+
+    <!-- 🔹 QUIÉNES SOMOS -->
     <section id="nosotros" class="quienes-somos">
         <div class="container">
             <h2>Quiénes somos</h2>
@@ -99,12 +121,12 @@ $educaciones = $educacionModel->getAll();
         </div>
     </section>
 
-    <!-- 🔹 PANTALLA 3: PRÓXIMOS EVENTOS -->
+    <!-- 🔹 PRÓXIMOS EVENTOS -->
     <section id="eventos" class="eventos">
         <div class="container-eventos">
             <div class="titulo-eventos">
                 <h2>Próximos<br><span>eventos</span></h2>
-                <p>Descubre los próximos encuentros del Capítulo Norte Perú.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             </div>
 
             <div class="filtros">
@@ -119,7 +141,12 @@ $educaciones = $educacionModel->getAll();
                     <?php foreach ($eventos as $evento): ?>
                         <div class="card-evento">
                             <span class="fecha"><?php echo date('d M', strtotime($evento['fecha'])); ?></span>
-                            <img src="img/eventos/<?php echo htmlspecialchars($evento['imagen']); ?>" alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
+                            <?php if (!empty($evento['imagen'])): ?>
+                                <img src="/<?php echo htmlspecialchars($evento['imagen']); ?>"
+                                    alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
+                            <?php else: ?>
+                                <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" alt="Sin imagen">
+                            <?php endif; ?>
                             <h3><?php echo htmlspecialchars($evento['nombre']); ?></h3>
                             <p><?php echo htmlspecialchars($evento['descripcion']); ?></p>
                         </div>
@@ -131,7 +158,7 @@ $educaciones = $educacionModel->getAll();
         </div>
     </section>
 
-    <!-- 🔹 PANTALLA 4: LLAMADO A LA ACCIÓN -->
+    <!-- 🔹 LLAMADO A LA ACCIÓN -->
     <section id="cta" class="cta">
         <div class="cta-fondo"></div>
         <div class="cta-content">
@@ -144,28 +171,34 @@ $educaciones = $educacionModel->getAll();
         </div>
     </section>
 
-    <!-- 🔹 PANTALLA 5: IMPULSA TU FORMACIÓN -->
+    <!-- 🔹 IMPULSA TU FORMACIÓN -->
     <section id="educacion" class="educacion">
         <div class="container-formacion">
             <div class="formacion-header">
                 <h2><span>Impulsa tu</span><br>formación</h2>
-                <p>Explora nuestros cursos y programas educativos para impulsar tu carrera profesional.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             </div>
 
             <div class="filtros-formacion">
                 <button>Todos</button>
-                <button>Presencial</button>
-                <button>Virtual</button>
+                <button>Lorem</button>
+                <button>Lorem</button>
+                <button>Lorem</button>
             </div>
 
             <div class="cards-formacion">
-                <?php if (!empty($cursos)): ?>
-                    <?php foreach ($cursos as $curso): ?>
+                <?php if (!empty($educaciones)): ?>
+                    <?php foreach ($educaciones as $educacion): ?>
                         <div class="card-formacion">
-                            <span class="fecha"><?php echo date('d M', strtotime($curso['fecha'])); ?></span>
-                            <img src="img/educacion/<?php echo htmlspecialchars($curso['imagen'] ?? 'default.jpg'); ?>" alt="<?php echo htmlspecialchars($curso['curso']); ?>">
-                            <h3><?php echo htmlspecialchars($curso['curso']); ?></h3>
-                            <p><?php echo htmlspecialchars($curso['descripcion']); ?></p>
+                            <span class="fecha"><?php echo date('d M', strtotime($educacion['fecha'])); ?></span>
+                            <?php if (!empty($educacion['imagen'])): ?>
+                                <img src="/<?php echo htmlspecialchars($educacion['imagen']); ?>"
+                                    alt="<?php echo htmlspecialchars($educacion['curso']); ?>">
+                            <?php else: ?>
+                                <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" alt="Sin imagen">
+                            <?php endif; ?>
+                            <h3><?php echo htmlspecialchars($educacion['curso']); ?></h3>
+                            <p><?php echo htmlspecialchars($educacion['descripcion']); ?></p>
                             <a href="#" class="btn-card">Conoce más</a>
                         </div>
                     <?php endforeach; ?>
@@ -173,15 +206,14 @@ $educaciones = $educacionModel->getAll();
                     <p>No hay cursos disponibles actualmente.</p>
                 <?php endif; ?>
             </div>
-        </div>
     </section>
 
-    <!-- 🔹 PANTALLA 6: VOLUNTARIADO -->
+    <!-- 🔹 VOLUNTARIADO -->
     <section id="voluntariado" class="voluntariado">
         <div class="cta-fondo"></div>
         <div class="voluntariado-content">
-            <h2>Forma parte de nuestro voluntariado</h2>
-            <p>Contribuye al crecimiento de la comunidad PMI en el norte del país.</p>
+            <h2>Lorem Ipsum is simply dummy</h2>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
             <div class="voluntariado-buttons">
                 <a href="#registro" class="btn-vol btn-azul">Sé voluntario</a>
                 <a href="#contacto" class="btn-vol btn-blanco">Habla con nosotros</a>
@@ -189,19 +221,19 @@ $educaciones = $educacionModel->getAll();
         </div>
     </section>
 
-    <!-- 🔹 PANTALLA 7: NOTICIAS RECIENTES -->
+    <!-- 🔹 NOTICIAS RECIENTES -->
     <section id="noticias" class="noticias">
         <div class="container-noticias">
             <div class="titulo-noticias">
                 <h2>Noticias<br><span>recientes</span></h2>
-                <p>Mantente informado con las últimas novedades de PMI Norte Perú.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             </div>
 
             <div class="filtros-noticias">
                 <button>Todos</button>
-                <button>Comunidad</button>
-                <button>Capacitaciones</button>
-                <button>Eventos</button>
+                <button>Lorem</button>
+                <button>Lorem</button>
+                <button>Lorem</button>
             </div>
 
             <div class="cards-noticias">
@@ -209,7 +241,12 @@ $educaciones = $educacionModel->getAll();
                     <?php foreach ($noticias as $noticia): ?>
                         <div class="card-noticia">
                             <span class="fecha"><?php echo date('d M', strtotime($noticia['fecha'])); ?></span>
-                            <img src="img/noticias/<?php echo htmlspecialchars($noticia['imagen']); ?>" alt="<?php echo htmlspecialchars($noticia['titulo']); ?>">
+                            <?php if (!empty($noticia['imagen'])): ?>
+                                <img src="/<?php echo htmlspecialchars($noticia['imagen']); ?>"
+                                    alt="<?php echo htmlspecialchars($noticia['titulo']); ?>">
+                            <?php else: ?>
+                                <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" alt="Sin imagen">
+                            <?php endif; ?>
                             <h3><?php echo htmlspecialchars($noticia['titulo']); ?></h3>
                             <p><?php echo htmlspecialchars($noticia['descripcion']); ?></p>
                         </div>
@@ -221,36 +258,56 @@ $educaciones = $educacionModel->getAll();
         </div>
     </section>
 
-    <!-- 🔹 PANTALLA 8: CONTÁCTANOS -->
+    <!-- 🔹 CONTÁCTANOS -->
     <section id="contacto" class="contacto">
         <h2 class="titulo-contacto">Contáctanos</h2>
         <div class="container-contacto">
-            <form class="form-contacto" action="#" method="post">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" required>
+            <div class="columna-formulario">
+                <form class="form-contacto" action="#" method="post">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required>
 
-                <label for="correo">Correo</label>
-                <input type="email" id="correo" name="correo" required>
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" name="correo" required>
 
-                <label for="interes">Interés</label>
-                <input type="text" id="interes" name="interes">
+                    <label for="interes">Interés</label>
+                    <input type="text" id="interes" name="interes">
 
-                <label for="mensaje">Mensaje</label>
-                <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" rows="4"></textarea>
 
-                <div class="check-group">
-                    <label><input type="checkbox" name="privacidad"> Acepto la política de privacidad</label>
-                    <label><input type="checkbox" name="boletin"> Afiliarse al boletín informativo</label>
-                </div>
+                    <div class="check-group">
+                        <label class="lbl-tc"><input type="checkbox" name="privacidad"> Acepto la política de
+                            privacidad</label>
+                        <label class="lbl-tc"><input type="checkbox" name="boletin"> Afiliarse al boletín
+                            informativo</label>
+                    </div>
 
-                <button type="submit" class="btn-enviar">Enviar</button>
-            </form>
+                    <button type="submit" class="btn-enviar">Enviar</button>
+                </form>
+            </div>
+
+            <div class="columna-imagen">
+                <img src="img/contacto/contacto_equipo.jpg" alt="Equipo PMI Norte Perú">
+            </div>
         </div>
     </section>
 
+    <!-- 🔹 FOOTER -->
     <footer class="footer">
         <p>© 2025 PMI Norte Perú</p>
     </footer>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuLinks = document.querySelectorAll('.menu a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.checked = false;
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>
