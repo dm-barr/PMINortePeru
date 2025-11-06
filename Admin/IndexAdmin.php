@@ -178,7 +178,7 @@ $noticias = $noticiaModel->getAll();
     <div class="admin-container">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <img src="img/logo_PMI.png" alt="Logo PMI Norte Perú" class="sidebar-logo">
+                <img src="../img/logo/logo_PMI.png" alt="Logo PMI Norte Perú" class="sidebar-logo">
             </div>
             <nav class="sidebar-nav">
                 <ul>
@@ -251,13 +251,13 @@ $noticias = $noticiaModel->getAll();
                                                data-lugar="<?php echo htmlspecialchars($evento['lugar']); ?>"
                                                data-imagen="<?php echo htmlspecialchars($evento['imagen']); ?>"
                                                title="Editar">
-                                                <img src="img/editar.png" alt="Editar">
+                                                <img src="../img/inconos/editar.png" alt="Editar">
                                             </a>
                                             <a href="#" class="btn-eliminar" 
                                                data-tipo="evento" 
                                                data-id="<?php echo $evento['id_Evento']; ?>" 
                                                title="Eliminar">
-                                                <img src="img/eliminar.png" alt="Eliminar">
+                                                <img src="../img/inconos/eliminar.png" alt="Eliminar">
                                             </a>
                                         </td>
                                     </tr>
@@ -315,13 +315,13 @@ $noticias = $noticiaModel->getAll();
                                                data-instructor="<?php echo htmlspecialchars($educacion['instructor']); ?>"
                                                data-descripcion="<?php echo htmlspecialchars($educacion['descripcion']); ?>"
                                                title="Editar">
-                                                <img src="img/editar.png" alt="Editar">
+                                                <img src="../img/inconos/editar.png" alt="Editar">
                                             </a>
                                             <a href="#" class="btn-eliminar" 
                                                data-tipo="educacion" 
                                                data-id="<?php echo $educacion['id_Educacion']; ?>" 
                                                title="Eliminar">
-                                                <img src="img/eliminar.png" alt="Eliminar">
+                                                <img src="../img/inconos/eliminar.png" alt="Eliminar">
                                             </a>
                                         </td>
                                     </tr>
@@ -373,13 +373,13 @@ $noticias = $noticiaModel->getAll();
                                                data-descripcion="<?php echo htmlspecialchars($noticia['descripcion']); ?>"
                                                data-imagen="<?php echo htmlspecialchars($noticia['imagen']); ?>"
                                                title="Editar">
-                                                <img src="img/editar.png" alt="Editar">
+                                                <img src="../img/inconos/editar.png" alt="Editar">
                                             </a>
                                             <a href="#" class="btn-eliminar" 
                                                data-tipo="noticia" 
                                                data-id="<?php echo $noticia['id_Noticia']; ?>" 
                                                title="Eliminar">
-                                                <img src="img/eliminar.png" alt="Eliminar">
+                                                <img src="../img/inconos/eliminar.png" alt="Eliminar">
                                             </a>
                                         </td>
                                     </tr>
@@ -412,7 +412,10 @@ $noticias = $noticiaModel->getAll();
                 
                 <div class="form-group">
                     <label for="evento-imagen">Imagen</label>
-                    <input type="text" name="imagen" id="evento-imagen" placeholder="URL de la imagen">
+                    <label for="evento-imagen-upload" class="file-upload-label">
+                        <span>📁 Subir imagen</span>
+                    </label>
+                    <input type="file" id="evento-imagen-upload" class="file-upload-input" accept="image/*">
                 </div>
                 <div class="form-group">
                     <label for="evento-fecha">Fecha</label>
@@ -427,9 +430,16 @@ $noticias = $noticiaModel->getAll();
                     </select>
                 </div>
                 
-                <div class="form-group">
+                 <div class="form-group">
                     <label for="evento-comunidad">Comunidad</label>
-                    <input type="text" name="comunidad" id="evento-comunidad" required>
+                    <select id="evento-comunidad" required>
+                        <option value="">Seleccionar</option>
+                        <option value="PMI Norte">Cajamarca</option>
+                        <option value="PMI Agile">Trujillo</option>
+                        <option value="PMI Agile">Piura</option>
+                        <option value="PMI Agile">Estudiantil</option>
+                        <option value="PMI Agile">Estudiantil UNC</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="evento-lugar">Lugar</label>
@@ -437,9 +447,16 @@ $noticias = $noticiaModel->getAll();
                 </div>
                 <div class="form-group">
                     <label for="evento-categoria">Categoría</label>
-                    <input type="text" name="categoria" id="evento-categoria" required>
+                    <select id="evento-categoria" required>
+                        <option value="">Seleccionar</option>
+                        <option value="Capacitación">Capacitación</option>
+                        <option value="Congreso">Congreso</option>
+                        <option value="Conferencia">Conferencia</option>
+                        <option value="Networking">Networking</option>
+                        <option value="Taller">Taller</option>
+                        <option value="Webinar">Webinar</option>
+                    </select>
                 </div>
-
                 <div class="form-group-full">
                     <label for="evento-descripcion">Descripción</label>
                     <textarea name="descripcion" id="evento-descripcion" rows="4" required></textarea>
@@ -466,7 +483,10 @@ $noticias = $noticiaModel->getAll();
                 </div>
                 <div class="form-group">
                     <label for="curso-imagen">Imagen</label>
-                    <input type="text" name="imagen" id="curso-imagen" placeholder="URL de la imagen">
+                    <label for="curso-imagen-upload" class="file-upload-label">
+                        <span>📁 Subir imagen</span>
+                    </label>
+                    <input type="file" id="curso-imagen-upload" class="file-upload-input" accept="image/*">
                 </div>
                 
                 <div class="form-group">
@@ -513,7 +533,10 @@ $noticias = $noticiaModel->getAll();
                 </div>
                 <div class="form-group-full">
                     <label for="noticia-imagen">Imagen</label>
-                    <input type="text" name="imagen" id="noticia-imagen" placeholder="URL de la imagen">
+                    <label for="noticia-imagen-upload" class="file-upload-label">
+                        <span>📁 Subir imagen</span>
+                    </label>
+                    <input type="file" id="noticia-imagen-upload" class="file-upload-input" accept="image/*">
                 </div>
                 <div class="form-group-full">
                     <label for="noticia-fecha">Fecha</label>
