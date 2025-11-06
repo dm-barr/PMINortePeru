@@ -3,9 +3,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once __DIR__ . '/php/evento.php';
-require_once __DIR__ . '/php/educacion.php';
-require_once __DIR__ . '/php/noticia.php';
+// RUTAS CORREGIDAS - Los archivos PHP están un nivel arriba
+require_once __DIR__ . '/../php/evento.php';
+require_once __DIR__ . '/../php/educacion.php';
+require_once __DIR__ . '/../php/noticia.php';
+
 
 $eventoModel = new EventoModel_mysqli();
 $educacionModel = new EducacionModel_mysqli();
