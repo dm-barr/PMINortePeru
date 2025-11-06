@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - PMI Norte Perú</title>
+    <link rel="stylesheet" href="EstilosAdmin.css">
+    <script src="JsAdmin.js" defer></script>
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../img/logo/logo_PMI.png" alt="Logo PMI Norte Perú" class="sidebar-logo">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="nav-link active" data-target="eventos">Eventos</a></li>
+                    <li><a href="#" class="nav-link" data-target="educacion">Educación</a></li>
+                    <li><a href="#" class="nav-link" data-target="noticias">Noticias</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="logout-link">Cerrar Sesión</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- SECCIÓN EVENTOS -->
+            <section id="eventos" class="view active">
+                <header class="view-header">
+                    <h1>Eventos</h1>
+                    <div class="header-buttons">
+                        <button class="btn btn-primary" id="btn-abrir-evento">+ Agregar</button>
+                    </div>
+                </header>
+                
+                <!-- BUSCADOR EVENTOS -->
+                <div class="search-box">
+                    <input type="text" id="search-eventos" class="search-input" placeholder="🔍 Buscar eventos...">
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Comunidad</th>
+                                <th>Modalidad</th>
+                                <th>Categoría</th>
+                                <th>Fecha</th>
+                                <th>Lugar</th>
+                                <th>Imagen</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventos-tbody">
+                            <tr>
+                                <td>Conferencia Anual PMI</td>
+                                <td>Evento anual de gestión de proyectos</td>
+                                <td>PMI Norte</td>
+                                <td>Presencial</td>
+                                <td>Networking</td>
+                                <td>2025-12-15</td>
+                                <td>Lima</td>
+                                <td>conferencia.jpg</td>
+                                <td class="action-icons">
+                                    <a href="#" title="Editar"><img src="../img/inconos/editar.png" alt="Editar"></a>
+                                    <a href="#" title="Eliminar"><img src="../img/inconos/eliminar.png" alt="Eliminar"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECCIÓN EDUCACIÓN -->
+            <section id="educacion" class="view">
+                <header class="view-header">
+                    <h1 class="title-educacion">Educación</h1>
+                    <div class="header-buttons">
+                        <button class="btn btn-purple" id="btn-abrir-educacion">+ Agregar</button>
+                    </div>
+                </header>
+
+                <!-- BUSCADOR EDUCACIÓN -->
+                <div class="search-box">
+                    <input type="text" id="search-educacion" class="search-input" placeholder="🔍 Buscar cursos...">
+                </div>
+
+                <div class="table-container-educacion">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Curso</th>
+                                <th>Modalidad</th>
+                                <th>Fecha</th>
+                                <th>Instructor</th>
+                                <th>Descripción</th>
+                                <th>Imagen</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="educacion-tbody">
+                            <tr>
+                                <td>PMP Certification Prep</td>
+                                <td>Online</td>
+                                <td>2025-11-10</td>
+                                <td>Carlos Rodríguez</td>
+                                <td>Preparación para certificación PMP</td>
+                                <td>pmp.jpg</td>
+                                <td class="action-icons">
+                                    <a href="#" title="Editar"><img src="../img/inconos/editar.png" alt="Editar"></a>
+                                    <a href="#" title="Eliminar"><img src="../img/inconos/eliminar.png" alt="Eliminar"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECCIÓN NOTICIAS -->
+            <section id="noticias" class="view">
+                <header class="view-header">
+                    <h1>Noticias</h1>
+                    <div class="header-buttons">
+                        <button class="btn btn-primary" id="btn-abrir-noticia">+ Agregar</button>
+                    </div>
+                </header>
+
+                <!-- BUSCADOR NOTICIAS -->
+                <div class="search-box">
+                    <input type="text" id="search-noticias" class="search-input" placeholder="🔍 Buscar noticias...">
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Descripción</th>
+                                <th>Imagen</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="noticias-tbody">
+                            <tr>
+                                <td>PMI Norte gana premio internacional</td>
+                                <td>Reconocimiento por excelencia en gestión</td>
+                                <td>premio.jpg</td>
+                                <td>2025-11-01</td>
+                                <td class="action-icons">
+                                    <a href="#" title="Editar"><img src="../img/inconos/editar.png" alt="Editar"></a>
+                                    <a href="#" title="Eliminar"><img src="../img/inconos/eliminar.png" alt="Eliminar"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- MODAL EVENTO -->
+    <div id="modal-evento" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Agregar Evento</h2>
+            </div>
+            <form class="modal-form form-evento">
+                <div class="form-group-full">
+                    <label for="evento-nombre">Nombre</label>
+                    <input type="text" id="evento-nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="evento-imagen">Imagen</label>
+                    <label for="evento-imagen-upload" class="file-upload-label">
+                        <span>📁 Subir imagen</span>
+                    </label>
+                    <input type="file" id="evento-imagen-upload" class="file-upload-input" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="evento-fecha">Fecha</label>
+                    <input type="date" id="evento-fecha" required>
+                </div>
+                <div class="form-group">
+                    <label for="evento-modalidad">Modalidad</label>
+                    <select id="evento-modalidad" required>
+                        <option value="">Seleccionar</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="online">Online</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="evento-comunidad">Comunidad</label>
+                    <select id="evento-comunidad" required>
+                        <option value="">Seleccionar</option>
+                        <option value="PMI Norte">PMI Norte</option>
+                        <option value="PMI Agile">PMI Agile</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="evento-lugar">Lugar</label>
+                    <input type="text" id="evento-lugar" required>
+                </div>
+                <div class="form-group">
+                    <label for="evento-categoria">Categoría</label>
+                    <select id="evento-categoria" required>
+                        <option value="">Seleccionar</option>
+                        <option value="Networking">Networking</option>
+                        <option value="Capacitación">Capacitación</option>
+                    </select>
+                </div>
+
+                <div class="form-group-full">
+                    <label for="evento-descripcion">Descripción</label>
+                    <textarea id="evento-descripcion" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn-guardar">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL EDUCACIÓN -->
+    <div id="modal-educacion" class="modal-overlay">
+        <div class="modal-box theme-educacion">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Agregar Curso</h2>
+            </div>
+            <form class="modal-form form-educacion">
+                <div class="form-group-full">
+                    <label for="curso-nombre">Curso</label>
+                    <input type="text" id="curso-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="curso-imagen">Imagen</label>
+                    <label for="curso-imagen-upload" class="file-upload-label">
+                        <span>📁 Subir imagen</span>
+                    </label>
+                    <input type="file" id="curso-imagen-upload" class="file-upload-input" accept="image/*">
+                </div>
+                
+                <div class="form-group">
+                    <label for="curso-modalidad">Modalidad</label>
+                    <select id="curso-modalidad" required>
+                        <option value="">Seleccionar</option>
+                        <option value="Online">Online</option>
+                        <option value="Presencial">Presencial</option>
+                    </select>
+                </div>
+                <div class="form-group-full">
+                    <label for="curso-fecha">Fecha</label>
+                    <input type="date" id="curso-fecha" required>
+                </div>
+                
+                <div class="form-group-full">
+                    <label for="curso-instructor">Instructor</label>
+                    <input type="text" id="curso-instructor" required>
+                </div>
+            
+                <div class="form-group-full">
+                    <label for="curso-descripcion">Descripción</label>
+                    <textarea id="curso-descripcion" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn-guardar">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL NOTICIA -->
+    <div id="modal-noticia" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Agregar Noticia</h2>
+            </div>
+            <form class="modal-form form-noticia">
+                <div class="form-group-full">
+                    <label for="noticia-titulo">Título</label>
+                    <input type="text" id="noticia-titulo" required>
+                </div>
+                <div class="form-group-full">
+                    <label for="noticia-imagen">Imagen</label>
+                    <label for="noticia-imagen-upload" class="file-upload-label">
+                        <span>📁 Subir imagen</span>
+                    </label>
+                    <input type="file" id="noticia-imagen-upload" class="file-upload-input" accept="image/*">
+                </div>
+                <div class="form-group-full">
+                    <label for="noticia-fecha">Fecha</label>
+                    <input type="date" id="noticia-fecha" required>
+                </div>
+                <div class="form-group-full">
+                    <label for="noticia-descripcion">Descripción</label>
+                    <textarea id="noticia-descripcion" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn-guardar">Guardar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
