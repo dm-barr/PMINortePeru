@@ -646,3 +646,24 @@ tbody td:last-child {
         min-width: 600px;
     }
 }
+
+/* Estilos para mensajes de alerta */
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    animation: slideDown 0.4s ease;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.alert-error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}

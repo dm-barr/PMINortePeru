@@ -1,5 +1,3 @@
-// JsAdmin.js - Versión mejorada con buscadores
-
 document.addEventListener('DOMContentLoaded', function() {
 
     // ===============================================
@@ -52,16 +50,36 @@ document.addEventListener('DOMContentLoaded', function() {
         if (modal) modal.classList.remove('active');
     }
 
+    // Abrir modales en modo AGREGAR
     if(btnAbrirEvento) {
-        btnAbrirEvento.addEventListener('click', () => openModal(modalEvento));
+        btnAbrirEvento.addEventListener('click', () => {
+            document.getElementById('titulo-modal-evento').textContent = 'Agregar Evento';
+            document.getElementById('accion-evento').value = 'agregar_evento';
+            document.getElementById('evento-id').value = '';
+            document.querySelector('.form-evento').reset();
+            openModal(modalEvento);
+        });
     }
     if(btnAbrirEducacion) {
-        btnAbrirEducacion.addEventListener('click', () => openModal(modalEducacion));
+        btnAbrirEducacion.addEventListener('click', () => {
+            document.getElementById('titulo-modal-educacion').textContent = 'Agregar Curso';
+            document.getElementById('accion-educacion').value = 'agregar_educacion';
+            document.getElementById('educacion-id').value = '';
+            document.querySelector('.form-educacion').reset();
+            openModal(modalEducacion);
+        });
     }
     if(btnAbrirNoticia) {
-        btnAbrirNoticia.addEventListener('click', () => openModal(modalNoticia));
+        btnAbrirNoticia.addEventListener('click', () => {
+            document.getElementById('titulo-modal-noticia').textContent = 'Agregar Noticia';
+            document.getElementById('accion-noticia').value = 'agregar_noticia';
+            document.getElementById('noticia-id').value = '';
+            document.querySelector('.form-noticia').reset();
+            openModal(modalNoticia);
+        });
     }
 
+    // Cerrar modales
     closeButtons.forEach(button => {
         button.addEventListener('click', () => {
             const modal = button.closest('.modal-overlay');
@@ -78,7 +96,101 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ===============================================
-    // FUNCIONALIDAD DE BÚSQUEDA EN TABLAS
+    // EDITAR - Cargar datos en modales
+    // ===============================================
+
+    // EDITAR EVENTO
+    document.querySelectorAll('.btn-editar-evento').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            document.getElementById('titulo-modal-evento').textContent = 'Editar Evento';
+            document.getElementById('accion-evento').value = 'editar_evento';
+            document.getElementById('evento-id').value = this.dataset.id;
+            document.getElementById('evento-nombre').value = this.dataset.nombre;
+            document.getElementById('evento-descripcion').value = this.dataset.descripcion;
+            document.getElementById('evento-comunidad').value = this.dataset.comunidad;
+            document.getElementById('evento-modalidad').value = this.dataset.modalidad;
+            document.getElementById('evento-categoria').value = this.dataset.categoria;
+            document.getElementById('evento-lugar').value = this.dataset.lugar;
+            document.getElementById('evento-imagen').value = this.dataset.imagen;
+            
+            openModal(modalEvento);
+        });
+    });
+
+    // EDITAR EDUCACIÓN
+    document.querySelectorAll('.btn-editar-educacion').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            document.getElementById('titulo-modal-educacion').textContent = 'Editar Curso';
+            document.getElementById('accion-educacion').value = 'editar_educacion';
+            document.getElementById('educacion-id').value = this.dataset.id;
+            document.getElementById('curso-nombre').value = this.dataset.curso;
+            document.getElementById('curso-modalidad').value = this.dataset.modalidad;
+            document.getElementById('curso-fecha').value = this.dataset.fecha;
+            document.getElementById('curso-instructor').value = this.dataset.instructor;
+            document.getElementById('curso-descripcion').value = this.dataset.descripcion;
+            document.getElementById('curso-imagen').value = this.dataset.imagen || '';
+            
+            openModal(modalEducacion);
+        });
+    });
+
+    // EDITAR NOTICIA
+    document.querySelectorAll('.btn-editar-noticia').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            document.getElementById('titulo-modal-noticia').textContent = 'Editar Noticia';
+            document.getElementById('accion-noticia').value = 'editar_noticia';
+            document.getElementById('noticia-id').value = this.dataset.id;
+            document.getElementById('noticia-titulo').value = this.dataset.titulo;
+            document.getElementById('noticia-descripcion').value = this.dataset.descripcion;
+            document.getElementById('noticia-imagen').value = this.dataset.imagen;
+            
+            openModal(modalNoticia);
+        });
+    });
+
+    // ===============================================
+    // ELIMINAR
+    // ===============================================
+
+    document.querySelectorAll('.btn-eliminar').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const tipo = this.dataset.tipo;
+            const id = this.dataset.id;
+            const tipoTexto = tipo === 'evento' ? 'evento' : (tipo === 'educacion' ? 'curso' : 'noticia');
+            
+            if (confirm(`¿Estás seguro de eliminar este ${tipoTexto}?`)) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '';
+                
+                const inputAccion = document.createElement('input');
+                inputAccion.type = 'hidden';
+                inputAccion.name = 'accion';
+                inputAccion.value = `eliminar_${tipo}`;
+                
+                const inputId = document.createElement('input');
+                inputId.type = 'hidden';
+                inputId.name = 'id';
+                inputId.value = id;
+                
+                form.appendChild(inputAccion);
+                form.appendChild(inputId);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+
+    // ===============================================
+    // BUSCADORES EN TABLAS
     // ===============================================
 
     function setupTableSearch(searchInputId, tableBodyId) {
@@ -110,43 +222,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Configurar buscadores para cada tabla
     setupTableSearch('search-eventos', 'eventos-tbody');
     setupTableSearch('search-educacion', 'educacion-tbody');
     setupTableSearch('search-noticias', 'noticias-tbody');
 
     // ===============================================
-    // MANEJO DE FORMULARIOS
+    // AUTO-OCULTAR MENSAJES
     // ===============================================
 
-    const formEvento = document.querySelector('.form-evento');
-    const formEducacion = document.querySelector('.form-educacion');
-    const formNoticia = document.querySelector('.form-noticia');
-
-    if (formEvento) {
-        formEvento.addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log('Formulario de evento enviado');
-            closeModal(modalEvento);
-            this.reset();
-        });
-    }
-
-    if (formEducacion) {
-        formEducacion.addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log('Formulario de educación enviado');
-            closeModal(modalEducacion);
-            this.reset();
-        });
-    }
-
-    if (formNoticia) {
-        formNoticia.addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log('Formulario de noticia enviado');
-            closeModal(modalNoticia);
-            this.reset();
-        });
-    }
+    const alertas = document.querySelectorAll('.alert');
+    alertas.forEach(alerta => {
+        setTimeout(() => {
+            alerta.style.transition = 'opacity 0.5s';
+            alerta.style.opacity = '0';
+            setTimeout(() => alerta.remove(), 500);
+        }, 3000);
+    });
 });
