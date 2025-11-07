@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,9 +17,11 @@
     <!-- 🔹 BARRA SUPERIOR -->
     <div class="topbar">
         <div class="topbar-left">
-            <a href="https://www.instagram.com/pminorteperu?igsh=MWw1OGU1dWgxcHV2bw==" class="social"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/pminorteperu?igsh=MWw1OGU1dWgxcHV2bw==" class="social"><i
+                    class="fab fa-instagram"></i></a>
             <a href="https://www.facebook.com/share/1CfCowCGzB/" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.linkedin.com/company/pmi-norte-peru-chapter" class="social"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.linkedin.com/company/pmi-norte-peru-chapter" class="social"><i
+                    class="fab fa-linkedin-in"></i></a>
         </div>
         <div class="topbar-right">
             <span class="email">informes@pminorteperu.org</span>
@@ -50,23 +53,57 @@
     </header>
 
 
-    <!-- 🔹 HERO PRINCIPAL -->
-    <section id="inicio" class="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="video/hero2.mp4" type="video/mp4">
-            <source src="video/hero2.webm" type="video/webm">
-            Tu navegador no soporta el video.
-        </video>
-        <div class="hero-overlay">
-            <div class="hero-slice"></div>
-            <div class="hero-slice"></div>
-            <div class="hero-slice"></div>
+    <!-- Hero Principal -->
+    <section id="hero" class="hero" aria-label="Sección principal">
+        <!-- Video de fondo -->
+        <div class="hero-bg" aria-hidden="true">
+            <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+                <source src="video/hero2.mp4" type="video/mp4">
+            </video>
         </div>
-        <div class="hero-text">
-            <h1></h1>
-            <p></p>
+        <div class="hero-overlay"></div>
+
+
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <p class="eyebrow">PMI Norte Perú</p>
+                <h1>Suceden cosas buenas cuando<span class="txt-gradient"> te involucras con PMI</span></h1>
+                <p class="lead">Transformamos ideas en <strong>valor real</strong> para Cajamarca, Piura y Trujillo
+                    mediante dirección de proyectos.</p>
+                <div class="hero-actions">
+                    <a href="#eventos" class="btn btn--primary">Ver eventos</a>
+                    <a href="#nosotros" class="btn btn--secondary">Conocer el capítulo</a>
+                </div>
+
+                <!-- Contador estilo congreso -->
+                <div class="counter glass" data-countdown="2025-11-07T16:00:00-0500"
+                    aria-label="Cuenta regresiva al próximo congreso">
+                    <div><span class="num" data-unit="days">00</span><small>Días</small></div>
+                    <div><span class="num" data-unit="hours">00</span><small>Horas</small></div>
+                    <div><span class="num" data-unit="minutes">00</span><small>Min</small></div>
+                    <div><span class="num" data-unit="seconds">00</span><small>Seg</small></div>
+                </div>
+            </div>
+
+            <aside class="hero-card glass reveal">
+                <figure>
+                    <img src="img/portada/trujillo_portada.png" alt="Norte del Perú - Trujillo, Piura y Cajamarca"
+                        loading="lazy">
+                </figure>
+                <div class="hero-card-body">
+                    <h3>VI Congreso Internacional</h3>
+                    <p class="muted">7-8 de noviembre · Modalidad híbrida · Emite PDUs</p>
+                </div>
+                <div class="hero-card-actions">
+                    <a href="http://congresotrujillo2025.pminorteperu.org" class="btn btn--secondary">Descubre más</a>
+                    <a href="https://wa.me/51955769734" class="btn btn--primary">Inscribirme</a>
+                </div>
+            </aside>
         </div>
     </section>
+
+
+
 
     <!-- 🔹 QUIÉNES SOMOS -->
     <section id="nosotros" class="quienes-somos">
@@ -267,8 +304,10 @@
                     <textarea id="mensaje" name="mensaje" rows="4"></textarea>
 
                     <div class="check-group">
-                        <label class="lbl-tc"><input type="checkbox" name="privacidad"> Acepto la política de privacidad</label>
-                        <label class="lbl-tc"><input type="checkbox" name="boletin"> Afiliarse al boletín informativo</label>
+                        <label class="lbl-tc"><input type="checkbox" name="privacidad"> Acepto la política de
+                            privacidad</label>
+                        <label class="lbl-tc"><input type="checkbox" name="boletin"> Afiliarse al boletín
+                            informativo</label>
                     </div>
 
                     <button type="submit" class="btn-enviar">Enviar</button>
@@ -287,14 +326,16 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-        const menuToggle = document.querySelector('.menu-toggle');
-        const menuLinks = document.querySelectorAll('.menu a');
-        menuLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.checked = false;
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuLinks = document.querySelectorAll('.menu a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.checked = false;
                 });
             });
         });
     </script>
+    <script src="js/script.js"></script>
 </body>
+
 </html>
