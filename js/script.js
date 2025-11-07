@@ -7,7 +7,6 @@ const countdownBlocks = document.querySelectorAll(".counter[data-countdown]");
 
 countdownBlocks.forEach((block) => {
   const t = new Date(block.dataset.countdown).getTime();
-
   const el = {
     d: block.querySelector('[data-unit="days"]'),
     h: block.querySelector('[data-unit="hours"]'),
@@ -18,16 +17,12 @@ countdownBlocks.forEach((block) => {
   const tick = () => {
     const now = Date.now();
     let diff = Math.max(0, Math.floor((t - now) / 1000));
-
     const d = Math.floor(diff / 86400);
     diff -= d * 86400;
-
     const h = Math.floor(diff / 3600);
     diff -= h * 3600;
-
     const m = Math.floor(diff / 60);
     diff -= m * 60;
-
     const s = diff;
 
     if (el.d) el.d.textContent = String(d).padStart(2, "0");
@@ -46,7 +41,6 @@ countdownBlocks.forEach((block) => {
 /* ========================================
    REVEAL AL ENTRAR EN VIEWPORT
 ======================================== */
-
 const reveals = document.querySelectorAll(".reveal");
 const prefersReduced = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
@@ -66,7 +60,6 @@ if (prefersReduced) {
     },
     { threshold: 0.35 }
   );
-
   reveals.forEach((el) => io.observe(el));
 }
 
@@ -92,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .getAttribute("data-ciudad")
             .split(",")
             .map((c) => c.trim());
-
           if (ciudades.includes(filtro)) {
             card.style.display = "block";
           } else {
@@ -189,7 +181,6 @@ document.addEventListener("DOMContentLoaded", function () {
   track.addEventListener("touchend", (e) => {
     const endX = e.changedTouches[0].clientX;
     const diff = startX - endX;
-
     if (Math.abs(diff) > 50) {
       if (diff > 0 && currentIndex < totalDots - 1) {
         currentIndex++;
@@ -251,23 +242,46 @@ window.addEventListener("click", (e) => {
   }
 });
 
-
-
-
-
-
-
-
-
-
+// URL de Google Apps Script
 const scriptURL = "https://script.google.com/macros/s/AKfycbx80LfsDjmQ87zWe8XkVjn8ca9BDrkbSiduYbW-WoSCrhSnkBkQrT0KOjp5plfWK3ODOA/exec";
+
+// Enviar formulario de reclutamiento de voluntarios a Google Sheets
+document.getElementById("voluntarioFormReclutamiento").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  
+  const form = e.target;
+  const formData = new FormData(form);
+  
+  // Agregar el prefijo "VOLUNTARIADO: " al mensaje
+  const mensajeOriginal = formData.get("mensaje");
+  formData.set("mensaje", "VOLUNTARIADO: " + mensajeOriginal);
+  
+  // Usar el mismo formType "contacto" para que vaya a la misma hoja
+  formData.append("formType", "contacto");
+  
+  try {
+    const response = await fetch(scriptURL, {
+      method: "POST",
+      body: formData,
+    });
+    
+    const data = await response.json();
+    alert("¡Gracias por inscribirte! Pronto nos pondremos en contacto contigo.");
+    form.reset();
+    modalReclutamiento.classList.add("oculto");
+  } catch (err) {
+    console.error(err);
+    alert("Hubo un error al enviar el formulario. Por favor, intenta de nuevo.");
+  }
+});
 
 // Formulario de Contacto
 document.getElementById("contactForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const form = e.target;
   const formData = new FormData(form);
-  formData.append("formType", "contacto"); 
+  formData.append("formType", "contacto");
+
   try {
     const response = await fetch(scriptURL, { method: "POST", body: formData });
     const data = await response.json();
@@ -282,7 +296,7 @@ document.getElementById("newsletterForm").addEventListener("submit", async (e) =
   e.preventDefault();
   const form = e.target;
   const formData = new FormData(form);
-  formData.append("formType", "boletin"); 
+  formData.append("formType", "boletin");
 
   try {
     const response = await fetch(scriptURL, { method: "POST", body: formData });
@@ -292,4 +306,3 @@ document.getElementById("newsletterForm").addEventListener("submit", async (e) =
     console.error(err);
   }
 });
-
