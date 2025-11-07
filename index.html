@@ -38,14 +38,12 @@
             <label for="menu-toggle" class="menu-icon">☰</label>
             <nav id="nav_menu">
                 <ul class="menu">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#nosotros">Nosotros ▾</a></li>
-                    <li><a href="#membresia">Membresía ▾</a></li>
+                    <li><a href="#hero">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
                     <li><a href="#eventos">Eventos</a></li>
-                    <li><a href="#educacion">Educación</a></li>
-                    <li><a href="#noticias">Noticias ▾</a></li>
-                    <li><a href="#voluntariado">Voluntariado ▾</a></li>
-                    <li><a href="#recuerdos">Recuerdos</a></li>
+                    <li><a href="#cta">Membresía</a></li>
+                    <li><a href="#junta-directiva">Junta Directiva</a></li>
+                    <li><a href="#voluntariado">Voluntariado</a></li>
                     <a href="https://www.pmi.org/shop/tb/p-/chapter-membership/norte-per%c3%ba-chapter/101293"
                         class="btn-hazte">Hazte miembro</a>
                 </ul>
@@ -426,11 +424,47 @@
                 Participar como voluntario te permite aprender, liderar y conectar con otros profesionales,
                 fortaleciendo tus habilidades mientras generas un impacto positivo en tu región.</p>
             <div class="voluntariado-buttons">
-                <a href="#registro" class="btn-vol btn-azul">Sé voluntario</a>
+                <a href="#registro" class="btn-vol btn-azul" id="btnInscribirse">Sé voluntario</a>
                 <a href="#contacto" class="btn-vol btn-blanco">Habla con nosotros</a>
             </div>
         </div>
     </section>
+
+    <!-- FORMULARIO DE VOLUNTARIADO PARA EVENTOS -->
+    <div id="formModal" class="modal oculto">
+        <div class="modal-content">
+            <h3>Formulario de Voluntariado</h3>
+            <form id="voluntarioForm">
+                <label for="nombre">Nombre completo:</label>
+                <input type="text" id="nombre" name="nombre" required>
+
+                <label for="correo">Correo electrónico:</label>
+                <input type="email" id="correo" name="correo" required>
+
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono">
+
+                <label for="interes">Área de interés:</label>
+                <select id="interes" name="interes" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="membresia">Membresía</option>
+                    <option value="eventos">Eventos</option>
+                    <option value="comunicaciones">Comunicaciones</option>
+                    <option value="educacion">Educación</option>
+                    <option value="finanzas">Finanzas</option>
+                    <option value="ti">Tecnologías de la Información</option>
+                </select>
+
+                <label for="mensaje">¿Por qué te gustaría participar?</label>
+                <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn-vol btn-azul">Enviar</button>
+                    <button type="button" class="btn-vol btn-blanco" id="btnCerrarForm">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- 🔹 NOTICIAS RECIENTES 
     <section id="noticias" class="noticias">
@@ -480,28 +514,36 @@
 
         <div class="container-contacto">
             <div class="columna-formulario">
-                <form class="form-contacto" action="#" method="post">
+                <form class="form-contacto" id="contactForm" novalidate>
                     <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" required>
+                    <input type="text" id="nombre" name="name" required aria-required="true" autocomplete="name">
 
                     <label for="correo">Correo</label>
-                    <input type="email" id="correo" name="correo" required>
+                    <input type="email" id="correo" name="email" required aria-required="true" autocomplete="email">
 
                     <label for="interes">Interés</label>
-                    <input type="text" id="interes" name="interes">
+                    <select id="interes" name="topic" required aria-required="true">
+                        <option value="" disabled selected>Selecciona</option>
+                        <option value="membresia">Membresía</option>
+                        <option value="pmp">Certificación</option>
+                        <option value="alianzas">Alianzas</option>
+                        <option value="voluntariado">Voluntariado</option>
+                    </select>
 
                     <label for="mensaje">Mensaje</label>
-                    <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+                    <textarea id="mensaje" name="message" rows="4"></textarea>
 
                     <div class="check-group">
-                        <label class="lbl-tc"><input type="checkbox" name="privacidad"> Acepto la política de
-                            privacidad</label>
-                        <label class="lbl-tc"><input type="checkbox" name="boletin"> Afiliarse al boletín
-                            informativo</label>
+                        <label class="lbl-tc">
+                            <input type="checkbox" required aria-required="true" name="privacidad">
+                            Acepto la política de privacidad
+                        </label>
                     </div>
 
                     <button type="submit" class="btn-enviar">Enviar</button>
+                    <p class="hint" role="status" aria-live="polite" hidden>Gracias. Te contactaremos pronto.</p>
                 </form>
+
             </div>
 
             <div class="columna-imagen">
