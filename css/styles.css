@@ -990,3 +990,361 @@ body {
     display: none;
   }
 }
+
+
+/* ========================================
+   HERO CON VIDEO, DECORACIONES Y CONTADOR - CENTRADO
+======================================== */
+
+.hero {
+    color: #EAF6FB;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(1000px 600px at -10% -10%, rgba(108, 190, 222, .28) 0%, transparent 60%),
+                radial-gradient(700px 500px at 110% 20%, rgba(68, 120, 155, .35) 0%, transparent 55%),
+                linear-gradient(135deg, #0B1A24 0%, #0E2531 40%, #0C3442 100%);
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 0;
+}
+
+/* Video de fondo */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    opacity: 0.6;
+}
+
+.hero-video {
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    filter: saturate(110%) contrast(105%);
+}
+
+/* Overlay sobre el video */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* negro con 50% de transparencia */
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+/* Elementos decorativos geométricos */
+.decor {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.decor--tri-1 {
+    right: -120px;
+    top: -80px;
+    width: 360px;
+    height: 360px;
+    transform: rotate(18deg);
+    background: linear-gradient(135deg, rgba(108, 190, 222, .22), rgba(255, 255, 255, .06));
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, .12);
+    animation: float 8s ease-in-out infinite;
+}
+
+.decor--tri-2 {
+    left: -160px;
+    bottom: -120px;
+    width: 420px;
+    height: 420px;
+    transform: rotate(-22deg);
+    background: linear-gradient(135deg, rgba(68, 120, 155, .22), rgba(255, 255, 255, .04));
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    border: 1px solid rgba(255, 255, 255, .08);
+    animation: float 10s ease-in-out infinite reverse;
+}
+
+/* Grid del hero */
+.hero-grid {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 36px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Contenido principal - CENTRADO */
+.hero-copy {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-copy h1 {
+    margin: 0.25rem 0 0.75rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    color: var(--color-secondary, #3FC0F0);
+    margin-bottom: 0.5rem;
+}
+
+.txt-gradient {
+    background: linear-gradient(90deg, #BFE9F7, #6CBEDE);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.lead {
+    font-size: 1.15rem;
+    color: #FFFFFF;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+/* Botones */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.btn--primary {
+    background: var(--color-primary, #4F17A8);
+    color: #fff;
+}
+
+.btn--primary:hover {
+    background: #50A7C8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(63, 192, 240, 0.3);
+}
+
+.btn--secondary {
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .25);
+}
+
+.btn--secondary:hover {
+    background: rgba(255, 255, 255, .22);
+    transform: translateY(-2px);
+}
+
+/* Contador de cuenta regresiva - CENTRADO */
+.counter {
+    display: flex;
+    gap: 20px;
+    padding: 20px 32px;
+    border-radius: 14px;
+    margin-top: 28px;
+    justify-content: center;
+}
+
+.counter > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 70px;
+}
+
+.counter .num {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--color-secondary, #3FC0F0);
+}
+
+.counter small {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #B9D6E3;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+/* Glass morphism */
+.glass {
+    background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .04));
+    border: 1px solid rgba(255, 255, 255, .14);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .18);
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+}
+
+/* Hero card (tarjeta del congreso) */
+.hero-card {
+    padding: 16px;
+    border-radius: 14px;
+    margin-left: 30px;
+}
+
+.hero-card figure {
+    margin: 0;
+}
+
+.hero-card img {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+}
+
+.hero-card-body {
+    padding: 14px;
+}
+
+.hero-card-body h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.3rem;
+}
+
+.hero-card-body .muted {
+    color: #B9D6E3;
+    font-size: 0.9rem;
+}
+
+.hero-card-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+    padding: 0 14px 14px;
+}
+
+/* Animación flotante */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(18deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(18deg);
+    }
+}
+
+/* Reveal animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-copy {
+        order: 1;
+    }
+    
+    .hero-card {
+        order: 2;
+    }
+    
+    .decor--tri-1,
+    .decor--tri-2 {
+        opacity: 0.5;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: 70vh;
+        padding: 2rem 0;
+    }
+    
+    .hero-grid {
+        padding: 0 1rem;
+        gap: 24px;
+    }
+    
+    .hero-copy h1 {
+        font-size: clamp(1.5rem, 6vw, 2.5rem);
+    }
+    
+    .lead {
+        font-size: 1rem;
+    }
+    
+    .decor--tri-1 {
+        width: 200px;
+        height: 200px;
+        right: -80px;
+    }
+    
+    .decor--tri-2 {
+        width: 250px;
+        height: 250px;
+        left: -100px;
+    }
+    
+    .counter {
+        gap: 16px;
+        padding: 16px 20px;
+    }
+    
+    .counter > div {
+        min-width: 55px;
+    }
+    
+    .counter .num {
+        font-size: 2rem;
+    }
+    
+    .counter small {
+        font-size: 0.65rem;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .hero-actions .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
