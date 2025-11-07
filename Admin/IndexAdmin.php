@@ -8,7 +8,6 @@ require_once __DIR__ . '/../php/evento.php';
 require_once __DIR__ . '/../php/educacion.php';
 require_once __DIR__ . '/../php/noticia.php';
 
-
 $eventoModel = new EventoModel_mysqli();
 $educacionModel = new EducacionModel_mysqli();
 $noticiaModel = new NoticiaModel_mysqli();
@@ -16,6 +15,40 @@ $noticiaModel = new NoticiaModel_mysqli();
 // Variables para mensajes
 $mensaje = '';
 $tipo_mensaje = '';
+
+// ============================================
+// FUNCIÓN PARA SUBIR IMÁGENES
+// ============================================
+function subirImagen($archivo) {
+    if (!isset($archivo) || $archivo['error'] !== UPLOAD_ERR_OK) {
+        return null;
+    }
+    
+    $extensiones_permitidas = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
+    
+    if (!in_array($extension, $extensiones_permitidas)) {
+        return null;
+    }
+    
+    // ✅ RUTA CORREGIDA: uploads está en la raíz del proyecto
+    $carpeta_destino = __DIR__ . '/../uploads/';
+    if (!file_exists($carpeta_destino)) {
+        mkdir($carpeta_destino, 0777, true);
+    }
+    
+    // Generar nombre único
+    $nombre_archivo = uniqid() . '_' . time() . '.' . $extension;
+    $ruta_completa = $carpeta_destino . $nombre_archivo;
+    
+    if (move_uploaded_file($archivo['tmp_name'], $ruta_completa)) {
+        // ✅ RUTA CORREGIDA en BD
+        return 'uploads/' . $nombre_archivo;
+    }
+    
+    return null;
+}
+
 
 // ============================================
 // PROCESAMIENTO DE FORMULARIOS
@@ -32,7 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $modalidad = $_POST['modalidad'] ?? '';
         $categoria = $_POST['categoria'] ?? '';
         $lugar = $_POST['lugar'] ?? '';
-        $imagen = $_POST['imagen'] ?? '';
+        
+        // Manejar subida de imagen
+        $imagen = '';
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            $imagen = subirImagen($_FILES['imagen']);
+        }
 
         if ($eventoModel->create($nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen)) {
             $mensaje = 'Evento agregado exitosamente';
@@ -51,7 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $modalidad = $_POST['modalidad'] ?? '';
         $categoria = $_POST['categoria'] ?? '';
         $lugar = $_POST['lugar'] ?? '';
-        $imagen = $_POST['imagen'] ?? null;
+        
+        // Manejar subida de nueva imagen (opcional en edición)
+        $imagen = null;
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            $imagen = subirImagen($_FILES['imagen']);
+        }
 
         if ($eventoModel->update($id, $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen)) {
             $mensaje = 'Evento actualizado exitosamente';
@@ -122,7 +165,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($accion === 'agregar_noticia') {
         $titulo = $_POST['titulo'] ?? '';
         $descripcion = $_POST['descripcion'] ?? '';
-        $imagen = $_POST['imagen'] ?? '';
+        
+        // Manejar subida de imagen
+        $imagen = '';
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            $imagen = subirImagen($_FILES['imagen']);
+        }
 
         if ($noticiaModel->create($titulo, $descripcion, $imagen)) {
             $mensaje = 'Noticia agregada exitosamente';
@@ -137,7 +185,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id'] ?? 0;
         $titulo = $_POST['titulo'] ?? '';
         $descripcion = $_POST['descripcion'] ?? '';
-        $imagen = $_POST['imagen'] ?? null;
+        
+        // Manejar subida de nueva imagen (opcional)
+        $imagen = null;
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            $imagen = subirImagen($_FILES['imagen']);
+        }
 
         if ($noticiaModel->update($id, $titulo, $descripcion, $imagen)) {
             $mensaje = 'Noticia actualizada exitosamente';
@@ -401,7 +454,7 @@ $noticias = $noticiaModel->getAll();
             <div class="modal-header">
                 <h2 id="titulo-modal-evento">Agregar Evento</h2>
             </div>
-            <form class="modal-form form-evento" method="POST" action="">
+            <form class="modal-form form-evento" method="POST" action="" enctype="multipart/form-data">
                 <input type="hidden" name="accion" id="accion-evento" value="agregar_evento">
                 <input type="hidden" name="id" id="evento-id" value="">
                 
@@ -412,10 +465,10 @@ $noticias = $noticiaModel->getAll();
                 
                 <div class="form-group">
                     <label for="evento-imagen">Imagen</label>
-                    <label for="evento-imagen-upload" class="file-upload-label">
+                    <label for="evento-imagen" class="file-upload-label">
                         <span>📁 Subir imagen</span>
                     </label>
-                    <input type="file" id="evento-imagen-upload" class="file-upload-input" accept="image/*">
+                    <input type="file" name="imagen" id="evento-imagen" class="file-upload-input" accept="image/*">
                 </div>
                 <div class="form-group">
                     <label for="evento-fecha">Fecha</label>
@@ -430,15 +483,15 @@ $noticias = $noticiaModel->getAll();
                     </select>
                 </div>
                 
-                 <div class="form-group">
+                <div class="form-group">
                     <label for="evento-comunidad">Comunidad</label>
-                    <select id="evento-comunidad" required>
+                    <select name="comunidad" id="evento-comunidad" required>
                         <option value="">Seleccionar</option>
-                        <option value="PMI Norte">Cajamarca</option>
-                        <option value="PMI Agile">Trujillo</option>
-                        <option value="PMI Agile">Piura</option>
-                        <option value="PMI Agile">Estudiantil</option>
-                        <option value="PMI Agile">Estudiantil UNC</option>
+                        <option value="Cajamarca">Cajamarca</option>
+                        <option value="Trujillo">Trujillo</option>
+                        <option value="Piura">Piura</option>
+                        <option value="Estudiantil">Estudiantil</option>
+                        <option value="Estudiantil UNC">Estudiantil UNC</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -447,7 +500,7 @@ $noticias = $noticiaModel->getAll();
                 </div>
                 <div class="form-group">
                     <label for="evento-categoria">Categoría</label>
-                    <select id="evento-categoria" required>
+                    <select name="categoria" id="evento-categoria" required>
                         <option value="">Seleccionar</option>
                         <option value="Capacitación">Capacitación</option>
                         <option value="Congreso">Congreso</option>
@@ -457,6 +510,7 @@ $noticias = $noticiaModel->getAll();
                         <option value="Webinar">Webinar</option>
                     </select>
                 </div>
+
                 <div class="form-group-full">
                     <label for="evento-descripcion">Descripción</label>
                     <textarea name="descripcion" id="evento-descripcion" rows="4" required></textarea>
@@ -473,7 +527,7 @@ $noticias = $noticiaModel->getAll();
             <div class="modal-header">
                 <h2 id="titulo-modal-educacion">Agregar Curso</h2>
             </div>
-            <form class="modal-form form-educacion" method="POST" action="">
+            <form class="modal-form form-educacion" method="POST" action="" enctype="multipart/form-data">
                 <input type="hidden" name="accion" id="accion-educacion" value="agregar_educacion">
                 <input type="hidden" name="id" id="educacion-id" value="">
                 
@@ -483,10 +537,10 @@ $noticias = $noticiaModel->getAll();
                 </div>
                 <div class="form-group">
                     <label for="curso-imagen">Imagen</label>
-                    <label for="curso-imagen-upload" class="file-upload-label">
+                    <label for="curso-imagen" class="file-upload-label">
                         <span>📁 Subir imagen</span>
                     </label>
-                    <input type="file" id="curso-imagen-upload" class="file-upload-input" accept="image/*">
+                    <input type="file" name="imagen" id="curso-imagen" class="file-upload-input" accept="image/*">
                 </div>
                 
                 <div class="form-group">
@@ -523,7 +577,7 @@ $noticias = $noticiaModel->getAll();
             <div class="modal-header">
                 <h2 id="titulo-modal-noticia">Agregar Noticia</h2>
             </div>
-            <form class="modal-form form-noticia" method="POST" action="">
+            <form class="modal-form form-noticia" method="POST" action="" enctype="multipart/form-data">
                 <input type="hidden" name="accion" id="accion-noticia" value="agregar_noticia">
                 <input type="hidden" name="id" id="noticia-id" value="">
                 
@@ -533,10 +587,10 @@ $noticias = $noticiaModel->getAll();
                 </div>
                 <div class="form-group-full">
                     <label for="noticia-imagen">Imagen</label>
-                    <label for="noticia-imagen-upload" class="file-upload-label">
+                    <label for="noticia-imagen" class="file-upload-label">
                         <span>📁 Subir imagen</span>
                     </label>
-                    <input type="file" id="noticia-imagen-upload" class="file-upload-input" accept="image/*">
+                    <input type="file" name="imagen" id="noticia-imagen" class="file-upload-input" accept="image/*">
                 </div>
                 <div class="form-group-full">
                     <label for="noticia-fecha">Fecha</label>
