@@ -64,3 +64,135 @@ if (prefersReduced) {
     
     reveals.forEach(el => io.observe(el));
 }
+
+// Filtros de eventos
+document.addEventListener('DOMContentLoaded', function() {
+    const filtrosEventos = document.querySelectorAll('.filtros button');
+    const cardsEventos = document.querySelectorAll('.card-evento');
+    
+    filtrosEventos.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remover clase activo de todos los botones
+            filtrosEventos.forEach(b => b.classList.remove('activo'));
+            // Agregar clase activo al botón clickeado
+            this.classList.add('activo');
+            
+            const filtro = this.textContent.trim();
+            
+            cardsEventos.forEach(card => {
+                if (filtro === 'Todos') {
+                    card.style.display = 'block';
+                } else {
+                    const ciudades = card.getAttribute('data-ciudad')
+                        .split(',')
+                        .map(c => c.trim());
+                    
+                    if (ciudades.includes(filtro)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        });
+    });
+});
+
+
+// Carrusel de Junta Directiva
+document.addEventListener('DOMContentLoaded', function() {
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextBtn = document.querySelector('.next-btn');
+    const prevBtn = document.querySelector('.prev-btn');
+    const dotsContainer = document.querySelector('.carousel-dots');
+    
+    // Calcular número de slides visibles según ancho de pantalla
+    function getSlidesPerView() {
+        const width = window.innerWidth;
+        if (width >= 1024) return 3;
+        if (width >= 768) return 2;
+        return 1;
+    }
+    
+    let currentIndex = 0;
+    let slidesPerView = getSlidesPerView();
+    
+    // Crear dots
+    const totalDots = Math.ceil(slides.length / slidesPerView);
+    for (let i = 0; i < totalDots; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('carousel-dot');
+        if (i === 0) dot.classList.add('active');
+        dotsContainer.appendChild(dot);
+    }
+    
+    const dots = Array.from(dotsContainer.children);
+    
+    // Actualizar posición del carrusel
+    function updateCarousel() {
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        const gap = 24; // var(--spacing-md)
+        const moveAmount = -(currentIndex * (slideWidth + gap) * slidesPerView);
+        track.style.transform = `translateX(${moveAmount}px)`;
+        
+        // Actualizar dots
+        dots.forEach(dot => dot.classList.remove('active'));
+        if (dots[currentIndex]) dots[currentIndex].classList.add('active');
+    }
+    
+    // Botón siguiente
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < totalDots - 1) {
+            currentIndex++;
+        } else {
+            currentIndex = 0; // Loop infinito
+        }
+        updateCarousel();
+    });
+    
+    // Botón anterior
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex = totalDots - 1; // Loop infinito
+        }
+        updateCarousel();
+    });
+    
+    // Click en dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentIndex = index;
+            updateCarousel();
+        });
+    });
+    
+    // Responsive: recalcular al cambiar tamaño de ventana
+    window.addEventListener('resize', () => {
+        slidesPerView = getSlidesPerView();
+        updateCarousel();
+    });
+    
+    // Deslizamiento táctil (opcional)
+    let startX = 0;
+    track.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    });
+    
+    track.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        
+        if (Math.abs(diff) > 50) {
+            if (diff > 0 && currentIndex < totalDots - 1) {
+                currentIndex++;
+            } else if (diff < 0 && currentIndex > 0) {
+                currentIndex--;
+            }
+            updateCarousel();
+        }
+    });
+});
+

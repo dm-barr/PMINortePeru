@@ -71,23 +71,55 @@ $educaciones = $educacionModel->getAll();
     </header>
 
 
-    <!-- 🔹 HERO PRINCIPAL -->
-    <section id="inicio" class="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="video/hero.mp4" type="video/mp4">
-            <source src="video/hero.webm" type="video/webm">
-            Tu navegador no soporta el video.
-        </video>
-        <div class="hero-overlay">
-            <div class="hero-slice"></div>
-            <div class="hero-slice"></div>
-            <div class="hero-slice"></div>
+    <!-- Hero Principal -->
+    <section id="hero" class="hero" aria-label="Sección principal">
+        <!-- Video de fondo -->
+        <div class="hero-bg" aria-hidden="true">
+            <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+                <source src="video/hero2.mp4" type="video/mp4">
+            </video>
         </div>
-        <div class="hero-text">
-            <h1></h1>
-            <p></p>
+        <div class="hero-overlay"></div>
+
+
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <p class="eyebrow">PMI Norte Perú</p>
+                <h1>Suceden cosas buenas cuando<span class="txt-gradient"> te involucras con PMI</span></h1>
+                <p class="lead">Transformamos ideas en <strong>valor real</strong> para Cajamarca, Piura y Trujillo
+                    mediante dirección de proyectos.</p>
+                <div class="hero-actions">
+                    <a href="#eventos" class="btn btn--primary">Ver eventos</a>
+                    <a href="#nosotros" class="btn btn--secondary">Conocer el capítulo</a>
+                </div>
+
+                <!-- Contador estilo congreso -->
+                <div class="counter glass" data-countdown="2025-11-07T16:00:00-0500"
+                    aria-label="Cuenta regresiva al próximo congreso">
+                    <div><span class="num" data-unit="days">00</span><small>Días</small></div>
+                    <div><span class="num" data-unit="hours">00</span><small>Horas</small></div>
+                    <div><span class="num" data-unit="minutes">00</span><small>Min</small></div>
+                    <div><span class="num" data-unit="seconds">00</span><small>Seg</small></div>
+                </div>
+            </div>
+
+            <aside class="hero-card glass reveal">
+                <figure>
+                    <img src="img/portada/trujillo_portada.png" alt="Norte del Perú - Trujillo, Piura y Cajamarca"
+                        loading="lazy">
+                </figure>
+                <div class="hero-card-body">
+                    <h3>VI Congreso Internacional</h3>
+                    <p class="muted">7-8 de noviembre · Modalidad híbrida · Emite PDUs</p>
+                </div>
+                <div class="hero-card-actions">
+                    <a href="http://congresotrujillo2025.pminorteperu.org" class="btn btn--secondary">Descubre más</a>
+                    <a href="https://wa.me/51955769734" class="btn btn--primary">Inscribirme</a>
+                </div>
+            </aside>
         </div>
     </section>
+
 
 
     <!-- 🔹 QUIÉNES SOMOS -->
@@ -308,6 +340,8 @@ $educaciones = $educacionModel->getAll();
             });
         });
     </script>
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>
