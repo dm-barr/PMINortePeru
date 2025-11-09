@@ -13,7 +13,7 @@
     <!-- Coloca esto dentro de la etiqueta <head> -->
     <link rel="icon" href="img/logo/icono.png" type="image/x-icon">
     <!-- Script de reCAPTCHA -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -60,7 +60,7 @@
     <section id="hero" class="hero" aria-label="Sección principal">
         <!-- Video de fondo -->
         <div class="hero-bg" aria-hidden="true">
-            <video class="hero-video" autoplay muted loop playsinline preload="metadata">   
+            <video class="hero-video" autoplay muted loop playsinline preload="metadata">
                 <source src="video/hero2.mp4" type="video/mp4">
             </video>
         </div>
@@ -78,27 +78,27 @@
                     <a href="#nosotros" class="btn btn--secondary">Conocer el capítulo</a>
                 </div>
 
-                <!-- Contador estilo congreso -->
+                <!-- Contador estilo congreso 
                 <div class="counter glass" data-countdown="2025-11-07T16:00:00-0500"
                     aria-label="Cuenta regresiva al próximo congreso">
                     <div><span class="num" data-unit="days">00</span><small>Días</small></div>
                     <div><span class="num" data-unit="hours">00</span><small>Horas</small></div>
                     <div><span class="num" data-unit="minutes">00</span><small>Min</small></div>
                     <div><span class="num" data-unit="seconds">00</span><small>Seg</small></div>
-                </div>
+                </div> -->
             </div>
 
             <aside class="hero-card glass reveal">
                 <figure>
-                    <img src="img/portada/trujillo_portada.png" alt="Norte del Perú - Trujillo, Piura y Cajamarca"
+                    <img src="img/portada/cajamarca_portada.png" alt="Norte del Perú - Trujillo, Piura y Cajamarca"
                         loading="lazy">
                 </figure>
                 <div class="hero-card-body">
-                    <h3>VI Congreso Internacional</h3>
-                    <p class="muted">7-8 de noviembre · Modalidad híbrida · Emite PDUs</p>
+                    <h3>Student Club PMI UNC</h3>
+                    <p class="muted">10 - 15 de Noviembre · Semana Formativa</p>
                 </div>
                 <div class="hero-card-actions">
-                    <a href="http://congresotrujillo2025.pminorteperu.org" class="btn btn--secondary">Descubre más</a>
+                    <a href="https://comunidadunc.pminorteperu.org/" class="btn btn--secondary">Descubre más</a>
                     <a href="https://wa.me/51955769734" class="btn btn--primary">Inscribirme</a>
                 </div>
             </aside>
@@ -468,6 +468,13 @@
                 <label for="mensaje">¿Por qué te gustaría participar?</label>
                 <textarea id="mensaje" name="message" rows="4"></textarea>
 
+                <div class="check-group">
+                    <label class="lbl-tc">
+                        <input type="checkbox" required aria-required="true" name="privacidad">
+                        Acepto la política de privacidad
+                    </label>
+                </div>
+
                 <div class="g-recaptcha" data-sitekey="6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta"></div>
 
                 <div class="form-buttons">
@@ -545,14 +552,14 @@
                     <label for="mensaje">Mensaje</label>
                     <textarea id="mensaje" name="message" rows="4"></textarea>
 
-                    <div class="g-recaptcha" data-sitekey="6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta"></div>
-
                     <div class="check-group">
                         <label class="lbl-tc">
                             <input type="checkbox" required aria-required="true" name="privacidad">
                             Acepto la política de privacidad
                         </label>
                     </div>
+
+                    <div class="g-recaptcha" data-sitekey="6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta"></div>
 
                     <button type="submit" class="btn-enviar">Enviar</button>
                     <p class="hint" role="status" aria-live="polite" hidden>Gracias. Te contactaremos pronto.</p>
