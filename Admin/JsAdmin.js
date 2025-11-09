@@ -57,6 +57,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('accion-evento').value = 'agregar_evento';
             document.getElementById('evento-id').value = '';
             document.querySelector('.form-evento').reset();
+            // ✅ Limpiar vista previa de imagen
+            const preview = document.getElementById('preview-evento');
+            if (preview) preview.style.display = 'none';
             openModal(modalEvento);
         });
     }
@@ -66,6 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('accion-educacion').value = 'agregar_educacion';
             document.getElementById('educacion-id').value = '';
             document.querySelector('.form-educacion').reset();
+            // ✅ Limpiar vista previa de imagen
+            const preview = document.getElementById('preview-educacion');
+            if (preview) preview.style.display = 'none';
             openModal(modalEducacion);
         });
     }
@@ -75,6 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('accion-noticia').value = 'agregar_noticia';
             document.getElementById('noticia-id').value = '';
             document.querySelector('.form-noticia').reset();
+            // ✅ Limpiar vista previa de imagen
+            const preview = document.getElementById('preview-noticia');
+            if (preview) preview.style.display = 'none';
             openModal(modalNoticia);
         });
     }
@@ -96,74 +105,124 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ===============================================
-    // EDITAR - Cargar datos en modales
+    // ✅ VISTA PREVIA DE IMÁGENES
     // ===============================================
 
-    // EDITAR EVENTO
-    document.querySelectorAll('.btn-editar-evento').forEach(btn => {
-        btn.addEventListener('click', function(e) {
+    function setupImagePreview(inputId, previewId) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        
+        if (!input || !preview) return;
+
+        input.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    const img = preview.querySelector('img');
+                    if (img) {
+                        img.src = event.target.result;
+                        preview.style.display = 'block';
+                    }
+                };
+                
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+    }
+
+    // Configurar vista previa para cada modal
+    setupImagePreview('evento-imagen', 'preview-evento');
+    setupImagePreview('curso-imagen', 'preview-educacion');
+    setupImagePreview('noticia-imagen', 'preview-noticia');
+
+    // ===============================================
+    // ✅ EDITAR - DELEGACIÓN DE EVENTOS (CORREGIDO)
+    // ===============================================
+
+    // EDITAR EVENTO - Usando delegación de eventos
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.btn-editar-evento')) {
             e.preventDefault();
+            const btn = e.target.closest('.btn-editar-evento');
             
             document.getElementById('titulo-modal-evento').textContent = 'Editar Evento';
             document.getElementById('accion-evento').value = 'editar_evento';
-            document.getElementById('evento-id').value = this.dataset.id;
-            document.getElementById('evento-nombre').value = this.dataset.nombre;
-            document.getElementById('evento-descripcion').value = this.dataset.descripcion;
-            document.getElementById('evento-comunidad').value = this.dataset.comunidad;
-            document.getElementById('evento-modalidad').value = this.dataset.modalidad;
-            document.getElementById('evento-categoria').value = this.dataset.categoria;
-            document.getElementById('evento-lugar').value = this.dataset.lugar;
-            document.getElementById('evento-imagen').value = this.dataset.imagen;
+            document.getElementById('evento-id').value = btn.dataset.id;
+            document.getElementById('evento-nombre').value = btn.dataset.nombre;
+            document.getElementById('evento-descripcion').value = btn.dataset.descripcion;
+            document.getElementById('evento-comunidad').value = btn.dataset.comunidad;
+            document.getElementById('evento-modalidad').value = btn.dataset.modalidad;
+            document.getElementById('evento-categoria').value = btn.dataset.categoria;
+            document.getElementById('evento-lugar').value = btn.dataset.lugar;
+            document.getElementById('evento-link').value = btn.dataset.link || ''; // ✅ NUEVO CAMPO
+            
+            // Limpiar vista previa
+            const preview = document.getElementById('preview-evento');
+            if (preview) preview.style.display = 'none';
             
             openModal(modalEvento);
-        });
+        }
     });
 
-    // EDITAR EDUCACIÓN
-    document.querySelectorAll('.btn-editar-educacion').forEach(btn => {
-        btn.addEventListener('click', function(e) {
+    // EDITAR EDUCACIÓN - Usando delegación de eventos
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.btn-editar-educacion')) {
             e.preventDefault();
+            const btn = e.target.closest('.btn-editar-educacion');
             
             document.getElementById('titulo-modal-educacion').textContent = 'Editar Curso';
             document.getElementById('accion-educacion').value = 'editar_educacion';
-            document.getElementById('educacion-id').value = this.dataset.id;
-            document.getElementById('curso-nombre').value = this.dataset.curso;
-            document.getElementById('curso-modalidad').value = this.dataset.modalidad;
-            document.getElementById('curso-fecha').value = this.dataset.fecha;
-            document.getElementById('curso-instructor').value = this.dataset.instructor;
-            document.getElementById('curso-descripcion').value = this.dataset.descripcion;
-            document.getElementById('curso-imagen').value = this.dataset.imagen || '';
+            document.getElementById('educacion-id').value = btn.dataset.id;
+            document.getElementById('curso-nombre').value = btn.dataset.curso;
+            document.getElementById('curso-modalidad').value = btn.dataset.modalidad;
+            document.getElementById('curso-fecha').value = btn.dataset.fecha;
+            document.getElementById('curso-instructor').value = btn.dataset.instructor;
+            document.getElementById('curso-descripcion').value = btn.dataset.descripcion;
+            
+            // Limpiar vista previa
+            const preview = document.getElementById('preview-educacion');
+            if (preview) preview.style.display = 'none';
             
             openModal(modalEducacion);
-        });
+        }
     });
 
-    // EDITAR NOTICIA
-    document.querySelectorAll('.btn-editar-noticia').forEach(btn => {
-        btn.addEventListener('click', function(e) {
+    // EDITAR NOTICIA - Usando delegación de eventos
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.btn-editar-noticia')) {
             e.preventDefault();
+            const btn = e.target.closest('.btn-editar-noticia');
             
             document.getElementById('titulo-modal-noticia').textContent = 'Editar Noticia';
             document.getElementById('accion-noticia').value = 'editar_noticia';
-            document.getElementById('noticia-id').value = this.dataset.id;
-            document.getElementById('noticia-titulo').value = this.dataset.titulo;
-            document.getElementById('noticia-descripcion').value = this.dataset.descripcion;
-            document.getElementById('noticia-imagen').value = this.dataset.imagen;
+            document.getElementById('noticia-id').value = btn.dataset.id;
+            document.getElementById('noticia-titulo').value = btn.dataset.titulo;
+            document.getElementById('noticia-descripcion').value = btn.dataset.descripcion;
+            
+            // Limpiar vista previa
+            const preview = document.getElementById('preview-noticia');
+            if (preview) preview.style.display = 'none';
             
             openModal(modalNoticia);
-        });
+        }
     });
 
     // ===============================================
     // ELIMINAR
     // ===============================================
 
-    document.querySelectorAll('.btn-eliminar').forEach(btn => {
-        btn.addEventListener('click', function(e) {
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.btn-eliminar')) {
             e.preventDefault();
+            const btn = e.target.closest('.btn-eliminar');
             
-            const tipo = this.dataset.tipo;
-            const id = this.dataset.id;
+            const tipo = btn.dataset.tipo;
+            const id = btn.dataset.id;
             const tipoTexto = tipo === 'evento' ? 'evento' : (tipo === 'educacion' ? 'curso' : 'noticia');
             
             if (confirm(`¿Estás seguro de eliminar este ${tipoTexto}?`)) {
@@ -186,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.appendChild(form);
                 form.submit();
             }
-        });
+        }
     });
 
     // ===============================================
