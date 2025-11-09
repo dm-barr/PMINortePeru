@@ -104,28 +104,45 @@ body {
 /* ========================================
    NAVBAR PRINCIPAL
 ======================================== */
+.menu-toggle {
+    display: none;
+}
+
 .navbar {
     background: var(--gradient-primary);
     padding: 12px var(--spacing-lg);
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 1000;
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .logo {
     height: 50px;
+    z-index: 1001;
+}
+
+.menu-icon {
+    display: none;
+    font-size: 2em;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1001;
 }
 
 .menu {
     list-style: none;
     display: flex;
     gap: 20px;
+    align-items: center;
 }
 
 .menu a {
@@ -133,6 +150,7 @@ body {
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95em;
+    transition: var(--transition-fast);
 }
 
 .menu a:hover {
@@ -146,25 +164,14 @@ body {
     padding: 8px 16px;
     border-radius: 6px;
     font-weight: bold;
+    transition: var(--transition-base);
 }
 
 .btn-hazte:hover {
     background: #FF610F;
     color: var(--color-white);
     box-shadow: var(--shadow-naranja);
-}
-
-.menu-toggle {
-    display: none;
-}
-
-.menu-icon {
-    display: none;
-    font-size: 2em;
-    color: white;
-    cursor: pointer;
-    user-select: none;
-    margin-left: auto;
+    transform: translateY(-2px);
 }
 
 /* ========================================
@@ -192,11 +199,17 @@ body {
 }
 
 .hero-video {
-    min-width: 100%;
-    min-height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    transform: translate(-50%, -50%);
     filter: saturate(110%) contrast(105%);
+    z-index: 0;
 }
+
 
 .hero-overlay {
     position: absolute;
@@ -1290,26 +1303,32 @@ body {
 ======================================== */
 @media (max-width: 768px) {
     .card-miembro {
-        min-width: 280px;
+        min-width: 380px;
         flex: 0 0 280px;
         padding: 18px;
     }
 
-    .foto-miembro {
-        height: 280px;
-    }
+.foto-miembro {
+    height: 380px;
+    object-fit: cover;
+    object-position: center 20%; /* Ajusta este porcentaje según necesites */
+}
+
 }
 
 @media (max-width: 480px) {
     .card-miembro {
-        min-width: 260px;
+        min-width: 360px;
         flex: 0 0 260px;
         padding: 15px;
     }
 
-    .foto-miembro {
-        height: 240px;
-    }
+ .foto-miembro {
+    height: 340px;
+    object-fit: cover;
+    object-position: center 20%; /* Ajusta este porcentaje según necesites */
+}
+
 
     .cargo-badge {
         font-size: 0.8em;
@@ -1333,13 +1352,16 @@ body {
 
 @media (max-width: 360px) {
     .card-miembro {
-        min-width: 240px;
+        min-width: 340px;
         flex: 0 0 240px;
     }
 
-    .foto-miembro {
-        height: 220px;
-    }
+.foto-miembro {
+    height: 320px;
+    object-fit: cover;
+    object-position: center 20%; /* Ajusta este porcentaje según necesites */
+}
+
 }
 
 
@@ -1877,14 +1899,17 @@ body {
     }
 
     .card-miembro {
-        min-width: 280px;
+        min-width: 380px;
         flex: 0 0 280px;
         padding: 18px;
     }
 
-    .foto-miembro {
-        height: 280px;
-    }
+.foto-miembro {
+    height: 380px;
+    object-fit: cover;
+    object-position: center 20%; /* Ajusta este porcentaje según necesites */
+}
+
 
     .carousel-btn {
         width: 40px;
@@ -2031,14 +2056,17 @@ body {
     }
 
     .card-miembro {
-        min-width: 260px;
+        min-width: 360px;
         flex: 0 0 260px;
         padding: 15px;
     }
 
-    .foto-miembro {
-        height: 240px;
-    }
+.foto-miembro {
+    height: 340px;
+    object-fit: cover;
+    object-position: center 20%; /* Ajusta este porcentaje según necesites */
+}
+
 
     .carousel-btn {
         width: 35px;
@@ -2072,13 +2100,16 @@ body {
     }
 
     .card-miembro {
-        min-width: 240px;
+        min-width: 340px;
         flex: 0 0 240px;
     }
 
-    .foto-miembro {
-        height: 220px;
-    }
+.foto-miembro {
+    height: 320px;
+    object-fit: cover;
+    object-position: center 20%; /* Ajusta este porcentaje según necesites */
+}
+
 }
 
 
@@ -2226,60 +2257,68 @@ body {
 
 /* ========================================
    RESPONSIVE - JUNTA DIRECTIVA
-======================================== */
-@media (max-width: 768px) {
-    .card-miembro {
-        min-width: 280px;
-        flex: 0 0 280px;
-        padding: 18px;
-    }
+   ======================================== */
 
-    .foto-miembro {
-        height: 280px;
-    }
+@media (max-width: 768px) {
+  .card-miembro {
+    min-width: 280px;
+    flex: 0 0 280px;
+    padding: 18px;
+  }
+
+  .foto-miembro {
+    height: 350px;
+    object-fit: contain; /* Muestra la imagen completa sin cortar */
+    object-position: center top; /* Prioriza la parte superior (cabeza) */
+  }
 }
 
 @media (max-width: 480px) {
-    .card-miembro {
-        min-width: 260px;
-        flex: 0 0 260px;
-        padding: 15px;
-    }
+  .card-miembro {
+    min-width: 260px;
+    flex: 0 0 260px;
+    padding: 15px;
+  }
 
-    .foto-miembro {
-        height: 240px;
-    }
+  .foto-miembro {
+    height: 320px;
+    object-fit: contain; /* Muestra la imagen completa */
+    object-position: center top; /* Prioriza mostrar desde arriba */
+  }
 
-    .cargo-badge {
-        font-size: 0.8em;
-        padding: 5px 12px;
-    }
+  .cargo-badge {
+    font-size: 0.8em;
+    padding: 5px 12px;
+  }
 
-    .card-miembro h3 {
-        font-size: 1em;
-    }
+  .card-miembro h3 {
+    font-size: 1em;
+  }
 
-    .card-miembro p {
-        font-size: 0.85em;
-    }
+  .card-miembro p {
+    font-size: 0.85em;
+  }
 
-    .redes-miembro a {
-        width: 32px;
-        height: 32px;
-        font-size: 0.85rem;
-    }
+  .redes-miembro a {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
 }
 
 @media (max-width: 360px) {
-    .card-miembro {
-        min-width: 240px;
-        flex: 0 0 240px;
-    }
+  .card-miembro {
+    min-width: 240px;
+    flex: 0 0 240px;
+  }
 
-    .foto-miembro {
-        height: 220px;
-    }
+  .foto-miembro {
+    height: 300px;
+    object-fit: contain; /* Muestra toda la imagen sin cortar */
+    object-position: center top;
+  }
 }
+
 
 
 /* ========================================

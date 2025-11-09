@@ -1,7 +1,6 @@
 /* ========================================
    CUENTA REGRESIVA HERO
 ======================================== */
-
 // Estructura esperada: .counter[data-countdown="YYYY-MM-DDTHH:mm:ss-Z"][data-unit="days|hours|minutes|seconds"]
 const countdownBlocks = document.querySelectorAll(".counter[data-countdown]");
 
@@ -63,246 +62,317 @@ if (prefersReduced) {
   reveals.forEach((el) => io.observe(el));
 }
 
-// Filtros de eventos
+/* ========================================
+   ESPERAR A QUE EL DOM ESTÉ LISTO
+======================================== */
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("🚀 DOM cargado completamente");
+
+  // =====================================
+  // FILTROS DE EVENTOS
+  // =====================================
   const filtrosEventos = document.querySelectorAll(".filtros button");
   const cardsEventos = document.querySelectorAll(".card-evento");
 
-  filtrosEventos.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      // Remover clase activo de todos los botones
-      filtrosEventos.forEach((b) => b.classList.remove("activo"));
-      // Agregar clase activo al botón clickeado
-      this.classList.add("activo");
+  if (filtrosEventos.length > 0) {
+    filtrosEventos.forEach((btn) => {
+      btn.addEventListener("click", function () {
+        filtrosEventos.forEach((b) => b.classList.remove("activo"));
+        this.classList.add("activo");
 
-      const filtro = this.textContent.trim();
+        const filtro = this.textContent.trim();
 
-      cardsEventos.forEach((card) => {
-        if (filtro === "Todos") {
-          card.style.display = "block";
-        } else {
-          const ciudades = card
-            .getAttribute("data-ciudad")
-            .split(",")
-            .map((c) => c.trim());
-          if (ciudades.includes(filtro)) {
+        cardsEventos.forEach((card) => {
+          if (filtro === "Todos") {
             card.style.display = "block";
           } else {
-            card.style.display = "none";
+            const ciudades = card
+              .getAttribute("data-ciudad")
+              .split(",")
+              .map((c) => c.trim());
+            if (ciudades.includes(filtro)) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
           }
-        }
+        });
       });
     });
-  });
-});
+  }
 
-// Carrusel de Junta Directiva
-document.addEventListener("DOMContentLoaded", function () {
+  // =====================================
+  // CARRUSEL DE JUNTA DIRECTIVA
+  // =====================================
   const track = document.querySelector(".carousel-track");
-  const slides = Array.from(track.children);
   const nextBtn = document.querySelector(".next-btn");
   const prevBtn = document.querySelector(".prev-btn");
   const dotsContainer = document.querySelector(".carousel-dots");
 
-  // Calcular número de slides visibles según ancho de pantalla
-  function getSlidesPerView() {
-    const width = window.innerWidth;
-    if (width >= 1024) return 3;
-    if (width >= 768) return 2;
-    return 1;
-  }
+  if (track && nextBtn && prevBtn && dotsContainer) {
+    const slides = Array.from(track.children);
 
-  let currentIndex = 0;
-  let slidesPerView = getSlidesPerView();
-
-  // Crear dots
-  const totalDots = Math.ceil(slides.length / slidesPerView);
-  for (let i = 0; i < totalDots; i++) {
-    const dot = document.createElement("div");
-    dot.classList.add("carousel-dot");
-    if (i === 0) dot.classList.add("active");
-    dotsContainer.appendChild(dot);
-  }
-
-  const dots = Array.from(dotsContainer.children);
-
-  // Actualizar posición del carrusel
-  function updateCarousel() {
-    const slideWidth = slides[0].getBoundingClientRect().width;
-    const gap = 24; // var(--spacing-md)
-    const moveAmount = -(currentIndex * (slideWidth + gap) * slidesPerView);
-    track.style.transform = `translateX(${moveAmount}px)`;
-
-    // Actualizar dots
-    dots.forEach((dot) => dot.classList.remove("active"));
-    if (dots[currentIndex]) dots[currentIndex].classList.add("active");
-  }
-
-  // Botón siguiente
-  nextBtn.addEventListener("click", () => {
-    if (currentIndex < totalDots - 1) {
-      currentIndex++;
-    } else {
-      currentIndex = 0; // Loop infinito
+    function getSlidesPerView() {
+      const width = window.innerWidth;
+      if (width >= 1024) return 3;
+      if (width >= 768) return 2;
+      return 1;
     }
-    updateCarousel();
-  });
 
-  // Botón anterior
-  prevBtn.addEventListener("click", () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-    } else {
-      currentIndex = totalDots - 1; // Loop infinito
+    let currentIndex = 0;
+    let slidesPerView = getSlidesPerView();
+
+    const totalDots = Math.ceil(slides.length / slidesPerView);
+    for (let i = 0; i < totalDots; i++) {
+      const dot = document.createElement("div");
+      dot.classList.add("carousel-dot");
+      if (i === 0) dot.classList.add("active");
+      dotsContainer.appendChild(dot);
     }
-    updateCarousel();
-  });
 
-  // Click en dots
-  dots.forEach((dot, index) => {
-    dot.addEventListener("click", () => {
-      currentIndex = index;
-      updateCarousel();
-    });
-  });
+    const dots = Array.from(dotsContainer.children);
 
-  // Responsive: recalcular al cambiar tamaño de ventana
-  window.addEventListener("resize", () => {
-    slidesPerView = getSlidesPerView();
-    updateCarousel();
-  });
+    function updateCarousel() {
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      const gap = 24;
+      const moveAmount = -(currentIndex * (slideWidth + gap) * slidesPerView);
+      track.style.transform = `translateX(${moveAmount}px)`;
 
-  // Deslizamiento táctil (opcional)
-  let startX = 0;
-  track.addEventListener("touchstart", (e) => {
-    startX = e.touches[0].clientX;
-  });
+      dots.forEach((dot) => dot.classList.remove("active"));
+      if (dots[currentIndex]) dots[currentIndex].classList.add("active");
+    }
 
-  track.addEventListener("touchend", (e) => {
-    const endX = e.changedTouches[0].clientX;
-    const diff = startX - endX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0 && currentIndex < totalDots - 1) {
+    nextBtn.addEventListener("click", () => {
+      if (currentIndex < totalDots - 1) {
         currentIndex++;
-      } else if (diff < 0 && currentIndex > 0) {
-        currentIndex--;
+      } else {
+        currentIndex = 0;
       }
       updateCarousel();
-    }
-  });
-});
-
-// ----- FORMULARIO DE VOLUNTARIADO EVENTOS(EMERGENTE) ----- (luego escala a google sheets)
-const btnInscribirse = document.getElementById("btnInscribirse");
-const formModal = document.getElementById("formModal");
-const btnCerrarForm = document.getElementById("btnCerrarForm");
-const form = document.getElementById("voluntarioForm");
-
-formModal.classList.add("oculto");
-
-btnInscribirse.addEventListener("click", () => {
-  formModal.classList.remove("oculto");
-});
-
-btnCerrarForm.addEventListener("click", () => {
-  formModal.classList.add("oculto");
-});
-
-formModal.addEventListener("click", (e) => {
-  if (e.target === formModal) {
-    formModal.classList.add("oculto");
-  }
-});
-
-// Enviar formulario
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  alert("¡Gracias por inscribirte! Pronto nos pondremos en contacto contigo.");
-  form.reset();
-  formModal.classList.add("oculto");
-});
-
-// ----- FORMULARIO DE RECLUTAMIENTO DE VOLUNTARIOS (EMERGENTE) -----
-const btnReclutamiento = document.getElementById("btnReclutamiento");
-const modalReclutamiento = document.getElementById("formModalReclutamiento");
-const btnCerrarReclu = document.getElementById("btnCerrarReclu");
-
-btnReclutamiento.addEventListener("click", () => {
-  modalReclutamiento.classList.remove("oculto");
-});
-
-btnCerrarReclu.addEventListener("click", () => {
-  modalReclutamiento.classList.add("oculto");
-});
-
-// Cerrar modal al hacer clic fuera del contenido
-window.addEventListener("click", (e) => {
-  if (e.target === modalReclutamiento) {
-    modalReclutamiento.classList.add("oculto");
-  }
-});
-
-// URL de Google Apps Script
-const scriptURL = "https://script.google.com/macros/s/AKfycbx80LfsDjmQ87zWe8XkVjn8ca9BDrkbSiduYbW-WoSCrhSnkBkQrT0KOjp5plfWK3ODOA/exec";
-
-// Enviar formulario de reclutamiento de voluntarios a Google Sheets
-document.getElementById("voluntarioFormReclutamiento").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  
-  const form = e.target;
-  const formData = new FormData(form);
-  
-  // Agregar el prefijo "VOLUNTARIADO: " al mensaje
-  const mensajeOriginal = formData.get("mensaje");
-  formData.set("mensaje", "VOLUNTARIADO: " + mensajeOriginal);
-  
-  // Usar el mismo formType "contacto" para que vaya a la misma hoja
-  formData.append("formType", "contacto");
-  
-  try {
-    const response = await fetch(scriptURL, {
-      method: "POST",
-      body: formData,
     });
+
+    prevBtn.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+      } else {
+        currentIndex = totalDots - 1;
+      }
+      updateCarousel();
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        currentIndex = index;
+        updateCarousel();
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      slidesPerView = getSlidesPerView();
+      updateCarousel();
+    });
+
+    let startX = 0;
+    track.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    track.addEventListener("touchend", (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0 && currentIndex < totalDots - 1) {
+          currentIndex++;
+        } else if (diff < 0 && currentIndex > 0) {
+          currentIndex--;
+        }
+        updateCarousel();
+      }
+    });
+  }
+
+  // =====================================
+  // MODAL DE VOLUNTARIADO - ÚNICO
+  // =====================================
+  const btnInscribirse = document.getElementById("btnInscribirse");
+  const btnReclutamiento = document.getElementById("btnReclutamiento");
+  const formModal = document.getElementById("formModal");
+  const btnCerrarForm = document.getElementById("btnCerrarForm");
+  const form = document.getElementById("voluntarioForm");
+
+  if (formModal) {
+    console.log("✅ Modal encontrado");
     
-    const data = await response.json();
-    alert("¡Gracias por inscribirte! Pronto nos pondremos en contacto contigo.");
-    form.reset();
-    modalReclutamiento.classList.add("oculto");
-  } catch (err) {
-    console.error(err);
-    alert("Hubo un error al enviar el formulario. Por favor, intenta de nuevo.");
+    formModal.classList.add("oculto");
+
+    if (btnInscribirse) {
+      console.log("✅ btnInscribirse encontrado");
+      btnInscribirse.addEventListener("click", () => {
+        console.log("🔓 Abriendo modal desde btnInscribirse");
+        formModal.classList.remove("oculto");
+      });
+    } else {
+      console.log("⚠️ btnInscribirse NO encontrado");
+    }
+
+    if (btnReclutamiento) {
+      console.log("✅ btnReclutamiento encontrado");
+      btnReclutamiento.addEventListener("click", () => {
+        console.log("🔓 Abriendo modal desde btnReclutamiento");
+        formModal.classList.remove("oculto");
+      });
+    } else {
+      console.log("⚠️ btnReclutamiento NO encontrado");
+    }
+
+    if (btnCerrarForm) {
+      console.log("✅ btnCerrarForm encontrado");
+      btnCerrarForm.addEventListener("click", () => {
+        console.log("🔒 Cerrando modal");
+        formModal.classList.add("oculto");
+      });
+    }
+
+    formModal.addEventListener("click", (e) => {
+      if (e.target === formModal) {
+        console.log("🔒 Cerrando modal (click afuera)");
+        formModal.classList.add("oculto");
+      }
+    });
+
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        form.reset();
+        formModal.classList.add("oculto");
+      });
+    }
+  } else {
+    console.error("❌ Modal 'formModal' NO encontrado");
   }
-});
 
-// Formulario de Contacto
-document.getElementById("contactForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const formData = new FormData(form);
-  formData.append("formType", "contacto");
+  // ====================================
+  // FORMULARIOS - GOOGLE SHEETS
+  // ====================================
+  
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
+  
+  console.log("🔧 Script URL configurada:", scriptURL);
 
-  try {
-    const response = await fetch(scriptURL, { method: "POST", body: formData });
-    const data = await response.json();
-    form.reset();
-  } catch (err) {
-    console.error(err);
+  async function testConnection() {
+    console.log("🔍 Probando conexión con Google Apps Script...");
+    try {
+      const response = await fetch(scriptURL, { method: "GET" });
+      const text = await response.text();
+      console.log("✅ Respuesta GET:", text);
+    } catch (err) {
+      console.error("❌ Error en conexión:", err);
+    }
   }
-});
 
-// Formulario de Boletín
-document.getElementById("newsletterForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const formData = new FormData(form);
-  formData.append("formType", "boletin");
+  testConnection();
 
-  try {
-    const response = await fetch(scriptURL, { method: "POST", body: formData });
-    const data = await response.json();
-    form.reset();
-  } catch (err) {
-    console.error(err);
+  // =====================================
+  // FORMULARIO DE VOLUNTARIADO
+  // =====================================
+  const formVoluntariado = document.getElementById("voluntarioFormReclutamiento");
+  
+  if (formVoluntariado) {
+    console.log("✅ Formulario de voluntariado encontrado");
+    
+    formVoluntariado.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      console.log("\n========== ENVIANDO VOLUNTARIADO ==========");
+      
+      const formElement = e.target;
+      const formData = new FormData(formElement);
+      formData.append("formType", "voluntariado");
+      
+      console.log("📦 Datos del FormData:");
+      for (let [key, value] of formData.entries()) {
+        console.log(`  ${key}: ${value}`);
+      }
+      
+      console.log("🚀 Enviando a:", scriptURL);
+      
+      try {
+        const response = await fetch(scriptURL, {
+          method: "POST",
+          body: formData,
+          mode: "no-cors"
+        });
+        
+        console.log("📬 Respuesta recibida");
+        console.log("  Status:", response.status);
+        console.log("  Type:", response.type);
+        
+        // SIN ALERTA - Solo resetear y cerrar
+        formElement.reset();
+        
+        if (formModal) {
+          formModal.classList.add("oculto");
+        }
+        
+      } catch (err) {
+        console.error("❌ Error al enviar:");
+        console.error("  Mensaje:", err.message);
+        console.error("  Stack:", err.stack);
+      }
+      
+      console.log("========== FIN VOLUNTARIADO ==========\n");
+    });
+  } else {
+    console.error("❌ Formulario 'voluntarioFormReclutamiento' NO encontrado");
   }
-});
+
+  // =====================================
+  // FORMULARIO DE CONTACTO
+  // =====================================
+  const formContacto = document.getElementById("contactForm");
+  
+  if (formContacto) {
+    console.log("✅ Formulario de contacto encontrado");
+    
+    formContacto.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      console.log("\n========== ENVIANDO CONTACTO ==========");
+      
+      const formElement = e.target;
+      const formData = new FormData(formElement);
+      formData.append("formType", "contacto");
+      
+      console.log("📦 Datos del FormData:");
+      for (let [key, value] of formData.entries()) {
+        console.log(`  ${key}: ${value}`);
+      }
+      
+      console.log("🚀 Enviando a:", scriptURL);
+      
+      try {
+        const response = await fetch(scriptURL, {
+          method: "POST",
+          body: formData,
+          mode: "no-cors"
+        });
+        
+        console.log("📬 Respuesta recibida");
+        console.log("  Status:", response.status);
+        console.log("  Type:", response.type);
+        
+        // SIN ALERTA - Solo resetear
+        formElement.reset();
+        
+      } catch (err) {
+        console.error("❌ Error al enviar:");
+        console.error("  Mensaje:", err.message);
+        console.error("  Stack:", err.stack);
+      }
+      
+      console.log("========== FIN CONTACTO ==========\n");
+    });
+  } else {
+    console.error("❌ Formulario 'contactForm' NO encontrado");
+  }
+
+}); // FIN DOMContentLoaded
+
