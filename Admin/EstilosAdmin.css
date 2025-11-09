@@ -506,6 +506,7 @@ tbody td:last-child {
 }
 
 .modal-form input[type="text"],
+.modal-form input[type="url"],
 .modal-form input[type="date"],
 .modal-form select,
 .modal-form textarea {
@@ -558,6 +559,25 @@ tbody td:last-child {
     display: none;
 }
 
+/* ✅ VISTA PREVIA DE IMÁGENES */
+.image-preview {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    object-fit: cover;
+}
+
 .btn-guardar {
     grid-column: 1 / -1;
     background: linear-gradient(135deg, var(--color-naranja), var(--color-marron));
@@ -604,6 +624,30 @@ tbody td:last-child {
 }
 
 /* ============================================ */
+/* MENSAJES DE ALERTA */
+/* ============================================ */
+
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    animation: slideDown 0.4s ease;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.alert-error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* ============================================ */
 /* RESPONSIVE */
 /* ============================================ */
 
@@ -645,25 +689,12 @@ tbody td:last-child {
     table {
         min-width: 600px;
     }
-}
-
-/* Estilos para mensajes de alerta */
-.alert {
-    padding: 15px 20px;
-    margin-bottom: 25px;
-    border-radius: 10px;
-    font-weight: 600;
-    animation: slideDown 0.4s ease;
-}
-
-.alert-success {
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: white;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-}
-
-.alert-error {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    color: white;
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    
+    .modal-box {
+        padding: 30px 25px;
+    }
+    
+    .image-preview img {
+        max-height: 150px;
+    }
 }

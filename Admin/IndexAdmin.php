@@ -31,7 +31,7 @@ function subirImagen($archivo) {
         return null;
     }
     
-    // ✅ RUTA CORREGIDA: uploads está en la raíz del proyecto
+    // RUTA CORREGIDA: uploads está en la raíz del proyecto
     $carpeta_destino = __DIR__ . '/../uploads/';
     if (!file_exists($carpeta_destino)) {
         mkdir($carpeta_destino, 0777, true);
@@ -42,13 +42,11 @@ function subirImagen($archivo) {
     $ruta_completa = $carpeta_destino . $nombre_archivo;
     
     if (move_uploaded_file($archivo['tmp_name'], $ruta_completa)) {
-        // ✅ RUTA CORREGIDA en BD
         return 'uploads/' . $nombre_archivo;
     }
     
     return null;
 }
-
 
 // ============================================
 // PROCESAMIENTO DE FORMULARIOS
@@ -65,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $modalidad = $_POST['modalidad'] ?? '';
         $categoria = $_POST['categoria'] ?? '';
         $lugar = $_POST['lugar'] ?? '';
+        $link = $_POST['link'] ?? ''; // ✅ NUEVO CAMPO
         
         // Manejar subida de imagen
         $imagen = '';
@@ -72,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $imagen = subirImagen($_FILES['imagen']);
         }
 
-        if ($eventoModel->create($nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen)) {
+        if ($eventoModel->create($nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen, $link)) {
             $mensaje = 'Evento agregado exitosamente';
             $tipo_mensaje = 'success';
         } else {
@@ -89,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $modalidad = $_POST['modalidad'] ?? '';
         $categoria = $_POST['categoria'] ?? '';
         $lugar = $_POST['lugar'] ?? '';
+        $link = $_POST['link'] ?? ''; // ✅ NUEVO CAMPO
         
         // Manejar subida de nueva imagen (opcional en edición)
         $imagen = null;
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $imagen = subirImagen($_FILES['imagen']);
         }
 
-        if ($eventoModel->update($id, $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen)) {
+        if ($eventoModel->update($id, $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen, $link)) {
             $mensaje = 'Evento actualizado exitosamente';
             $tipo_mensaje = 'success';
         } else {
@@ -277,6 +277,7 @@ $noticias = $noticiaModel->getAll();
                                 <th>Categoría</th>
                                 <th>Fecha</th>
                                 <th>Lugar</th>
+                                <th>Link</th>
                                 <th>Imagen</th>
                                 <th>Acciones</th>
                             </tr>
@@ -292,6 +293,7 @@ $noticias = $noticiaModel->getAll();
                                         <td><?php echo htmlspecialchars($evento['categoria']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['fecha']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['lugar']); ?></td>
+                                        <td><?php echo htmlspecialchars($evento['link'] ?? ''); ?></td>
                                         <td><?php echo htmlspecialchars($evento['imagen']); ?></td>
                                         <td class="action-icons">
                                             <a href="#" class="btn-editar-evento" 
@@ -302,6 +304,7 @@ $noticias = $noticiaModel->getAll();
                                                data-modalidad="<?php echo htmlspecialchars($evento['modalidad']); ?>"
                                                data-categoria="<?php echo htmlspecialchars($evento['categoria']); ?>"
                                                data-lugar="<?php echo htmlspecialchars($evento['lugar']); ?>"
+                                               data-link="<?php echo htmlspecialchars($evento['link'] ?? ''); ?>"
                                                data-imagen="<?php echo htmlspecialchars($evento['imagen']); ?>"
                                                title="Editar">
                                                 <img src="../img/inconos/editar.png" alt="Editar">
@@ -316,7 +319,7 @@ $noticias = $noticiaModel->getAll();
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
-                                <tr><td colspan="9">No hay eventos disponibles</td></tr>
+                                <tr><td colspan="10">No hay eventos disponibles</td></tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
@@ -463,13 +466,18 @@ $noticias = $noticiaModel->getAll();
                     <input type="text" name="nombre" id="evento-nombre" required>
                 </div>
                 
+                <!-- ✅ VISTA PREVIA DE IMAGEN -->
                 <div class="form-group">
                     <label for="evento-imagen">Imagen</label>
                     <label for="evento-imagen" class="file-upload-label">
                         <span>📁 Subir imagen</span>
                     </label>
                     <input type="file" name="imagen" id="evento-imagen" class="file-upload-input" accept="image/*">
+                    <div class="image-preview" id="preview-evento" style="display: none;">
+                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                    </div>
                 </div>
+
                 <div class="form-group">
                     <label for="evento-fecha">Fecha</label>
                     <input type="date" name="fecha" id="evento-fecha">
@@ -511,6 +519,12 @@ $noticias = $noticiaModel->getAll();
                     </select>
                 </div>
 
+                <!-- ✅ NUEVO CAMPO LINK -->
+                <div class="form-group-full">
+                    <label for="evento-link">Link del Evento</label>
+                    <input type="url" name="link" id="evento-link" placeholder="https://ejemplo.com/evento">
+                </div>
+
                 <div class="form-group-full">
                     <label for="evento-descripcion">Descripción</label>
                     <textarea name="descripcion" id="evento-descripcion" rows="4" required></textarea>
@@ -535,12 +549,17 @@ $noticias = $noticiaModel->getAll();
                     <label for="curso-nombre">Curso</label>
                     <input type="text" name="curso" id="curso-nombre" required>
                 </div>
+
+                <!-- ✅ VISTA PREVIA DE IMAGEN -->
                 <div class="form-group">
                     <label for="curso-imagen">Imagen</label>
                     <label for="curso-imagen" class="file-upload-label">
                         <span>📁 Subir imagen</span>
                     </label>
                     <input type="file" name="imagen" id="curso-imagen" class="file-upload-input" accept="image/*">
+                    <div class="image-preview" id="preview-educacion" style="display: none;">
+                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                    </div>
                 </div>
                 
                 <div class="form-group">
@@ -585,13 +604,19 @@ $noticias = $noticiaModel->getAll();
                     <label for="noticia-titulo">Título</label>
                     <input type="text" name="titulo" id="noticia-titulo" required>
                 </div>
+
+                <!-- ✅ VISTA PREVIA DE IMAGEN -->
                 <div class="form-group-full">
                     <label for="noticia-imagen">Imagen</label>
                     <label for="noticia-imagen" class="file-upload-label">
                         <span>📁 Subir imagen</span>
                     </label>
                     <input type="file" name="imagen" id="noticia-imagen" class="file-upload-input" accept="image/*">
+                    <div class="image-preview" id="preview-noticia" style="display: none;">
+                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                    </div>
                 </div>
+
                 <div class="form-group-full">
                     <label for="noticia-fecha">Fecha</label>
                     <input type="date" name="fecha" id="noticia-fecha">

@@ -38,34 +38,43 @@ class EventoModel_mysqli {
         }
         return $eventos;
     }
-    // Crear evento
-    public function create($nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen) {
+
+    // ✅ CREAR EVENTO - ACTUALIZADO CON CAMPO LINK
+    public function create($nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen, $link = '') {
         $fecha = date('Y-m-d');
-        $sql = "INSERT INTO {$this->table} (nombre, descripcion, comunidad, fecha, modalidad, categoria, lugar, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO {$this->table} (nombre, descripcion, comunidad, fecha, modalidad, categoria, lugar, imagen, link) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return false;
-        $stmt->bind_param('ssssssss', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen);
+        $stmt->bind_param('sssssssss', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link);
         return $stmt->execute();
     }
 
-    // Actualizar por ID
-    public function update($id, $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen = null) {
-      if($imagen !== null) {
-        $sql = "UPDATE {$this->table} SET nombre = ?, descripcion = ?, comunidad = ?, modalidad = ?, categoria = ?, lugar = ?, imagen = ? WHERE id_Evento = ?";
-        $stmt = $this->mysqli->prepare($sql);
-        if (!$stmt)
-            return false;
-        $stmt->bind_param('sssssssi', $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen, $id);
-      }else {
-        $sql = "UPDATE {$this->table} SET nombre = ?, descripcion = ?, comunidad = ?, modalidad = ?, categoria = ?, lugar = ? WHERE id_Evento = ?";
-        $stmt = $this->mysqli->prepare($sql);
-        if (!$stmt)
-            return false;
-        $stmt->bind_param('ssssssi', $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $id);
-      }
-      return $stmt->execute();
+    // ✅ ACTUALIZAR EVENTO - ACTUALIZADO CON CAMPO LINK
+    public function update($id, $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen = null, $link = '') {
+        if($imagen !== null) {
+            // Si hay imagen nueva, actualizar todo incluyendo imagen y link
+            $sql = "UPDATE {$this->table} 
+                    SET nombre = ?, descripcion = ?, comunidad = ?, modalidad = ?, categoria = ?, lugar = ?, imagen = ?, link = ? 
+                    WHERE id_Evento = ?";
+            $stmt = $this->mysqli->prepare($sql);
+            if (!$stmt)
+                return false;
+            $stmt->bind_param('ssssssssi', $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen, $link, $id);
+        } else {
+            // Si NO hay imagen nueva, actualizar todo excepto imagen, pero sí el link
+            $sql = "UPDATE {$this->table} 
+                    SET nombre = ?, descripcion = ?, comunidad = ?, modalidad = ?, categoria = ?, lugar = ?, link = ? 
+                    WHERE id_Evento = ?";
+            $stmt = $this->mysqli->prepare($sql);
+            if (!$stmt)
+                return false;
+            $stmt->bind_param('sssssssi', $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $link, $id);
+        }
+        return $stmt->execute();
     }
+
     // Eliminar por ID
     public function delete($id) {
         $sql = "DELETE FROM {$this->table} WHERE id_Evento = ?";
@@ -75,9 +84,10 @@ class EventoModel_mysqli {
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+
     // Obtener evento por ID
     public function getById($id) {
-        $sql =  "SELECT * FROM {$this->table} WHERE id_Evento = ?";
+        $sql = "SELECT * FROM {$this->table} WHERE id_Evento = ?";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return null;
