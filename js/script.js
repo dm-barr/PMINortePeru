@@ -102,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // CARRUSEL DE JUNTA DIRECTIVA
+  // CARRUSEL DE JUNTA DIRECTIVA
   const track = document.querySelector(".carousel-track");
   const nextBtn = document.querySelector(".next-btn");
   const prevBtn = document.querySelector(".prev-btn");
@@ -109,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (track && nextBtn && prevBtn && dotsContainer) {
     const slides = Array.from(track.children);
+    let currentSlide = 0;
 
     function getSlidesPerView() {
       const width = window.innerWidth;
@@ -117,104 +119,118 @@ document.addEventListener("DOMContentLoaded", function () {
       return 1;
     }
 
-    let currentIndex = 0;
     let slidesPerView = getSlidesPerView();
-    const totalDots = Math.ceil(slides.length / slidesPerView);
+    const totalSlides = slides.length;
 
-    // Crear dots
-    for (let i = 0; i < totalDots; i++) {
-      const dot = document.createElement("div");
-      dot.classList.add("carousel-dot");
-      if (i === 0) dot.classList.add("active");
-      dotsContainer.appendChild(dot);
+    // Calcular cantidad de "páginas"
+    function getTotalDots() {
+      return Math.ceil(totalSlides / slidesPerView);
     }
 
-    const dots = Array.from(dotsContainer.children);
+    let totalDots = getTotalDots();
 
-    // Función para actualizar el carrusel Y centrar la carta
+    // Crear dots
+    function createDots() {
+      dotsContainer.innerHTML = "";
+      totalDots = getTotalDots();
+      for (let i = 0; i < totalDots; i++) {
+        const dot = document.createElement("div");
+        dot.classList.add("carousel-dot");
+        if (i === 0) dot.classList.add("active");
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    createDots();
+    const getDots = () => Array.from(dotsContainer.children);
+
+    // Función para actualizar el carrusel
     function updateCarousel() {
       const slideWidth = slides[0].getBoundingClientRect().width;
       const gap = 24;
-      const moveAmount = -(currentIndex * (slideWidth + gap) * slidesPerView);
+
+      // Mover el track basado en el slide actual
+      const moveAmount = -(currentSlide * (slideWidth + gap));
       track.style.transform = `translateX(${moveAmount}px)`;
 
-      // Actualizar dots
-      dots.forEach((dot) => dot.classList.remove("active"));
-      if (dots[currentIndex]) {
-        dots[currentIndex].classList.add("active");
-      }
+      // Calcular qué dot debe estar activo
+      const activeDotIndex = Math.floor(currentSlide / slidesPerView);
 
-      // CENTRAR la carta actual en pantallas móviles
-      if (window.innerWidth < 1024) {
-        const currentSlide = slides[currentIndex * slidesPerView];
-        if (currentSlide) {
-          currentSlide.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-            inline: "center",
-          });
-        }
-      }
+      // Actualizar dots
+      getDots().forEach((dot, index) => {
+        dot.classList.toggle("active", index === activeDotIndex);
+      });
     }
 
     // Botón siguiente
     nextBtn.addEventListener("click", () => {
-      if (currentIndex < totalDots - 1) {
-        currentIndex++;
+      if (currentSlide < totalSlides - slidesPerView) {
+        currentSlide++;
       } else {
-        currentIndex = 0;
+        currentSlide = 0;
       }
       updateCarousel();
     });
 
     // Botón anterior
     prevBtn.addEventListener("click", () => {
-      if (currentIndex > 0) {
-        currentIndex--;
+      if (currentSlide > 0) {
+        currentSlide--;
       } else {
-        currentIndex = totalDots - 1;
+        currentSlide = totalSlides - slidesPerView;
       }
       updateCarousel();
     });
 
     // Click en dots
-    dots.forEach((dot, index) => {
-      dot.addEventListener("click", () => {
-        currentIndex = index;
-        updateCarousel();
-      });
+    dotsContainer.addEventListener("click", (e) => {
+      if (e.target.classList.contains("carousel-dot")) {
+        const index = getDots().indexOf(e.target);
+        if (index !== -1) {
+          currentSlide = index * slidesPerView;
+          updateCarousel();
+        }
+      }
     });
 
     // Resize
     window.addEventListener("resize", () => {
+      const oldSlidesPerView = slidesPerView;
       slidesPerView = getSlidesPerView();
+
+      if (oldSlidesPerView !== slidesPerView) {
+        currentSlide = 0;
+        createDots();
+      }
+
       updateCarousel();
     });
 
     // Touch swipe
     let startX = 0;
+    let isDragging = false;
+
     track.addEventListener("touchstart", (e) => {
       startX = e.touches[0].clientX;
+      isDragging = true;
     });
 
     track.addEventListener("touchend", (e) => {
+      if (!isDragging) return;
+
       const endX = e.changedTouches[0].clientX;
       const diff = startX - endX;
 
       if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          // Swipe left
-          if (currentIndex < totalDots - 1) {
-            currentIndex++;
-          }
-        } else if (diff < 0) {
-          // Swipe right
-          if (currentIndex > 0) {
-            currentIndex--;
-          }
+        if (diff > 0 && currentSlide < totalSlides - slidesPerView) {
+          currentSlide++;
+        } else if (diff < 0 && currentSlide > 0) {
+          currentSlide--;
         }
         updateCarousel();
       }
+
+      isDragging = false;
     });
   }
 
