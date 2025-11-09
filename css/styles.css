@@ -1454,6 +1454,23 @@ body {
     }
 }
 
+/* SCROLL SNAP PARA CARRUSEL EN MÓVIL */
+@media (max-width: 1024px) {
+    .carousel-track {
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .card-miembro {
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+    
+    .carousel-wrapper {
+        scroll-padding: 0 50px;
+    }
+}
+
 
 .carousel-btn {
     position: absolute;

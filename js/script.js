@@ -101,9 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // =====================================
   // CARRUSEL DE JUNTA DIRECTIVA
-  // =====================================
   const track = document.querySelector(".carousel-track");
   const nextBtn = document.querySelector(".next-btn");
   const prevBtn = document.querySelector(".prev-btn");
@@ -121,8 +119,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let currentIndex = 0;
     let slidesPerView = getSlidesPerView();
-
     const totalDots = Math.ceil(slides.length / slidesPerView);
+
+    // Crear dots
     for (let i = 0; i < totalDots; i++) {
       const dot = document.createElement("div");
       dot.classList.add("carousel-dot");
@@ -132,16 +131,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const dots = Array.from(dotsContainer.children);
 
+    // Función para actualizar el carrusel Y centrar la carta
     function updateCarousel() {
       const slideWidth = slides[0].getBoundingClientRect().width;
       const gap = 24;
       const moveAmount = -(currentIndex * (slideWidth + gap) * slidesPerView);
       track.style.transform = `translateX(${moveAmount}px)`;
 
+      // Actualizar dots
       dots.forEach((dot) => dot.classList.remove("active"));
-      if (dots[currentIndex]) dots[currentIndex].classList.add("active");
+      if (dots[currentIndex]) {
+        dots[currentIndex].classList.add("active");
+      }
+
+      // CENTRAR la carta actual en pantallas móviles
+      if (window.innerWidth < 1024) {
+        const currentSlide = slides[currentIndex * slidesPerView];
+        if (currentSlide) {
+          currentSlide.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "center",
+          });
+        }
+      }
     }
 
+    // Botón siguiente
     nextBtn.addEventListener("click", () => {
       if (currentIndex < totalDots - 1) {
         currentIndex++;
@@ -151,6 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
       updateCarousel();
     });
 
+    // Botón anterior
     prevBtn.addEventListener("click", () => {
       if (currentIndex > 0) {
         currentIndex--;
@@ -160,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
       updateCarousel();
     });
 
+    // Click en dots
     dots.forEach((dot, index) => {
       dot.addEventListener("click", () => {
         currentIndex = index;
@@ -167,11 +185,13 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
+    // Resize
     window.addEventListener("resize", () => {
       slidesPerView = getSlidesPerView();
       updateCarousel();
     });
 
+    // Touch swipe
     let startX = 0;
     track.addEventListener("touchstart", (e) => {
       startX = e.touches[0].clientX;
@@ -180,11 +200,18 @@ document.addEventListener("DOMContentLoaded", function () {
     track.addEventListener("touchend", (e) => {
       const endX = e.changedTouches[0].clientX;
       const diff = startX - endX;
+
       if (Math.abs(diff) > 50) {
-        if (diff > 0 && currentIndex < totalDots - 1) {
-          currentIndex++;
-        } else if (diff < 0 && currentIndex > 0) {
-          currentIndex--;
+        if (diff > 0) {
+          // Swipe left
+          if (currentIndex < totalDots - 1) {
+            currentIndex++;
+          }
+        } else if (diff < 0) {
+          // Swipe right
+          if (currentIndex > 0) {
+            currentIndex--;
+          }
         }
         updateCarousel();
       }
@@ -273,129 +300,128 @@ document.addEventListener("DOMContentLoaded", function () {
 
   testConnection();
 
-// =====================================
-// FORMULARIO DE VOLUNTARIADO
-// =====================================
-const formVoluntariado = document.getElementById("voluntarioFormReclutamiento");
+  // =====================================
+  // FORMULARIO DE VOLUNTARIADO
+  // =====================================
+  const formVoluntariado = document.getElementById(
+    "voluntarioFormReclutamiento"
+  );
 
-if (formVoluntariado) {
-  console.log("✅ Formulario de voluntariado encontrado");
-  
-  formVoluntariado.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    console.log("\n========== ENVIANDO VOLUNTARIADO ==========");
-    
-    // Verificar CAPTCHA (índice 0 para el primer captcha)
-    const captchaResponse = grecaptcha.getResponse(0);
-    if (!captchaResponse) {
-      alert('⚠️ Por favor, completa la verificación CAPTCHA.');
-      return;
-    }
-    
-    const formElement = e.target;
-    const formData = new FormData(formElement);
-    formData.append("formType", "voluntariado");
-    formData.append("g-recaptcha-response", captchaResponse);
-    
-    console.log("📦 Datos del FormData:");
-    for (let [key, value] of formData.entries()) {
-      console.log(` ${key}: ${value}`);
-    }
-    
-    console.log("🚀 Enviando a:", scriptURL);
-    
-    try {
-      const response = await fetch(scriptURL, {
-        method: "POST",
-        body: formData,
-        mode: "no-cors",
-      });
-      
-      console.log("📬 Respuesta recibida");
-      console.log(" Status:", response.status);
-      console.log(" Type:", response.type);
-      
-      alert('✅ Formulario enviado exitosamente');
-      
-      // Resetear formulario y cerrar modal
-      formElement.reset();
-      grecaptcha.reset(0); // Resetear el primer captcha
-      if (formModal) {
-        formModal.classList.add("oculto");
+  if (formVoluntariado) {
+    console.log("✅ Formulario de voluntariado encontrado");
+
+    formVoluntariado.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      console.log("\n========== ENVIANDO VOLUNTARIADO ==========");
+
+      // Verificar CAPTCHA (índice 0 para el primer captcha)
+      const captchaResponse = grecaptcha.getResponse(0);
+      if (!captchaResponse) {
+        alert("⚠️ Por favor, completa la verificación CAPTCHA.");
+        return;
       }
-      
-    } catch (err) {
-      console.error("❌ Error al enviar:");
-      console.error(" Mensaje:", err.message);
-      console.error(" Stack:", err.stack);
-      alert('❌ Error al enviar. Inténtalo nuevamente.');
-    }
-    
-    console.log("========== FIN VOLUNTARIADO ==========\n");
-  });
-} else {
-  console.error("❌ Formulario 'voluntarioFormReclutamiento' NO encontrado");
-}
 
-// =====================================
-// FORMULARIO DE CONTACTO
-// =====================================
-const formContacto = document.getElementById("contactForm");
+      const formElement = e.target;
+      const formData = new FormData(formElement);
+      formData.append("formType", "voluntariado");
+      formData.append("g-recaptcha-response", captchaResponse);
 
-if (formContacto) {
-  console.log("✅ Formulario de contacto encontrado");
-  
-  formContacto.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    console.log("\n========== ENVIANDO CONTACTO ==========");
-    
-    // Verificar CAPTCHA (índice 1 para el segundo captcha)
-    const captchaResponse = grecaptcha.getResponse(1);
-    if (!captchaResponse) {
-      alert('⚠️ Por favor, completa la verificación CAPTCHA.');
-      return;
-    }
-    
-    const formElement = e.target;
-    const formData = new FormData(formElement);
-    formData.append("formType", "contacto");
-    formData.append("g-recaptcha-response", captchaResponse);
-    
-    console.log("📦 Datos del FormData:");
-    for (let [key, value] of formData.entries()) {
-      console.log(` ${key}: ${value}`);
-    }
-    
-    console.log("🚀 Enviando a:", scriptURL);
-    
-    try {
-      const response = await fetch(scriptURL, {
-        method: "POST",
-        body: formData,
-        mode: "no-cors",
-      });
-      
-      console.log("📬 Respuesta recibida");
-      console.log(" Status:", response.status);
-      console.log(" Type:", response.type);
-      
-      alert('✅ Mensaje enviado exitosamente');
-      
-      // Resetear formulario
-      formElement.reset();
-      grecaptcha.reset(1); // Resetear el segundo captcha
-      
-    } catch (err) {
-      console.error("❌ Error al enviar:");
-      console.error(" Mensaje:", err.message);
-      console.error(" Stack:", err.stack);
-      alert('❌ Error al enviar. Inténtalo nuevamente.');
-    }
-    
-    console.log("========== FIN CONTACTO ==========\n");
-  });
-} else {
-  console.error("❌ Formulario 'contactForm' NO encontrado");
-}
+      console.log("📦 Datos del FormData:");
+      for (let [key, value] of formData.entries()) {
+        console.log(` ${key}: ${value}`);
+      }
 
+      console.log("🚀 Enviando a:", scriptURL);
+
+      try {
+        const response = await fetch(scriptURL, {
+          method: "POST",
+          body: formData,
+          mode: "no-cors",
+        });
+
+        console.log("📬 Respuesta recibida");
+        console.log(" Status:", response.status);
+        console.log(" Type:", response.type);
+
+        alert("✅ Formulario enviado exitosamente");
+
+        // Resetear formulario y cerrar modal
+        formElement.reset();
+        grecaptcha.reset(0); // Resetear el primer captcha
+        if (formModal) {
+          formModal.classList.add("oculto");
+        }
+      } catch (err) {
+        console.error("❌ Error al enviar:");
+        console.error(" Mensaje:", err.message);
+        console.error(" Stack:", err.stack);
+        alert("❌ Error al enviar. Inténtalo nuevamente.");
+      }
+
+      console.log("========== FIN VOLUNTARIADO ==========\n");
+    });
+  } else {
+    console.error("❌ Formulario 'voluntarioFormReclutamiento' NO encontrado");
+  }
+
+  // =====================================
+  // FORMULARIO DE CONTACTO
+  // =====================================
+  const formContacto = document.getElementById("contactForm");
+
+  if (formContacto) {
+    console.log("✅ Formulario de contacto encontrado");
+
+    formContacto.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      console.log("\n========== ENVIANDO CONTACTO ==========");
+
+      // Verificar CAPTCHA (índice 1 para el segundo captcha)
+      const captchaResponse = grecaptcha.getResponse(1);
+      if (!captchaResponse) {
+        alert("⚠️ Por favor, completa la verificación CAPTCHA.");
+        return;
+      }
+
+      const formElement = e.target;
+      const formData = new FormData(formElement);
+      formData.append("formType", "contacto");
+      formData.append("g-recaptcha-response", captchaResponse);
+
+      console.log("📦 Datos del FormData:");
+      for (let [key, value] of formData.entries()) {
+        console.log(` ${key}: ${value}`);
+      }
+
+      console.log("🚀 Enviando a:", scriptURL);
+
+      try {
+        const response = await fetch(scriptURL, {
+          method: "POST",
+          body: formData,
+          mode: "no-cors",
+        });
+
+        console.log("📬 Respuesta recibida");
+        console.log(" Status:", response.status);
+        console.log(" Type:", response.type);
+
+        alert("✅ Mensaje enviado exitosamente");
+
+        // Resetear formulario
+        formElement.reset();
+        grecaptcha.reset(1); // Resetear el segundo captcha
+      } catch (err) {
+        console.error("❌ Error al enviar:");
+        console.error(" Mensaje:", err.message);
+        console.error(" Stack:", err.stack);
+        alert("❌ Error al enviar. Inténtalo nuevamente.");
+      }
+
+      console.log("========== FIN CONTACTO ==========\n");
+    });
+  } else {
+    console.error("❌ Formulario 'contactForm' NO encontrado");
+  }
 });
