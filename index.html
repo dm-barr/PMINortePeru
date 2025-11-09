@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Coloca esto dentro de la etiqueta <head> -->
     <link rel="icon" href="img/logo/icono.png" type="image/x-icon">
-
+    <!-- Script de reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -467,6 +468,8 @@
                 <label for="mensaje">¿Por qué te gustaría participar?</label>
                 <textarea id="mensaje" name="message" rows="4"></textarea>
 
+                <div class="g-recaptcha" data-sitekey="6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta"></div>
+
                 <div class="form-buttons">
                     <button type="submit" class="btn-vol btn-azul">Enviar</button>
                     <button type="button" class="btn-vol btn-blanco" id="btnCerrarForm">Cancelar</button>
@@ -541,6 +544,8 @@
 
                     <label for="mensaje">Mensaje</label>
                     <textarea id="mensaje" name="message" rows="4"></textarea>
+
+                    <div class="g-recaptcha" data-sitekey="6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta"></div>
 
                     <div class="check-group">
                         <label class="lbl-tc">

@@ -273,115 +273,129 @@ document.addEventListener("DOMContentLoaded", function () {
 
   testConnection();
 
-  // =====================================
-  // FORMULARIO DE VOLUNTARIADO
-  // =====================================
-  const formVoluntariado = document.getElementById(
-    "voluntarioFormReclutamiento"
-  );
+// =====================================
+// FORMULARIO DE VOLUNTARIADO
+// =====================================
+const formVoluntariado = document.getElementById("voluntarioFormReclutamiento");
 
-  if (formVoluntariado) {
-    console.log("✅ Formulario de voluntariado encontrado");
-
-    formVoluntariado.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      console.log("\n========== ENVIANDO VOLUNTARIADO ==========");
-
-      const formElement = e.target;
-      const formData = new FormData(formElement);
-      formData.append("formType", "voluntariado");
-
-      console.log("📦 Datos del FormData:");
-      for (let [key, value] of formData.entries()) {
-        console.log(`  ${key}: ${value}`);
+if (formVoluntariado) {
+  console.log("✅ Formulario de voluntariado encontrado");
+  
+  formVoluntariado.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    console.log("\n========== ENVIANDO VOLUNTARIADO ==========");
+    
+    // Verificar CAPTCHA (índice 0 para el primer captcha)
+    const captchaResponse = grecaptcha.getResponse(0);
+    if (!captchaResponse) {
+      alert('⚠️ Por favor, completa la verificación CAPTCHA.');
+      return;
+    }
+    
+    const formElement = e.target;
+    const formData = new FormData(formElement);
+    formData.append("formType", "voluntariado");
+    formData.append("g-recaptcha-response", captchaResponse);
+    
+    console.log("📦 Datos del FormData:");
+    for (let [key, value] of formData.entries()) {
+      console.log(` ${key}: ${value}`);
+    }
+    
+    console.log("🚀 Enviando a:", scriptURL);
+    
+    try {
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors",
+      });
+      
+      console.log("📬 Respuesta recibida");
+      console.log(" Status:", response.status);
+      console.log(" Type:", response.type);
+      
+      alert('✅ Formulario enviado exitosamente');
+      
+      // Resetear formulario y cerrar modal
+      formElement.reset();
+      grecaptcha.reset(0); // Resetear el primer captcha
+      if (formModal) {
+        formModal.classList.add("oculto");
       }
-
-      console.log("🚀 Enviando a:", scriptURL);
-
-      try {
-        const response = await fetch(scriptURL, {
-          method: "POST",
-          body: formData,
-          mode: "no-cors",
-        });
-
-        console.log("📬 Respuesta recibida");
-        console.log("  Status:", response.status);
-        console.log("  Type:", response.type);
-
-        // SIN ALERTA - Solo resetear y cerrar
-        formElement.reset();
-
-        if (formModal) {
-          formModal.classList.add("oculto");
-        }
-      } catch (err) {
-        console.error("❌ Error al enviar:");
-        console.error("  Mensaje:", err.message);
-        console.error("  Stack:", err.stack);
-      }
-
-      console.log("========== FIN VOLUNTARIADO ==========\n");
-    });
-  } else {
-    console.error("❌ Formulario 'voluntarioFormReclutamiento' NO encontrado");
-  }
-
-  // =====================================
-  // FORMULARIO DE CONTACTO
-  // =====================================
-  const formContacto = document.getElementById("contactForm");
-
-  if (formContacto) {
-    console.log("✅ Formulario de contacto encontrado");
-
-    formContacto.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      console.log("\n========== ENVIANDO CONTACTO ==========");
-
-      const formElement = e.target;
-      const formData = new FormData(formElement);
-      formData.append("formType", "contacto");
-
-      console.log("📦 Datos del FormData:");
-      for (let [key, value] of formData.entries()) {
-        console.log(`  ${key}: ${value}`);
-      }
-
-      console.log("🚀 Enviando a:", scriptURL);
-
-      try {
-        const response = await fetch(scriptURL, {
-          method: "POST",
-          body: formData,
-          mode: "no-cors",
-        });
-
-        console.log("📬 Respuesta recibida");
-        console.log("  Status:", response.status);
-        console.log("  Type:", response.type);
-
-        // SIN ALERTA - Solo resetear
-        formElement.reset();
-      } catch (err) {
-        console.error("❌ Error al enviar:");
-        console.error("  Mensaje:", err.message);
-        console.error("  Stack:", err.stack);
-      }
-
-      console.log("========== FIN CONTACTO ==========\n");
-    });
-  } else {
-    console.error("❌ Formulario 'contactForm' NO encontrado");
-  }
-}); // FIN DOMContentLoaded
-
-document.addEventListener("DOMContentLoaded", function () {
-  const menuToggle = document.querySelector(".menu-toggle");
-  const menuLinks = document.querySelectorAll(".menu a");
-  menuLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      menuToggle.checked = false;
-    });
+      
+    } catch (err) {
+      console.error("❌ Error al enviar:");
+      console.error(" Mensaje:", err.message);
+      console.error(" Stack:", err.stack);
+      alert('❌ Error al enviar. Inténtalo nuevamente.');
+    }
+    
+    console.log("========== FIN VOLUNTARIADO ==========\n");
   });
+} else {
+  console.error("❌ Formulario 'voluntarioFormReclutamiento' NO encontrado");
+}
+
+// =====================================
+// FORMULARIO DE CONTACTO
+// =====================================
+const formContacto = document.getElementById("contactForm");
+
+if (formContacto) {
+  console.log("✅ Formulario de contacto encontrado");
+  
+  formContacto.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    console.log("\n========== ENVIANDO CONTACTO ==========");
+    
+    // Verificar CAPTCHA (índice 1 para el segundo captcha)
+    const captchaResponse = grecaptcha.getResponse(1);
+    if (!captchaResponse) {
+      alert('⚠️ Por favor, completa la verificación CAPTCHA.');
+      return;
+    }
+    
+    const formElement = e.target;
+    const formData = new FormData(formElement);
+    formData.append("formType", "contacto");
+    formData.append("g-recaptcha-response", captchaResponse);
+    
+    console.log("📦 Datos del FormData:");
+    for (let [key, value] of formData.entries()) {
+      console.log(` ${key}: ${value}`);
+    }
+    
+    console.log("🚀 Enviando a:", scriptURL);
+    
+    try {
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors",
+      });
+      
+      console.log("📬 Respuesta recibida");
+      console.log(" Status:", response.status);
+      console.log(" Type:", response.type);
+      
+      alert('✅ Mensaje enviado exitosamente');
+      
+      // Resetear formulario
+      formElement.reset();
+      grecaptcha.reset(1); // Resetear el segundo captcha
+      
+    } catch (err) {
+      console.error("❌ Error al enviar:");
+      console.error(" Mensaje:", err.message);
+      console.error(" Stack:", err.stack);
+      alert('❌ Error al enviar. Inténtalo nuevamente.');
+    }
+    
+    console.log("========== FIN CONTACTO ==========\n");
+  });
+} else {
+  console.error("❌ Formulario 'contactForm' NO encontrado");
+}
+
 });
