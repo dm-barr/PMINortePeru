@@ -1299,110 +1299,126 @@ body {
     color: #999;
 }
 
+
 /* RESPONSIVE - JUNTA DIRECTIVA */
 @media (max-width: 768px) {
-    .card-miembro {
-        min-width: 280px;
-        flex: 0 0 280px;
-        padding: 16px;
-    }
-    
-    .foto-miembro {
-        height: 320px; /* Reducido de 380px */
-        object-fit: cover;
-        object-position: center 20%; /* Enfoca en la parte superior (rostro) */
-    }
-    
-    .cargo-badge {
-        font-size: 0.75em;
-        padding: 5px 10px;
-        margin-bottom: 10px;
-    }
-    
-    .card-miembro h3 {
-        font-size: 1em;
-        margin-bottom: 8px;
-    }
-    
-    .redes-miembro {
-        margin-top: 10px;
-    }
-    
-    .redes-miembro a {
-        width: 32px;
-        height: 32px;
-        font-size: 0.85rem;
-    }
+  .card-miembro {
+    min-width: 280px;
+    flex: 0 0 280px;
+    padding: 16px;
+  }
+
+  .foto-miembro {
+    height: auto; /* Cambiado de 350px */
+    aspect-ratio: 3 / 4; /* Mantiene proporción sin cortar */
+  }
+
+  .foto-miembro img {
+    object-fit: cover;
+    object-position: center top; /* Prioriza rostro */
+  }
+
+  .cargo-badge {
+    font-size: 0.75em;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+  }
+
+  .card-miembro h3 {
+    font-size: 1em;
+    margin-bottom: 8px;
+  }
+
+  .redes-miembro {
+    margin-top: 10px;
+  }
+
+  .redes-miembro a {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .card-miembro {
-        min-width: 260px;
-        flex: 0 0 260px;
-        padding: 14px;
-    }
-    
-    .foto-miembro {
-        height: 280px; /* Reducido de 340px */
-        object-fit: cover;
-        object-position: center 15%; /* Mejor enfoque en rostros */
-    }
-    
-    .cargo-badge {
-        font-size: 0.7em;
-        padding: 4px 10px;
-    }
-    
-    .card-miembro h3 {
-        font-size: 0.95em;
-    }
-    
-    .card-miembro p {
-        font-size: 0.8em;
-    }
-    
-    .redes-miembro a {
-        width: 30px;
-        height: 30px;
-        font-size: 0.8rem;
-    }
+  .card-miembro {
+    min-width: 260px;
+    flex: 0 0 260px;
+    padding: 14px;
+  }
+
+  .foto-miembro {
+    height: auto; /* Cambiado de 320px */
+    aspect-ratio: 3 / 4; /* Proporción 3:4 */
+  }
+
+  .foto-miembro img {
+    object-fit: cover;
+    object-position: center 20%; /* Enfoca mejor el rostro */
+  }
+
+  .cargo-badge {
+    font-size: 0.7em;
+    padding: 4px 10px;
+  }
+
+  .card-miembro h3 {
+    font-size: 0.95em;
+  }
+
+  .card-miembro p {
+    font-size: 0.8em;
+  }
+
+  .redes-miembro a {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 360px) {
-    .card-miembro {
-        min-width: 240px;
-        flex: 0 0 240px;
-        padding: 12px;
-    }
-    
-    .foto-miembro {
-        height: 260px; /* Reducido de 320px */
-        object-fit: cover;
-        object-position: center 15%;
-    }
-    
-    .cargo-badge {
-        font-size: 0.65em;
-        padding: 4px 8px;
-        margin-bottom: 8px;
-    }
-    
-    .card-miembro h3 {
-        font-size: 0.9em;
-        margin-bottom: 6px;
-    }
-    
-    .card-miembro p {
-        font-size: 0.75em;
-        margin-bottom: 8px;
-    }
-    
-    .redes-miembro a {
-        width: 28px;
-        height: 28px;
-        font-size: 0.75rem;
-    }
+  .card-miembro {
+    min-width: 240px;
+    flex: 0 0 240px;
+    padding: 12px;
+  }
+
+  .foto-miembro {
+    height: auto; /* Cambiado de 300px */
+    aspect-ratio: 3 / 4;
+  }
+
+  .foto-miembro img {
+    object-fit: cover;
+    object-position: center 15%;
+  }
+
+  .cargo-badge {
+    font-size: 0.65em;
+    padding: 4px 8px;
+    margin-bottom: 8px;
+  }
+
+  .card-miembro h3 {
+    font-size: 0.9em;
+    margin-bottom: 6px;
+  }
+
+  .card-miembro p {
+    font-size: 0.75em;
+    margin-bottom: 8px;
+  }
+
+  .redes-miembro a {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
 }
+
+
+
 
 /* Ajustes para el carousel wrapper en móvil */
 @media (max-width: 768px) {
