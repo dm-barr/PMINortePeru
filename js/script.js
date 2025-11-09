@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (formModal) {
     console.log("✅ Modal encontrado");
-    
+
     formModal.classList.add("oculto");
 
     if (btnInscribirse) {
@@ -254,9 +254,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // ====================================
   // FORMULARIOS - GOOGLE SHEETS
   // ====================================
-  
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
-  
+
+  const scriptURL =
+    "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
+
   console.log("🔧 Script URL configurada:", scriptURL);
 
   async function testConnection() {
@@ -275,50 +276,51 @@ document.addEventListener("DOMContentLoaded", function () {
   // =====================================
   // FORMULARIO DE VOLUNTARIADO
   // =====================================
-  const formVoluntariado = document.getElementById("voluntarioFormReclutamiento");
-  
+  const formVoluntariado = document.getElementById(
+    "voluntarioFormReclutamiento"
+  );
+
   if (formVoluntariado) {
     console.log("✅ Formulario de voluntariado encontrado");
-    
+
     formVoluntariado.addEventListener("submit", async (e) => {
       e.preventDefault();
       console.log("\n========== ENVIANDO VOLUNTARIADO ==========");
-      
+
       const formElement = e.target;
       const formData = new FormData(formElement);
       formData.append("formType", "voluntariado");
-      
+
       console.log("📦 Datos del FormData:");
       for (let [key, value] of formData.entries()) {
         console.log(`  ${key}: ${value}`);
       }
-      
+
       console.log("🚀 Enviando a:", scriptURL);
-      
+
       try {
         const response = await fetch(scriptURL, {
           method: "POST",
           body: formData,
-          mode: "no-cors"
+          mode: "no-cors",
         });
-        
+
         console.log("📬 Respuesta recibida");
         console.log("  Status:", response.status);
         console.log("  Type:", response.type);
-        
+
         // SIN ALERTA - Solo resetear y cerrar
         formElement.reset();
-        
+
         if (formModal) {
           formModal.classList.add("oculto");
         }
-        
       } catch (err) {
         console.error("❌ Error al enviar:");
         console.error("  Mensaje:", err.message);
         console.error("  Stack:", err.stack);
       }
-      
+
       console.log("========== FIN VOLUNTARIADO ==========\n");
     });
   } else {
@@ -329,50 +331,57 @@ document.addEventListener("DOMContentLoaded", function () {
   // FORMULARIO DE CONTACTO
   // =====================================
   const formContacto = document.getElementById("contactForm");
-  
+
   if (formContacto) {
     console.log("✅ Formulario de contacto encontrado");
-    
+
     formContacto.addEventListener("submit", async (e) => {
       e.preventDefault();
       console.log("\n========== ENVIANDO CONTACTO ==========");
-      
+
       const formElement = e.target;
       const formData = new FormData(formElement);
       formData.append("formType", "contacto");
-      
+
       console.log("📦 Datos del FormData:");
       for (let [key, value] of formData.entries()) {
         console.log(`  ${key}: ${value}`);
       }
-      
+
       console.log("🚀 Enviando a:", scriptURL);
-      
+
       try {
         const response = await fetch(scriptURL, {
           method: "POST",
           body: formData,
-          mode: "no-cors"
+          mode: "no-cors",
         });
-        
+
         console.log("📬 Respuesta recibida");
         console.log("  Status:", response.status);
         console.log("  Type:", response.type);
-        
+
         // SIN ALERTA - Solo resetear
         formElement.reset();
-        
       } catch (err) {
         console.error("❌ Error al enviar:");
         console.error("  Mensaje:", err.message);
         console.error("  Stack:", err.stack);
       }
-      
+
       console.log("========== FIN CONTACTO ==========\n");
     });
   } else {
     console.error("❌ Formulario 'contactForm' NO encontrado");
   }
-
 }); // FIN DOMContentLoaded
 
+document.addEventListener("DOMContentLoaded", function () {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const menuLinks = document.querySelectorAll(".menu a");
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      menuToggle.checked = false;
+    });
+  });
+});

@@ -28,6 +28,7 @@ $educaciones = $educacionModel->getAll();
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" href="img/logo/icono.png" type="image/x-icon">
 </head>
 
 <body>
@@ -51,103 +52,105 @@ $educaciones = $educacionModel->getAll();
     <!-- 🔹 NAVBAR -->
     <header class="navbar">
         <div class="nav-container">
-            <img src="img/logo/logo_PMI.png" alt="Logo PMI Norte Perú" class="logo">
-            <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="menu-icon">☰</label>
-            <nav id="nav_menu">
-                <ul class="menu">
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#nosotros">Nosotros ▾</a></li>
-                    <li><a href="#membresia">Membresía ▾</a></li>
-                    <li><a href="#eventos">Eventos</a></li>
-                    <li><a href="#educacion">Educación</a></li>
-                    <li><a href="#noticias">Noticias ▾</a></li>
-                    <li><a href="#voluntariado">Voluntariado ▾</a></li>
-                    <li><a href="#recuerdos">Recuerdos</a></li>
-                    <a href="#" class="btn-hazte">Hazte miembro</a>
-                </ul>
+            <img src="img/logo/logo.png" alt="PMI Norte Perú Logo" class="logo">
+            <nav class="nav-menu">
+                <a href="#home">Inicio</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#eventos">Eventos</a>
+                <a href="#junta">Junta Directiva</a>
+                <a href="#voluntariado">Voluntariado</a>
+                <a href="#contacto">Contacto</a>
             </nav>
+            <button class="btn-afiliate">Afíliate</button>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </header>
 
-
     <!-- Hero Principal -->
-    <section id="hero" class="hero" aria-label="Sección principal">
+    <section id="home" class="hero">
         <!-- Video de fondo -->
-        <div class="hero-bg" aria-hidden="true">
-            <video class="hero-video" autoplay muted loop playsinline preload="metadata">
-                <source src="video/hero2.mp4" type="video/mp4">
-            </video>
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="img/fondo/fondo.mp4" type="video/mp4">
+        </video>
+
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Transformamos ideas en <br>
+                <span class="highlight">valor real</span> para Cajamarca, Piura y Trujillo <br>
+                mediante dirección de proyectos.
+            </h1>
         </div>
-        <div class="hero-overlay"></div>
 
-
-        <div class="container hero-grid">
-            <div class="hero-copy">
-                <p class="eyebrow">PMI Norte Perú</p>
-                <h1>Suceden cosas buenas cuando<span class="txt-gradient"> te involucras con PMI</span></h1>
-                <p class="lead">Transformamos ideas en <strong>valor real</strong> para Cajamarca, Piura y Trujillo
-                    mediante dirección de proyectos.</p>
-                <div class="hero-actions">
-                    <a href="#eventos" class="btn btn--primary">Ver eventos</a>
-                    <a href="#nosotros" class="btn btn--secondary">Conocer el capítulo</a>
-                </div>
-
-                <!-- Contador estilo congreso -->
-                <div class="counter glass" data-countdown="2025-11-07T16:00:00-0500"
-                    aria-label="Cuenta regresiva al próximo congreso">
-                    <div><span class="num" data-unit="days">00</span><small>Días</small></div>
-                    <div><span class="num" data-unit="hours">00</span><small>Horas</small></div>
-                    <div><span class="num" data-unit="minutes">00</span><small>Min</small></div>
-                    <div><span class="num" data-unit="seconds">00</span><small>Seg</small></div>
-                </div>
+        <!-- Contador estilo congreso -->
+        <div class="congress-counter">
+            <div class="counter-item">
+                <span class="counter-number" data-target="300">0</span>
+                <span class="counter-label">Miembros</span>
             </div>
-
-            <aside class="hero-card glass reveal">
-                <figure>
-                    <img src="img/portada/trujillo_portada.png" alt="Norte del Perú - Trujillo, Piura y Cajamarca"
-                        loading="lazy">
-                </figure>
-                <div class="hero-card-body">
-                    <h3>VI Congreso Internacional</h3>
-                    <p class="muted">7-8 de noviembre · Modalidad híbrida · Emite PDUs</p>
-                </div>
-                <div class="hero-card-actions">
-                    <a href="http://congresotrujillo2025.pminorteperu.org" class="btn btn--secondary">Descubre más</a>
-                    <a href="https://wa.me/51955769734" class="btn btn--primary">Inscribirme</a>
-                </div>
-            </aside>
+            <div class="counter-item">
+                <span class="counter-number" data-target="50">0</span>
+                <span class="counter-label">Eventos realizados</span>
+            </div>
+            <div class="counter-item">
+                <span class="counter-number" data-target="15">0</span>
+                <span class="counter-label">Talleres de formación</span>
+            </div>
+            <div class="counter-item">
+                <span class="counter-number" data-target="3">0</span>
+                <span class="counter-label">Ciudades</span>
+            </div>
         </div>
     </section>
 
-
-
     <!-- 🔹 QUIÉNES SOMOS -->
-    <section id="nosotros" class="quienes-somos">
-        <div class="container">
-            <h2>Quiénes somos</h2>
-            <p class="descripcion">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-            </p>
+    <section id="nosotros" class="nosotros">
+        <div class="nosotros-container">
+            <div class="nosotros-text">
+                <h2 class="section-title">Quiénes somos</h2>
+                <p class="nosotros-description">
+                    PMI Norte Perú Chapter es una comunidad profesional afiliada al Project Management Institute (PMI)
+                    que impulsa la excelencia en la dirección de proyectos en las regiones de Cajamarca, Trujillo y
+                    Piura. Promovemos el desarrollo del talento local mediante formación, certificaciones, eventos y
+                    espacios de colaboración que fortalecen la gestión profesional de proyectos y contribuyen al
+                    crecimiento sostenible del norte del país.
+                </p>
+            </div>
 
-            <div class="cards">
-                <div class="card">
-                    <img src="img/valores/logo_misión.png" alt="Misión" class="icono-img">
+            <div class="nosotros-cards">
+                <div class="nosotros-card">
+                    <div class="card-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
                     <h3>Misión</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <p>Fortalecer las competencias en dirección de proyectos de los profesionales del norte del Perú,
+                        promoviendo el liderazgo, la ética y la creación de valor a través de la aplicación de
+                        estándares y buenas prácticas del PMI.</p>
                 </div>
 
-                <div class="card">
-                    <img src="img/valores/logo_visión.png" alt="Visión" class="icono-img">
+                <div class="nosotros-card">
+                    <div class="card-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
                     <h3>Visión</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <p>Ser el capítulo referente del norte del Perú en gestión de proyectos, reconocido por su impacto
+                        positivo en la comunidad y por fomentar una cultura de excelencia, innovación y colaboración.
+                    </p>
                 </div>
 
-                <div class="card">
-                    <img src="img/valores/logo_valores.png" alt="Valores" class="icono-img">
+                <div class="nosotros-card">
+                    <div class="card-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
                     <h3>Valores</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <ul class="valores-list">
+                        <li><strong>Excelencia:</strong> compromiso con la calidad y la mejora continua.</li>
+                        <li><strong>Integridad:</strong> actuar con ética y transparencia.</li>
+                        <li><strong>Colaboración:</strong> trabajo conjunto y aprendizaje compartido.</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -155,191 +158,268 @@ $educaciones = $educacionModel->getAll();
 
     <!-- 🔹 PRÓXIMOS EVENTOS -->
     <section id="eventos" class="eventos">
-        <div class="container-eventos">
-            <div class="titulo-eventos">
-                <h2>Próximos<br><span>eventos</span></h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-            </div>
+        <div class="eventos-container">
+            <h2 class="section-title">Próximos eventos</h2>
+            <p class="eventos-intro">
+                En el PMI Norte Perú Chapter promovemos el aprendizaje continuo y la conexión entre profesionales de
+                todo el norte del país. Participa en nuestros eventos, talleres y congresos, donde compartimos
+                experiencias, conocimientos y buenas prácticas en dirección de proyectos que transforman ideas en
+                resultados reales.
+            </p>
 
-            <div class="filtros">
-                <button class="activo">Todos</button>
-                <button>Cajamarca</button>
-                <button>Trujillo</button>
-                <button>Piura</button>
-            </div>
-
-            <div class="cards-eventos">
+            <div class="eventos-grid">
                 <?php if (!empty($eventos)): ?>
                     <?php foreach ($eventos as $evento): ?>
-                        <div class="card-evento">
-                            <span class="fecha"><?php echo date('d M', strtotime($evento['fecha'])); ?></span>
-                            <?php if (!empty($evento['imagen'])): ?>
-                                <img src="/<?php echo htmlspecialchars($evento['imagen']); ?>"
-                                    alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
-                            <?php else: ?>
-                                <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" alt="Sin imagen">
-                            <?php endif; ?>
-                            <h3><?php echo htmlspecialchars($evento['nombre']); ?></h3>
-                            <p><?php echo htmlspecialchars($evento['descripcion']); ?></p>
+                        <div class="evento-card">
+                            <div class="evento-image">
+                                <img src="<?php echo htmlspecialchars($evento['imagen']); ?>"
+                                    alt="<?php echo htmlspecialchars($evento['titulo']); ?>">
+                                <div class="evento-badge"><?php echo htmlspecialchars($evento['tipo']); ?></div>
+                            </div>
+                            <div class="evento-content">
+                                <h3><?php echo htmlspecialchars($evento['titulo']); ?></h3>
+                                <p class="evento-fecha">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <?php echo htmlspecialchars($evento['fecha']); ?>
+                                </p>
+                                <p><?php echo htmlspecialchars($evento['descripcion']); ?></p>
+                                <a href="<?php echo htmlspecialchars($evento['enlace']); ?>" class="btn-ver-mas">Ver más</a>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p>No hay eventos disponibles actualmente.</p>
+                    <p class="no-content">No hay eventos disponibles actualmente.</p>
                 <?php endif; ?>
             </div>
         </div>
     </section>
 
     <!-- 🔹 LLAMADO A LA ACCIÓN -->
-    <section id="cta" class="cta">
-        <div class="cta-fondo"></div>
+    <section class="cta-membresia">
         <div class="cta-content">
-            <h2>¿Listo para el siguiente proyecto?</h2>
-            <p>Únete a PMI y al capítulo Norte Perú. Hagamos que más ideas avancen.</p>
-            <div class="cta-buttons">
-                <a href="#" class="btn-cta btn-primary">Hazte miembro</a>
-                <a href="#contacto" class="btn-cta btn-secondary">Habla con nosotros</a>
-            </div>
+            <h2>Únete al PMI Norte Perú Chapter</h2>
+            <p>Y forma parte de una comunidad que impulsa el crecimiento profesional, la innovación y el liderazgo en
+                la gestión de proyectos. Juntos, hacemos que las ideas se conviertan en resultados que transforman
+                nuestra región.</p>
+            <button class="btn-afiliate-cta">Afíliate ahora</button>
         </div>
     </section>
 
-    <!-- 🔹 IMPULSA TU FORMACIÓN -->
+    <!-- ========================================
+         🔹 SECCIÓN EDUCACIÓN - COMENTADA
+         (Descomentar cuando se necesite)
+    ========================================= -->
+    <!--
     <section id="educacion" class="educacion">
-        <div class="container-formacion">
-            <div class="formacion-header">
-                <h2><span>Impulsa tu</span><br>formación</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-            </div>
+        <div class="educacion-container">
+            <h2 class="section-title">Impulsa tu formación</h2>
+            <p class="educacion-intro">
+                En el PMI Norte Perú Chapter promovemos el aprendizaje continuo y la conexión entre profesionales de
+                todo el norte del país. Participa en nuestros eventos, talleres y congresos, donde compartimos
+                experiencias, conocimientos y buenas prácticas en dirección de proyectos que transforman ideas en
+                resultados reales.
+            </p>
 
-            <div class="filtros-formacion">
-                <button>Todos</button>
-                <button>Lorem</button>
-                <button>Lorem</button>
-                <button>Lorem</button>
-            </div>
-
-            <div class="cards-formacion">
+            <div class="educacion-grid">
                 <?php if (!empty($educaciones)): ?>
                     <?php foreach ($educaciones as $educacion): ?>
-                        <div class="card-formacion">
-                            <span class="fecha"><?php echo date('d M', strtotime($educacion['fecha'])); ?></span>
-                            <?php if (!empty($educacion['imagen'])): ?>
-                                <img src="/<?php echo htmlspecialchars($educacion['imagen']); ?>"
-                                    alt="<?php echo htmlspecialchars($educacion['curso']); ?>">
-                            <?php else: ?>
-                                <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" alt="Sin imagen">
-                            <?php endif; ?>
-                            <h3><?php echo htmlspecialchars($educacion['curso']); ?></h3>
-                            <p><?php echo htmlspecialchars($educacion['descripcion']); ?></p>
-                            <a href="#" class="btn-card">Conoce más</a>
+                        <div class="educacion-card">
+                            <div class="educacion-image">
+                                <img src="<?php echo htmlspecialchars($educacion['imagen']); ?>"
+                                    alt="<?php echo htmlspecialchars($educacion['titulo']); ?>">
+                                <div class="educacion-badge"><?php echo htmlspecialchars($educacion['tipo']); ?></div>
+                            </div>
+                            <div class="educacion-content">
+                                <h3><?php echo htmlspecialchars($educacion['titulo']); ?></h3>
+                                <p class="educacion-fecha">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <?php echo htmlspecialchars($educacion['fecha']); ?>
+                                </p>
+                                <p><?php echo htmlspecialchars($educacion['descripcion']); ?></p>
+                                <a href="<?php echo htmlspecialchars($educacion['enlace']); ?>" class="btn-ver-mas">Ver más</a>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p>No hay cursos disponibles actualmente.</p>
+                    <p class="no-content">No hay cursos disponibles actualmente.</p>
                 <?php endif; ?>
             </div>
+        </div>
+    </section>
+    -->
+
+    <!-- JUNTA DIRECTIVA -->
+    <section id="junta" class="junta-directiva">
+        <div class="junta-container">
+            <h2 class="section-title">Junta Directiva</h2>
+            <p class="junta-intro">
+                La Junta Directiva del PMI Norte Perú Chapter está conformada por profesionales comprometidos con
+                promover la excelencia en la gestión de proyectos y fortalecer la presencia del PMI en la región norte
+                del país. Cada miembro aporta su experiencia, liderazgo y visión estratégica para impulsar iniciativas
+                clave para el desarrollo dentro de nuestra comunidad.
+            </p>
+
+            <div class="junta-grid">
+                <!-- Miembro 1 -->
+                <div class="junta-card">
+                    <div class="junta-image">
+                        <img src="img/equipo/persona.png" alt="Alex Valdivia">
+                    </div>
+                    <div class="junta-info">
+                        <h3>Alex Valdivia</h3>
+                        <p class="junta-cargo">Presidente</p>
+                        <a href="https://www.linkedin.com/in/alexvaldiviacruzado" target="_blank" class="linkedin-btn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Miembro 2 -->
+                <div class="junta-card">
+                    <div class="junta-image">
+                        <img src="img/equipo/persona.png" alt="María Rodríguez">
+                    </div>
+                    <div class="junta-info">
+                        <h3>María Rodríguez</h3>
+                        <p class="junta-cargo">Vicepresidenta</p>
+                        <a href="#" target="_blank" class="linkedin-btn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Más miembros aquí -->
+            </div>
+        </div>
     </section>
 
     <!-- 🔹 VOLUNTARIADO -->
     <section id="voluntariado" class="voluntariado">
-        <div class="cta-fondo"></div>
-        <div class="voluntariado-content">
-            <h2>Lorem Ipsum is simply dummy</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-            <div class="voluntariado-buttons">
-                <a href="#registro" class="btn-vol btn-azul">Sé voluntario</a>
-                <a href="#contacto" class="btn-vol btn-blanco">Habla con nosotros</a>
-            </div>
+        <div class="voluntariado-container">
+            <h2 class="section-title">Sé parte del cambio</h2>
+            <p class="voluntariado-intro">
+                Forma parte activa del PMI Norte Perú Chapter como voluntario y contribuye al desarrollo de la
+                comunidad profesional de gestión de proyectos. Participar como voluntario te permite aprender, liderar y
+                conectar con otros profesionales, fortaleciendo tus habilidades mientras generas un impacto positivo en
+                tu región.
+            </p>
+            <button class="btn-voluntario" id="openModalVoluntario">Quiero ser voluntario</button>
         </div>
     </section>
 
-    <!-- 🔹 NOTICIAS RECIENTES -->
+    <!-- FORMULARIO DE VOLUNTARIADO PARA EVENTOS -->
+    <div id="modalVoluntario" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModalVoluntario">&times;</span>
+            <h2>Formulario de Voluntariado</h2>
+            <form id="formVoluntario">
+                <input type="text" name="nombre" placeholder="Nombre completo" required>
+                <input type="email" name="email" placeholder="Correo electrónico" required>
+                <input type="tel" name="telefono" placeholder="Teléfono" required>
+                <select name="ciudad" required>
+                    <option value="">Selecciona tu ciudad</option>
+                    <option value="Cajamarca">Cajamarca</option>
+                    <option value="Trujillo">Trujillo</option>
+                    <option value="Piura">Piura</option>
+                </select>
+                <textarea name="mensaje" placeholder="¿Por qué quieres ser voluntario?" rows="4"></textarea>
+                <button type="submit" class="btn-enviar">Enviar solicitud</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================
+         🔹 SECCIÓN NOTICIAS - COMENTADA
+         (Descomentar cuando se necesite)
+    ========================================= -->
+    <!--
     <section id="noticias" class="noticias">
-        <div class="container-noticias">
-            <div class="titulo-noticias">
-                <h2>Noticias<br><span>recientes</span></h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-            </div>
+        <div class="noticias-container">
+            <h2 class="section-title">Noticias recientes</h2>
+            <p class="noticias-intro">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            </p>
 
-            <div class="filtros-noticias">
-                <button>Todos</button>
-                <button>Lorem</button>
-                <button>Lorem</button>
-                <button>Lorem</button>
-            </div>
-
-            <div class="cards-noticias">
+            <div class="noticias-grid">
                 <?php if (!empty($noticias)): ?>
                     <?php foreach ($noticias as $noticia): ?>
-                        <div class="card-noticia">
-                            <span class="fecha"><?php echo date('d M', strtotime($noticia['fecha'])); ?></span>
-                            <?php if (!empty($noticia['imagen'])): ?>
-                                <img src="/<?php echo htmlspecialchars($noticia['imagen']); ?>"
+                        <div class="noticia-card">
+                            <div class="noticia-image">
+                                <img src="<?php echo htmlspecialchars($noticia['imagen']); ?>"
                                     alt="<?php echo htmlspecialchars($noticia['titulo']); ?>">
-                            <?php else: ?>
-                                <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" alt="Sin imagen">
-                            <?php endif; ?>
-                            <h3><?php echo htmlspecialchars($noticia['titulo']); ?></h3>
-                            <p><?php echo htmlspecialchars($noticia['descripcion']); ?></p>
+                            </div>
+                            <div class="noticia-content">
+                                <h3><?php echo htmlspecialchars($noticia['titulo']); ?></h3>
+                                <p class="noticia-fecha">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <?php echo htmlspecialchars($noticia['fecha']); ?>
+                                </p>
+                                <p><?php echo htmlspecialchars($noticia['descripcion']); ?></p>
+                                <a href="<?php echo htmlspecialchars($noticia['enlace']); ?>" class="btn-leer-mas">Leer más</a>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p>No hay noticias recientes.</p>
+                    <p class="no-content">No hay noticias recientes.</p>
                 <?php endif; ?>
             </div>
         </div>
     </section>
+    -->
 
     <!-- 🔹 CONTÁCTANOS -->
     <section id="contacto" class="contacto">
-        <h2 class="titulo-contacto">Contáctanos</h2>
-        <div class="container-contacto">
-            <div class="columna-formulario">
-                <form class="form-contacto" action="#" method="post">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" required>
+        <div class="contacto-container">
+            <h2 class="section-title">Contáctanos</h2>
+            <p class="contacto-intro">¿Tienes alguna pregunta? Escríbenos y te responderemos a la brevedad.</p>
 
-                    <label for="correo">Correo</label>
-                    <input type="email" id="correo" name="correo" required>
-
-                    <label for="interes">Interés</label>
-                    <input type="text" id="interes" name="interes">
-
-                    <label for="mensaje">Mensaje</label>
-                    <textarea id="mensaje" name="mensaje" rows="4"></textarea>
-
-                    <div class="check-group">
-                        <label class="lbl-tc"><input type="checkbox" name="privacidad"> Acepto la política de
-                            privacidad</label>
-                        <label class="lbl-tc"><input type="checkbox" name="boletin"> Afiliarse al boletín
-                            informativo</label>
-                    </div>
-
-                    <button type="submit" class="btn-enviar">Enviar</button>
-                </form>
-            </div>
-
-            <div class="columna-imagen">
-                <img src="img/contacto/contacto_equipo.jpg" alt="Equipo PMI Norte Perú">
-            </div>
+            <form id="formContacto" class="contacto-form">
+                <input type="text" name="nombre" placeholder="Nombre completo" required>
+                <input type="email" name="email" placeholder="Correo electrónico" required>
+                <input type="text" name="asunto" placeholder="Asunto" required>
+                <textarea name="mensaje" placeholder="Escribe tu mensaje aquí..." rows="5" required></textarea>
+                <button type="submit" class="btn-enviar-contacto">Enviar mensaje</button>
+            </form>
         </div>
     </section>
 
     <!-- 🔹 FOOTER -->
     <footer class="footer">
-        <p>© 2025 PMI Norte Perú</p>
+        <div class="footer-container">
+            <div class="footer-section">
+                <img src="img/logo/logo.png" alt="PMI Norte Perú Logo" class="footer-logo">
+                <p>PMI Norte Perú Chapter</p>
+                <p>Impulsando la excelencia en gestión de proyectos</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Enlaces rápidos</h3>
+                <ul>
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#eventos">Eventos</a></li>
+                    <li><a href="#junta">Junta Directiva</a></li>
+                    <li><a href="#voluntariado">Voluntariado</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-envelope"></i> informes@pminorteperu.org</p>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/pminorteperu?igsh=MWw1OGU1dWgxcHV2bw=="><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/share/1CfCowCGzB/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/company/pmi-norte-peru-chapter"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 PMI Norte Perú Chapter. Todos los derechos reservados.</p>
+        </div>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const menuLinks = document.querySelectorAll('.menu a');
-            menuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    menuToggle.checked = false;
-                });
-            });
-        });
-    </script>
 
     <script src="js/script.js"></script>
 </body>
