@@ -1245,6 +1245,7 @@ body {
     color: var(--color-secondary);
     transition: var(--transition-base);
     font-size: 0.9rem;
+    text-decoration: none;
 }
 
 .redes-miembro a:hover {
