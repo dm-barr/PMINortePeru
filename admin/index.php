@@ -672,5 +672,4 @@ $noticias = $noticiaModel->getAll();
 </html>
 <?php
 $mysqli->close();
-ob_end_flush();
 ?>
