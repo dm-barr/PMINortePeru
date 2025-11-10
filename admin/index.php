@@ -1,4 +1,18 @@
 <?php
+session_start();
+
+// Verificar autenticación
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
+// Obtener datos del usuario logueado
+$usuario_nombre = $_SESSION['usuario_nombre'] ?? 'Usuario';
+$usuario_rol = $_SESSION['usuario_rol_nombre'] ?? 'Sin Rol';
+
+require_once __DIR__ . '/config/database.php';
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -261,6 +275,13 @@ $noticias = $noticiaModel->getAll();
                     <li><a href="#" class="nav-link" data-target="noticias">Noticias</a></li>
                 </ul>
             </nav>
+            <div class="sidebar-header">
+                <h3>Panel Admin</h3>
+                <div class="user-info">
+                    <p class="user-name"><?php echo htmlspecialchars($usuario_nombre); ?></p>
+                    <p class="user-role"><?php echo htmlspecialchars($usuario_rol); ?></p>
+                </div>
+            </div>  
             <div class="sidebar-footer">
                 <a href="#" class="logout-link">Cerrar Sesión</a>
             </div>
