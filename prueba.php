@@ -12,14 +12,20 @@ function formatearFechaEspanol($fecha) {
         "10" => "Octubre", "11" => "Noviembre", "12" => "Diciembre"
     );
     
+    // Si la fecha viene en formato YYYY-MM-DD (desde MySQL)
+    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})/', $fecha, $matches)) {
+        $anio = $matches[1];
+        $mes = $matches[2];
+        $dia = intval($matches[3]); // Convertir a entero para quitar el 0 inicial
+        
+        return $dia . " " . $meses[$mes];
+    }
+    
     // Si la fecha viene como "30/12" o "30/12/2025"
     if (strpos($fecha, '/') !== false) {
         $partes = explode('/', $fecha);
-        $dia = $partes[0];
-        $mes = $partes[1];
-        
-        // Si el mes es de un solo dígito, añade un cero
-        $mes = str_pad($mes, 2, "0", STR_PAD_LEFT);
+        $dia = intval($partes[0]);
+        $mes = str_pad($partes[1], 2, "0", STR_PAD_LEFT);
         
         return $dia . " " . $meses[$mes];
     }
