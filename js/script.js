@@ -68,37 +68,39 @@ if (prefersReduced) {
 ======================================== */
 
 // CAMBIA ESTA KEY POR LA TUYA NUEVA
-const RECAPTCHA_SITE_KEY = '6LeEIwgsAAAAACLOXKkEyyrJ21WtAB-3lZal_YNU'; // ← Tu nueva Site Key Invisible
+const RECAPTCHA_SITE_KEY = "6LeEIwgsAAAAACLOXKkEyyrJ21WtAB-3lZal_YNU"; // ← Tu nueva Site Key Invisible
 
 let captchaVoluntariado = null;
 let captchaContacto = null;
 
 function onloadCallback() {
   console.log("✅ reCAPTCHA API cargada correctamente");
-  
+
   // Renderizar CAPTCHA INVISIBLE del formulario de voluntariado
-  const captchaElementVoluntariado = document.getElementById('recaptcha-voluntariado');
-  if (captchaElementVoluntariado && typeof grecaptcha !== 'undefined') {
+  const captchaElementVoluntariado = document.getElementById(
+    "recaptcha-voluntariado"
+  );
+  if (captchaElementVoluntariado && typeof grecaptcha !== "undefined") {
     try {
-      captchaVoluntariado = grecaptcha.render('recaptcha-voluntariado', {
-        'sitekey': RECAPTCHA_SITE_KEY,
-        'size': 'invisible',
-        'callback': onSubmitVoluntariado
+      captchaVoluntariado = grecaptcha.render("recaptcha-voluntariado", {
+        sitekey: RECAPTCHA_SITE_KEY,
+        size: "invisible",
+        callback: onSubmitVoluntariado,
       });
       console.log("✅ reCAPTCHA invisible de voluntariado renderizado");
     } catch (e) {
       console.error("❌ Error al renderizar reCAPTCHA de voluntariado:", e);
     }
   }
-  
+
   // Renderizar CAPTCHA INVISIBLE del formulario de contacto
-  const captchaElementContacto = document.getElementById('recaptcha-contacto');
-  if (captchaElementContacto && typeof grecaptcha !== 'undefined') {
+  const captchaElementContacto = document.getElementById("recaptcha-contacto");
+  if (captchaElementContacto && typeof grecaptcha !== "undefined") {
     try {
-      captchaContacto = grecaptcha.render('recaptcha-contacto', {
-        'sitekey': RECAPTCHA_SITE_KEY,
-        'size': 'invisible',
-        'callback': onSubmitContacto
+      captchaContacto = grecaptcha.render("recaptcha-contacto", {
+        sitekey: RECAPTCHA_SITE_KEY,
+        size: "invisible",
+        callback: onSubmitContacto,
       });
       console.log("✅ reCAPTCHA invisible de contacto renderizado");
     } catch (e) {
@@ -314,44 +316,43 @@ document.addEventListener("DOMContentLoaded", function () {
   // ====================================
   // FORMULARIOS - GOOGLE SHEETS
   // ====================================
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxC-04gzCeK6aiBtxx1S6s36mJ7jEX6J9qkWddDLtCxBpzRN2YoCIeqe-5AJshgjPFJzQ/exec";
+  const scriptURL =
+    "https://script.google.com/macros/s/AKfycbxC-04gzCeK6aiBtxx1S6s36mJ7jEX6J9qkWddDLtCxBpzRN2YoCIeqe-5AJshgjPFJzQ/exec";
 
-  // =====================================
   // FORMULARIO DE VOLUNTARIADO
-  // =====================================
-  const formVoluntariado = document.getElementById("voluntarioFormReclutamiento");
-
+  const formVoluntariado = document.getElementById(
+    "voluntarioFormReclutamiento"
+  );
   if (formVoluntariado) {
-    console.log("✅ Formulario de voluntariado encontrado");
+    console.log("Formulario de voluntariado encontrado");
     formVoluntariado.addEventListener("submit", (e) => {
       e.preventDefault();
-      console.log("🔄 Ejecutando reCAPTCHA invisible...");
-      
-      // Ejecutar el captcha invisible
+      console.log("Ejecutando reCAPTCHA invisible...");
+      // Ejecutar el captcha invisible - automáticamente dispara el callback
       if (captchaVoluntariado !== null) {
         grecaptcha.execute(captchaVoluntariado);
       } else {
-        console.error("❌ captchaVoluntariado no inicializado");
+        console.error("captchaVoluntariado no inicializado");
+        // Si el captcha no está inicializado, enviar sin captcha
+        onSubmitVoluntariado("");
       }
     });
   }
 
-  // =====================================
   // FORMULARIO DE CONTACTO
-  // =====================================
   const formContacto = document.getElementById("contactForm");
-
   if (formContacto) {
-    console.log("✅ Formulario de contacto encontrado");
+    console.log("Formulario de contacto encontrado");
     formContacto.addEventListener("submit", (e) => {
       e.preventDefault();
-      console.log("🔄 Ejecutando reCAPTCHA invisible...");
-      
-      // Ejecutar el captcha invisible
+      console.log("Ejecutando reCAPTCHA invisible...");
+      // Ejecutar el captcha invisible - automáticamente dispara el callback
       if (captchaContacto !== null) {
         grecaptcha.execute(captchaContacto);
       } else {
-        console.error("❌ captchaContacto no inicializado");
+        console.error("captchaContacto no inicializado");
+        // Si el captcha no está inicializado, enviar sin captcha
+        onSubmitContacto("");
       }
     });
   }
@@ -365,13 +366,16 @@ document.addEventListener("DOMContentLoaded", function () {
 function onSubmitVoluntariado(token) {
   console.log("\n========== ENVIANDO VOLUNTARIADO ==========");
   console.log("✅ Token reCAPTCHA recibido");
-  
-  const formVoluntariado = document.getElementById("voluntarioFormReclutamiento");
+
+  const formVoluntariado = document.getElementById(
+    "voluntarioFormReclutamiento"
+  );
   const formData = new FormData(formVoluntariado);
   formData.append("formType", "voluntariado");
   formData.append("g-recaptcha-response", token);
 
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
+  const scriptURL =
+    "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
 
   fetch(scriptURL, {
     method: "POST",
@@ -382,12 +386,12 @@ function onSubmitVoluntariado(token) {
       console.log("✅ Formulario enviado exitosamente");
       alert("✅ Formulario enviado exitosamente");
       formVoluntariado.reset();
-      
+
       // Resetear reCAPTCHA
       if (captchaVoluntariado !== null) {
         grecaptcha.reset(captchaVoluntariado);
       }
-      
+
       const formModal = document.getElementById("formModal");
       if (formModal) {
         formModal.classList.add("oculto");
@@ -396,7 +400,7 @@ function onSubmitVoluntariado(token) {
     .catch((err) => {
       console.error("❌ Error al enviar:", err);
       alert("❌ Error al enviar. Inténtalo nuevamente.");
-      
+
       // Resetear reCAPTCHA también en error
       if (captchaVoluntariado !== null) {
         grecaptcha.reset(captchaVoluntariado);
@@ -408,13 +412,14 @@ function onSubmitVoluntariado(token) {
 function onSubmitContacto(token) {
   console.log("\n========== ENVIANDO CONTACTO ==========");
   console.log("✅ Token reCAPTCHA recibido");
-  
+
   const formContacto = document.getElementById("contactForm");
   const formData = new FormData(formContacto);
   formData.append("formType", "contacto");
   formData.append("g-recaptcha-response", token);
 
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
+  const scriptURL =
+    "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
 
   fetch(scriptURL, {
     method: "POST",
@@ -425,7 +430,7 @@ function onSubmitContacto(token) {
       console.log("✅ Mensaje enviado exitosamente");
       alert("✅ Mensaje enviado exitosamente");
       formContacto.reset();
-      
+
       // Resetear reCAPTCHA
       if (captchaContacto !== null) {
         grecaptcha.reset(captchaContacto);
@@ -434,7 +439,7 @@ function onSubmitContacto(token) {
     .catch((err) => {
       console.error("❌ Error al enviar:", err);
       alert("❌ Error al enviar. Inténtalo nuevamente.");
-      
+
       // Resetear reCAPTCHA también en error
       if (captchaContacto !== null) {
         grecaptcha.reset(captchaContacto);
