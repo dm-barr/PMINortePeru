@@ -1,24 +1,7 @@
-// Agregar al inicio de script.js o en un <script> en index.php
-function onloadCallback() {
-    console.log("✅ reCAPTCHA cargado correctamente");
-    
-    // Renderizar explícitamente cada widget de reCAPTCHA
-    const recaptchaElements = document.querySelectorAll('.g-recaptcha');
-    recaptchaElements.forEach((element, index) => {
-        if (element && !element.hasAttribute('data-widget-id')) {
-            const widgetId = grecaptcha.render(element, {
-                'sitekey': element.getAttribute('data-sitekey'),
-                'theme': 'light'
-            });
-            element.setAttribute('data-widget-id', widgetId);
-        }
-    });
-}
-
 /* ========================================
    CUENTA REGRESIVA HERO
 ======================================== */
-// Estructura esperada: .counter[data-countdown="YYYY-MM-DDTHH:mm:ss-Z"][data-unit="days|hours|minutes|seconds"]
+
 const countdownBlocks = document.querySelectorAll(".counter[data-countdown]");
 
 countdownBlocks.forEach((block) => {
@@ -57,6 +40,7 @@ countdownBlocks.forEach((block) => {
 /* ========================================
    REVEAL AL ENTRAR EN VIEWPORT
 ======================================== */
+
 const reveals = document.querySelectorAll(".reveal");
 const prefersReduced = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
@@ -80,8 +64,66 @@ if (prefersReduced) {
 }
 
 /* ========================================
+   CALLBACK PARA RECAPTCHA
+======================================== */
+
+// Variables globales para los widgets de reCAPTCHA
+let captchaVoluntariado = null;
+let captchaContacto = null;
+
+// Esta función se ejecuta cuando reCAPTCHA está listo
+function onloadCallback() {
+  console.log("✅ reCAPTCHA API cargada correctamente");
+  
+  // Renderizar CAPTCHA del formulario de voluntariado
+  const captchaElementVoluntariado = document.querySelector('#formModal .g-recaptcha');
+  if (captchaElementVoluntariado && typeof grecaptcha !== 'undefined') {
+    try {
+      captchaVoluntariado = grecaptcha.render(captchaElementVoluntariado, {
+        'sitekey': captchaElementVoluntariado.getAttribute('data-sitekey'),
+        'theme': 'light'
+      });
+      console.log("✅ reCAPTCHA de voluntariado renderizado, widget ID:", captchaVoluntariado);
+    } catch (e) {
+      console.error("❌ Error al renderizar reCAPTCHA de voluntariado:", e);
+    }
+  }
+  
+  // Renderizar CAPTCHA del formulario de contacto
+  const captchaElementContacto = document.querySelector('#contactForm .g-recaptcha');
+  if (captchaElementContacto && typeof grecaptcha !== 'undefined') {
+    try {
+      captchaContacto = grecaptcha.render(captchaElementContacto, {
+        'sitekey': captchaElementContacto.getAttribute('data-sitekey'),
+        'theme': 'light'
+      });
+      console.log("✅ reCAPTCHA de contacto renderizado, widget ID:", captchaContacto);
+    } catch (e) {
+      console.error("❌ Error al renderizar reCAPTCHA de contacto:", e);
+    }
+  }
+}
+
+// Función auxiliar para esperar a que grecaptcha esté disponible
+function esperarRecaptcha() {
+  return new Promise((resolve) => {
+    if (typeof grecaptcha !== 'undefined' && grecaptcha.render) {
+      resolve();
+    } else {
+      const checkInterval = setInterval(() => {
+        if (typeof grecaptcha !== 'undefined' && grecaptcha.render) {
+          clearInterval(checkInterval);
+          resolve();
+        }
+      }, 100);
+    }
+  });
+}
+
+/* ========================================
    ESPERAR A QUE EL DOM ESTÉ LISTO
 ======================================== */
+
 document.addEventListener("DOMContentLoaded", function () {
   console.log("🚀 DOM cargado completamente");
 
@@ -96,9 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
       btn.addEventListener("click", function () {
         filtrosEventos.forEach((b) => b.classList.remove("activo"));
         this.classList.add("activo");
-
         const filtro = this.textContent.trim();
-
         cardsEventos.forEach((card) => {
           if (filtro === "Todos") {
             card.style.display = "block";
@@ -118,8 +158,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // =====================================
   // CARRUSEL DE JUNTA DIRECTIVA
-  // CARRUSEL DE JUNTA DIRECTIVA
+  // =====================================
   const track = document.querySelector(".carousel-track");
   const nextBtn = document.querySelector(".next-btn");
   const prevBtn = document.querySelector(".prev-btn");
@@ -139,14 +180,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let slidesPerView = getSlidesPerView();
     const totalSlides = slides.length;
 
-    // Calcular cantidad de "páginas"
     function getTotalDots() {
       return Math.ceil(totalSlides / slidesPerView);
     }
 
     let totalDots = getTotalDots();
 
-    // Crear dots
     function createDots() {
       dotsContainer.innerHTML = "";
       totalDots = getTotalDots();
@@ -159,27 +198,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     createDots();
+
     const getDots = () => Array.from(dotsContainer.children);
 
-    // Función para actualizar el carrusel
     function updateCarousel() {
       const slideWidth = slides[0].getBoundingClientRect().width;
       const gap = 24;
-
-      // Mover el track basado en el slide actual
       const moveAmount = -(currentSlide * (slideWidth + gap));
       track.style.transform = `translateX(${moveAmount}px)`;
-
-      // Calcular qué dot debe estar activo
       const activeDotIndex = Math.floor(currentSlide / slidesPerView);
-
-      // Actualizar dots
       getDots().forEach((dot, index) => {
         dot.classList.toggle("active", index === activeDotIndex);
       });
     }
 
-    // Botón siguiente
     nextBtn.addEventListener("click", () => {
       if (currentSlide < totalSlides - slidesPerView) {
         currentSlide++;
@@ -189,7 +221,6 @@ document.addEventListener("DOMContentLoaded", function () {
       updateCarousel();
     });
 
-    // Botón anterior
     prevBtn.addEventListener("click", () => {
       if (currentSlide > 0) {
         currentSlide--;
@@ -199,7 +230,6 @@ document.addEventListener("DOMContentLoaded", function () {
       updateCarousel();
     });
 
-    // Click en dots
     dotsContainer.addEventListener("click", (e) => {
       if (e.target.classList.contains("carousel-dot")) {
         const index = getDots().indexOf(e.target);
@@ -210,20 +240,16 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Resize
     window.addEventListener("resize", () => {
       const oldSlidesPerView = slidesPerView;
       slidesPerView = getSlidesPerView();
-
       if (oldSlidesPerView !== slidesPerView) {
         currentSlide = 0;
         createDots();
       }
-
       updateCarousel();
     });
 
-    // Touch swipe
     let startX = 0;
     let isDragging = false;
 
@@ -234,10 +260,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     track.addEventListener("touchend", (e) => {
       if (!isDragging) return;
-
       const endX = e.changedTouches[0].clientX;
       const diff = startX - endX;
-
       if (Math.abs(diff) > 50) {
         if (diff > 0 && currentSlide < totalSlides - slidesPerView) {
           currentSlide++;
@@ -246,7 +270,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         updateCarousel();
       }
-
       isDragging = false;
     });
   }
@@ -262,7 +285,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (formModal) {
     console.log("✅ Modal encontrado");
-
     formModal.classList.add("oculto");
 
     if (btnInscribirse) {
@@ -314,10 +336,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // ====================================
   // FORMULARIOS - GOOGLE SHEETS
   // ====================================
-
   const scriptURL =
     "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
-
   console.log("🔧 Script URL configurada:", scriptURL);
 
   async function testConnection() {
@@ -342,15 +362,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (formVoluntariado) {
     console.log("✅ Formulario de voluntariado encontrado");
-
     formVoluntariado.addEventListener("submit", async (e) => {
       e.preventDefault();
       console.log("\n========== ENVIANDO VOLUNTARIADO ==========");
 
-      // Verificar CAPTCHA (índice 0 para el primer captcha)
-      const captchaResponse = grecaptcha.getResponse(0);
-      if (!captchaResponse) {
-        alert("⚠️ Por favor, completa la verificación CAPTCHA.");
+      // Esperar a que reCAPTCHA esté disponible
+      await esperarRecaptcha();
+
+      // Verificar CAPTCHA
+      let captchaResponse = '';
+      try {
+        if (captchaVoluntariado !== null) {
+          captchaResponse = grecaptcha.getResponse(captchaVoluntariado);
+        } else {
+          captchaResponse = grecaptcha.getResponse(0);
+        }
+        
+        if (!captchaResponse || captchaResponse === '') {
+          alert("⚠️ Por favor, completa la verificación CAPTCHA.");
+          return;
+        }
+      } catch (error) {
+        console.error("❌ Error al obtener respuesta de reCAPTCHA:", error);
+        alert("⚠️ Error con CAPTCHA. Por favor, recarga la página.");
         return;
       }
 
@@ -361,7 +395,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       console.log("📦 Datos del FormData:");
       for (let [key, value] of formData.entries()) {
-        console.log(` ${key}: ${value}`);
+        console.log(`  ${key}: ${value}`);
       }
 
       console.log("🚀 Enviando a:", scriptURL);
@@ -374,22 +408,45 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         console.log("📬 Respuesta recibida");
-        console.log(" Status:", response.status);
-        console.log(" Type:", response.type);
+        console.log("  Status:", response.status);
+        console.log("  Type:", response.type);
 
         alert("✅ Formulario enviado exitosamente");
 
-        // Resetear formulario y cerrar modal
+        // Resetear formulario y CAPTCHA
         formElement.reset();
-        grecaptcha.reset(0); // Resetear el primer captcha
+        
+        // Resetear el CAPTCHA correspondiente
+        try {
+          if (captchaVoluntariado !== null) {
+            grecaptcha.reset(captchaVoluntariado);
+          } else {
+            grecaptcha.reset(0);
+          }
+          console.log("✅ reCAPTCHA reseteado");
+        } catch (error) {
+          console.error("⚠️ Error al resetear reCAPTCHA:", error);
+        }
+
         if (formModal) {
           formModal.classList.add("oculto");
         }
       } catch (err) {
         console.error("❌ Error al enviar:");
-        console.error(" Mensaje:", err.message);
-        console.error(" Stack:", err.stack);
+        console.error("  Mensaje:", err.message);
+        console.error("  Stack:", err.stack);
         alert("❌ Error al enviar. Inténtalo nuevamente.");
+        
+        // Resetear CAPTCHA también en caso de error
+        try {
+          if (captchaVoluntariado !== null) {
+            grecaptcha.reset(captchaVoluntariado);
+          } else {
+            grecaptcha.reset(0);
+          }
+        } catch (error) {
+          console.error("⚠️ Error al resetear reCAPTCHA:", error);
+        }
       }
 
       console.log("========== FIN VOLUNTARIADO ==========\n");
@@ -405,15 +462,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (formContacto) {
     console.log("✅ Formulario de contacto encontrado");
-
     formContacto.addEventListener("submit", async (e) => {
       e.preventDefault();
       console.log("\n========== ENVIANDO CONTACTO ==========");
 
-      // Verificar CAPTCHA (índice 1 para el segundo captcha)
-      const captchaResponse = grecaptcha.getResponse(1);
-      if (!captchaResponse) {
-        alert("⚠️ Por favor, completa la verificación CAPTCHA.");
+      // Esperar a que reCAPTCHA esté disponible
+      await esperarRecaptcha();
+
+      // Verificar CAPTCHA
+      let captchaResponse = '';
+      try {
+        if (captchaContacto !== null) {
+          captchaResponse = grecaptcha.getResponse(captchaContacto);
+        } else {
+          captchaResponse = grecaptcha.getResponse(1);
+        }
+        
+        if (!captchaResponse || captchaResponse === '') {
+          alert("⚠️ Por favor, completa la verificación CAPTCHA.");
+          return;
+        }
+      } catch (error) {
+        console.error("❌ Error al obtener respuesta de reCAPTCHA:", error);
+        alert("⚠️ Error con CAPTCHA. Por favor, recarga la página.");
         return;
       }
 
@@ -424,7 +495,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       console.log("📦 Datos del FormData:");
       for (let [key, value] of formData.entries()) {
-        console.log(` ${key}: ${value}`);
+        console.log(`  ${key}: ${value}`);
       }
 
       console.log("🚀 Enviando a:", scriptURL);
@@ -437,19 +508,41 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         console.log("📬 Respuesta recibida");
-        console.log(" Status:", response.status);
-        console.log(" Type:", response.type);
+        console.log("  Status:", response.status);
+        console.log("  Type:", response.type);
 
         alert("✅ Mensaje enviado exitosamente");
 
-        // Resetear formulario
+        // Resetear formulario y CAPTCHA
         formElement.reset();
-        grecaptcha.reset(1); // Resetear el segundo captcha
+        
+        // Resetear el CAPTCHA correspondiente
+        try {
+          if (captchaContacto !== null) {
+            grecaptcha.reset(captchaContacto);
+          } else {
+            grecaptcha.reset(1);
+          }
+          console.log("✅ reCAPTCHA reseteado");
+        } catch (error) {
+          console.error("⚠️ Error al resetear reCAPTCHA:", error);
+        }
       } catch (err) {
         console.error("❌ Error al enviar:");
-        console.error(" Mensaje:", err.message);
-        console.error(" Stack:", err.stack);
+        console.error("  Mensaje:", err.message);
+        console.error("  Stack:", err.stack);
         alert("❌ Error al enviar. Inténtalo nuevamente.");
+        
+        // Resetear CAPTCHA también en caso de error
+        try {
+          if (captchaContacto !== null) {
+            grecaptcha.reset(captchaContacto);
+          } else {
+            grecaptcha.reset(1);
+          }
+        } catch (error) {
+          console.error("⚠️ Error al resetear reCAPTCHA:", error);
+        }
       }
 
       console.log("========== FIN CONTACTO ==========\n");
@@ -457,7 +550,4 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     console.error("❌ Formulario 'contactForm' NO encontrado");
   }
-
-
 });
-
