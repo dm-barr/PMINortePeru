@@ -202,6 +202,7 @@ usort($eventos, function ($a, $b) {
                     experiencias, conocimientos y buenas prácticas en dirección de proyectos que transforman ideas en
                     resultados reales.</p>
             </div>
+
             <div class="filtros">
                 <button class="activo">Todos</button>
                 <button>Cajamarca</button>
@@ -210,24 +211,36 @@ usort($eventos, function ($a, $b) {
                 <button>Comunidad Estudiantil</button>
                 <button>Student Club UNC</button>
             </div>
+
             <div class="cards-eventos">
                 <?php if (!empty($eventos)): ?>
                     <?php foreach ($eventos as $evento): ?>
                         <div class="card-evento" data-ciudad="<?php echo htmlspecialchars($evento['comunidad']); ?>">
                             <span class="fecha"><?php echo formatearFechaEspanol(htmlspecialchars($evento['fecha'])); ?></span>
+
                             <?php if (!empty($evento['imagen'])): ?>
                                 <img src="<?php echo htmlspecialchars($evento['imagen']); ?>"
                                     alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
                             <?php else: ?>
                                 <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" alt="Sin imagen">
                             <?php endif; ?>
+
                             <h3><?php echo htmlspecialchars($evento['nombre']); ?></h3>
                             <p><?php echo htmlspecialchars($evento['descripcion']); ?></p>
-                            <?php if (!empty($evento['link'])): ?>
-                                <a href="<?php echo htmlspecialchars($evento['link']); ?>" class="btn-evento">Ver más</a>
-                            <?php else: ?>
-                                <a href="#" class="btn-evento">Ver más</a>
-                            <?php endif; ?>
+
+                            <div class="botones-evento">
+                                <button class="btn-evento btn-info"
+                                    onclick="mostrarInfoEvento(<?php echo $evento['id_Evento']; ?>)">
+                                    Ver información
+                                </button>
+
+                                <?php if (!empty($evento['link'])): ?>
+                                    <a href="<?php echo htmlspecialchars($evento['link']); ?>"
+                                        class="btn-evento btn-registro">Regístrate</a>
+                                <?php else: ?>
+                                    <a href="#" class="btn-evento btn-registro">Regístrate</a>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -236,6 +249,17 @@ usort($eventos, function ($a, $b) {
             </div>
         </div>
     </section>
+
+    <!-- MODAL PARA INFORMACIÓN DEL EVENTO -->
+    <div id="modalInfoEvento" class="modal oculto">
+        <div class="modal-content">
+            <span class="close-modal" onclick="cerrarModalEvento()">&times;</span>
+            <div id="contenidoEvento">
+                <!-- El contenido se cargará dinámicamente aquí -->
+            </div>
+        </div>
+    </div>
+
 
     <!-- LLAMADO A LA ACCIÓN -->
     <section id="cta" class="cta">
@@ -512,6 +536,97 @@ usort($eventos, function ($a, $b) {
     <footer class="footer">
         <p>© 2025 PMI Norte Perú</p>
     </footer>
+
+    <script>
+        // Datos de eventos en formato JSON para JavaScript
+        const eventosData = <?php echo json_encode($eventos); ?>;
+
+        // Función para mostrar información del evento
+        function mostrarInfoEvento(idEvento) {
+            // Buscar el evento por ID
+            const evento = eventosData.find(e => e.id_Evento == idEvento);
+
+            if (!evento) {
+                alert('Evento no encontrado');
+                return;
+            }
+
+            // Construir el contenido del modal
+            const contenido = `
+        <h2>${evento.nombre}</h2>
+        <div class="info-evento-detalle">
+            ${evento.imagen ? `<img src="${evento.imagen}" alt="${evento.nombre}" style="width: 100%; max-width: 500px; border-radius: 8px; margin-bottom: 20px;">` : ''}
+            
+            <div class="detalle-item">
+                <strong>📅 Fecha:</strong> ${formatearFechaJS(evento.fecha)}
+            </div>
+            
+            <div class="detalle-item">
+                <strong>📍 Lugar:</strong> ${evento.lugar || 'Por confirmar'}
+            </div>
+            
+            <div class="detalle-item">
+                <strong>🌐 Modalidad:</strong> ${evento.modalidad || 'Por confirmar'}
+            </div>
+            
+            <div class="detalle-item">
+                <strong>📂 Categoría:</strong> ${evento.categoria || 'General'}
+            </div>
+            
+            <div class="detalle-item">
+                <strong>🏢 Comunidad:</strong> ${evento.comunidad || 'PMI Norte Perú'}
+            </div>
+            
+            <div class="detalle-item descripcion-completa">
+                <strong>📋 Descripción:</strong>
+                <p>${evento.descripcion}</p>
+            </div>
+            
+            ${evento.link ? `
+                <div style="margin-top: 20px; text-align: center;">
+                    <a href="${evento.link}" class="btn-evento btn-registro" style="display: inline-block; padding: 12px 30px;">
+                        Regístrate ahora
+                    </a>
+                </div>
+            ` : ''}
+        </div>
+    `;
+
+            // Insertar contenido en el modal
+            document.getElementById('contenidoEvento').innerHTML = contenido;
+
+            // Mostrar el modal
+            document.getElementById('modalInfoEvento').classList.remove('oculto');
+        }
+
+        // Función para cerrar el modal
+        function cerrarModalEvento() {
+            document.getElementById('modalInfoEvento').classList.add('oculto');
+        }
+
+        // Función auxiliar para formatear fecha en JavaScript
+        function formatearFechaJS(fecha) {
+            const meses = {
+                '01': 'Enero', '02': 'Febrero', '03': 'Marzo', '04': 'Abril',
+                '05': 'Mayo', '06': 'Junio', '07': 'Julio', '08': 'Agosto',
+                '09': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'
+            };
+
+            const partes = fecha.split('-');
+            if (partes.length === 3) {
+                return `${parseInt(partes[2])} de ${meses[partes[1]]} de ${partes[0]}`;
+            }
+            return fecha;
+        }
+
+        // Cerrar modal al hacer clic fuera de él
+        document.addEventListener('click', function (event) {
+            const modal = document.getElementById('modalInfoEvento');
+            if (event.target === modal) {
+                cerrarModalEvento();
+            }
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
