@@ -2491,52 +2491,32 @@ body {
 }
 
 
-/* Estilos para los botones de evento */
-.botones-evento {
+/* MODAL DE INFORMACIÓN DEL EVENTO - Alineado con diseño existente */
+#modalInfoEvento.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(3px);
 }
 
-.btn-info {
-    background-color: #0066cc;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    flex: 1;
-    text-align: center;
-}
-
-.btn-info:hover {
-    background-color: #0052a3;
-}
-
-.btn-registro {
-    background-color: #28a745;
-    color: white !important;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    flex: 1;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.btn-registro:hover {
-    background-color: #218838;
-}
-
-/* Modal de información del evento */
 #modalInfoEvento .modal-content {
-    max-width: 700px;
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 650px;
     max-height: 85vh;
     overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: aparecer 0.3s ease;
+    position: relative;
 }
 
 #modalInfoEvento .close-modal {
@@ -2548,42 +2528,142 @@ body {
     color: #aaa;
     cursor: pointer;
     transition: color 0.3s;
+    z-index: 10;
 }
 
 #modalInfoEvento .close-modal:hover {
-    color: #000;
+    color: #333;
+}
+
+#modalInfoEvento h2 {
+    color: var(--color-primary);
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-right: 30px;
 }
 
 .info-evento-detalle {
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-evento-detalle img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .detalle-item {
-    margin-bottom: 15px;
-    padding: 10px;
+    padding: 12px 15px;
     background-color: #f8f9fa;
-    border-radius: 5px;
+    border-radius: 8px;
+    border-left: 4px solid var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+.detalle-item:hover {
+    background-color: #e9ecef;
+    transform: translateX(3px);
 }
 
 .detalle-item strong {
-    color: #0066cc;
+    color: var(--color-primary);
     display: block;
     margin-bottom: 5px;
+    font-size: 0.95em;
+}
+
+.detalle-item p {
+    margin: 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+.descripcion-completa {
+    background-color: #fff;
+    border: 2px solid #e9ecef;
+    border-left: 4px solid var(--color-secondary);
+}
+
+.descripcion-completa strong {
+    color: var(--color-secondary);
 }
 
 .descripcion-completa p {
     margin-top: 8px;
-    line-height: 1.6;
-    color: #333;
+    line-height: 1.7;
+    color: #555;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    .botones-evento {
-        flex-direction: column;
+/* Botón de registro en el modal */
+#modalInfoEvento .btn-evento {
+    display: inline-block;
+    background: var(--gradient-naranja);
+    color: var(--color-white) !important;
+    font-weight: 600;
+    padding: 14px 35px;
+    border-radius: 25px;
+    text-decoration: none;
+    box-shadow: var(--shadow-naranja);
+    transition: var(--transition-base);
+    text-align: center;
+}
+
+#modalInfoEvento .btn-evento:hover {
+    background: var(--gradient-celeste-suave);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-celeste);
+}
+
+/* Responsive para el modal */
+@media (max-width: 768px) {
+    #modalInfoEvento .modal-content {
+        padding: 2rem 1.5rem;
+        width: 95%;
+        max-height: 90vh;
     }
-    
-    .btn-info, .btn-registro {
-        width: 100%;
+
+    #modalInfoEvento h2 {
+        font-size: 1.5em;
+    }
+
+    .detalle-item {
+        padding: 10px 12px;
+    }
+
+    .detalle-item strong {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    #modalInfoEvento .modal-content {
+        padding: 1.5rem 1rem;
+    }
+
+    #modalInfoEvento h2 {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+    }
+
+    #modalInfoEvento .close-modal {
+        font-size: 24px;
+        top: 10px;
+        right: 15px;
+    }
+
+    .detalle-item {
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
+
+    #modalInfoEvento .btn-evento {
+        padding: 12px 28px;
+        font-size: 0.95em;
     }
 }
