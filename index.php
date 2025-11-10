@@ -78,7 +78,7 @@ usort($eventos, function ($a, $b) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" href="img/logo/icono.png" type="image/x-icon">
     <!-- Script de reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdvMAgsAAAAADUpao4CRIs4Irv2zsIbT95UN_mg"></script>
 </head>
 
 <body>
@@ -481,8 +481,6 @@ usort($eventos, function ($a, $b) {
                     </label>
                 </div>
 
-                <div id="recaptcha-voluntariado"></div>
-
                 <div class="form-buttons">
                     <button type="submit" class="btn-vol btn-azul">Enviar</button>
                     <button type="button" class="btn-vol btn-blanco" id="btnCerrarForm">Cancelar</button>
@@ -521,8 +519,6 @@ usort($eventos, function ($a, $b) {
                             Acepto la política de privacidad
                         </label>
                     </div>
-
-                    <div id="recaptcha-contacto"></div>
 
                     <button type="submit" class="btn-enviar">Enviar</button>
                     <p class="hint" role="status" aria-live="polite" hidden>Gracias. Te contactaremos pronto.</p>
