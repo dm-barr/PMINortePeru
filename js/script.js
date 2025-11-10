@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function () {
   async function testConnection() {
     console.log("🔍 Probando conexión con Google Apps Script...");
     try {
-      const response = await fetch(scriptURL, { method: "GET" });
+      const response = await fetch(scriptURL, { method: "POST" });
       const text = await response.text();
       console.log("✅ Respuesta GET:", text);
     } catch (err) {
