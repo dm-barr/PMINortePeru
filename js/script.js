@@ -74,6 +74,13 @@ if (formVoluntariado) {
   console.log('Formulario de voluntariado encontrado');
   formVoluntariado.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+        // Validar campos requeridos
+    if (!formVoluntariado.checkValidity()) {
+        formVoluntariado.reportValidity(); // Muestra mensajes de error nativos
+        return;
+    }
+
     console.log('Ejecutando reCAPTCHA v3...');
     
     try {
@@ -112,6 +119,11 @@ if (formContacto) {
   console.log('Formulario de contacto encontrado');
   formContacto.addEventListener('submit', async (e) => {
     e.preventDefault();
+        // Validar campos requeridos
+    if (!formContacto.checkValidity()) {
+        formContacto.reportValidity(); // Muestra mensajes de error nativos
+        return;
+    }
     console.log('Ejecutando reCAPTCHA v3...');
     
     try {
