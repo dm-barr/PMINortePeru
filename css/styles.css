@@ -2799,3 +2799,29 @@ body > div > iframe[src*="recaptcha/api2/bframe"] {
         min-width: 100%;
     }
 }
+
+/* Separar enlaces del topbar en móviles */
+@media (max-width: 768px) {
+    .topbar-right {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        align-items: center;
+    }
+    
+    .topbar-right .separator {
+        display: none;
+    }
+    
+    .topbar-right .contact-link {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .topbar-right .contact-link:last-child {
+        border-bottom: none;
+    }
+}

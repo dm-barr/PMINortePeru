@@ -486,3 +486,27 @@ function onSubmitContacto(token) {
       }
     });
 }
+
+
+// MENU HAMBURGUESA - TOGGLE
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const menu = document.querySelector('.menu');
+    const menuIcon = document.querySelector('.menu-icon');
+    
+    if (menuToggle && menuIcon) {
+        menuIcon.addEventListener('click', function() {
+            menuToggle.checked = !menuToggle.checked;
+        });
+    }
+    
+    // Cerrar menú al hacer clic en un enlace
+    const menuLinks = document.querySelectorAll('.menu a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (menuToggle) {
+                menuToggle.checked = false;
+            }
+        });
+    });
+});
