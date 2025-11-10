@@ -74,30 +74,40 @@ let captchaContacto = null;
 // Esta función se ejecuta cuando reCAPTCHA está listo
 function onloadCallback() {
   console.log("✅ reCAPTCHA API cargada correctamente");
-  
+
   // Renderizar CAPTCHA del formulario de voluntariado
-  const captchaElementVoluntariado = document.querySelector('#formModal .g-recaptcha');
-  if (captchaElementVoluntariado && typeof grecaptcha !== 'undefined') {
+  const captchaElementVoluntariado = document.querySelector(
+    "#formModal .g-recaptcha"
+  );
+  if (captchaElementVoluntariado && typeof grecaptcha !== "undefined") {
     try {
       captchaVoluntariado = grecaptcha.render(captchaElementVoluntariado, {
-        'sitekey': captchaElementVoluntariado.getAttribute('data-sitekey'),
-        'theme': 'light'
+        sitekey: captchaElementVoluntariado.getAttribute("data-sitekey"),
+        theme: "light",
       });
-      console.log("✅ reCAPTCHA de voluntariado renderizado, widget ID:", captchaVoluntariado);
+      console.log(
+        "✅ reCAPTCHA de voluntariado renderizado, widget ID:",
+        captchaVoluntariado
+      );
     } catch (e) {
       console.error("❌ Error al renderizar reCAPTCHA de voluntariado:", e);
     }
   }
-  
+
   // Renderizar CAPTCHA del formulario de contacto
-  const captchaElementContacto = document.querySelector('#contactForm .g-recaptcha');
-  if (captchaElementContacto && typeof grecaptcha !== 'undefined') {
+  const captchaElementContacto = document.querySelector(
+    "#contactForm .g-recaptcha"
+  );
+  if (captchaElementContacto && typeof grecaptcha !== "undefined") {
     try {
       captchaContacto = grecaptcha.render(captchaElementContacto, {
-        'sitekey': captchaElementContacto.getAttribute('data-sitekey'),
-        'theme': 'light'
+        sitekey: captchaElementContacto.getAttribute("data-sitekey"),
+        theme: "light",
       });
-      console.log("✅ reCAPTCHA de contacto renderizado, widget ID:", captchaContacto);
+      console.log(
+        "✅ reCAPTCHA de contacto renderizado, widget ID:",
+        captchaContacto
+      );
     } catch (e) {
       console.error("❌ Error al renderizar reCAPTCHA de contacto:", e);
     }
@@ -107,11 +117,11 @@ function onloadCallback() {
 // Función auxiliar para esperar a que grecaptcha esté disponible
 function esperarRecaptcha() {
   return new Promise((resolve) => {
-    if (typeof grecaptcha !== 'undefined' && grecaptcha.render) {
+    if (typeof grecaptcha !== "undefined" && grecaptcha.render) {
       resolve();
     } else {
       const checkInterval = setInterval(() => {
-        if (typeof grecaptcha !== 'undefined' && grecaptcha.render) {
+        if (typeof grecaptcha !== "undefined" && grecaptcha.render) {
           clearInterval(checkInterval);
           resolve();
         }
@@ -370,15 +380,15 @@ document.addEventListener("DOMContentLoaded", function () {
       await esperarRecaptcha();
 
       // Verificar CAPTCHA
-      let captchaResponse = '';
+      let captchaResponse = "";
       try {
         if (captchaVoluntariado !== null) {
           captchaResponse = grecaptcha.getResponse(captchaVoluntariado);
         } else {
           captchaResponse = grecaptcha.getResponse(0);
         }
-        
-        if (!captchaResponse || captchaResponse === '') {
+
+        if (!captchaResponse || captchaResponse === "") {
           alert("⚠️ Por favor, completa la verificación CAPTCHA.");
           return;
         }
@@ -415,7 +425,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Resetear formulario y CAPTCHA
         formElement.reset();
-        
+
         // Resetear el CAPTCHA correspondiente
         try {
           if (captchaVoluntariado !== null) {
@@ -436,7 +446,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("  Mensaje:", err.message);
         console.error("  Stack:", err.stack);
         alert("❌ Error al enviar. Inténtalo nuevamente.");
-        
+
         // Resetear CAPTCHA también en caso de error
         try {
           if (captchaVoluntariado !== null) {
@@ -470,15 +480,15 @@ document.addEventListener("DOMContentLoaded", function () {
       await esperarRecaptcha();
 
       // Verificar CAPTCHA
-      let captchaResponse = '';
+      let captchaResponse = "";
       try {
         if (captchaContacto !== null) {
           captchaResponse = grecaptcha.getResponse(captchaContacto);
         } else {
           captchaResponse = grecaptcha.getResponse(1);
         }
-        
-        if (!captchaResponse || captchaResponse === '') {
+
+        if (!captchaResponse || captchaResponse === "") {
           alert("⚠️ Por favor, completa la verificación CAPTCHA.");
           return;
         }
@@ -515,7 +525,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Resetear formulario y CAPTCHA
         formElement.reset();
-        
+
         // Resetear el CAPTCHA correspondiente
         try {
           if (captchaContacto !== null) {
@@ -532,7 +542,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("  Mensaje:", err.message);
         console.error("  Stack:", err.stack);
         alert("❌ Error al enviar. Inténtalo nuevamente.");
-        
+
         // Resetear CAPTCHA también en caso de error
         try {
           if (captchaContacto !== null) {
