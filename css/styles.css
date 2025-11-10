@@ -2692,7 +2692,7 @@ body {
 }
 
 .btn-info {
-    background: var(--gradient-morado-suave);
+    background: var(--gradient-celeste-suave);
     color: white;
     box-shadow: var(--shadow-md);
 }
