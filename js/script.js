@@ -76,33 +76,34 @@ function onloadCallback() {
   console.log("✅ reCAPTCHA API cargada correctamente");
   
   // Renderizar CAPTCHA del formulario de voluntariado
-  const captchaElementVoluntariado = document.querySelector('#formModal .g-recaptcha');
+  const captchaElementVoluntariado = document.getElementById('recaptcha-voluntariado');
   if (captchaElementVoluntariado && typeof grecaptcha !== 'undefined') {
     try {
-      captchaVoluntariado = grecaptcha.render(captchaElementVoluntariado, {
-        'sitekey': captchaElementVoluntariado.getAttribute('data-sitekey'),
+      captchaVoluntariado = grecaptcha.render('recaptcha-voluntariado', {
+        'sitekey': '6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta',
         'theme': 'light'
       });
-      console.log("✅ reCAPTCHA de voluntariado renderizado, widget ID:", captchaVoluntariado);
+      console.log("✅ reCAPTCHA de voluntariado renderizado");
     } catch (e) {
       console.error("❌ Error al renderizar reCAPTCHA de voluntariado:", e);
     }
   }
   
   // Renderizar CAPTCHA del formulario de contacto
-  const captchaElementContacto = document.querySelector('#contactForm .g-recaptcha');
+  const captchaElementContacto = document.getElementById('recaptcha-contacto');
   if (captchaElementContacto && typeof grecaptcha !== 'undefined') {
     try {
-      captchaContacto = grecaptcha.render(captchaElementContacto, {
-        'sitekey': captchaElementContacto.getAttribute('data-sitekey'),
+      captchaContacto = grecaptcha.render('recaptcha-contacto', {
+        'sitekey': '6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta',
         'theme': 'light'
       });
-      console.log("✅ reCAPTCHA de contacto renderizado, widget ID:", captchaContacto);
+      console.log("✅ reCAPTCHA de contacto renderizado");
     } catch (e) {
       console.error("❌ Error al renderizar reCAPTCHA de contacto:", e);
     }
   }
 }
+
 
 // Función auxiliar para esperar a que grecaptcha esté disponible
 function esperarRecaptcha() {
