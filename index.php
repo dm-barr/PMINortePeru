@@ -95,6 +95,8 @@ usort($eventos, function ($a, $b) {
             <span class="email">informes@pminorteperu.org</span>
             <span class="separator">|</span>
             <a href="#contacto" class="contact-link">Contáctanos</a>
+            <span class="separator">|</span>
+            <a href="admin/login.php" class="contact-link">Login Administración</a>
         </div>
     </div>
 
