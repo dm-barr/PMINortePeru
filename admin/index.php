@@ -257,6 +257,11 @@ $noticias = $noticiaModel->getAll();
         <aside class="sidebar">
             <div class="sidebar-header">
                 <img src="../img/logo/logo_PMI.png" alt="Logo PMI Norte Perú" class="sidebar-logo">
+                <h3>Panel Admin</h3>
+                <div class="user-info">
+                    <p class="user-name"><?php echo htmlspecialchars($usuario_nombre); ?></p>
+                    <p class="user-role"><?php echo htmlspecialchars($usuario_rol); ?></p>
+                </div>
             </div>
             <nav class="sidebar-nav">
                 <ul>
@@ -265,13 +270,6 @@ $noticias = $noticiaModel->getAll();
                     <li><a href="#" class="nav-link" data-target="noticias">Noticias</a></li>
                 </ul>
             </nav>
-            <div class="sidebar-header">
-                <h3>Panel Admin</h3>
-                <div class="user-info">
-                    <p class="user-name"><?php echo htmlspecialchars($usuario_nombre); ?></p>
-                    <p class="user-role"><?php echo htmlspecialchars($usuario_rol); ?></p>
-                </div>
-            </div>
             <div class="sidebar-footer">
                 <a href="#" class="logout-link">Cerrar Sesión</a>
             </div>
@@ -673,7 +671,7 @@ $noticias = $noticiaModel->getAll();
 <?php ob_end_flush(); ?>
 
 </html>
-<?php 
+<?php
 $mysqli->close();
-ob_end_flush(); 
+ob_end_flush();
 ?>
