@@ -1,5 +1,8 @@
 <?php
-// ACTIVAR ERRORES PARA DEBUG
+// IMPORTANTE: Output buffering DEBE estar ANTES de session_start()
+ob_start();
+
+// ACTIVAR ERRORES PARA DEBUG (quitar después de probar)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -38,25 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($usuario) {
-                $password_valida = false;
-                
-                // Verificar si la contraseña está hasheada (empieza con $2y$)
-                if (substr($usuario['contrasena'], 0, 4) === '$2y$') {
-                    // Contraseña hasheada - usar password_verify
-                    $password_valida = password_verify($password, $usuario['contrasena']);
-                } else {
-                    // Contraseña sin hashear - comparación directa
-                    $password_valida = ($password === $usuario['contrasena']);
-                    
-                    // OPCIONAL: Hashear la contraseña ahora para la próxima vez
-                    if ($password_valida) {
-                        $password_hasheada = password_hash($password, PASSWORD_DEFAULT);
-                        $update = $conn->prepare("UPDATE Usuario SET contrasena = ? WHERE id_Usuario = ?");
-                        $update->execute([$password_hasheada, $usuario['id_Usuario']]);
-                    }
-                }
-                
-                if ($password_valida) {
+                // Verificar contraseña hasheada
+                if (password_verify($password, $usuario['contrasena'])) {
                     // Login exitoso
                     $_SESSION['usuario_id'] = $usuario['id_Usuario'];
                     $_SESSION['usuario_nombre'] = $usuario['nombre'];
@@ -66,6 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['usuario_rol_nombre'] = $usuario['rol'] ?? 'Sin Rol';
                     $_SESSION['usuario_estado'] = $usuario['estado'];
 
+                    // Limpiar buffer y redirigir
+                    ob_end_clean();
                     header('Location: index.php');
                     exit;
                 } else {
@@ -75,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = 'Credenciales incorrectas';
             }
         } catch (PDOException $e) {
-            $error = 'Error de conexión: ' . $e->getMessage();
+            $error = 'Error de base de datos: ' . $e->getMessage();
         } catch (Exception $e) {
             $error = 'Error: ' . $e->getMessage();
         }
@@ -248,3 +236,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 </html>
+<?php ob_end_flush(); ?>
