@@ -225,7 +225,7 @@ $noticias = $noticiaModel->getAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración - PMI Norte Perú</title>
-    <link rel="stylesheet" href="EstilosAdmin.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="admin-container">
@@ -630,6 +630,6 @@ $noticias = $noticiaModel->getAll();
         </div>
     </div>
 
-    <script src="JsAdmin.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
