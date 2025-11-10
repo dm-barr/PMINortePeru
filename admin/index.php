@@ -29,9 +29,9 @@ require_once __DIR__ . '/../php/noticia.php';
 $db = new Database();
 $mysqli = $db->getMysqli();
 
-$eventoModel = new EventoModel($mysqli);
-$educacionModel = new EducacionModel($mysqli);
-$noticiaModel = new NoticiaModel($mysqli);
+$eventoModel = new EventoModel_mysqli();
+$educacionModel = new EducacionModel_mysqli();
+$noticiaModel = new NoticiaModel_mysqli();
 
 // Variables para mensajes
 $mensaje = '';
