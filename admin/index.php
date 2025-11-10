@@ -305,7 +305,7 @@ $noticias = $noticiaModel->getAll();
                                         </td>
                                         <td class="action-icons">
                                             <a href="#" class="btn-editar-evento"
-                                                data-id="<?php echo htmlspecialchars($evento['idEvento']); ?>"
+                                                data-id="<?php echo htmlspecialchars($evento['id_Evento']); ?>"
                                                 data-nombre="<?php echo htmlspecialchars($evento['nombre'], ENT_QUOTES); ?>"
                                                 data-descripcion="<?php echo htmlspecialchars($evento['descripcion'], ENT_QUOTES); ?>"
                                                 data-comunidad="<?php echo htmlspecialchars($evento['comunidad'], ENT_QUOTES); ?>"
@@ -318,7 +318,7 @@ $noticias = $noticiaModel->getAll();
                                                 <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
                                             <a href="#" class="btn-eliminar" data-tipo="evento"
-                                                data-id="<?php echo htmlspecialchars($evento['idEvento']); ?>" title="Eliminar">
+                                                data-id="<?php echo htmlspecialchars($evento['id_Evento']); ?>" title="Eliminar">
                                                 <img src="../img/iconos/eliminar.png" alt="Eliminar">
                                             </a>
                                         </td>
