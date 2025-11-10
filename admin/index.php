@@ -270,7 +270,7 @@ $noticias = $noticiaModel->getAll();
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <a href="#" class="logout-link">Cerrar Sesión</a>
+                <a href="logout.php" class="logout-link">Cerrar Sesión</a>
             </div>
         </aside>
 
