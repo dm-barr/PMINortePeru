@@ -319,6 +319,7 @@ $noticias = $noticiaModel->getAll();
                                                 <img src="../img/iconos/eliminar.png" alt="Eliminar">
                                             </a>
                                         </td>
+                                        
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
