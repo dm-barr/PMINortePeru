@@ -456,7 +456,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Panel Izquierdo con Branding -->
         <div class="login-branding">
             <div class="login-logo">
-                <img src="img/logo-pmi-blanco.png" alt="PMI Norte Perú">
+                <img src="img/logo/logo_PMI.png" alt="PMI Norte Perú">
             </div>
             <h1>Bienvenido</h1>
             <p>Accede al panel de administración de PMI Norte Perú</p>
@@ -506,13 +506,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
 
-                    <div class="form-options">
+                    <!--<div class="form-options">
                         <label class="checkbox-container">
                             <input type="checkbox" name="recordar">
                             <span>Recordarme</span>
                         </label>
                         <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                    </div>
+                    </div>-->
 
                     <button type="submit" class="btn-login">
                         <i class="fas fa-sign-in-alt"></i>
