@@ -82,31 +82,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if ($accion === 'editar_evento') {
-        $id = $_POST['id'] ?? 0;
-        $nombre = $_POST['nombre'] ?? '';
-        $descripcion = $_POST['descripcion'] ?? '';
-        $comunidad = $_POST['comunidad'] ?? '';
-        $modalidad = $_POST['modalidad'] ?? '';
-        $categoria = $_POST['categoria'] ?? '';
-        $fecha = $_POST['fecha'] ?? date('Y-m-d'); // ✅ CAMPO FECHA AGREGADO
-        $lugar = $_POST['lugar'] ?? '';
+    if ($_POST['accion'] == 'editar_evento') {
+        $id = $_POST['id'];
+        $nombre = $_POST['nombre'];
+        $descripcion = $_POST['descripcion'];
+        $comunidad = $_POST['comunidad'];
+        $fecha = $_POST['fecha'];  // ✅ Agregar esto
+        $modalidad = $_POST['modalidad'];
+        $categoria = $_POST['categoria'];
+        $lugar = $_POST['lugar'];
         $link = $_POST['link'] ?? '';
 
-        // Manejar subida de nueva imagen (opcional en edición)
+        // Manejo de imagen...
         $imagen = null;
-        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-            $imagen = subirImagen($_FILES['imagen']);
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
+            $imagen = 'uploads/' . uniqid() . '_' . $_FILES['imagen']['name'];
+            move_uploaded_file($_FILES['imagen']['tmp_name'], $imagen);
         }
 
-        if ($eventoModel->update($id, $nombre, $descripcion, $comunidad, $modalidad, $categoria, $fecha, $lugar, $imagen, $link)) {
-            $mensaje = 'Evento actualizado exitosamente';
-            $tipo_mensaje = 'success';
-        } else {
-            $mensaje = 'Error al actualizar el evento';
-            $tipo_mensaje = 'error';
-        }
+        // ✅ Llamada corregida con fecha
+        $evento->update($id, $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link);
     }
+
 
 
     if ($accion === 'eliminar_evento') {
@@ -304,21 +301,20 @@ $noticias = $noticiaModel->getAll();
                                         <td><?php echo !empty($evento['imagen']) ? htmlspecialchars($evento['imagen']) : '-'; ?>
                                         </td>
                                         <td class="action-icons">
-                                            <a href="#" class="btn-editar-evento"
-                                                data-id="<?php echo htmlspecialchars($evento['id_Evento']); ?>"
-                                                data-nombre="<?php echo htmlspecialchars($evento['nombre'], ENT_QUOTES); ?>"
-                                                data-descripcion="<?php echo htmlspecialchars($evento['descripcion'], ENT_QUOTES); ?>"
-                                                data-comunidad="<?php echo htmlspecialchars($evento['comunidad'], ENT_QUOTES); ?>"
-                                                data-modalidad="<?php echo htmlspecialchars($evento['modalidad'], ENT_QUOTES); ?>"
-                                                data-categoria="<?php echo htmlspecialchars($evento['categoria'], ENT_QUOTES); ?>"
-                                                data-fecha="<?php echo htmlspecialchars($evento['fecha'], ENT_QUOTES); ?>"
-                                                data-lugar="<?php echo htmlspecialchars($evento['lugar'], ENT_QUOTES); ?>"
-                                                data-link="<?php echo htmlspecialchars($evento['link'] ?? '', ENT_QUOTES); ?>"
-                                                title="Editar">
+                                            <a href="#" class="btn-editar-evento" data-id="<?= $evento['id_Evento'] ?>"
+                                                data-nombre="<?= htmlspecialchars($evento['nombre']) ?>"
+                                                data-descripcion="<?= htmlspecialchars($evento['descripcion']) ?>"
+                                                data-comunidad="<?= htmlspecialchars($evento['comunidad']) ?>"
+                                                data-fecha="<?= $evento['fecha'] ?>"
+                                                data-modalidad="<?= htmlspecialchars($evento['modalidad']) ?>"
+                                                data-categoria="<?= htmlspecialchars($evento['categoria']) ?>"
+                                                data-lugar="<?= htmlspecialchars($evento['lugar']) ?>"
+                                                data-link="<?= htmlspecialchars($evento['link']) ?>" title="Editar">
                                                 <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
                                             <a href="#" class="btn-eliminar" data-tipo="evento"
-                                                data-id="<?php echo htmlspecialchars($evento['id_Evento']); ?>" title="Eliminar">
+                                                data-id="<?php echo htmlspecialchars($evento['id_Evento']); ?>"
+                                                title="Eliminar">
                                                 <img src="../img/iconos/eliminar.png" alt="Eliminar">
                                             </a>
                                         </td>
