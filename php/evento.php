@@ -1,5 +1,6 @@
 <?php
-class EventoModel_mysqli {
+class EventoModel_mysqli
+{
     private $mysqli;
     private $table = 'Evento';
     private $host = 'localhost';
@@ -7,7 +8,8 @@ class EventoModel_mysqli {
     private $username = 'pminorte_admin';
     private $password = 'm$GYzHub$}Ov';
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->mysqli = new mysqli($this->host, $this->username, $this->password, $this->dbname);
 
         if ($this->mysqli->connect_error) {
@@ -15,16 +17,18 @@ class EventoModel_mysqli {
         }
 
         $this->mysqli->set_charset("utf8mb4");
-    }    
+    }
 
-    public function __destruct() {
+    public function __destruct()
+    {
         if ($this->mysqli) {
             $this->mysqli->close();
         }
     }
 
     // Obtener todos los eventos
-    public function getAll() {
+    public function getAll()
+    {
         $sql = "SELECT * FROM {$this->table} ORDER BY fecha DESC";
         $result = $this->mysqli->query($sql);
 
@@ -39,11 +43,11 @@ class EventoModel_mysqli {
         return $eventos;
     }
 
-    // ✅ CREAR EVENTO - ACTUALIZADO CON CAMPO LINK
-    public function create($nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen, $link = '') {
-        $fecha = date('Y-m-d');
+    // ✅ CREAR EVENTO - CON FECHA PERSONALIZABLE
+    public function create($nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link = '')
+    {
         $sql = "INSERT INTO {$this->table} (nombre, descripcion, comunidad, fecha, modalidad, categoria, lugar, imagen, link) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return false;
@@ -51,9 +55,11 @@ class EventoModel_mysqli {
         return $stmt->execute();
     }
 
+
     // ✅ ACTUALIZAR EVENTO - ACTUALIZADO CON CAMPO LINK
-    public function update($id, $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen = null, $link = '') {
-        if($imagen !== null) {
+    public function update($id, $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen = null, $link = '')
+    {
+        if ($imagen !== null) {
             // Si hay imagen nueva, actualizar todo incluyendo imagen y link
             $sql = "UPDATE {$this->table} 
                     SET nombre = ?, descripcion = ?, comunidad = ?, modalidad = ?, categoria = ?, lugar = ?, imagen = ?, link = ? 
@@ -76,7 +82,8 @@ class EventoModel_mysqli {
     }
 
     // Eliminar por ID
-    public function delete($id) {
+    public function delete($id)
+    {
         $sql = "DELETE FROM {$this->table} WHERE id_Evento = ?";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
@@ -86,7 +93,8 @@ class EventoModel_mysqli {
     }
 
     // Obtener evento por ID
-    public function getById($id) {
+    public function getById($id)
+    {
         $sql = "SELECT * FROM {$this->table} WHERE id_Evento = ?";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
