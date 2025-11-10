@@ -44,7 +44,7 @@ $eventos = $eventoModel->getAll();
     <!-- NAVBAR -->
     <header class="navbar">
         <div class="nav-container">
-            <img src="img/logo/logoPMI.png" alt="Logo PMI Norte Perú" class="logo">
+            <img src="img/logo/logo_PMI.png" alt="Logo PMI Norte Perú" class="logo">
             <input type="checkbox" id="menu-toggle" class="menu-toggle">
             <label for="menu-toggle" class="menu-icon"></label>
             <nav id="navmenu">
