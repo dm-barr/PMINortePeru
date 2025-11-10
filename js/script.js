@@ -337,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // FORMULARIOS - GOOGLE SHEETS
   // ====================================
   const scriptURL =
-    "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
+    "https://script.google.com/macros/s/AKfycbxC-04gzCeK6aiBtxx1S6s36mJ7jEX6J9qkWddDLtCxBpzRN2YoCIeqe-5AJshgjPFJzQ/exec";
   console.log("🔧 Script URL configurada:", scriptURL);
 
   async function testConnection() {
