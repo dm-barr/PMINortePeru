@@ -12,19 +12,8 @@ if (isset($_SESSION['usuario_id'])) {
     exit;
 }
 
-// VERIFICAR RUTA - ajusta según tu estructura
-$database_path = __DIR__ . '/config/Database.php';
-
-// Si Database.php está en la raíz del proyecto
-if (!file_exists($database_path)) {
-    $database_path = __DIR__ . '/../config/Database.php';
-}
-
-if (!file_exists($database_path)) {
-    die("ERROR: No se encuentra Database.php. Ruta buscada: " . $database_path);
-}
-
-require_once $database_path;
+// Incluir Database.php
+require_once __DIR__ . '/config/Database.php';
 
 $error = '';
 
@@ -49,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($usuario) {
+                // Verificar contraseña hasheada
                 if (password_verify($password, $usuario['contrasena'])) {
                     $_SESSION['usuario_id'] = $usuario['id_Usuario'];
                     $_SESSION['usuario_nombre'] = $usuario['nombre'];
@@ -233,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <div class="back-link">
-            <a href="../index.html">← Volver al sitio</a>
+            <a href="https://pruebas.pminorteperu.org">← Volver al sitio</a>
         </div>
     </div>
 </body>

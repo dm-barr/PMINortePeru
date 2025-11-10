@@ -1,5 +1,4 @@
 <?php
-// hashear_passwords.php
 require_once __DIR__ . '/config/Database.php';
 
 $db = new Database();
@@ -9,6 +8,8 @@ $conn = $db->getConnection();
 $stmt = $conn->query("SELECT id_Usuario, contrasena FROM Usuario");
 $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+echo "<h2>Hasheando contraseñas...</h2>";
+
 foreach ($usuarios as $usuario) {
     // Solo hashear si la contraseña no está hasheada (menos de 60 caracteres)
     if (strlen($usuario['contrasena']) < 60) {
@@ -17,9 +18,11 @@ foreach ($usuarios as $usuario) {
         $update = $conn->prepare("UPDATE Usuario SET contrasena = ? WHERE id_Usuario = ?");
         $update->execute([$password_hasheada, $usuario['id_Usuario']]);
         
-        echo "Usuario ID {$usuario['id_Usuario']}: contraseña actualizada<br>";
+        echo "✅ Usuario ID {$usuario['id_Usuario']}: contraseña actualizada<br>";
+    } else {
+        echo "⏭️ Usuario ID {$usuario['id_Usuario']}: ya tiene contraseña hasheada<br>";
     }
 }
 
-echo "<br>Proceso completado. Todas las contraseñas están hasheadas.";
+echo "<br><strong>✔️ Proceso completado</strong>";
 ?>
