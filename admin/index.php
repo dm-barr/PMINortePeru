@@ -87,22 +87,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nombre = $_POST['nombre'];
         $descripcion = $_POST['descripcion'];
         $comunidad = $_POST['comunidad'];
-        $fecha = $_POST['fecha'];  // ✅ Agregar esto
+        $fecha = $_POST['fecha'];
         $modalidad = $_POST['modalidad'];
         $categoria = $_POST['categoria'];
         $lugar = $_POST['lugar'];
         $link = $_POST['link'] ?? '';
 
-        // Manejo de imagen...
-        $imagen = null;
-        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
-            $imagen = 'uploads/' . uniqid() . '_' . $_FILES['imagen']['name'];
-            move_uploaded_file($_FILES['imagen']['tmp_name'], $imagen);
+        // ✅ Obtener evento actual para preservar imagen si no se sube nueva
+        $evento_actual = $eventoModel->getById($id);
+        $imagen = $evento_actual['imagen'] ?? null; // Mantener imagen actual por defecto
+
+        // Solo actualizar imagen si se subió una nueva
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            $nueva_imagen = subirImagen($_FILES['imagen']);
+            if ($nueva_imagen !== null) {
+                $imagen = $nueva_imagen;
+
+                // Opcional: Eliminar imagen anterior si existe
+                if (!empty($evento_actual['imagen']) && file_exists(__DIR__ . '/../' . $evento_actual['imagen'])) {
+                    unlink(__DIR__ . '/../' . $evento_actual['imagen']);
+                }
+            }
         }
 
-        // ✅ Llamada corregida con fecha
-        $evento->update($id, $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link);
+        // ✅ CORRECCIÓN: Usar $eventoModel en lugar de $evento
+        if ($eventoModel->update($id, $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link)) {
+            $mensaje = 'Evento actualizado exitosamente';
+            $tipo_mensaje = 'success';
+        } else {
+            $mensaje = 'Error al actualizar el evento';
+            $tipo_mensaje = 'error';
+        }
     }
+
 
 
 
