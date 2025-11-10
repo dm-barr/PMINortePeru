@@ -63,17 +63,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - PMI Norte Perú</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="../img/logo/icono.png" type="image/x-icon">
+
     <style>
         /* ========================================
            LOGIN PAGE - DISEÑO PMI NORTE PERÚ
         ======================================== */
-        
+
         :root {
             --color-primary: #4F17A8;
             --color-secondary: #3FC0F0;
@@ -131,8 +134,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(30px, -30px) scale(1.1); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
         }
 
         .login-container {
@@ -154,6 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 opacity: 0;
                 transform: translateY(50px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -263,9 +274,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
         }
 
         .alert-error i {
@@ -318,7 +339,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transform: translateY(-2px);
         }
 
-        .form-group input:focus ~ .input-icon {
+        .form-group input:focus~.input-icon {
             color: var(--color-secondary);
         }
 
@@ -430,6 +451,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <!-- Panel Izquierdo con Branding -->
@@ -447,26 +469,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="login-form-box">
                 <h2>Iniciar Sesión</h2>
                 <p class="login-subtitle">Ingresa tus credenciales para continuar</p>
-                
+
                 <?php if ($error): ?>
-                <div class="alert-error">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <span><?php echo htmlspecialchars($error); ?></span>
-                </div>
+                    <div class="alert-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span><?php echo htmlspecialchars($error); ?></span>
+                    </div>
                 <?php endif; ?>
-                
+
                 <form method="POST" action="">
                     <div class="form-group">
                         <label for="correo">Correo Electrónico</label>
                         <div class="input-wrapper">
-                            <input 
-                                type="email" 
-                                id="correo" 
-                                name="correo" 
-                                placeholder="ejemplo@correo.com"
-                                value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>"
-                                required
-                            >
+                            <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com"
+                                value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>" required>
                             <i class="fas fa-envelope input-icon"></i>
                         </div>
                     </div>
@@ -474,13 +490,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label for="password">Contraseña</label>
                         <div class="input-wrapper">
-                            <input 
-                                type="password" 
-                                id="password" 
-                                name="password" 
-                                placeholder="Ingrese su contraseña"
-                                required
-                            >
+                            <input type="password" id="password" name="password" placeholder="Ingrese su contraseña"
+                                required>
                             <i class="fas fa-lock input-icon"></i>
                         </div>
                     </div>
@@ -502,5 +513,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </body>
+
 </html>
 <?php ob_end_flush(); ?>
