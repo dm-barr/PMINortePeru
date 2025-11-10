@@ -1,4 +1,9 @@
 <?php
+// ACTIVAR ERRORES PARA DEBUG
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 // Si ya está logueado, redirigir
@@ -7,7 +12,19 @@ if (isset($_SESSION['usuario_id'])) {
     exit;
 }
 
-require_once __DIR__ . '/config/Database.php';
+// VERIFICAR RUTA - ajusta según tu estructura
+$database_path = __DIR__ . '/config/Database.php';
+
+// Si Database.php está en la raíz del proyecto
+if (!file_exists($database_path)) {
+    $database_path = __DIR__ . '/../config/Database.php';
+}
+
+if (!file_exists($database_path)) {
+    die("ERROR: No se encuentra Database.php. Ruta buscada: " . $database_path);
+}
+
+require_once $database_path;
 
 $error = '';
 
@@ -15,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = trim($_POST['correo'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    // Validar campos
     if (empty($correo) || empty($password)) {
         $error = 'Por favor, complete todos los campos';
     } else {
@@ -23,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db = new Database();
             $conn = $db->getConnection();
 
-            // Consultar usuario por correo
             $stmt = $conn->prepare("
                 SELECT u.*, r.rol 
                 FROM Usuario u 
@@ -34,10 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($usuario) {
-                // Verificar contraseña
-                // Si la contraseña está hasheada con password_hash()
                 if (password_verify($password, $usuario['contrasena'])) {
-                    // Login exitoso - guardar datos en sesión
                     $_SESSION['usuario_id'] = $usuario['id_Usuario'];
                     $_SESSION['usuario_nombre'] = $usuario['nombre'];
                     $_SESSION['usuario_correo'] = $usuario['correo'];
