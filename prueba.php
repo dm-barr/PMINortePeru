@@ -3,6 +3,30 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Función para formatear fecha en español
+function formatearFechaEspanol($fecha) {
+    $meses = array(
+        "01" => "Enero", "02" => "Febrero", "03" => "Marzo", 
+        "04" => "Abril", "05" => "Mayo", "06" => "Junio",
+        "07" => "Julio", "08" => "Agosto", "09" => "Septiembre",
+        "10" => "Octubre", "11" => "Noviembre", "12" => "Diciembre"
+    );
+    
+    // Si la fecha viene como "30/12" o "30/12/2025"
+    if (strpos($fecha, '/') !== false) {
+        $partes = explode('/', $fecha);
+        $dia = $partes[0];
+        $mes = $partes[1];
+        
+        // Si el mes es de un solo dígito, añade un cero
+        $mes = str_pad($mes, 2, "0", STR_PAD_LEFT);
+        
+        return $dia . " " . $meses[$mes];
+    }
+    
+    return $fecha; // Si no coincide el formato, devuelve la fecha original
+}
+
 // Incluir el modelo de eventos
 require_once __DIR__ . '/php/evento.php';
 
@@ -143,7 +167,7 @@ $eventos = $eventoModel->getAll();
                 <?php if (!empty($eventos)): ?>
                     <?php foreach ($eventos as $evento): ?>
                         <div class="card-evento" data-ciudad="<?php echo htmlspecialchars($evento['comunidad']); ?>">
-                            <span class="fecha"><?php echo htmlspecialchars($evento['fecha']); ?></span>
+                            <span class="fecha"><?php echo formatearFechaEspanol(htmlspecialchars($evento['fecha'])); ?></span>
                             <?php if (!empty($evento['imagen'])): ?>
                                 <img src="<?php echo htmlspecialchars($evento['imagen']); ?>" 
                                      alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
