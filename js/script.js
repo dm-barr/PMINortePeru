@@ -414,7 +414,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const response = await fetch(scriptURL, {
           method: "POST",
           body: formData,
-          mode: "no-cors",
         });
 
         console.log("📬 Respuesta recibida");
@@ -514,7 +513,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const response = await fetch(scriptURL, {
           method: "POST",
           body: formData,
-          mode: "no-cors",
         });
 
         console.log("📬 Respuesta recibida");
