@@ -456,7 +456,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Panel Izquierdo con Branding -->
         <div class="login-branding">
             <div class="login-logo">
-                <img src="img/logo/logo_PMI.png" alt="PMI Norte Perú">
+                <img src="../img/logo/logo_PMI.png" alt="PMI Norte Perú">
             </div>
             <h1>Bienvenido</h1>
             <p>Accede al panel de administración de PMI Norte Perú</p>
