@@ -73,7 +73,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $imagen = subirImagen($_FILES['imagen']);
         }
 
-        if ($eventoModel->create($nombre, $descripcion, $comunidad, $modalidad, $categoria, $fecha, $lugar, $imagen, $link)) {
+        // ✅ CORRECTO - Orden correcto según evento.php
+        if ($eventoModel->create($nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link)) {
             $mensaje = 'Evento agregado exitosamente';
             $tipo_mensaje = 'success';
         } else {
