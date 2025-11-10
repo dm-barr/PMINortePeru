@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // ====================================
   // FORMULARIOS - GOOGLE SHEETS
   // ====================================
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxgsfM0sFUg8As7rHywFBXxbSfqlzndWszt_Gvv2lBYMSG__gjvmc8u2rqS8uk5niApBQ/exec";
 
   // =====================================
   // FORMULARIO DE VOLUNTARIADO
