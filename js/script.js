@@ -1,3 +1,20 @@
+// Agregar al inicio de script.js o en un <script> en index.php
+function onloadCallback() {
+    console.log("✅ reCAPTCHA cargado correctamente");
+    
+    // Renderizar explícitamente cada widget de reCAPTCHA
+    const recaptchaElements = document.querySelectorAll('.g-recaptcha');
+    recaptchaElements.forEach((element, index) => {
+        if (element && !element.hasAttribute('data-widget-id')) {
+            const widgetId = grecaptcha.render(element, {
+                'sitekey': element.getAttribute('data-sitekey'),
+                'theme': 'light'
+            });
+            element.setAttribute('data-widget-id', widgetId);
+        }
+    });
+}
+
 /* ========================================
    CUENTA REGRESIVA HERO
 ======================================== */
