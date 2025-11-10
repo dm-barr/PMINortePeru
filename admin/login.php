@@ -1,31 +1,32 @@
 <?php
-// login.php - Sistema de Login para PMI Norte Perú
+// OUTPUT BUFFERING - DEBE estar PRIMERO
 ob_start();
+
 session_start();
 
-// Redirigir si ya está autenticado
+// Si ya está logueado, redirigir
 if (isset($_SESSION['usuario_id'])) {
+    ob_end_clean();
     header('Location: index.php');
     exit;
 }
 
-require_once 'config/Database.php';
-use Config\Database;
+// Incluir Database.php
+require_once __DIR__ . '/config/Database.php';
 
 $error = '';
 
-// Procesar el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $correo = $_POST['correo'] ?? '';
-    $password = $_POST['password'] ?? '';
-    
+    $correo = trim($_POST['correo'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+
     if (empty($correo) || empty($password)) {
-        $error = 'Por favor completa todos los campos';
+        $error = 'Por favor, complete todos los campos';
     } else {
         try {
-            $database = new Database();
-            $conn = $database->getConnection();
-            
+            $db = new Database();
+            $conn = $db->getConnection();
+
             $stmt = $conn->prepare("
                 SELECT u.*, r.rol 
                 FROM Usuario u 
@@ -34,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ");
             $stmt->execute([$correo]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if ($usuario && password_verify($password, $usuario['contrasena'])) {
                 // Login exitoso - establecer sesión
                 $_SESSION['usuario_id'] = $usuario['id_Usuario'];
@@ -44,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['usuario_rol_id'] = $usuario['id_Rol'];
                 $_SESSION['usuario_rol_nombre'] = $usuario['rol'] ?? 'Sin Rol';
                 $_SESSION['usuario_estado'] = $usuario['estado'] ?? 'activo';
-                
+
                 // Limpiar buffer y redirigir
                 ob_end_clean();
                 header('Location: index.php');
@@ -321,41 +322,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: var(--color-secondary);
         }
 
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            font-size: 0.9rem;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            color: var(--color-text-medium);
-        }
-
-        .checkbox-container input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--color-primary);
-            cursor: pointer;
-        }
-
-        .forgot-password {
-            color: var(--color-secondary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition-fast);
-        }
-
-        .forgot-password:hover {
-            color: var(--color-primary);
-            text-decoration: underline;
-        }
-
         .btn-login {
             width: 100%;
             padding: 16px;
@@ -396,6 +362,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .login-footer p {
             color: var(--color-text-medium);
             font-size: 0.85rem;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: var(--color-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition-fast);
+        }
+
+        .back-link a:hover {
+            color: var(--color-primary);
+            text-decoration: underline;
         }
 
         /* Responsive */
@@ -443,12 +427,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             .login-form-box h2 {
                 font-size: 1.8rem;
             }
-
-            .form-options {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
         }
     </style>
 </head>
@@ -470,14 +448,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h2>Iniciar Sesión</h2>
                 <p class="login-subtitle">Ingresa tus credenciales para continuar</p>
                 
-                <?php if (!empty($error)): ?>
+                <?php if ($error): ?>
                 <div class="alert-error">
                     <i class="fas fa-exclamation-circle"></i>
                     <span><?php echo htmlspecialchars($error); ?></span>
                 </div>
                 <?php endif; ?>
                 
-                <form method="POST" action="login.php" class="login-form">
+                <form method="POST" action="">
                     <div class="form-group">
                         <label for="correo">Correo Electrónico</label>
                         <div class="input-wrapper">
@@ -485,9 +463,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 type="email" 
                                 id="correo" 
                                 name="correo" 
-                                placeholder="usuario@example.com" 
+                                placeholder="ejemplo@correo.com"
+                                value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>"
                                 required
-                                value="<?php echo isset($_POST['correo']) ? htmlspecialchars($_POST['correo']) : ''; ?>"
                             >
                             <i class="fas fa-envelope input-icon"></i>
                         </div>
@@ -500,7 +478,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 type="password" 
                                 id="password" 
                                 name="password" 
-                                placeholder="Ingresa tu contraseña" 
+                                placeholder="Ingrese su contraseña"
                                 required
                             >
                             <i class="fas fa-lock input-icon"></i>
@@ -513,6 +491,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </button>
                 </form>
 
+                <div class="back-link">
+                    <a href="https://pruebas.pminorteperu.org">← Volver al sitio</a>
+                </div>
+
                 <div class="login-footer">
                     <p>&copy; 2025 PMI Norte Perú. Todos los derechos reservados.</p>
                 </div>
@@ -521,3 +503,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 </html>
+<?php ob_end_flush(); ?>
