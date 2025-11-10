@@ -535,7 +535,7 @@ $noticias = $noticiaModel->getAll();
                         <option value="Trujillo">Trujillo</option>
                         <option value="Piura">Piura</option>
                         <option value="Estudiantil">Estudiantil</option>
-                        <option value="Estudiantil UNC">Estudiantil UNC</option>
+                        <option value="Student Club UNC">Estudiantil UNC</option>
                     </select>
                 </div>
                 <div class="form-group">
