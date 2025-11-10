@@ -19,32 +19,33 @@ $tipo_mensaje = '';
 // ============================================
 // FUNCIÓN PARA SUBIR IMÁGENES
 // ============================================
-function subirImagen($archivo) {
+function subirImagen($archivo)
+{
     if (!isset($archivo) || $archivo['error'] !== UPLOAD_ERR_OK) {
         return null;
     }
-    
+
     $extensiones_permitidas = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
     $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
-    
+
     if (!in_array($extension, $extensiones_permitidas)) {
         return null;
     }
-    
+
     // RUTA CORREGIDA: uploads está en la raíz del proyecto
     $carpeta_destino = __DIR__ . '/../uploads/';
     if (!file_exists($carpeta_destino)) {
         mkdir($carpeta_destino, 0777, true);
     }
-    
+
     // Generar nombre único
     $nombre_archivo = uniqid() . '_' . time() . '.' . $extension;
     $ruta_completa = $carpeta_destino . $nombre_archivo;
-    
+
     if (move_uploaded_file($archivo['tmp_name'], $ruta_completa)) {
         return 'uploads/' . $nombre_archivo;
     }
-    
+
     return null;
 }
 
@@ -62,16 +63,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $comunidad = $_POST['comunidad'] ?? '';
         $modalidad = $_POST['modalidad'] ?? '';
         $categoria = $_POST['categoria'] ?? '';
+        $fecha = $_POST['fecha'] ?? date('Y-m-d'); // ✅ CAMPO FECHA AGREGADO
         $lugar = $_POST['lugar'] ?? '';
-        $link = $_POST['link'] ?? ''; // ✅ NUEVO CAMPO
-        
+        $link = $_POST['link'] ?? '';
+
         // Manejar subida de imagen
-        $imagen = '';
+        $imagen = null;
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $imagen = subirImagen($_FILES['imagen']);
         }
 
-        if ($eventoModel->create($nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen, $link)) {
+        if ($eventoModel->create($nombre, $descripcion, $comunidad, $modalidad, $categoria, $fecha, $lugar, $imagen, $link)) {
             $mensaje = 'Evento agregado exitosamente';
             $tipo_mensaje = 'success';
         } else {
@@ -87,16 +89,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $comunidad = $_POST['comunidad'] ?? '';
         $modalidad = $_POST['modalidad'] ?? '';
         $categoria = $_POST['categoria'] ?? '';
+        $fecha = $_POST['fecha'] ?? date('Y-m-d'); // ✅ CAMPO FECHA AGREGADO
         $lugar = $_POST['lugar'] ?? '';
-        $link = $_POST['link'] ?? ''; // ✅ NUEVO CAMPO
-        
+        $link = $_POST['link'] ?? '';
+
         // Manejar subida de nueva imagen (opcional en edición)
         $imagen = null;
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $imagen = subirImagen($_FILES['imagen']);
         }
 
-        if ($eventoModel->update($id, $nombre, $descripcion, $comunidad, $modalidad, $categoria, $lugar, $imagen, $link)) {
+        if ($eventoModel->update($id, $nombre, $descripcion, $comunidad, $modalidad, $categoria, $fecha, $lugar, $imagen, $link)) {
             $mensaje = 'Evento actualizado exitosamente';
             $tipo_mensaje = 'success';
         } else {
@@ -104,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tipo_mensaje = 'error';
         }
     }
+
 
     if ($accion === 'eliminar_evento') {
         $id = $_POST['id'] ?? 0;
@@ -165,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($accion === 'agregar_noticia') {
         $titulo = $_POST['titulo'] ?? '';
         $descripcion = $_POST['descripcion'] ?? '';
-        
+
         // Manejar subida de imagen
         $imagen = '';
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
@@ -185,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id'] ?? 0;
         $titulo = $_POST['titulo'] ?? '';
         $descripcion = $_POST['descripcion'] ?? '';
-        
+
         // Manejar subida de nueva imagen (opcional)
         $imagen = null;
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
@@ -221,12 +225,14 @@ $noticias = $noticiaModel->getAll();
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración - PMI Norte Perú</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
     <div class="admin-container">
         <aside class="sidebar">
@@ -261,7 +267,7 @@ $noticias = $noticiaModel->getAll();
                         <button class="btn btn-primary" id="btn-abrir-evento">+ Agregar</button>
                     </div>
                 </header>
-                
+
                 <div class="search-box">
                     <input type="text" id="search-eventos" class="search-input" placeholder="🔍 Buscar eventos...">
                 </div>
@@ -296,30 +302,30 @@ $noticias = $noticiaModel->getAll();
                                         <td><?php echo htmlspecialchars($evento['link'] ?? ''); ?></td>
                                         <td><?php echo htmlspecialchars($evento['imagen']); ?></td>
                                         <td class="action-icons">
-                                            <a href="#" class="btn-editar-evento" 
-                                               data-id="<?php echo $evento['id_Evento']; ?>"
-                                               data-nombre="<?php echo htmlspecialchars($evento['nombre']); ?>"
-                                               data-descripcion="<?php echo htmlspecialchars($evento['descripcion']); ?>"
-                                               data-comunidad="<?php echo htmlspecialchars($evento['comunidad']); ?>"
-                                               data-modalidad="<?php echo htmlspecialchars($evento['modalidad']); ?>"
-                                               data-categoria="<?php echo htmlspecialchars($evento['categoria']); ?>"
-                                               data-lugar="<?php echo htmlspecialchars($evento['lugar']); ?>"
-                                               data-link="<?php echo htmlspecialchars($evento['link'] ?? ''); ?>"
-                                               data-imagen="<?php echo htmlspecialchars($evento['imagen']); ?>"
-                                               title="Editar">
-                                                <img src="../img/inconos/editar.png" alt="Editar">
+                                            <a href="#" class="btn-editar-evento" data-id="<?php echo $evento['idEvento']; ?>"
+                                                data-nombre="<?php echo htmlspecialchars($evento['nombre']); ?>"
+                                                data-descripcion="<?php echo htmlspecialchars($evento['descripcion']); ?>"
+                                                data-comunidad="<?php echo htmlspecialchars($evento['comunidad']); ?>"
+                                                data-modalidad="<?php echo htmlspecialchars($evento['modalidad']); ?>"
+                                                data-categoria="<?php echo htmlspecialchars($evento['categoria']); ?>"
+                                                data-fecha="<?php echo htmlspecialchars($evento['fecha']); ?>"
+                                                data-lugar="<?php echo htmlspecialchars($evento['lugar']); ?>"
+                                                data-link="<?php echo htmlspecialchars($evento['link'] ?? ''); ?>"
+                                                title="Editar">
+                                                <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
-                                            <a href="#" class="btn-eliminar" 
-                                               data-tipo="evento" 
-                                               data-id="<?php echo $evento['id_Evento']; ?>" 
-                                               title="Eliminar">
-                                                <img src="../img/inconos/eliminar.png" alt="Eliminar">
+
+                                            <a href="#" class="btn-eliminar" data-tipo="evento"
+                                                data-id="<?php echo $evento['id_Evento']; ?>" title="Eliminar">
+                                                <img src="../img/iconos/eliminar.png" alt="Eliminar">
                                             </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
-                                <tr><td colspan="10">No hay eventos disponibles</td></tr>
+                                <tr>
+                                    <td colspan="10">No hay eventos disponibles</td>
+                                </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
@@ -360,30 +366,31 @@ $noticias = $noticiaModel->getAll();
                                         <td><?php echo htmlspecialchars($educacion['modalidad']); ?></td>
                                         <td><?php echo htmlspecialchars($educacion['fecha']); ?></td>
                                         <td><?php echo htmlspecialchars($educacion['instructor']); ?></td>
-                                        <td><?php echo htmlspecialchars(substr($educacion['descripcion'], 0, 50)) . '...'; ?></td>
+                                        <td><?php echo htmlspecialchars(substr($educacion['descripcion'], 0, 50)) . '...'; ?>
+                                        </td>
                                         <td><?php echo htmlspecialchars($educacion['imagen']); ?></td>
                                         <td class="action-icons">
-                                            <a href="#" class="btn-editar-educacion" 
-                                               data-id="<?php echo $educacion['id_Educacion']; ?>"
-                                               data-curso="<?php echo htmlspecialchars($educacion['curso']); ?>"
-                                               data-modalidad="<?php echo htmlspecialchars($educacion['modalidad']); ?>"
-                                               data-fecha="<?php echo htmlspecialchars($educacion['fecha']); ?>"
-                                               data-instructor="<?php echo htmlspecialchars($educacion['instructor']); ?>"
-                                               data-descripcion="<?php echo htmlspecialchars($educacion['descripcion']); ?>"
-                                               title="Editar">
-                                                <img src="../img/inconos/editar.png" alt="Editar">
+                                            <a href="#" class="btn-editar-educacion"
+                                                data-id="<?php echo $educacion['id_Educacion']; ?>"
+                                                data-curso="<?php echo htmlspecialchars($educacion['curso']); ?>"
+                                                data-modalidad="<?php echo htmlspecialchars($educacion['modalidad']); ?>"
+                                                data-fecha="<?php echo htmlspecialchars($educacion['fecha']); ?>"
+                                                data-instructor="<?php echo htmlspecialchars($educacion['instructor']); ?>"
+                                                data-descripcion="<?php echo htmlspecialchars($educacion['descripcion']); ?>"
+                                                title="Editar">
+                                                <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
-                                            <a href="#" class="btn-eliminar" 
-                                               data-tipo="educacion" 
-                                               data-id="<?php echo $educacion['id_Educacion']; ?>" 
-                                               title="Eliminar">
-                                                <img src="../img/inconos/eliminar.png" alt="Eliminar">
+                                            <a href="#" class="btn-eliminar" data-tipo="educacion"
+                                                data-id="<?php echo $educacion['id_Educacion']; ?>" title="Eliminar">
+                                                <img src="../img/iconos/eliminar.png" alt="Eliminar">
                                             </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
-                                <tr><td colspan="7">No hay cursos disponibles</td></tr>
+                                <tr>
+                                    <td colspan="7">No hay cursos disponibles</td>
+                                </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
@@ -423,25 +430,25 @@ $noticias = $noticiaModel->getAll();
                                         <td><?php echo htmlspecialchars($noticia['imagen']); ?></td>
                                         <td><?php echo htmlspecialchars($noticia['fecha']); ?></td>
                                         <td class="action-icons">
-                                            <a href="#" class="btn-editar-noticia" 
-                                               data-id="<?php echo $noticia['id_Noticia']; ?>"
-                                               data-titulo="<?php echo htmlspecialchars($noticia['titulo']); ?>"
-                                               data-descripcion="<?php echo htmlspecialchars($noticia['descripcion']); ?>"
-                                               data-imagen="<?php echo htmlspecialchars($noticia['imagen']); ?>"
-                                               title="Editar">
-                                                <img src="../img/inconos/editar.png" alt="Editar">
+                                            <a href="#" class="btn-editar-noticia"
+                                                data-id="<?php echo $noticia['id_Noticia']; ?>"
+                                                data-titulo="<?php echo htmlspecialchars($noticia['titulo']); ?>"
+                                                data-descripcion="<?php echo htmlspecialchars($noticia['descripcion']); ?>"
+                                                data-imagen="<?php echo htmlspecialchars($noticia['imagen']); ?>"
+                                                title="Editar">
+                                                <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
-                                            <a href="#" class="btn-eliminar" 
-                                               data-tipo="noticia" 
-                                               data-id="<?php echo $noticia['id_Noticia']; ?>" 
-                                               title="Eliminar">
-                                                <img src="../img/inconos/eliminar.png" alt="Eliminar">
+                                            <a href="#" class="btn-eliminar" data-tipo="noticia"
+                                                data-id="<?php echo $noticia['id_Noticia']; ?>" title="Eliminar">
+                                                <img src="../img/iconos/eliminar.png" alt="Eliminar">
                                             </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
-                                <tr><td colspan="5">No hay noticias disponibles</td></tr>
+                                <tr>
+                                    <td colspan="5">No hay noticias disponibles</td>
+                                </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
@@ -449,7 +456,7 @@ $noticias = $noticiaModel->getAll();
             </section>
         </main>
     </div>
-    
+
     <!-- MODAL EVENTO -->
     <div id="modal-evento" class="modal-overlay">
         <div class="modal-box">
@@ -460,12 +467,12 @@ $noticias = $noticiaModel->getAll();
             <form class="modal-form form-evento" method="POST" action="" enctype="multipart/form-data">
                 <input type="hidden" name="accion" id="accion-evento" value="agregar_evento">
                 <input type="hidden" name="id" id="evento-id" value="">
-                
+
                 <div class="form-group-full">
                     <label for="evento-nombre">Nombre</label>
                     <input type="text" name="nombre" id="evento-nombre" required>
                 </div>
-                
+
                 <!-- ✅ VISTA PREVIA DE IMAGEN -->
                 <div class="form-group">
                     <label for="evento-imagen">Imagen</label>
@@ -474,7 +481,8 @@ $noticias = $noticiaModel->getAll();
                     </label>
                     <input type="file" name="imagen" id="evento-imagen" class="file-upload-input" accept="image/*">
                     <div class="image-preview" id="preview-evento" style="display: none;">
-                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                        <img src="" alt="Preview"
+                            style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
                     </div>
                 </div>
 
@@ -490,7 +498,7 @@ $noticias = $noticiaModel->getAll();
                         <option value="Online">Online</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="evento-comunidad">Comunidad</label>
                     <select name="comunidad" id="evento-comunidad" required>
@@ -544,7 +552,7 @@ $noticias = $noticiaModel->getAll();
             <form class="modal-form form-educacion" method="POST" action="" enctype="multipart/form-data">
                 <input type="hidden" name="accion" id="accion-educacion" value="agregar_educacion">
                 <input type="hidden" name="id" id="educacion-id" value="">
-                
+
                 <div class="form-group-full">
                     <label for="curso-nombre">Curso</label>
                     <input type="text" name="curso" id="curso-nombre" required>
@@ -558,10 +566,11 @@ $noticias = $noticiaModel->getAll();
                     </label>
                     <input type="file" name="imagen" id="curso-imagen" class="file-upload-input" accept="image/*">
                     <div class="image-preview" id="preview-educacion" style="display: none;">
-                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                        <img src="" alt="Preview"
+                            style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="curso-modalidad">Modalidad</label>
                     <select name="modalidad" id="curso-modalidad" required>
@@ -574,12 +583,12 @@ $noticias = $noticiaModel->getAll();
                     <label for="curso-fecha">Fecha</label>
                     <input type="date" name="fecha" id="curso-fecha" required>
                 </div>
-                
+
                 <div class="form-group-full">
                     <label for="curso-instructor">Instructor</label>
                     <input type="text" name="instructor" id="curso-instructor" required>
                 </div>
-            
+
                 <div class="form-group-full">
                     <label for="curso-descripcion">Descripción</label>
                     <textarea name="descripcion" id="curso-descripcion" rows="4" required></textarea>
@@ -599,7 +608,7 @@ $noticias = $noticiaModel->getAll();
             <form class="modal-form form-noticia" method="POST" action="" enctype="multipart/form-data">
                 <input type="hidden" name="accion" id="accion-noticia" value="agregar_noticia">
                 <input type="hidden" name="id" id="noticia-id" value="">
-                
+
                 <div class="form-group-full">
                     <label for="noticia-titulo">Título</label>
                     <input type="text" name="titulo" id="noticia-titulo" required>
@@ -613,7 +622,8 @@ $noticias = $noticiaModel->getAll();
                     </label>
                     <input type="file" name="imagen" id="noticia-imagen" class="file-upload-input" accept="image/*">
                     <div class="image-preview" id="preview-noticia" style="display: none;">
-                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                        <img src="" alt="Preview"
+                            style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
                     </div>
                 </div>
 
@@ -632,4 +642,5 @@ $noticias = $noticiaModel->getAll();
 
     <script src="js/script.js"></script>
 </body>
+
 </html>

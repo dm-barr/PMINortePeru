@@ -57,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('accion-evento').value = 'agregar_evento';
             document.getElementById('evento-id').value = '';
             document.querySelector('.form-evento').reset();
-            // ✅ Limpiar vista previa de imagen
             const preview = document.getElementById('preview-evento');
             if (preview) preview.style.display = 'none';
             openModal(modalEvento);
@@ -69,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('accion-educacion').value = 'agregar_educacion';
             document.getElementById('educacion-id').value = '';
             document.querySelector('.form-educacion').reset();
-            // ✅ Limpiar vista previa de imagen
             const preview = document.getElementById('preview-educacion');
             if (preview) preview.style.display = 'none';
             openModal(modalEducacion);
@@ -81,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('accion-noticia').value = 'agregar_noticia';
             document.getElementById('noticia-id').value = '';
             document.querySelector('.form-noticia').reset();
-            // ✅ Limpiar vista previa de imagen
             const preview = document.getElementById('preview-noticia');
             if (preview) preview.style.display = 'none';
             openModal(modalNoticia);
@@ -105,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ===============================================
-    // ✅ VISTA PREVIA DE IMÁGENES
+    // VISTA PREVIA DE IMÁGENES
     // ===============================================
 
     function setupImagePreview(inputId, previewId) {
@@ -135,16 +132,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Configurar vista previa para cada modal
     setupImagePreview('evento-imagen', 'preview-evento');
     setupImagePreview('curso-imagen', 'preview-educacion');
     setupImagePreview('noticia-imagen', 'preview-noticia');
 
     // ===============================================
-    // ✅ EDITAR - DELEGACIÓN DE EVENTOS (CORREGIDO)
+    // EDITAR - DELEGACIÓN DE EVENTOS
     // ===============================================
 
-    // EDITAR EVENTO - Usando delegación de eventos
+    // EDITAR EVENTO
     document.addEventListener('click', function(e) {
         if (e.target.closest('.btn-editar-evento')) {
             e.preventDefault();
@@ -158,10 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('evento-comunidad').value = btn.dataset.comunidad;
             document.getElementById('evento-modalidad').value = btn.dataset.modalidad;
             document.getElementById('evento-categoria').value = btn.dataset.categoria;
+            document.getElementById('evento-fecha').value = btn.dataset.fecha; // ✅ CAMPO FECHA AGREGADO
             document.getElementById('evento-lugar').value = btn.dataset.lugar;
-            document.getElementById('evento-link').value = btn.dataset.link || ''; // ✅ NUEVO CAMPO
+            document.getElementById('evento-link').value = btn.dataset.link || '';
             
-            // Limpiar vista previa
             const preview = document.getElementById('preview-evento');
             if (preview) preview.style.display = 'none';
             
@@ -169,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // EDITAR EDUCACIÓN - Usando delegación de eventos
+    // EDITAR EDUCACIÓN
     document.addEventListener('click', function(e) {
         if (e.target.closest('.btn-editar-educacion')) {
             e.preventDefault();
@@ -184,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('curso-instructor').value = btn.dataset.instructor;
             document.getElementById('curso-descripcion').value = btn.dataset.descripcion;
             
-            // Limpiar vista previa
             const preview = document.getElementById('preview-educacion');
             if (preview) preview.style.display = 'none';
             
@@ -192,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // EDITAR NOTICIA - Usando delegación de eventos
+    // EDITAR NOTICIA
     document.addEventListener('click', function(e) {
         if (e.target.closest('.btn-editar-noticia')) {
             e.preventDefault();
@@ -204,7 +199,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('noticia-titulo').value = btn.dataset.titulo;
             document.getElementById('noticia-descripcion').value = btn.dataset.descripcion;
             
-            // Limpiar vista previa
             const preview = document.getElementById('preview-noticia');
             if (preview) preview.style.display = 'none';
             
