@@ -81,7 +81,7 @@ $eventos = $eventoModel->getAll();
             </div>
             <aside class="hero-card glass reveal">
                 <figure>
-                    <img src="img/portada/cajamarca/portada.png" alt="Norte del Perú - Trujillo, Piura y Cajamarca" loading="lazy">
+                    <img src="img/portada/cajamarca_portada.png" alt="Norte del Perú - Trujillo, Piura y Cajamarca" loading="lazy">
                 </figure>
                 <div class="hero-card-body">
                     <h3>Student Club PMI UNC</h3>
@@ -104,17 +104,17 @@ $eventos = $eventoModel->getAll();
             </p>
             <div class="cards">
                 <div class="card">
-                    <img src="img/valores/logo/misión.png" alt="Misión" class="icono-img">
+                    <img src="img/valores/logo_misión.png" alt="Misión" class="icono-img">
                     <h3>Misión</h3>
                     <p>Fortalecer las competencias en dirección de proyectos de los profesionales del norte del Perú, promoviendo el liderazgo, la ética y la creación de valor a través de la aplicación de estándares y buenas prácticas del PMI.</p>
                 </div>
                 <div class="card">
-                    <img src="img/valores/logo/visión.png" alt="Visión" class="icono-img">
+                    <img src="img/valores/logo_visión.png" alt="Visión" class="icono-img">
                     <h3>Visión</h3>
                     <p>Ser el capítulo referente del norte del Perú en gestión de proyectos, reconocido por su impacto positivo en la comunidad y por fomentar una cultura de excelencia, innovación y colaboración.</p>
                 </div>
                 <div class="card">
-                    <img src="img/valores/logo/valores.png" alt="Valores" class="icono-img">
+                    <img src="img/valores/logo_valores.png" alt="Valores" class="icono-img">
                     <h3>Valores</h3>
                     <p><strong>Excelencia:</strong> compromiso con la calidad y la mejora continua.</p>
                     <p><strong>Integridad:</strong> actuar con ética y transparencia.</p>
