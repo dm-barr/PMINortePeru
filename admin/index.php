@@ -1,8 +1,12 @@
 <?php
+// OUTPUT BUFFERING - PRIMERO
+ob_start();
+
 session_start();
 
 // Verificar autenticación
 if (!isset($_SESSION['usuario_id'])) {
+    ob_end_clean();
     header('Location: login.php');
     exit;
 }
@@ -12,6 +16,9 @@ $usuario_nombre = $_SESSION['usuario_nombre'] ?? 'Usuario';
 $usuario_rol = $_SESSION['usuario_rol_nombre'] ?? 'Sin Rol';
 
 require_once __DIR__ . '/config/database.php';
+
+// ... resto de tu código actual
+
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -281,7 +288,7 @@ $noticias = $noticiaModel->getAll();
                     <p class="user-name"><?php echo htmlspecialchars($usuario_nombre); ?></p>
                     <p class="user-role"><?php echo htmlspecialchars($usuario_rol); ?></p>
                 </div>
-            </div>  
+            </div>
             <div class="sidebar-footer">
                 <a href="#" class="logout-link">Cerrar Sesión</a>
             </div>
@@ -680,5 +687,5 @@ $noticias = $noticiaModel->getAll();
 
     <script src="js/script.js"></script>
 </body>
-
+<?php ob_end_flush(); ?>
 </html>

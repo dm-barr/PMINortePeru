@@ -1,16 +1,12 @@
 <?php
-// IMPORTANTE: Output buffering DEBE estar ANTES de session_start()
+// OUTPUT BUFFERING - DEBE estar PRIMERO
 ob_start();
-
-// ACTIVAR ERRORES PARA DEBUG (quitar después de probar)
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 session_start();
 
 // Si ya está logueado, redirigir
 if (isset($_SESSION['usuario_id'])) {
+    ob_end_clean();
     header('Location: index.php');
     exit;
 }
@@ -40,25 +36,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$correo]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($usuario) {
-                // Verificar contraseña hasheada
-                if (password_verify($password, $usuario['contrasena'])) {
-                    // Login exitoso
-                    $_SESSION['usuario_id'] = $usuario['id_Usuario'];
-                    $_SESSION['usuario_nombre'] = $usuario['nombre'];
-                    $_SESSION['usuario_correo'] = $usuario['correo'];
-                    $_SESSION['usuario_telefono'] = $usuario['telefono'];
-                    $_SESSION['usuario_rol_id'] = $usuario['id_Rol'];
-                    $_SESSION['usuario_rol_nombre'] = $usuario['rol'] ?? 'Sin Rol';
-                    $_SESSION['usuario_estado'] = $usuario['estado'];
+            if ($usuario && password_verify($password, $usuario['contrasena'])) {
+                // Login exitoso - establecer sesión
+                $_SESSION['usuario_id'] = $usuario['id_Usuario'];
+                $_SESSION['usuario_nombre'] = $usuario['nombre'];
+                $_SESSION['usuario_correo'] = $usuario['correo'];
+                $_SESSION['usuario_telefono'] = $usuario['telefono'] ?? '';
+                $_SESSION['usuario_rol_id'] = $usuario['id_Rol'];
+                $_SESSION['usuario_rol_nombre'] = $usuario['rol'] ?? 'Sin Rol';
+                $_SESSION['usuario_estado'] = $usuario['estado'] ?? 'activo';
 
-                    // Limpiar buffer y redirigir
-                    ob_end_clean();
-                    header('Location: index.php');
-                    exit;
-                } else {
-                    $error = 'Credenciales incorrectas';
-                }
+                // Limpiar buffer y redirigir
+                ob_end_clean();
+                header('Location: index.php');
+                exit;
             } else {
                 $error = 'Credenciales incorrectas';
             }
@@ -70,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
