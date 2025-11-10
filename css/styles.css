@@ -2491,6 +2491,7 @@ body {
 }
 
 
+
 /* MODAL DE INFORMACIÓN DEL EVENTO - Alineado con diseño existente */
 #modalInfoEvento.modal {
     position: fixed;
@@ -2665,5 +2666,63 @@ body {
     #modalInfoEvento .btn-evento {
         padding: 12px 28px;
         font-size: 0.95em;
+    }
+}
+
+/* Estilos para los botones de evento en las tarjetas */
+.botones-evento {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-evento {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-info {
+    background: var(--gradient-morado-suave);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-info:hover {
+    background: var(--gradient-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-registro {
+    background: var(--gradient-naranja);
+    color: white !important;
+    box-shadow: var(--shadow-naranja);
+}
+
+.btn-registro:hover {
+    background: var(--gradient-celeste-suave);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-celeste);
+}
+
+/* Responsive para botones de evento */
+@media (max-width: 600px) {
+    .botones-evento {
+        flex-direction: column;
+    }
+    
+    .btn-info, .btn-registro {
+        width: 100%;
+        min-width: 100%;
     }
 }
