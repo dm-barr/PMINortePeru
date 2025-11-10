@@ -4,32 +4,41 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Función para formatear fecha en español
-function formatearFechaEspanol($fecha) {
+function formatearFechaEspanol($fecha)
+{
     $meses = array(
-        "01" => "Enero", "02" => "Febrero", "03" => "Marzo", 
-        "04" => "Abril", "05" => "Mayo", "06" => "Junio",
-        "07" => "Julio", "08" => "Agosto", "09" => "Septiembre",
-        "10" => "Octubre", "11" => "Noviembre", "12" => "Diciembre"
+        "01" => "Enero",
+        "02" => "Febrero",
+        "03" => "Marzo",
+        "04" => "Abril",
+        "05" => "Mayo",
+        "06" => "Junio",
+        "07" => "Julio",
+        "08" => "Agosto",
+        "09" => "Septiembre",
+        "10" => "Octubre",
+        "11" => "Noviembre",
+        "12" => "Diciembre"
     );
-    
+
     // Si la fecha viene en formato YYYY-MM-DD (desde MySQL)
     if (preg_match('/^(\d{4})-(\d{2})-(\d{2})/', $fecha, $matches)) {
         $anio = $matches[1];
         $mes = $matches[2];
         $dia = intval($matches[3]); // Convertir a entero para quitar el 0 inicial
-        
+
         return $dia . " " . $meses[$mes];
     }
-    
+
     // Si la fecha viene como "30/12" o "30/12/2025"
     if (strpos($fecha, '/') !== false) {
         $partes = explode('/', $fecha);
         $dia = intval($partes[0]);
         $mes = str_pad($partes[1], 2, "0", STR_PAD_LEFT);
-        
+
         return $dia . " " . $meses[$mes];
     }
-    
+
     return $fecha; // Si no coincide el formato, devuelve la fecha original
 }
 
@@ -41,9 +50,24 @@ $eventoModel = new EventoModel_mysqli();
 
 // Obtener todos los eventos desde la base de datos
 $eventos = $eventoModel->getAll();
+
+// Filtrar solo eventos futuros
+$fecha_actual = date('Y-m-d');
+$eventos = array_filter($eventos, function ($evento) use ($fecha_actual) {
+    return $evento['fecha'] >= $fecha_actual;
+});
+
+// Ordenar por fecha
+usort($eventos, function ($a, $b) {
+    return strtotime($a['fecha']) - strtotime($b['fecha']);
+});
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,13 +80,16 @@ $eventos = $eventoModel->getAll();
     <!-- Script de reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
+
 <body>
     <!-- BARRA SUPERIOR -->
     <div class="topbar">
         <div class="topbar-left">
-            <a href="https://www.instagram.com/pminorteperu?igsh=MWw1OGU1dWgxcHV2bw==" class="social"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/pminorteperu?igsh=MWw1OGU1dWgxcHV2bw==" class="social"><i
+                    class="fab fa-instagram"></i></a>
             <a href="https://www.facebook.com/share/1CfCowCGzB/" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.linkedin.com/company/pmi-norte-peru-chapter/" class="social"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.linkedin.com/company/pmi-norte-peru-chapter/" class="social"><i
+                    class="fab fa-linkedin-in"></i></a>
         </div>
         <div class="topbar-right">
             <span class="email">informes@pminorteperu.org</span>
@@ -85,7 +112,8 @@ $eventos = $eventoModel->getAll();
                     <li><a href="#cta">Membresía</a></li>
                     <li><a href="#junta-directiva">Junta Directiva</a></li>
                     <li><a href="#voluntariado">Voluntariado</a></li>
-                    <a href="https://www.pmi.org/shop/tbp-chapter-membership/norte-per%c3%ba-chapter/101293" class="btn-hazte">Hazte miembro</a>
+                    <a href="https://www.pmi.org/shop/tbp-chapter-membership/norte-per%c3%ba-chapter/101293"
+                        class="btn-hazte">Hazte miembro</a>
                 </ul>
             </nav>
         </div>
@@ -103,7 +131,8 @@ $eventos = $eventoModel->getAll();
             <div class="hero-copy">
                 <p class="eyebrow">PMI Norte Perú</p>
                 <h1>Suceden cosas buenas cuando<span class="txt-gradient"> te involucras con PMI</span></h1>
-                <p class="lead">Transformamos ideas en <strong>valor real</strong> para Cajamarca, Piura y Trujillo mediante dirección de proyectos.</p>
+                <p class="lead">Transformamos ideas en <strong>valor real</strong> para Cajamarca, Piura y Trujillo
+                    mediante dirección de proyectos.</p>
                 <div class="hero-actions">
                     <a href="#eventos" class="btn btn--primary">Ver eventos</a>
                     <a href="#nosotros" class="btn btn--secondary">Conocer el capítulo</a>
@@ -111,7 +140,8 @@ $eventos = $eventoModel->getAll();
             </div>
             <aside class="hero-card glass reveal">
                 <figure>
-                    <img src="img/portada/cajamarca_portada.png" alt="Norte del Perú - Trujillo, Piura y Cajamarca" loading="lazy">
+                    <img src="img/portada/cajamarca_portada.png" alt="Norte del Perú - Trujillo, Piura y Cajamarca"
+                        loading="lazy">
                 </figure>
                 <div class="hero-card-body">
                     <h3>Student Club PMI UNC</h3>
@@ -130,18 +160,26 @@ $eventos = $eventoModel->getAll();
         <div class="container">
             <h2>Quiénes somos</h2>
             <p class="descripcion">
-                PMI Norte Perú Chapter es una comunidad profesional afiliada al Project Management Institute (PMI) que impulsa la excelencia en la dirección de proyectos en las regiones de Cajamarca, Trujillo y Piura. Promovemos el desarrollo del talento local mediante formación, certificaciones, eventos y espacios de colaboración que fortalecen la gestión profesional de proyectos y contribuyen al crecimiento sostenible del norte del país.
+                PMI Norte Perú Chapter es una comunidad profesional afiliada al Project Management Institute (PMI) que
+                impulsa la excelencia en la dirección de proyectos en las regiones de Cajamarca, Trujillo y Piura.
+                Promovemos el desarrollo del talento local mediante formación, certificaciones, eventos y espacios de
+                colaboración que fortalecen la gestión profesional de proyectos y contribuyen al crecimiento sostenible
+                del norte del país.
             </p>
             <div class="cards">
                 <div class="card">
                     <img src="img/valores/logo_misión.png" alt="Misión" class="icono-img">
                     <h3>Misión</h3>
-                    <p>Fortalecer las competencias en dirección de proyectos de los profesionales del norte del Perú, promoviendo el liderazgo, la ética y la creación de valor a través de la aplicación de estándares y buenas prácticas del PMI.</p>
+                    <p>Fortalecer las competencias en dirección de proyectos de los profesionales del norte del Perú,
+                        promoviendo el liderazgo, la ética y la creación de valor a través de la aplicación de
+                        estándares y buenas prácticas del PMI.</p>
                 </div>
                 <div class="card">
                     <img src="img/valores/logo_visión.png" alt="Visión" class="icono-img">
                     <h3>Visión</h3>
-                    <p>Ser el capítulo referente del norte del Perú en gestión de proyectos, reconocido por su impacto positivo en la comunidad y por fomentar una cultura de excelencia, innovación y colaboración.</p>
+                    <p>Ser el capítulo referente del norte del Perú en gestión de proyectos, reconocido por su impacto
+                        positivo en la comunidad y por fomentar una cultura de excelencia, innovación y colaboración.
+                    </p>
                 </div>
                 <div class="card">
                     <img src="img/valores/logo_valores.png" alt="Valores" class="icono-img">
@@ -159,7 +197,10 @@ $eventos = $eventoModel->getAll();
         <div class="container-eventos">
             <div class="titulo-eventos">
                 <h2>Próximos<br><span>eventos</span></h2>
-                <p>En el PMI Norte Perú Chapter promovemos el aprendizaje continuo y la conexión entre profesionales de todo el norte del país. Participa en nuestros eventos, talleres y congresos, donde compartimos experiencias, conocimientos y buenas prácticas en dirección de proyectos que transforman ideas en resultados reales.</p>
+                <p>En el PMI Norte Perú Chapter promovemos el aprendizaje continuo y la conexión entre profesionales de
+                    todo el norte del país. Participa en nuestros eventos, talleres y congresos, donde compartimos
+                    experiencias, conocimientos y buenas prácticas en dirección de proyectos que transforman ideas en
+                    resultados reales.</p>
             </div>
             <div class="filtros">
                 <button class="activo">Todos</button>
@@ -175,8 +216,8 @@ $eventos = $eventoModel->getAll();
                         <div class="card-evento" data-ciudad="<?php echo htmlspecialchars($evento['comunidad']); ?>">
                             <span class="fecha"><?php echo formatearFechaEspanol(htmlspecialchars($evento['fecha'])); ?></span>
                             <?php if (!empty($evento['imagen'])): ?>
-                                <img src="<?php echo htmlspecialchars($evento['imagen']); ?>" 
-                                     alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
+                                <img src="<?php echo htmlspecialchars($evento['imagen']); ?>"
+                                    alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
                             <?php else: ?>
                                 <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" alt="Sin imagen">
                             <?php endif; ?>
@@ -201,9 +242,12 @@ $eventos = $eventoModel->getAll();
         <div class="cta-fondo"></div>
         <div class="cta-content">
             <h2>¿Listo para el siguiente proyecto?</h2>
-            <p>Únete al PMI Norte Perú Chapter y forma parte de una comunidad que impulsa el crecimiento profesional, la innovación y el liderazgo en la gestión de proyectos. Juntos, hacemos que las ideas se conviertan en resultados que transforman nuestra región.</p>
+            <p>Únete al PMI Norte Perú Chapter y forma parte de una comunidad que impulsa el crecimiento profesional, la
+                innovación y el liderazgo en la gestión de proyectos. Juntos, hacemos que las ideas se conviertan en
+                resultados que transforman nuestra región.</p>
             <div class="cta-buttons">
-                <a href="https://www.pmi.org/shop/tbp-chapter-membership/norte-per%c3%ba-chapter/101293" class="btn-cta btn-primary">Hazte miembro</a>
+                <a href="https://www.pmi.org/shop/tbp-chapter-membership/norte-per%c3%ba-chapter/101293"
+                    class="btn-cta btn-primary">Hazte miembro</a>
                 <a href="#contacto" class="btn-cta btn-secondary">Habla con nosotros</a>
             </div>
         </div>
@@ -214,7 +258,10 @@ $eventos = $eventoModel->getAll();
         <div class="container container-noticias">
             <div class="titulo-noticias">
                 <h2>Junta<br><span>Directiva</span></h2>
-                <p>La Junta Directiva del PMI Norte Perú Chapter está conformada por profesionales comprometidos con promover la excelencia en la gestión de proyectos y fortalecer la presencia del PMI en la región norte del país. Cada miembro aporta su experiencia, liderazgo y visión estratégica para impulsar iniciativas clave para el desarrollo dentro de nuestra comunidad.</p>
+                <p>La Junta Directiva del PMI Norte Perú Chapter está conformada por profesionales comprometidos con
+                    promover la excelencia en la gestión de proyectos y fortalecer la presencia del PMI en la región
+                    norte del país. Cada miembro aporta su experiencia, liderazgo y visión estratégica para impulsar
+                    iniciativas clave para el desarrollo dentro de nuestra comunidad.</p>
             </div>
         </div>
         <div class="carousel-wrapper">
@@ -229,7 +276,8 @@ $eventos = $eventoModel->getAll();
                         <span class="cargo-badge">Presidente</span>
                         <h3>Oscar Zocón</h3>
                         <div class="redes-miembro">
-                            <a href="https://www.linkedin.com/in/oscarzocon/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/in/oscarzocon/" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <!-- Miembro 2 -->
@@ -240,7 +288,8 @@ $eventos = $eventoModel->getAll();
                         <span class="cargo-badge">Presidente Electo</span>
                         <h3>Carlos Briceño</h3>
                         <div class="redes-miembro">
-                            <a href="https://www.linkedin.com/in/carlos-daniel-briceno-burgos/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/in/carlos-daniel-briceno-burgos/" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <!-- Miembro 3 -->
@@ -251,7 +300,8 @@ $eventos = $eventoModel->getAll();
                         <span class="cargo-badge">Past President</span>
                         <h3>Heyner Ninaquispe</h3>
                         <div class="redes-miembro">
-                            <a href="https://www.linkedin.com/in/heynerninaquispe/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/in/heynerninaquispe/" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <!-- Miembro 4 -->
@@ -262,7 +312,8 @@ $eventos = $eventoModel->getAll();
                         <span class="cargo-badge">Vicepresidente de Membresía y Voluntariado</span>
                         <h3>Tania Ángeles</h3>
                         <div class="redes-miembro">
-                            <a href="https://www.linkedin.com/in/taniaangelesmoncada/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/in/taniaangelesmoncada/" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <!-- Miembro 5 -->
@@ -273,7 +324,8 @@ $eventos = $eventoModel->getAll();
                         <span class="cargo-badge">Vicepresidente de Eventos</span>
                         <h3>Denise León</h3>
                         <div class="redes-miembro">
-                            <a href="https://www.linkedin.com/in/denise-le%C3%B3n/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/in/denise-le%C3%B3n/" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <!-- Miembro 6 -->
@@ -284,7 +336,8 @@ $eventos = $eventoModel->getAll();
                         <span class="cargo-badge">Vicepresidente de Comunicaciones</span>
                         <h3>Gabriela Gonzales</h3>
                         <div class="redes-miembro">
-                            <a href="https://www.linkedin.com/in/ggonzales-mkt/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/in/ggonzales-mkt/" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <!-- Miembro 7 -->
@@ -295,7 +348,8 @@ $eventos = $eventoModel->getAll();
                         <span class="cargo-badge">Vicepresidente de Educación</span>
                         <h3>Cecilia Rojas</h3>
                         <div class="redes-miembro">
-                            <a href="https://www.linkedin.com/in/zoila-cecilia-rojas-ramirez-43921a13a/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/in/zoila-cecilia-rojas-ramirez-43921a13a/"
+                                aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <!-- Miembro 8 -->
@@ -306,7 +360,8 @@ $eventos = $eventoModel->getAll();
                         <span class="cargo-badge">Vicepresidente de Finanzas</span>
                         <h3>Gisela Cieza</h3>
                         <div class="redes-miembro">
-                            <a href="https://www.linkedin.com/in/giselacieza/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/in/giselacieza/" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <!-- Miembro 9 -->
@@ -317,7 +372,8 @@ $eventos = $eventoModel->getAll();
                         <span class="cargo-badge">Líder Comunidad Trujillo</span>
                         <h3>Jeremy Becerra</h3>
                         <div class="redes-miembro">
-                            <a href="https://www.linkedin.com/in/jeremybecerraleon/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/in/jeremybecerraleon/" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <!-- Miembro 10 -->
@@ -328,7 +384,8 @@ $eventos = $eventoModel->getAll();
                         <span class="cargo-badge">Líder Comunidad Cajamarca</span>
                         <h3>José Luis Soriano</h3>
                         <div class="redes-miembro">
-                            <a href="https://www.linkedin.com/in/soriano-cacho-jos%C3%A9-luis/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/in/soriano-cacho-jos%C3%A9-luis/" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                     <!-- Miembro 11 -->
@@ -339,7 +396,8 @@ $eventos = $eventoModel->getAll();
                         <span class="cargo-badge">Líder Comunidad Piura</span>
                         <h3>Lizeth Rodríguez</h3>
                         <div class="redes-miembro">
-                            <a href="https://www.linkedin.com/in/lizeth-roxana-rodr%C3%ADguez-neyra-0730ba161/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.linkedin.com/in/lizeth-roxana-rodr%C3%ADguez-neyra-0730ba161/"
+                                aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
@@ -354,7 +412,10 @@ $eventos = $eventoModel->getAll();
         <div class="cta-fondo"></div>
         <div class="voluntariado-content">
             <h2>Sé voluntario y deja huella!</h2>
-            <p>Forma parte activa del PMI Norte Perú Chapter como voluntario y contribuye al desarrollo de la comunidad profesional de gestión de proyectos. Participar como voluntario te permite aprender, liderar y conectar con otros profesionales, fortaleciendo tus habilidades mientras generas un impacto positivo en tu región.</p>
+            <p>Forma parte activa del PMI Norte Perú Chapter como voluntario y contribuye al desarrollo de la comunidad
+                profesional de gestión de proyectos. Participar como voluntario te permite aprender, liderar y conectar
+                con otros profesionales, fortaleciendo tus habilidades mientras generas un impacto positivo en tu
+                región.</p>
             <div class="voluntariado-buttons">
                 <a href="#registro" class="btn-vol btn-azul" id="btnInscribirse">Sé voluntario</a>
                 <a href="#contacto" class="btn-vol btn-blanco">Habla con nosotros</a>
@@ -369,10 +430,10 @@ $eventos = $eventoModel->getAll();
             <form id="voluntarioFormReclutamiento">
                 <label for="nombre">Nombre completo</label>
                 <input type="text" id="nombre" name="name" required>
-                
+
                 <label for="correo">Correo electrónico</label>
                 <input type="email" id="correo" name="email" required>
-                
+
                 <label for="interes">Área de interés</label>
                 <select id="interes" name="topic" required>
                     <option value="">Selecciona una opción</option>
@@ -383,19 +444,19 @@ $eventos = $eventoModel->getAll();
                     <option value="finanzas">Finanzas</option>
                     <option value="ti">Tecnologías de la Información</option>
                 </select>
-                
+
                 <label for="mensaje">¿Por qué te gustaría participar?</label>
                 <textarea id="mensaje" name="message" rows="4" required></textarea>
-                
+
                 <div class="check-group">
                     <label class="lbl-tc">
                         <input type="checkbox" required aria-required="true" name="privacidad">
                         Acepto la política de privacidad
                     </label>
                 </div>
-                
+
                 <div class="g-recaptcha" data-sitekey="6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta"></div>
-                
+
                 <div class="form-buttons">
                     <button type="submit" class="btn-vol btn-azul">Enviar</button>
                     <button type="button" class="btn-vol btn-blanco" id="btnCerrarForm">Cancelar</button>
@@ -412,10 +473,10 @@ $eventos = $eventoModel->getAll();
                 <form class="form-contacto" id="contactForm" novalidate>
                     <label for="nombre">Nombre</label>
                     <input type="text" id="nombre" name="name" required aria-required="true" autocomplete="name">
-                    
+
                     <label for="correo">Correo</label>
                     <input type="email" id="correo" name="email" required aria-required="true" autocomplete="email">
-                    
+
                     <label for="interes">Interés</label>
                     <select id="interes" name="topic" required aria-required="true">
                         <option value="" disabled selected>Selecciona</option>
@@ -424,19 +485,19 @@ $eventos = $eventoModel->getAll();
                         <option value="alianzas">Alianzas</option>
                         <option value="voluntariado">Voluntariado</option>
                     </select>
-                    
+
                     <label for="mensaje">Mensaje</label>
                     <textarea id="mensaje" name="message" rows="4" required></textarea>
-                    
+
                     <div class="check-group">
                         <label class="lbl-tc">
                             <input type="checkbox" required aria-required="true" name="privacidad">
                             Acepto la política de privacidad
                         </label>
                     </div>
-                    
+
                     <div class="g-recaptcha" data-sitekey="6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta"></div>
-                    
+
                     <button type="submit" class="btn-enviar">Enviar</button>
                     <p class="hint" role="status" aria-live="polite" hidden>Gracias. Te contactaremos pronto.</p>
                 </form>
@@ -453,10 +514,10 @@ $eventos = $eventoModel->getAll();
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const menuToggle = document.querySelector('.menu-toggle');
             const menuLinks = document.querySelectorAll('.menu a');
-            
+
             menuLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     menuToggle.checked = false;
@@ -466,4 +527,5 @@ $eventos = $eventoModel->getAll();
     </script>
     <script src="js/script.js"></script>
 </body>
+
 </html>
