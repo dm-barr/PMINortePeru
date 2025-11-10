@@ -64,61 +64,47 @@ if (prefersReduced) {
 }
 
 /* ========================================
-   CALLBACK PARA RECAPTCHA
+   CALLBACK PARA RECAPTCHA INVISIBLE
 ======================================== */
 
-// Variables globales para los widgets de reCAPTCHA
+// CAMBIA ESTA KEY POR LA TUYA NUEVA
+const RECAPTCHA_SITE_KEY = '6LeEIwgsAAAAACLOXKkEyyrJ21WtAB-3lZal_YNU'; // ← Tu nueva Site Key Invisible
+
 let captchaVoluntariado = null;
 let captchaContacto = null;
 
-// Esta función se ejecuta cuando reCAPTCHA está listo
 function onloadCallback() {
   console.log("✅ reCAPTCHA API cargada correctamente");
   
-  // Renderizar CAPTCHA del formulario de voluntariado
+  // Renderizar CAPTCHA INVISIBLE del formulario de voluntariado
   const captchaElementVoluntariado = document.getElementById('recaptcha-voluntariado');
   if (captchaElementVoluntariado && typeof grecaptcha !== 'undefined') {
     try {
       captchaVoluntariado = grecaptcha.render('recaptcha-voluntariado', {
-        'sitekey': '6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta',
-        'theme': 'light'
+        'sitekey': RECAPTCHA_SITE_KEY,
+        'size': 'invisible',
+        'callback': onSubmitVoluntariado
       });
-      console.log("✅ reCAPTCHA de voluntariado renderizado");
+      console.log("✅ reCAPTCHA invisible de voluntariado renderizado");
     } catch (e) {
       console.error("❌ Error al renderizar reCAPTCHA de voluntariado:", e);
     }
   }
   
-  // Renderizar CAPTCHA del formulario de contacto
+  // Renderizar CAPTCHA INVISIBLE del formulario de contacto
   const captchaElementContacto = document.getElementById('recaptcha-contacto');
   if (captchaElementContacto && typeof grecaptcha !== 'undefined') {
     try {
       captchaContacto = grecaptcha.render('recaptcha-contacto', {
-        'sitekey': '6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta',
-        'theme': 'light'
+        'sitekey': RECAPTCHA_SITE_KEY,
+        'size': 'invisible',
+        'callback': onSubmitContacto
       });
-      console.log("✅ reCAPTCHA de contacto renderizado");
+      console.log("✅ reCAPTCHA invisible de contacto renderizado");
     } catch (e) {
       console.error("❌ Error al renderizar reCAPTCHA de contacto:", e);
     }
   }
-}
-
-
-// Función auxiliar para esperar a que grecaptcha esté disponible
-function esperarRecaptcha() {
-  return new Promise((resolve) => {
-    if (typeof grecaptcha !== 'undefined' && grecaptcha.render) {
-      resolve();
-    } else {
-      const checkInterval = setInterval(() => {
-        if (typeof grecaptcha !== 'undefined' && grecaptcha.render) {
-          clearInterval(checkInterval);
-          resolve();
-        }
-      }, 100);
-    }
-  });
 }
 
 /* ========================================
@@ -276,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // =====================================
-  // MODAL DE VOLUNTARIADO - ÚNICO
+  // MODAL DE VOLUNTARIADO
   // =====================================
   const btnInscribirse = document.getElementById("btnInscribirse");
   const btnReclutamiento = document.getElementById("btnReclutamiento");
@@ -289,27 +275,20 @@ document.addEventListener("DOMContentLoaded", function () {
     formModal.classList.add("oculto");
 
     if (btnInscribirse) {
-      console.log("✅ btnInscribirse encontrado");
       btnInscribirse.addEventListener("click", () => {
         console.log("🔓 Abriendo modal desde btnInscribirse");
         formModal.classList.remove("oculto");
       });
-    } else {
-      console.log("⚠️ btnInscribirse NO encontrado");
     }
 
     if (btnReclutamiento) {
-      console.log("✅ btnReclutamiento encontrado");
       btnReclutamiento.addEventListener("click", () => {
         console.log("🔓 Abriendo modal desde btnReclutamiento");
         formModal.classList.remove("oculto");
       });
-    } else {
-      console.log("⚠️ btnReclutamiento NO encontrado");
     }
 
     if (btnCerrarForm) {
-      console.log("✅ btnCerrarForm encontrado");
       btnCerrarForm.addEventListener("click", () => {
         console.log("🔒 Cerrando modal");
         formModal.classList.add("oculto");
@@ -330,130 +309,31 @@ document.addEventListener("DOMContentLoaded", function () {
         formModal.classList.add("oculto");
       });
     }
-  } else {
-    console.error("❌ Modal 'formModal' NO encontrado");
   }
 
   // ====================================
   // FORMULARIOS - GOOGLE SHEETS
   // ====================================
-  const scriptURL =
-    "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
-  console.log("🔧 Script URL configurada:", scriptURL);
-
-  async function testConnection() {
-    console.log("🔍 Probando conexión con Google Apps Script...");
-    try {
-      const response = await fetch(scriptURL, { method: "GET" });
-      const text = await response.text();
-      console.log("✅ Respuesta GET:", text);
-    } catch (err) {
-      console.error("❌ Error en conexión:", err);
-    }
-  }
-
-  testConnection();
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
 
   // =====================================
   // FORMULARIO DE VOLUNTARIADO
   // =====================================
-  const formVoluntariado = document.getElementById(
-    "voluntarioFormReclutamiento"
-  );
+  const formVoluntariado = document.getElementById("voluntarioFormReclutamiento");
 
   if (formVoluntariado) {
     console.log("✅ Formulario de voluntariado encontrado");
-    formVoluntariado.addEventListener("submit", async (e) => {
+    formVoluntariado.addEventListener("submit", (e) => {
       e.preventDefault();
-      console.log("\n========== ENVIANDO VOLUNTARIADO ==========");
-
-      // Esperar a que reCAPTCHA esté disponible
-      await esperarRecaptcha();
-
-      // Verificar CAPTCHA
-      let captchaResponse = '';
-      try {
-        if (captchaVoluntariado !== null) {
-          captchaResponse = grecaptcha.getResponse(captchaVoluntariado);
-        } else {
-          captchaResponse = grecaptcha.getResponse(0);
-        }
-        
-        if (!captchaResponse || captchaResponse === '') {
-          alert("⚠️ Por favor, completa la verificación CAPTCHA.");
-          return;
-        }
-      } catch (error) {
-        console.error("❌ Error al obtener respuesta de reCAPTCHA:", error);
-        alert("⚠️ Error con CAPTCHA. Por favor, recarga la página.");
-        return;
+      console.log("🔄 Ejecutando reCAPTCHA invisible...");
+      
+      // Ejecutar el captcha invisible
+      if (captchaVoluntariado !== null) {
+        grecaptcha.execute(captchaVoluntariado);
+      } else {
+        console.error("❌ captchaVoluntariado no inicializado");
       }
-
-      const formElement = e.target;
-      const formData = new FormData(formElement);
-      formData.append("formType", "voluntariado");
-      formData.append("g-recaptcha-response", captchaResponse);
-
-      console.log("📦 Datos del FormData:");
-      for (let [key, value] of formData.entries()) {
-        console.log(`  ${key}: ${value}`);
-      }
-
-      console.log("🚀 Enviando a:", scriptURL);
-
-      try {
-        const response = await fetch(scriptURL, {
-          method: "POST",
-          body: formData,
-          mode: "no-cors",
-        });
-
-        console.log("📬 Respuesta recibida");
-        console.log("  Status:", response.status);
-        console.log("  Type:", response.type);
-
-        alert("✅ Formulario enviado exitosamente");
-
-        // Resetear formulario y CAPTCHA
-        formElement.reset();
-        
-        // Resetear el CAPTCHA correspondiente
-        try {
-          if (captchaVoluntariado !== null) {
-            grecaptcha.reset(captchaVoluntariado);
-          } else {
-            grecaptcha.reset(0);
-          }
-          console.log("✅ reCAPTCHA reseteado");
-        } catch (error) {
-          console.error("⚠️ Error al resetear reCAPTCHA:", error);
-        }
-
-        if (formModal) {
-          formModal.classList.add("oculto");
-        }
-      } catch (err) {
-        console.error("❌ Error al enviar:");
-        console.error("  Mensaje:", err.message);
-        console.error("  Stack:", err.stack);
-        alert("❌ Error al enviar. Inténtalo nuevamente.");
-        
-        // Resetear CAPTCHA también en caso de error
-        try {
-          if (captchaVoluntariado !== null) {
-            grecaptcha.reset(captchaVoluntariado);
-          } else {
-            grecaptcha.reset(0);
-          }
-        } catch (error) {
-          console.error("⚠️ Error al resetear reCAPTCHA:", error);
-        }
-      }
-
-      console.log("========== FIN VOLUNTARIADO ==========\n");
     });
-  } else {
-    console.error("❌ Formulario 'voluntarioFormReclutamiento' NO encontrado");
   }
 
   // =====================================
@@ -463,92 +343,101 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (formContacto) {
     console.log("✅ Formulario de contacto encontrado");
-    formContacto.addEventListener("submit", async (e) => {
+    formContacto.addEventListener("submit", (e) => {
       e.preventDefault();
-      console.log("\n========== ENVIANDO CONTACTO ==========");
-
-      // Esperar a que reCAPTCHA esté disponible
-      await esperarRecaptcha();
-
-      // Verificar CAPTCHA
-      let captchaResponse = '';
-      try {
-        if (captchaContacto !== null) {
-          captchaResponse = grecaptcha.getResponse(captchaContacto);
-        } else {
-          captchaResponse = grecaptcha.getResponse(1);
-        }
-        
-        if (!captchaResponse || captchaResponse === '') {
-          alert("⚠️ Por favor, completa la verificación CAPTCHA.");
-          return;
-        }
-      } catch (error) {
-        console.error("❌ Error al obtener respuesta de reCAPTCHA:", error);
-        alert("⚠️ Error con CAPTCHA. Por favor, recarga la página.");
-        return;
+      console.log("🔄 Ejecutando reCAPTCHA invisible...");
+      
+      // Ejecutar el captcha invisible
+      if (captchaContacto !== null) {
+        grecaptcha.execute(captchaContacto);
+      } else {
+        console.error("❌ captchaContacto no inicializado");
       }
-
-      const formElement = e.target;
-      const formData = new FormData(formElement);
-      formData.append("formType", "contacto");
-      formData.append("g-recaptcha-response", captchaResponse);
-
-      console.log("📦 Datos del FormData:");
-      for (let [key, value] of formData.entries()) {
-        console.log(`  ${key}: ${value}`);
-      }
-
-      console.log("🚀 Enviando a:", scriptURL);
-
-      try {
-        const response = await fetch(scriptURL, {
-          method: "POST",
-          body: formData,
-          mode: "no-cors",
-        });
-
-        console.log("📬 Respuesta recibida");
-        console.log("  Status:", response.status);
-        console.log("  Type:", response.type);
-
-        alert("✅ Mensaje enviado exitosamente");
-
-        // Resetear formulario y CAPTCHA
-        formElement.reset();
-        
-        // Resetear el CAPTCHA correspondiente
-        try {
-          if (captchaContacto !== null) {
-            grecaptcha.reset(captchaContacto);
-          } else {
-            grecaptcha.reset(1);
-          }
-          console.log("✅ reCAPTCHA reseteado");
-        } catch (error) {
-          console.error("⚠️ Error al resetear reCAPTCHA:", error);
-        }
-      } catch (err) {
-        console.error("❌ Error al enviar:");
-        console.error("  Mensaje:", err.message);
-        console.error("  Stack:", err.stack);
-        alert("❌ Error al enviar. Inténtalo nuevamente.");
-        
-        // Resetear CAPTCHA también en caso de error
-        try {
-          if (captchaContacto !== null) {
-            grecaptcha.reset(captchaContacto);
-          } else {
-            grecaptcha.reset(1);
-          }
-        } catch (error) {
-          console.error("⚠️ Error al resetear reCAPTCHA:", error);
-        }
-      }
-
-      console.log("========== FIN CONTACTO ==========\n");
     });
-  } else {
-    console.error("❌ Formulario 'contactForm' NO encontrado");
   }
 });
+
+/* ========================================
+   CALLBACKS DE RECAPTCHA INVISIBLE
+======================================== */
+
+// Callback para VOLUNTARIADO
+function onSubmitVoluntariado(token) {
+  console.log("\n========== ENVIANDO VOLUNTARIADO ==========");
+  console.log("✅ Token reCAPTCHA recibido");
+  
+  const formVoluntariado = document.getElementById("voluntarioFormReclutamiento");
+  const formData = new FormData(formVoluntariado);
+  formData.append("formType", "voluntariado");
+  formData.append("g-recaptcha-response", token);
+
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: formData,
+    mode: "no-cors",
+  })
+    .then((response) => {
+      console.log("✅ Formulario enviado exitosamente");
+      alert("✅ Formulario enviado exitosamente");
+      formVoluntariado.reset();
+      
+      // Resetear reCAPTCHA
+      if (captchaVoluntariado !== null) {
+        grecaptcha.reset(captchaVoluntariado);
+      }
+      
+      const formModal = document.getElementById("formModal");
+      if (formModal) {
+        formModal.classList.add("oculto");
+      }
+    })
+    .catch((err) => {
+      console.error("❌ Error al enviar:", err);
+      alert("❌ Error al enviar. Inténtalo nuevamente.");
+      
+      // Resetear reCAPTCHA también en error
+      if (captchaVoluntariado !== null) {
+        grecaptcha.reset(captchaVoluntariado);
+      }
+    });
+}
+
+// Callback para CONTACTO
+function onSubmitContacto(token) {
+  console.log("\n========== ENVIANDO CONTACTO ==========");
+  console.log("✅ Token reCAPTCHA recibido");
+  
+  const formContacto = document.getElementById("contactForm");
+  const formData = new FormData(formContacto);
+  formData.append("formType", "contacto");
+  formData.append("g-recaptcha-response", token);
+
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwiioIR9TPa0xW6QFpQ5E6y9DuFdfx1SOk3Ylntac1Nm4co4yXwvUq-zEjV0v5317a5xA/exec";
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: formData,
+    mode: "no-cors",
+  })
+    .then((response) => {
+      console.log("✅ Mensaje enviado exitosamente");
+      alert("✅ Mensaje enviado exitosamente");
+      formContacto.reset();
+      
+      // Resetear reCAPTCHA
+      if (captchaContacto !== null) {
+        grecaptcha.reset(captchaContacto);
+      }
+    })
+    .catch((err) => {
+      console.error("❌ Error al enviar:", err);
+      alert("❌ Error al enviar. Inténtalo nuevamente.");
+      
+      // Resetear reCAPTCHA también en error
+      if (captchaContacto !== null) {
+        grecaptcha.reset(captchaContacto);
+      }
+    });
+}
