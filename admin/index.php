@@ -15,31 +15,26 @@ if (!isset($_SESSION['usuario_id'])) {
 $usuario_nombre = $_SESSION['usuario_nombre'] ?? 'Usuario';
 $usuario_rol = $_SESSION['usuario_rol_nombre'] ?? 'Sin Rol';
 
-require_once __DIR__ . '/config/database.php';
-
-// ... resto de tu código actual
-
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require_once __DIR__ . '/config/Database.php';
 
 // RUTAS CORREGIDAS - Los archivos PHP están un nivel arriba
 require_once __DIR__ . '/../php/evento.php';
 require_once __DIR__ . '/../php/educacion.php';
 require_once __DIR__ . '/../php/noticia.php';
 
-$eventoModel = new EventoModel_mysqli();
-$educacionModel = new EducacionModel_mysqli();
-$noticiaModel = new NoticiaModel_mysqli();
+// Crear conexión MySQLi para los modelos
+$db = new Database();
+$mysqli = $db->getMysqli();
+
+$eventoModel = new EventoModel($mysqli);
+$educacionModel = new EducacionModel($mysqli);
+$noticiaModel = new NoticiaModel($mysqli);
 
 // Variables para mensajes
 $mensaje = '';
 $tipo_mensaje = '';
 
-// ============================================
 // FUNCIÓN PARA SUBIR IMÁGENES
-// ============================================
 function subirImagen($archivo)
 {
     if (!isset($archivo) || $archivo['error'] !== UPLOAD_ERR_OK) {
@@ -55,12 +50,12 @@ function subirImagen($archivo)
 
     // RUTA CORREGIDA: uploads está en la raíz del proyecto
     $carpeta_destino = __DIR__ . '/../uploads/';
+
     if (!file_exists($carpeta_destino)) {
-        mkdir($carpeta_destino, 0777, true);
+        mkdir($carpeta_destino, 0755, true);
     }
 
-    // Generar nombre único
-    $nombre_archivo = uniqid() . '_' . time() . '.' . $extension;
+    $nombre_archivo = uniqid() . '.' . $extension;
     $ruta_completa = $carpeta_destino . $nombre_archivo;
 
     if (move_uploaded_file($archivo['tmp_name'], $ruta_completa)) {
@@ -70,31 +65,26 @@ function subirImagen($archivo)
     return null;
 }
 
-// ============================================
-// PROCESAMIENTO DE FORMULARIOS
-// ============================================
-
+// Procesar formularios
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accion = $_POST['accion'] ?? '';
 
     // ========== EVENTOS ==========
-    if ($accion === 'agregar_evento') {
-        $nombre = $_POST['nombre'] ?? '';
-        $descripcion = $_POST['descripcion'] ?? '';
-        $comunidad = $_POST['comunidad'] ?? '';
-        $modalidad = $_POST['modalidad'] ?? '';
-        $categoria = $_POST['categoria'] ?? '';
-        $fecha = $_POST['fecha'] ?? date('Y-m-d'); // ✅ CAMPO FECHA AGREGADO
-        $lugar = $_POST['lugar'] ?? '';
+    if ($_POST['accion'] == 'agregar_evento') {
+        $nombre = $_POST['nombre'];
+        $descripcion = $_POST['descripcion'];
+        $comunidad = $_POST['comunidad'];
+        $fecha = $_POST['fecha'];
+        $modalidad = $_POST['modalidad'];
+        $categoria = $_POST['categoria'];
+        $lugar = $_POST['lugar'];
         $link = $_POST['link'] ?? '';
 
-        // Manejar subida de imagen
-        $imagen = null;
+        $imagen = '';
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $imagen = subirImagen($_FILES['imagen']);
         }
 
-        // ✅ CORRECTO - Orden correcto según evento.php
         if ($eventoModel->create($nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link)) {
             $mensaje = 'Evento agregado exitosamente';
             $tipo_mensaje = 'success';
@@ -115,24 +105,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $lugar = $_POST['lugar'];
         $link = $_POST['link'] ?? '';
 
-        // ✅ Obtener evento actual para preservar imagen si no se sube nueva
         $evento_actual = $eventoModel->getById($id);
-        $imagen = $evento_actual['imagen'] ?? null; // Mantener imagen actual por defecto
+        $imagen = $evento_actual['imagen'] ?? null;
 
-        // Solo actualizar imagen si se subió una nueva
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $nueva_imagen = subirImagen($_FILES['imagen']);
             if ($nueva_imagen !== null) {
                 $imagen = $nueva_imagen;
-
-                // Opcional: Eliminar imagen anterior si existe
                 if (!empty($evento_actual['imagen']) && file_exists(__DIR__ . '/../' . $evento_actual['imagen'])) {
                     unlink(__DIR__ . '/../' . $evento_actual['imagen']);
                 }
             }
         }
 
-        // ✅ CORRECCIÓN: Usar $eventoModel en lugar de $evento
         if ($eventoModel->update($id, $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link)) {
             $mensaje = 'Evento actualizado exitosamente';
             $tipo_mensaje = 'success';
@@ -141,9 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $tipo_mensaje = 'error';
         }
     }
-
-
-
 
     if ($accion === 'eliminar_evento') {
         $id = $_POST['id'] ?? 0;
@@ -206,7 +188,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $titulo = $_POST['titulo'] ?? '';
         $descripcion = $_POST['descripcion'] ?? '';
 
-        // Manejar subida de imagen
         $imagen = '';
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $imagen = subirImagen($_FILES['imagen']);
@@ -226,7 +207,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $titulo = $_POST['titulo'] ?? '';
         $descripcion = $_POST['descripcion'] ?? '';
 
-        // Manejar subida de nueva imagen (opcional)
         $imagen = null;
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $imagen = subirImagen($_FILES['imagen']);
@@ -688,4 +668,9 @@ $noticias = $noticiaModel->getAll();
     <script src="js/script.js"></script>
 </body>
 <?php ob_end_flush(); ?>
+
 </html>
+<?php 
+$mysqli->close();
+ob_end_flush(); 
+?>
