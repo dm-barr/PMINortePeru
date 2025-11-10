@@ -2474,23 +2474,47 @@ body {
 
 
 /* RECAPTCHA STYLING - MEJORADO PARA MÓVILES */
-.g-recaptcha {
-    margin: 20px 0;
+.g-recaptcha,
+#recaptcha-voluntariado,
+#recaptcha-contacto {
+    margin: 20px auto;
     display: flex;
     justify-content: center;
+    align-items: center;
     transform: scale(0.95);
     transform-origin: center;
     width: 100%;
+    max-width: 304px;
 }
 
 /* Asegurar que el iframe de reCAPTCHA sea responsive */
-.g-recaptcha iframe {
+.g-recaptcha iframe,
+#recaptcha-voluntariado iframe,
+#recaptcha-contacto iframe {
     max-width: 100% !important;
+}
+
+/* Fix para el modal de verificación - IMPORTANTE PARA MÓVILES */
+.g-recaptcha-bubble-arrow {
+    display: none !important;
+}
+
+body > div > iframe[src*="recaptcha/api2/bframe"] {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    -webkit-transform: translate(-50%, -50%) !important;
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+    z-index: 10000 !important;
 }
 
 /* Móviles - escalar el captcha */
 @media (max-width: 768px) {
-    .g-recaptcha {
+    .g-recaptcha,
+    #recaptcha-voluntariado,
+    #recaptcha-contacto {
         transform: scale(0.85);
         transform-origin: 0 0;
         -webkit-transform: scale(0.85);
@@ -2504,11 +2528,20 @@ body {
         max-width: 100vw !important;
         max-height: 100vh !important;
     }
+    
+    body > div[style*="position: absolute"] {
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 auto !important;
+        max-width: 100vw !important;
+    }
 }
 
 /* Móviles pequeños - escalar más */
 @media (max-width: 480px) {
-    .g-recaptcha {
+    .g-recaptcha,
+    #recaptcha-voluntariado,
+    #recaptcha-contacto {
         transform: scale(0.77);
         transform-origin: 0 0;
         -webkit-transform: scale(0.77);
@@ -2518,13 +2551,16 @@ body {
 
 /* Móviles muy pequeños */
 @media (max-width: 360px) {
-    .g-recaptcha {
+    .g-recaptcha,
+    #recaptcha-voluntariado,
+    #recaptcha-contacto {
         transform: scale(0.70);
         transform-origin: 0 0;
         -webkit-transform: scale(0.70);
         -webkit-transform-origin: 0 0;
     }
 }
+
 
 
 

@@ -481,7 +481,7 @@ usort($eventos, function ($a, $b) {
                     </label>
                 </div>
 
-                <div class="g-recaptcha" data-sitekey="6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta"></div>
+                <div id="recaptcha-voluntariado"></div>
 
                 <div class="form-buttons">
                     <button type="submit" class="btn-vol btn-azul">Enviar</button>
@@ -522,7 +522,7 @@ usort($eventos, function ($a, $b) {
                         </label>
                     </div>
 
-                    <div class="g-recaptcha" data-sitekey="6LeFWQcsAAAAAP09Phke4-bIv88TYbWqau-wTvta"></div>
+                    <div id="recaptcha-contacto"></div>
 
                     <button type="submit" class="btn-enviar">Enviar</button>
                     <p class="hint" role="status" aria-live="polite" hidden>Gracias. Te contactaremos pronto.</p>
