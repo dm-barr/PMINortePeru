@@ -2,9 +2,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
+
 // OUTPUT BUFFERING - PRIMERO
 ob_start();
-
 session_start();
 
 // Verificar autenticación
@@ -36,6 +36,7 @@ $noticiaModel = new NoticiaModel_mysqli();
 // Variables para mensajes
 $mensaje = '';
 $tipo_mensaje = '';
+
 
 // FUNCIÓN PARA SUBIR IMÁGENES
 function subirImagen($archivo)
