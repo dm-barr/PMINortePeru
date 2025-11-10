@@ -256,8 +256,8 @@ $noticias = $noticiaModel->getAll();
     <div class="admin-container">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <img src="../img/logo/logo_PMI.png" alt="Logo PMI Norte Perú" class="sidebar-logo">
                 <h3>Panel Admin</h3>
+                <img src="../img/logo/logo_PMI.png" alt="Logo PMI Norte Perú" class="sidebar-logo">
                 <div class="user-info">
                     <p class="user-name"><?php echo htmlspecialchars($usuario_nombre); ?></p>
                     <p class="user-role"><?php echo htmlspecialchars($usuario_rol); ?></p>
