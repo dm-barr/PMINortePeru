@@ -11,17 +11,12 @@ $eventoModel = new EventoModel_mysqli();
 
 // Obtener todos los eventos desde la base de datos
 $eventos = $eventoModel->getAll();
-
-// Detectar la URL base del sitio
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$base_url = $protocol . $_SERVER['HTTP_HOST'] . '/';
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="<?php echo $base_url; ?>">
     <title>PMI Norte Perú</title>
     <!-- Estilos y fuentes -->
     <link rel="stylesheet" href="css/styles.css">
@@ -42,7 +37,7 @@ $base_url = $protocol . $_SERVER['HTTP_HOST'] . '/';
         <div class="topbar-right">
             <span class="email">informes@pminorteperu.org</span>
             <span class="separator">|</span>
-            <a href="<?php echo $_SERVER['REQUEST_URI']; ?>#contacto" class="contact-link">Contáctanos</a>
+            <a href="#contacto" class="contact-link">Contáctanos</a>
         </div>
     </div>
 
@@ -54,12 +49,12 @@ $base_url = $protocol . $_SERVER['HTTP_HOST'] . '/';
             <label for="menu-toggle" class="menu-icon"></label>
             <nav id="navmenu">
                 <ul class="menu">
-                    <li><a href="<?php echo $_SERVER['REQUEST_URI']; ?>#hero">Inicio</a></li>
-                    <li><a href="<?php echo $_SERVER['REQUEST_URI']; ?>#nosotros">Nosotros</a></li>
-                    <li><a href="<?php echo $_SERVER['REQUEST_URI']; ?>#eventos">Eventos</a></li>
-                    <li><a href="<?php echo $_SERVER['REQUEST_URI']; ?>#cta">Membresía</a></li>
-                    <li><a href="<?php echo $_SERVER['REQUEST_URI']; ?>#junta-directiva">Junta Directiva</a></li>
-                    <li><a href="<?php echo $_SERVER['REQUEST_URI']; ?>#voluntariado">Voluntariado</a></li>
+                    <li><a href="#hero">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#eventos">Eventos</a></li>
+                    <li><a href="#cta">Membresía</a></li>
+                    <li><a href="#junta-directiva">Junta Directiva</a></li>
+                    <li><a href="#voluntariado">Voluntariado</a></li>
                     <a href="https://www.pmi.org/shop/tbp-chapter-membership/norte-per%c3%ba-chapter/101293" class="btn-hazte">Hazte miembro</a>
                 </ul>
             </nav>
@@ -80,8 +75,8 @@ $base_url = $protocol . $_SERVER['HTTP_HOST'] . '/';
                 <h1>Suceden cosas buenas cuando<span class="txt-gradient"> te involucras con PMI</span></h1>
                 <p class="lead">Transformamos ideas en <strong>valor real</strong> para Cajamarca, Piura y Trujillo mediante dirección de proyectos.</p>
                 <div class="hero-actions">
-                    <a href="<?php echo $_SERVER['REQUEST_URI']; ?>#eventos" class="btn btn--primary">Ver eventos</a>
-                    <a href="<?php echo $_SERVER['REQUEST_URI']; ?>#nosotros" class="btn btn--secondary">Conocer el capítulo</a>
+                    <a href="#eventos" class="btn btn--primary">Ver eventos</a>
+                    <a href="#nosotros" class="btn btn--secondary">Conocer el capítulo</a>
                 </div>
             </div>
             <aside class="hero-card glass reveal">
@@ -149,9 +144,12 @@ $base_url = $protocol . $_SERVER['HTTP_HOST'] . '/';
                     <?php foreach ($eventos as $evento): ?>
                         <div class="card-evento" data-ciudad="<?php echo htmlspecialchars($evento['comunidad']); ?>">
                             <span class="fecha"><?php echo htmlspecialchars($evento['fecha']); ?></span>
-                            <img src="<?php echo htmlspecialchars($evento['imagen']); ?>" 
-                                 alt="<?php echo htmlspecialchars($evento['nombre']); ?>"
-                                 onerror="this.src='img/default-evento.png'">
+                            <?php if (!empty($evento['imagen'])): ?>
+                                <img src="<?php echo htmlspecialchars($evento['imagen']); ?>" 
+                                     alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
+                            <?php else: ?>
+                                <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" alt="Sin imagen">
+                            <?php endif; ?>
                             <h3><?php echo htmlspecialchars($evento['nombre']); ?></h3>
                             <p><?php echo htmlspecialchars($evento['descripcion']); ?></p>
                             <?php if (!empty($evento['link'])): ?>
@@ -176,7 +174,7 @@ $base_url = $protocol . $_SERVER['HTTP_HOST'] . '/';
             <p>Únete al PMI Norte Perú Chapter y forma parte de una comunidad que impulsa el crecimiento profesional, la innovación y el liderazgo en la gestión de proyectos. Juntos, hacemos que las ideas se conviertan en resultados que transforman nuestra región.</p>
             <div class="cta-buttons">
                 <a href="https://www.pmi.org/shop/tbp-chapter-membership/norte-per%c3%ba-chapter/101293" class="btn-cta btn-primary">Hazte miembro</a>
-                <a href="<?php echo $_SERVER['REQUEST_URI']; ?>#contacto" class="btn-cta btn-secondary">Habla con nosotros</a>
+                <a href="#contacto" class="btn-cta btn-secondary">Habla con nosotros</a>
             </div>
         </div>
     </section>
@@ -328,8 +326,8 @@ $base_url = $protocol . $_SERVER['HTTP_HOST'] . '/';
             <h2>Sé voluntario y deja huella!</h2>
             <p>Forma parte activa del PMI Norte Perú Chapter como voluntario y contribuye al desarrollo de la comunidad profesional de gestión de proyectos. Participar como voluntario te permite aprender, liderar y conectar con otros profesionales, fortaleciendo tus habilidades mientras generas un impacto positivo en tu región.</p>
             <div class="voluntariado-buttons">
-                <a href="<?php echo $_SERVER['REQUEST_URI']; ?>#registro" class="btn-vol btn-azul" id="btnInscribirse">Sé voluntario</a>
-                <a href="<?php echo $_SERVER['REQUEST_URI']; ?>#contacto" class="btn-vol btn-blanco">Habla con nosotros</a>
+                <a href="#registro" class="btn-vol btn-azul" id="btnInscribirse">Sé voluntario</a>
+                <a href="#contacto" class="btn-vol btn-blanco">Habla con nosotros</a>
             </div>
         </div>
     </section>
