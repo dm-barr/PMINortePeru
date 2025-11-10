@@ -38,8 +38,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($usuario) {
-                // Verificar contraseña hasheada
-                if (password_verify($password, $usuario['contrasena'])) {
+                $password_valida = false;
+                
+                // Verificar si la contraseña está hasheada (empieza con $2y$)
+                if (substr($usuario['contrasena'], 0, 4) === '$2y$') {
+                    // Contraseña hasheada - usar password_verify
+                    $password_valida = password_verify($password, $usuario['contrasena']);
+                } else {
+                    // Contraseña sin hashear - comparación directa
+                    $password_valida = ($password === $usuario['contrasena']);
+                    
+                    // OPCIONAL: Hashear la contraseña ahora para la próxima vez
+                    if ($password_valida) {
+                        $password_hasheada = password_hash($password, PASSWORD_DEFAULT);
+                        $update = $conn->prepare("UPDATE Usuario SET contrasena = ? WHERE id_Usuario = ?");
+                        $update->execute([$password_hasheada, $usuario['id_Usuario']]);
+                    }
+                }
+                
+                if ($password_valida) {
+                    // Login exitoso
                     $_SESSION['usuario_id'] = $usuario['id_Usuario'];
                     $_SESSION['usuario_nombre'] = $usuario['nombre'];
                     $_SESSION['usuario_correo'] = $usuario['correo'];
@@ -58,6 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } catch (PDOException $e) {
             $error = 'Error de conexión: ' . $e->getMessage();
+        } catch (Exception $e) {
+            $error = 'Error: ' . $e->getMessage();
         }
     }
 }
