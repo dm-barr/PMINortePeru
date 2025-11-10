@@ -299,27 +299,29 @@ $noticias = $noticiaModel->getAll();
                                         <td><?php echo htmlspecialchars($evento['categoria']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['fecha']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['lugar']); ?></td>
-                                        <td><?php echo htmlspecialchars($evento['link'] ?? ''); ?></td>
-                                        <td><?php echo htmlspecialchars($evento['imagen']); ?></td>
+                                        <td><?php echo !empty($evento['link']) ? '<a href="' . htmlspecialchars($evento['link']) . '" target="_blank">Ver</a>' : '-'; ?>
+                                        </td>
+                                        <td><?php echo !empty($evento['imagen']) ? htmlspecialchars($evento['imagen']) : '-'; ?>
+                                        </td>
                                         <td class="action-icons">
-                                            <a href="#" class="btn-editar-evento" data-id="<?php echo $evento['idEvento']; ?>"
-                                                data-nombre="<?php echo htmlspecialchars($evento['nombre']); ?>"
-                                                data-descripcion="<?php echo htmlspecialchars($evento['descripcion']); ?>"
-                                                data-comunidad="<?php echo htmlspecialchars($evento['comunidad']); ?>"
-                                                data-modalidad="<?php echo htmlspecialchars($evento['modalidad']); ?>"
-                                                data-categoria="<?php echo htmlspecialchars($evento['categoria']); ?>"
-                                                data-fecha="<?php echo htmlspecialchars($evento['fecha']); ?>"
-                                                data-lugar="<?php echo htmlspecialchars($evento['lugar']); ?>"
-                                                data-link="<?php echo htmlspecialchars($evento['link'] ?? ''); ?>"
+                                            <a href="#" class="btn-editar-evento"
+                                                data-id="<?php echo htmlspecialchars($evento['idEvento']); ?>"
+                                                data-nombre="<?php echo htmlspecialchars($evento['nombre'], ENT_QUOTES); ?>"
+                                                data-descripcion="<?php echo htmlspecialchars($evento['descripcion'], ENT_QUOTES); ?>"
+                                                data-comunidad="<?php echo htmlspecialchars($evento['comunidad'], ENT_QUOTES); ?>"
+                                                data-modalidad="<?php echo htmlspecialchars($evento['modalidad'], ENT_QUOTES); ?>"
+                                                data-categoria="<?php echo htmlspecialchars($evento['categoria'], ENT_QUOTES); ?>"
+                                                data-fecha="<?php echo htmlspecialchars($evento['fecha'], ENT_QUOTES); ?>"
+                                                data-lugar="<?php echo htmlspecialchars($evento['lugar'], ENT_QUOTES); ?>"
+                                                data-link="<?php echo htmlspecialchars($evento['link'] ?? '', ENT_QUOTES); ?>"
                                                 title="Editar">
                                                 <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
                                             <a href="#" class="btn-eliminar" data-tipo="evento"
-                                                data-id="<?php echo $evento['idEvento']; ?>" title="Eliminar">
+                                                data-id="<?php echo htmlspecialchars($evento['idEvento']); ?>" title="Eliminar">
                                                 <img src="../img/iconos/eliminar.png" alt="Eliminar">
                                             </a>
                                         </td>
-                                        
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
@@ -328,6 +330,7 @@ $noticias = $noticiaModel->getAll();
                                 </tr>
                             <?php endif; ?>
                         </tbody>
+
                     </table>
                 </div>
             </section>
