@@ -314,9 +314,8 @@ $noticias = $noticiaModel->getAll();
                                                 title="Editar">
                                                 <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
-
                                             <a href="#" class="btn-eliminar" data-tipo="evento"
-                                                data-id="<?php echo $evento['id_Evento']; ?>" title="Eliminar">
+                                                data-id="<?php echo $evento['idEvento']; ?>" title="Eliminar">
                                                 <img src="../img/iconos/eliminar.png" alt="Eliminar">
                                             </a>
                                         </td>
