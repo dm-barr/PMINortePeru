@@ -19,10 +19,10 @@ $eventos = $eventoModel->getAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PMI Norte Perú</title>
     <!-- Estilos y fuentes -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="icon" href="img/logo/icono.png" type="image/x-icon">
+    <link rel="icon" href="/img/logo/icono.png" type="image/x-icon">
     <!-- Script de reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
@@ -65,7 +65,7 @@ $eventos = $eventoModel->getAll();
     <section id="hero" class="hero" aria-label="Sección principal">
         <div class="hero-bg" aria-hidden="true">
             <video class="hero-video" autoplay muted loop playsinline preload="metadata">
-                <source src="video/hero2.mp4" type="video/mp4">
+                <source src="/video/hero2.mp4" type="video/mp4">
             </video>
         </div>
         <div class="hero-overlay"></div>
@@ -81,7 +81,7 @@ $eventos = $eventoModel->getAll();
             </div>
             <aside class="hero-card glass reveal">
                 <figure>
-                    <img src="img/portada/cajamarca/portada.png" alt="Norte del Perú - Trujillo, Piura y Cajamarca" loading="lazy">
+                    <img src="/img/portada/cajamarca/portada.png" alt="Norte del Perú - Trujillo, Piura y Cajamarca" loading="lazy">
                 </figure>
                 <div class="hero-card-body">
                     <h3>Student Club PMI UNC</h3>
@@ -104,17 +104,17 @@ $eventos = $eventoModel->getAll();
             </p>
             <div class="cards">
                 <div class="card">
-                    <img src="img/valores/logo/misión.png" alt="Misión" class="icono-img">
+                    <img src="/img/valores/logo/misión.png" alt="Misión" class="icono-img">
                     <h3>Misión</h3>
                     <p>Fortalecer las competencias en dirección de proyectos de los profesionales del norte del Perú, promoviendo el liderazgo, la ética y la creación de valor a través de la aplicación de estándares y buenas prácticas del PMI.</p>
                 </div>
                 <div class="card">
-                    <img src="img/valores/logo/visión.png" alt="Visión" class="icono-img">
+                    <img src="/img/valores/logo/visión.png" alt="Visión" class="icono-img">
                     <h3>Visión</h3>
                     <p>Ser el capítulo referente del norte del Perú en gestión de proyectos, reconocido por su impacto positivo en la comunidad y por fomentar una cultura de excelencia, innovación y colaboración.</p>
                 </div>
                 <div class="card">
-                    <img src="img/valores/logo/valores.png" alt="Valores" class="icono-img">
+                    <img src="/img/valores/logo/valores.png" alt="Valores" class="icono-img">
                     <h3>Valores</h3>
                     <p><strong>Excelencia:</strong> compromiso con la calidad y la mejora continua.</p>
                     <p><strong>Integridad:</strong> actuar con ética y transparencia.</p>
@@ -144,7 +144,9 @@ $eventos = $eventoModel->getAll();
                     <?php foreach ($eventos as $evento): ?>
                         <div class="card-evento" data-ciudad="<?php echo htmlspecialchars($evento['comunidad']); ?>">
                             <span class="fecha"><?php echo htmlspecialchars($evento['fecha']); ?></span>
-                            <img src="<?php echo htmlspecialchars($evento['imagen']); ?>" alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
+                            <img src="/<?php echo htmlspecialchars($evento['imagen']); ?>" 
+                                 alt="<?php echo htmlspecialchars($evento['nombre']); ?>"
+                                 onerror="this.src='/img/default-evento.png'">
                             <h3><?php echo htmlspecialchars($evento['nombre']); ?></h3>
                             <p><?php echo htmlspecialchars($evento['descripcion']); ?></p>
                             <?php if (!empty($evento['link'])): ?>
@@ -189,7 +191,7 @@ $eventos = $eventoModel->getAll();
                     <!-- Miembro 1 -->
                     <div class="card-miembro">
                         <div class="foto-miembro">
-                            <img src="img/junta/OscarZocon.png" alt="Presidente">
+                            <img src="/img/junta/OscarZocon.png" alt="Presidente">
                         </div>
                         <span class="cargo-badge">Presidente</span>
                         <h3>Oscar Zocón</h3>
@@ -200,7 +202,7 @@ $eventos = $eventoModel->getAll();
                     <!-- Miembro 2 -->
                     <div class="card-miembro">
                         <div class="foto-miembro">
-                            <img src="img/junta/CarlosBriceno.png" alt="Presidente Electo">
+                            <img src="/img/junta/CarlosBriceno.png" alt="Presidente Electo">
                         </div>
                         <span class="cargo-badge">Presidente Electo</span>
                         <h3>Carlos Briceño</h3>
@@ -211,7 +213,7 @@ $eventos = $eventoModel->getAll();
                     <!-- Miembro 3 -->
                     <div class="card-miembro">
                         <div class="foto-miembro">
-                            <img src="img/junta/HeynerNinaquispe.jpg" alt="Past President">
+                            <img src="/img/junta/HeynerNinaquispe.jpg" alt="Past President">
                         </div>
                         <span class="cargo-badge">Past President</span>
                         <h3>Heyner Ninaquispe</h3>
@@ -222,7 +224,7 @@ $eventos = $eventoModel->getAll();
                     <!-- Miembro 4 -->
                     <div class="card-miembro">
                         <div class="foto-miembro">
-                            <img src="img/junta/TaniaAngeles.jpg" alt="Vicepresidente de Membresía">
+                            <img src="/img/junta/TaniaAngeles.jpg" alt="Vicepresidente de Membresía">
                         </div>
                         <span class="cargo-badge">Vicepresidente de Membresía y Voluntariado</span>
                         <h3>Tania Ángeles</h3>
@@ -233,7 +235,7 @@ $eventos = $eventoModel->getAll();
                     <!-- Miembro 5 -->
                     <div class="card-miembro">
                         <div class="foto-miembro">
-                            <img src="img/junta/DeniseLeon.png" alt="Vicepresidente de Eventos">
+                            <img src="/img/junta/DeniseLeon.png" alt="Vicepresidente de Eventos">
                         </div>
                         <span class="cargo-badge">Vicepresidente de Eventos</span>
                         <h3>Denise León</h3>
@@ -244,7 +246,7 @@ $eventos = $eventoModel->getAll();
                     <!-- Miembro 6 -->
                     <div class="card-miembro">
                         <div class="foto-miembro">
-                            <img src="img/junta/GabrielaGonzales.png" alt="Vicepresidente de Comunicaciones">
+                            <img src="/img/junta/GabrielaGonzales.png" alt="Vicepresidente de Comunicaciones">
                         </div>
                         <span class="cargo-badge">Vicepresidente de Comunicaciones</span>
                         <h3>Gabriela Gonzales</h3>
@@ -255,7 +257,7 @@ $eventos = $eventoModel->getAll();
                     <!-- Miembro 7 -->
                     <div class="card-miembro">
                         <div class="foto-miembro">
-                            <img src="img/junta/CeciliaRojas.png" alt="Vicepresidente de Educación">
+                            <img src="/img/junta/CeciliaRojas.png" alt="Vicepresidente de Educación">
                         </div>
                         <span class="cargo-badge">Vicepresidente de Educación</span>
                         <h3>Cecilia Rojas</h3>
@@ -266,7 +268,7 @@ $eventos = $eventoModel->getAll();
                     <!-- Miembro 8 -->
                     <div class="card-miembro">
                         <div class="foto-miembro">
-                            <img src="img/junta/GiselaCieza.jpg" alt="Vicepresidente de Finanzas">
+                            <img src="/img/junta/GiselaCieza.jpg" alt="Vicepresidente de Finanzas">
                         </div>
                         <span class="cargo-badge">Vicepresidente de Finanzas</span>
                         <h3>Gisela Cieza</h3>
@@ -277,7 +279,7 @@ $eventos = $eventoModel->getAll();
                     <!-- Miembro 9 -->
                     <div class="card-miembro">
                         <div class="foto-miembro">
-                            <img src="img/junta/JeremyBecerra.png" alt="Líder Comunidad Trujillo">
+                            <img src="/img/junta/JeremyBecerra.png" alt="Líder Comunidad Trujillo">
                         </div>
                         <span class="cargo-badge">Líder Comunidad Trujillo</span>
                         <h3>Jeremy Becerra</h3>
@@ -288,7 +290,7 @@ $eventos = $eventoModel->getAll();
                     <!-- Miembro 10 -->
                     <div class="card-miembro">
                         <div class="foto-miembro">
-                            <img src="img/junta/JoseLuisSoriano.png" alt="Líder Comunidad Cajamarca">
+                            <img src="/img/junta/JoseLuisSoriano.png" alt="Líder Comunidad Cajamarca">
                         </div>
                         <span class="cargo-badge">Líder Comunidad Cajamarca</span>
                         <h3>José Luis Soriano</h3>
@@ -299,7 +301,7 @@ $eventos = $eventoModel->getAll();
                     <!-- Miembro 11 -->
                     <div class="card-miembro">
                         <div class="foto-miembro">
-                            <img src="img/junta/LizethRodriguez.png" alt="Líder Comunidad Piura">
+                            <img src="/img/junta/LizethRodriguez.png" alt="Líder Comunidad Piura">
                         </div>
                         <span class="cargo-badge">Líder Comunidad Piura</span>
                         <h3>Lizeth Rodríguez</h3>
@@ -407,7 +409,7 @@ $eventos = $eventoModel->getAll();
                 </form>
             </div>
             <div class="columna-imagen">
-                <img src="img/recursos/form.jpg" alt="Equipo PMI Norte Perú">
+                <img src="/img/recursos/form.jpg" alt="Equipo PMI Norte Perú">
             </div>
         </div>
     </section>
@@ -429,6 +431,6 @@ $eventos = $eventoModel->getAll();
             });
         });
     </script>
-    <script src="js/script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
