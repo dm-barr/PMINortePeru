@@ -738,3 +738,425 @@ tbody td:last-child {
     background: rgba(239, 68, 68, 0.1);
     padding-left: 30px;
 }
+
+
+
+/* ============================================ */
+/* RESPONSIVE - MEJORAS MÓVILES */
+/* ============================================ */
+
+/* Menú hamburguesa para móvil */
+.mobile-menu-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+    background: var(--gradient-sidebar);
+    border: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Tablets y dispositivos medianos */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 240px;
+    }
+
+    .main-content {
+        padding: 30px 25px;
+    }
+
+    .view-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .modal-box {
+        max-width: 95%;
+        padding: 30px 25px;
+    }
+
+    table {
+        min-width: 800px;
+    }
+}
+
+/* Tablets pequeñas y móviles grandes */
+@media (max-width: 768px) {
+    /* Mostrar botón de menú hamburguesa */
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    /* Layout responsive */
+    .admin-container {
+        flex-direction: column;
+    }
+
+    /* Sidebar móvil */
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        width: 280px;
+        height: 100vh;
+        z-index: 1000;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    /* Overlay para cerrar sidebar */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+
+    /* Contenido principal */
+    .main-content {
+        padding: 80px 20px 20px;
+        width: 100%;
+    }
+
+    /* Headers */
+    .view-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .view-header h1 {
+        font-size: 1.8rem;
+        padding-left: 15px;
+    }
+
+    .view-header h1::before {
+        width: 5px;
+    }
+
+    /* Botones en headers */
+    .view-header .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Buscador */
+    .search-box {
+        margin-bottom: 20px;
+    }
+
+    .search-input {
+        max-width: 100%;
+        font-size: 0.95rem;
+        padding: 12px 16px;
+    }
+
+    /* Tablas - scroll horizontal mejorado */
+    .table-container,
+    .table-container-educacion {
+        padding: 20px 15px;
+        border-radius: 15px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 700px;
+        font-size: 0.85rem;
+    }
+
+    thead th {
+        padding: 12px 10px;
+        font-size: 0.9rem;
+    }
+
+    tbody td {
+        padding: 12px 10px;
+    }
+
+    /* Iconos de acción más grandes en móvil */
+    .action-icons {
+        gap: 15px;
+    }
+
+    .action-icons img {
+        width: 26px;
+        height: 26px;
+    }
+
+    /* Modales responsive */
+    .modal-overlay {
+        padding: 20px 10px;
+    }
+
+    .modal-box {
+        width: 95%;
+        max-width: 100%;
+        padding: 25px 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .close-modal {
+        top: 15px;
+        right: 15px;
+        font-size: 2.2rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1.6rem;
+    }
+
+    /* Formularios en modal - una columna */
+    .modal-form.form-evento,
+    .modal-form.form-educacion {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .modal-form label {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+
+    .modal-form input[type="text"],
+    .modal-form input[type="url"],
+    .modal-form input[type="date"],
+    .modal-form select,
+    .modal-form textarea {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+    }
+
+    .modal-form textarea {
+        min-height: 100px;
+    }
+
+    /* Botón guardar en móvil */
+    .btn-guardar {
+        padding: 14px;
+        font-size: 1rem;
+        margin-top: 15px;
+    }
+
+    /* Vista previa de imagen */
+    .image-preview {
+        margin-top: 12px;
+        padding: 12px;
+    }
+
+    .image-preview img {
+        max-height: 180px;
+    }
+
+    /* Sidebar componentes */
+    .sidebar-header {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+    }
+
+    .sidebar-logo {
+        max-width: 150px;
+    }
+
+    .sidebar-nav .nav-link {
+        padding: 14px 20px;
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+    .user-info {
+        padding: 10px;
+    }
+
+    .user-name {
+        font-size: 0.95rem;
+    }
+
+    .logout-link {
+        padding: 12px 16px;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+    /* Contenido principal */
+    .main-content {
+        padding: 70px 15px 15px;
+    }
+
+    /* Headers más compactos */
+    .view-header h1 {
+        font-size: 1.5rem;
+        padding-left: 12px;
+    }
+
+    .view-header h1::before {
+        width: 4px;
+    }
+
+    /* Botones más pequeños */
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+
+    /* Tablas ultra compactas */
+    table {
+        min-width: 600px;
+        font-size: 0.8rem;
+    }
+
+    thead th {
+        padding: 10px 8px;
+        font-size: 0.85rem;
+    }
+
+    tbody td {
+        padding: 10px 8px;
+    }
+
+    .action-icons {
+        gap: 12px;
+    }
+
+    .action-icons img {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Modal más compacto */
+    .modal-box {
+        padding: 20px 15px;
+        border-radius: 15px;
+    }
+
+    .modal-header h2 {
+        font-size: 1.4rem;
+        padding-bottom: 12px;
+    }
+
+    .close-modal {
+        font-size: 2rem;
+        top: 10px;
+        right: 10px;
+    }
+
+    .modal-form {
+        gap: 15px;
+    }
+
+    .modal-form input[type="text"],
+    .modal-form input[type="url"],
+    .modal-form input[type="date"],
+    .modal-form select,
+    .modal-form textarea {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .btn-guardar {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    /* Sidebar móvil más estrecho */
+    .sidebar {
+        width: 260px;
+    }
+
+    .sidebar-nav .nav-link {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+    }
+
+    /* Alertas */
+    .alert {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+
+    /* File upload */
+    .file-upload-label {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+
+    /* Contenedores de tabla */
+    .table-container,
+    .table-container-educacion {
+        padding: 15px 10px;
+    }
+}
+
+/* Mejoras de usabilidad táctil */
+@media (hover: none) and (pointer: coarse) {
+    /* Aumentar área de toque */
+    .btn {
+        min-height: 44px;
+    }
+
+    .nav-link {
+        min-height: 44px;
+    }
+
+    .action-icons a {
+        padding: 8px;
+        margin: -8px;
+    }
+
+    /* Mejorar inputs para táctil */
+    .modal-form input,
+    .modal-form select,
+    .modal-form textarea {
+        min-height: 44px;
+    }
+
+    /* Remover hover effects en móvil */
+    .btn:hover,
+    .nav-link:hover,
+    tbody tr:hover {
+        transform: none;
+    }
+}
+
+/* Orientación horizontal en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+    .main-content {
+        padding: 60px 15px 15px;
+    }
+
+    .modal-box {
+        max-height: 85vh;
+    }
+
+    .view-header h1 {
+        font-size: 1.6rem;
+    }
+}

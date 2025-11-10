@@ -668,6 +668,80 @@ $noticias = $noticiaModel->getAll();
         </div>
     </div>
 
+    <script>
+        // Menú hamburguesa móvil
+        document.addEventListener('DOMContentLoaded', function () {
+            // Crear botón hamburguesa si no existe
+            if (!document.querySelector('.mobile-menu-toggle')) {
+                const menuToggle = document.createElement('button');
+                menuToggle.className = 'mobile-menu-toggle';
+                menuToggle.innerHTML = '<span></span><span></span><span></span>';
+                document.body.insertBefore(menuToggle, document.body.firstChild);
+            }
+
+            // Crear overlay si no existe
+            if (!document.querySelector('.sidebar-overlay')) {
+                const overlay = document.createElement('div');
+                overlay.className = 'sidebar-overlay';
+                document.body.insertBefore(overlay, document.body.firstChild);
+            }
+
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+
+            // Toggle sidebar
+            menuToggle.addEventListener('click', function () {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+
+            // Cerrar con overlay
+            overlay.addEventListener('click', function () {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            // Cerrar al hacer click en un link
+            const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Ajustar tablas para scroll en móvil
+        window.addEventListener('resize', function () {
+            adjustTableScroll();
+        });
+
+        function adjustTableScroll() {
+            const tables = document.querySelectorAll('table');
+            tables.forEach(table => {
+                const container = table.closest('.table-container, .table-container-educacion');
+                if (container && window.innerWidth <= 768) {
+                    container.style.overflowX = 'auto';
+                    container.style.webkitOverflowScrolling = 'touch';
+                }
+            });
+        }
+
+        // Prevenir zoom en inputs en iOS
+        document.addEventListener('touchstart', function () {
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                if (input.style.fontSize < '16px') {
+                    input.style.fontSize = '16px';
+                }
+            });
+        });
+    </script>
+
+
     <script src="js/script.js"></script>
 </body>
 <?php ob_end_flush(); ?>
