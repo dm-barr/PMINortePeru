@@ -131,12 +131,10 @@ if (formContacto) {
       });
       
       console.log('Mensaje enviado exitosamente');
-      alert('Mensaje enviado exitosamente');
       formContacto.reset();
       
     } catch (err) {
       console.error('Error al enviar:', err);
-      alert('Error al enviar. Inténtalo nuevamente.');
     }
   });
 }
@@ -460,7 +458,6 @@ function onSubmitContacto(token) {
   })
     .then((response) => {
       console.log("✅ Mensaje enviado exitosamente");
-      alert("✅ Mensaje enviado exitosamente");
       formContacto.reset();
 
       // Resetear reCAPTCHA
@@ -470,7 +467,6 @@ function onSubmitContacto(token) {
     })
     .catch((err) => {
       console.error("❌ Error al enviar:", err);
-      alert("❌ Error al enviar. Inténtalo nuevamente.");
 
       // Resetear reCAPTCHA también en error
       if (captchaContacto !== null) {
