@@ -41,7 +41,7 @@ function formatearFechaEspanol($fecha)
 
     return $fecha; // Si no coincide el formato, devuelve la fecha original
 }
-
+ 
 // Incluir el modelo de eventos
 require_once __DIR__ . '/php/evento.php';
 
@@ -51,6 +51,7 @@ $eventoModel = new EventoModel_mysqli();
 
 // ✅ Obtener SOLO eventos activos desde la base de datos
 $eventos = $eventoModel->getAllActivos();
+
 
 
 // Filtrar solo eventos futuros

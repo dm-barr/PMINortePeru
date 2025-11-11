@@ -314,6 +314,7 @@ $noticias = $noticiaModel->getAll();
                     <table>
                         <thead>
                             <tr>
+                                <th>Estado</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
                                 <th>Comunidad</th>
@@ -322,7 +323,6 @@ $noticias = $noticiaModel->getAll();
                                 <th>Fecha</th>
                                 <th>Lugar</th>
                                 <th>Link</th>
-                                <th>Estado</th>
                                 <th>Imagen</th>
                                 <th>Acciones</th>
                             </tr>
@@ -331,6 +331,21 @@ $noticias = $noticiaModel->getAll();
                             <?php if (!empty($eventos)): ?>
                                 <?php foreach ($eventos as $evento): ?>
                                     <tr>
+                                        <!-- ✅ COLUMNA ESTADO CON CONVERSIÓN 0/1 → Inactivo/Activo -->
+                                        <td>
+                                            <?php
+                                            // Convertir 0/1 a activo/inactivo
+                                            $estadoNumerico = isset($evento['estado']) ? (int) $evento['estado'] : 0;
+                                            $estadoTexto = ($estadoNumerico === 1) ? 'Activo' : 'Inactivo';
+                                            $estadoClase = ($estadoNumerico === 1) ? 'toggle-activo' : 'toggle-inactivo';
+                                            ?>
+                                            <button class="btn-toggle-estado <?php echo $estadoClase; ?>"
+                                                data-id="<?php echo $evento['id_Evento']; ?>"
+                                                data-estado="<?php echo $estadoNumerico; ?>" title="Clic para cambiar estado">
+                                                <?php echo $estadoTexto; ?>
+                                            </button>
+                                        </td>
+
                                         <td><?php echo htmlspecialchars($evento['nombre']); ?></td>
                                         <td><?php echo htmlspecialchars(substr($evento['descripcion'], 0, 50)) . '...'; ?></td>
                                         <td><?php echo htmlspecialchars($evento['comunidad']); ?></td>
@@ -338,37 +353,22 @@ $noticias = $noticiaModel->getAll();
                                         <td><?php echo htmlspecialchars($evento['categoria']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['fecha']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['lugar']); ?></td>
-                                        <td><?php echo !empty($evento['link']) ? '<a href="' . htmlspecialchars($evento['link']) . '" target="_blank">Ver</a>' : '-'; ?></td>
-                                        
-                                        <!-- ✅ COLUMNA ESTADO CON BOTÓN TOGGLE -->
-                                        <td>
-                                            <?php 
-                                            $estadoActual = $evento['estado'] ?? 'activo';
-                                            $estadoClase = ($estadoActual === 'activo') ? 'toggle-activo' : 'toggle-inactivo';
-                                            $estadoTexto = ucfirst($estadoActual);
-                                            ?>
-                                            <button class="btn-toggle-estado <?php echo $estadoClase; ?>" 
-                                                    data-id="<?php echo $evento['id_Evento']; ?>"
-                                                    data-estado="<?php echo $estadoActual; ?>"
-                                                    title="Cambiar estado">
-                                                <?php echo $estadoTexto; ?>
-                                            </button>
+                                        <td><?php echo !empty($evento['link']) ? '<a href="' . htmlspecialchars($evento['link']) . '" target="_blank">Ver</a>' : '-'; ?>
                                         </td>
-                                        
-                                        <td><?php echo !empty($evento['imagen']) ? htmlspecialchars($evento['imagen']) : '-'; ?></td>
+                                        <td><?php echo !empty($evento['imagen']) ? htmlspecialchars($evento['imagen']) : '-'; ?>
+                                        </td>
+
                                         <td class="action-icons">
-                                            <a href="#" class="btn-editar-evento" 
-                                               data-id="<?= $evento['id_Evento'] ?>"
-                                               data-nombre="<?= htmlspecialchars($evento['nombre']) ?>"
-                                               data-descripcion="<?= htmlspecialchars($evento['descripcion']) ?>"
-                                               data-comunidad="<?= htmlspecialchars($evento['comunidad']) ?>"
-                                               data-fecha="<?= $evento['fecha'] ?>"
-                                               data-modalidad="<?= htmlspecialchars($evento['modalidad']) ?>"
-                                               data-categoria="<?= htmlspecialchars($evento['categoria']) ?>"
-                                               data-lugar="<?= htmlspecialchars($evento['lugar']) ?>"
-                                               data-link="<?= htmlspecialchars($evento['link']) ?>"
-                                               data-estado="<?= htmlspecialchars($evento['estado'] ?? 'activo') ?>"
-                                               title="Editar">
+                                            <a href="#" class="btn-editar-evento" data-id="<?= $evento['id_Evento'] ?>"
+                                                data-nombre="<?= htmlspecialchars($evento['nombre']) ?>"
+                                                data-descripcion="<?= htmlspecialchars($evento['descripcion']) ?>"
+                                                data-comunidad="<?= htmlspecialchars($evento['comunidad']) ?>"
+                                                data-fecha="<?= $evento['fecha'] ?>"
+                                                data-modalidad="<?= htmlspecialchars($evento['modalidad']) ?>"
+                                                data-categoria="<?= htmlspecialchars($evento['categoria']) ?>"
+                                                data-lugar="<?= htmlspecialchars($evento['lugar']) ?>"
+                                                data-link="<?= htmlspecialchars($evento['link']) ?>"
+                                                data-estado="<?= $estadoNumerico ?>" title="Editar">
                                                 <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
                                             <a href="#" class="btn-eliminar" data-tipo="evento"
@@ -390,7 +390,7 @@ $noticias = $noticiaModel->getAll();
             </section>
 
 
-                       <!-- SECCIÓN EDUCACIÓN -->
+            <!-- SECCIÓN EDUCACIÓN -->
             <section id="educacion" class="view">
                 <header class="view-header">
                     <h1 class="title-educacion">Educación</h1>
@@ -424,7 +424,8 @@ $noticias = $noticiaModel->getAll();
                                         <td><?php echo htmlspecialchars($educacion['modalidad']); ?></td>
                                         <td><?php echo htmlspecialchars($educacion['fecha']); ?></td>
                                         <td><?php echo htmlspecialchars($educacion['instructor']); ?></td>
-                                        <td><?php echo htmlspecialchars(substr($educacion['descripcion'], 0, 50)) . '...'; ?></td>
+                                        <td><?php echo htmlspecialchars(substr($educacion['descripcion'], 0, 50)) . '...'; ?>
+                                        </td>
                                         <td><?php echo htmlspecialchars($educacion['imagen']); ?></td>
                                         <td class="action-icons">
                                             <a href="#" class="btn-editar-educacion"
@@ -537,7 +538,8 @@ $noticias = $noticiaModel->getAll();
                     </label>
                     <input type="file" name="imagen" id="evento-imagen" class="file-upload-input" accept="image/*">
                     <div class="image-preview" id="preview-evento" style="display: none;">
-                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                        <img src="" alt="Preview"
+                            style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
                     </div>
                 </div>
 
@@ -545,7 +547,7 @@ $noticias = $noticiaModel->getAll();
                     <label for="evento-fecha">Fecha</label>
                     <input type="date" name="fecha" id="evento-fecha">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="evento-modalidad">Modalidad</label>
                     <select name="modalidad" id="evento-modalidad" required>
@@ -566,12 +568,12 @@ $noticias = $noticiaModel->getAll();
                         <option value="Student Club UNC">Estudiantil UNC</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="evento-lugar">Lugar</label>
                     <input type="text" name="lugar" id="evento-lugar" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="evento-categoria">Categoría</label>
                     <select name="categoria" id="evento-categoria" required>
@@ -585,14 +587,15 @@ $noticias = $noticiaModel->getAll();
                     </select>
                 </div>
 
-                <!-- ✅ CAMPO ESTADO -->
+                <!-- ✅ CAMPO ESTADO CON VALORES 0 y 1 -->
                 <div class="form-group">
                     <label for="evento-estado">Estado</label>
                     <select name="estado" id="evento-estado" required>
-                        <option value="activo">Activo</option>
-                        <option value="inactivo">Inactivo</option>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
                     </select>
                 </div>
+
 
                 <div class="form-group-full">
                     <label for="evento-link">Link del Evento</label>
@@ -631,7 +634,8 @@ $noticias = $noticiaModel->getAll();
                     </label>
                     <input type="file" name="imagen" id="curso-imagen" class="file-upload-input" accept="image/*">
                     <div class="image-preview" id="preview-educacion" style="display: none;">
-                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                        <img src="" alt="Preview"
+                            style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
                     </div>
                 </div>
 
@@ -685,7 +689,8 @@ $noticias = $noticiaModel->getAll();
                     </label>
                     <input type="file" name="imagen" id="noticia-imagen" class="file-upload-input" accept="image/*">
                     <div class="image-preview" id="preview-noticia" style="display: none;">
-                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                        <img src="" alt="Preview"
+                            style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
                     </div>
                 </div>
 

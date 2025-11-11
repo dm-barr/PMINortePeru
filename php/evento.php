@@ -43,10 +43,10 @@ class EventoModel_mysqli
         return $eventos;
     }
 
-    // ✅ NUEVO: Obtener solo eventos activos (para vista del usuario)
+    // ✅ Obtener solo eventos activos (estado = 1) para vista del usuario
     public function getAllActivos()
     {
-        $sql = "SELECT * FROM {$this->table} WHERE estado = 'activo' ORDER BY fecha DESC";
+        $sql = "SELECT * FROM {$this->table} WHERE estado = 1 ORDER BY fecha DESC";
         $result = $this->mysqli->query($sql);
 
         $eventos = [];
@@ -60,39 +60,41 @@ class EventoModel_mysqli
         return $eventos;
     }
 
-    // ✅ NUEVO: Cambiar estado del evento (toggle)
+    // ✅ Cambiar estado del evento (toggle: 0 ↔ 1)
     public function toggleEstado($id)
     {
-        // Primero obtenemos el estado actual
+        // Obtener estado actual
         $evento = $this->getById($id);
-        if (!$evento) return false;
+        if (!$evento)
+            return false;
 
-        // Invertimos el estado
-        $nuevoEstado = ($evento['estado'] === 'activo') ? 'inactivo' : 'activo';
+        // Invertir el estado: 0 → 1 o 1 → 0
+        $nuevoEstado = ($evento['estado'] == 1) ? 0 : 1;
 
-        // Actualizamos en la BD
+        // Actualizar en la BD
         $sql = "UPDATE {$this->table} SET estado = ? WHERE id_Evento = ?";
         $stmt = $this->mysqli->prepare($sql);
-        if (!$stmt) return false;
-        
-        $stmt->bind_param('si', $nuevoEstado, $id);
+        if (!$stmt)
+            return false;
+
+        $stmt->bind_param('ii', $nuevoEstado, $id);
         return $stmt->execute();
     }
 
-    // Crear evento con estado
-    public function create($nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link = '', $estado = 'activo')
+    // ✅ Crear evento con estado (0 o 1)
+    public function create($nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link = '', $estado = 1)
     {
         $sql = "INSERT INTO {$this->table} (nombre, descripcion, comunidad, fecha, modalidad, categoria, lugar, imagen, link, estado) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return false;
-        $stmt->bind_param('ssssssssss', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado);
+        $stmt->bind_param('ssssssssi', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado);
         return $stmt->execute();
     }
 
-    // Actualizar evento con estado
-    public function update($id, $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen = null, $link = '', $estado = 'activo')
+    // ✅ Actualizar evento con estado (0 o 1)
+    public function update($id, $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen = null, $link = '', $estado = 1)
     {
         if ($imagen !== null) {
             $sql = "UPDATE {$this->table}
@@ -101,7 +103,7 @@ class EventoModel_mysqli
             $stmt = $this->mysqli->prepare($sql);
             if (!$stmt)
                 return false;
-            $stmt->bind_param('ssssssssssi', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado, $id);
+            $stmt->bind_param('ssssssssiii', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado, $id);
         } else {
             $sql = "UPDATE {$this->table}
                 SET nombre = ?, descripcion = ?, comunidad = ?, fecha = ?, modalidad = ?, categoria = ?, lugar = ?, link = ?, estado = ?
@@ -109,7 +111,7 @@ class EventoModel_mysqli
             $stmt = $this->mysqli->prepare($sql);
             if (!$stmt)
                 return false;
-            $stmt->bind_param('sssssssssi', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $link, $estado, $id);
+            $stmt->bind_param('sssssssiii', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $link, $estado, $id);
         }
 
         return $stmt->execute();

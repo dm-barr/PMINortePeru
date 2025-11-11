@@ -51,18 +51,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Abrir modales en modo AGREGAR
-    if(btnAbrirEvento) {
-        btnAbrirEvento.addEventListener('click', () => {
-            document.getElementById('titulo-modal-evento').textContent = 'Agregar Evento';
-            document.getElementById('accion-evento').value = 'agregar_evento';
-            document.getElementById('evento-id').value = '';
-            document.querySelector('.form-evento').reset();
-            document.getElementById('evento-estado').value = 'activo';
-            const preview = document.getElementById('preview-evento');
-            if (preview) preview.style.display = 'none';
-            openModal(modalEvento);
-        });
-    }
+  if(btnAbrirEvento) {
+    btnAbrirEvento.addEventListener('click', () => {
+        document.getElementById('titulo-modal-evento').textContent = 'Agregar Evento';
+        document.getElementById('accion-evento').value = 'agregar_evento';
+        document.getElementById('evento-id').value = '';
+        document.querySelector('.form-evento').reset();
+        document.getElementById('evento-estado').value = '1'; // ✅ Cambiar 'activo' por '1'
+        const preview = document.getElementById('preview-evento');
+        if (preview) preview.style.display = 'none';
+        openModal(modalEvento);
+    });
+}
     if(btnAbrirEducacion) {
         btnAbrirEducacion.addEventListener('click', () => {
             document.getElementById('titulo-modal-educacion').textContent = 'Agregar Curso';
