@@ -81,41 +81,53 @@ class EventoModel_mysqli
         return $stmt->execute();
     }
 
-    // ✅ Crear evento con estado (0 o 1)
-    public function create($nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link = '', $estado = 1)
-    {
-        $sql = "INSERT INTO {$this->table} (nombre, descripcion, comunidad, fecha, modalidad, categoria, lugar, imagen, link, estado) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    // ✅ Crear evento con estado (0 o 1) - CORREGIDO
+public function create($nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link = '', $estado = 1)
+{
+    $sql = "INSERT INTO {$this->table} (nombre, descripcion, comunidad, fecha, modalidad, categoria, lugar, imagen, link, estado) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $this->mysqli->prepare($sql);
+    if (!$stmt)
+        return false;
+    
+    // ✅ CORRECTO: 10 tipos (sssssssssi) para 10 variables
+    // s = string (nombre, descripcion, comunidad, fecha, modalidad, categoria, lugar, imagen, link)
+    // i = integer (estado)
+    $stmt->bind_param('sssssssssi', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado);
+    return $stmt->execute();
+}
+
+
+ // ✅ Actualizar evento con estado (0 o 1) - CORREGIDO
+public function update($id, $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen = null, $link = '', $estado = 1)
+{
+    if ($imagen !== null) {
+        $sql = "UPDATE {$this->table}
+            SET nombre = ?, descripcion = ?, comunidad = ?, fecha = ?, modalidad = ?, categoria = ?, lugar = ?, imagen = ?, link = ?, estado = ?
+            WHERE id_Evento = ?";
         $stmt = $this->mysqli->prepare($sql);
         if (!$stmt)
             return false;
-        $stmt->bind_param('ssssssssi', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado);
-        return $stmt->execute();
+        
+        // ✅ CORRECTO: 11 tipos (sssssssssii) para 11 variables
+        // 9 strings + 2 integers (estado, id)
+        $stmt->bind_param('sssssssssii', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado, $id);
+    } else {
+        $sql = "UPDATE {$this->table}
+            SET nombre = ?, descripcion = ?, comunidad = ?, fecha = ?, modalidad = ?, categoria = ?, lugar = ?, link = ?, estado = ?
+            WHERE id_Evento = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        if (!$stmt)
+            return false;
+        
+        // ✅ CORRECTO: 10 tipos (ssssssssii) para 10 variables
+        // 8 strings + 2 integers (estado, id)
+        $stmt->bind_param('ssssssssii', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $link, $estado, $id);
     }
 
-    // ✅ Actualizar evento con estado (0 o 1)
-    public function update($id, $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen = null, $link = '', $estado = 1)
-    {
-        if ($imagen !== null) {
-            $sql = "UPDATE {$this->table}
-                SET nombre = ?, descripcion = ?, comunidad = ?, fecha = ?, modalidad = ?, categoria = ?, lugar = ?, imagen = ?, link = ?, estado = ?
-                WHERE id_Evento = ?";
-            $stmt = $this->mysqli->prepare($sql);
-            if (!$stmt)
-                return false;
-            $stmt->bind_param('ssssssssiii', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado, $id);
-        } else {
-            $sql = "UPDATE {$this->table}
-                SET nombre = ?, descripcion = ?, comunidad = ?, fecha = ?, modalidad = ?, categoria = ?, lugar = ?, link = ?, estado = ?
-                WHERE id_Evento = ?";
-            $stmt = $this->mysqli->prepare($sql);
-            if (!$stmt)
-                return false;
-            $stmt->bind_param('sssssssiii', $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $link, $estado, $id);
-        }
+    return $stmt->execute();
+}
 
-        return $stmt->execute();
-    }
 
     // Eliminar por ID
     public function delete($id)
