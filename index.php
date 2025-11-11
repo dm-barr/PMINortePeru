@@ -48,8 +48,10 @@ require_once __DIR__ . '/php/evento.php';
 // Instanciar el modelo
 $eventoModel = new EventoModel_mysqli();
 
-// Obtener todos los eventos desde la base de datos
-$eventos = $eventoModel->getAll();
+
+// ✅ Obtener SOLO eventos activos desde la base de datos
+$eventos = $eventoModel->getAllActivos();
+
 
 // Filtrar solo eventos futuros
 $fecha_actual = date('Y-m-d');
