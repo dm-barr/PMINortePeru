@@ -37,7 +37,6 @@ $noticiaModel = new NoticiaModel_mysqli();
 $mensaje = '';
 $tipo_mensaje = '';
 
-
 // FUNCIÓN PARA SUBIR IMÁGENES
 function subirImagen($archivo)
 {
@@ -83,13 +82,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $categoria = $_POST['categoria'];
         $lugar = $_POST['lugar'];
         $link = $_POST['link'] ?? '';
+        $estado = $_POST['estado'] ?? 'activo';
 
         $imagen = '';
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $imagen = subirImagen($_FILES['imagen']);
         }
 
-        if ($eventoModel->create($nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link)) {
+        if ($eventoModel->create($nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado)) {
             $mensaje = 'Evento agregado exitosamente';
             $tipo_mensaje = 'success';
         } else {
@@ -108,6 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $categoria = $_POST['categoria'];
         $lugar = $_POST['lugar'];
         $link = $_POST['link'] ?? '';
+        $estado = $_POST['estado'] ?? 'activo';
 
         $evento_actual = $eventoModel->getById($id);
         $imagen = $evento_actual['imagen'] ?? null;
@@ -122,11 +123,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        if ($eventoModel->update($id, $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link)) {
+        if ($eventoModel->update($id, $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado)) {
             $mensaje = 'Evento actualizado exitosamente';
             $tipo_mensaje = 'success';
         } else {
             $mensaje = 'Error al actualizar el evento';
+            $tipo_mensaje = 'error';
+        }
+    }
+
+    // ✅ NUEVO: Acción para cambiar estado (toggle)
+    if ($accion === 'toggle_estado_evento') {
+        $id = $_POST['id'] ?? 0;
+        if ($eventoModel->toggleEstado($id)) {
+            $mensaje = 'Estado del evento actualizado';
+            $tipo_mensaje = 'success';
+        } else {
+            $mensaje = 'Error al actualizar el estado';
             $tipo_mensaje = 'error';
         }
     }
@@ -252,7 +265,6 @@ $noticias = $noticiaModel->getAll();
     <title>Panel de Administración - PMI Norte Perú</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="../img/logo/icono.png" type="image/x-icon">
-
 </head>
 
 <body>
@@ -310,6 +322,7 @@ $noticias = $noticiaModel->getAll();
                                 <th>Fecha</th>
                                 <th>Lugar</th>
                                 <th>Link</th>
+                                <th>Estado</th>
                                 <th>Imagen</th>
                                 <th>Acciones</th>
                             </tr>
@@ -325,20 +338,37 @@ $noticias = $noticiaModel->getAll();
                                         <td><?php echo htmlspecialchars($evento['categoria']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['fecha']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['lugar']); ?></td>
-                                        <td><?php echo !empty($evento['link']) ? '<a href="' . htmlspecialchars($evento['link']) . '" target="_blank">Ver</a>' : '-'; ?>
+                                        <td><?php echo !empty($evento['link']) ? '<a href="' . htmlspecialchars($evento['link']) . '" target="_blank">Ver</a>' : '-'; ?></td>
+                                        
+                                        <!-- ✅ COLUMNA ESTADO CON BOTÓN TOGGLE -->
+                                        <td>
+                                            <?php 
+                                            $estadoActual = $evento['estado'] ?? 'activo';
+                                            $estadoClase = ($estadoActual === 'activo') ? 'toggle-activo' : 'toggle-inactivo';
+                                            $estadoTexto = ucfirst($estadoActual);
+                                            ?>
+                                            <button class="btn-toggle-estado <?php echo $estadoClase; ?>" 
+                                                    data-id="<?php echo $evento['id_Evento']; ?>"
+                                                    data-estado="<?php echo $estadoActual; ?>"
+                                                    title="Cambiar estado">
+                                                <?php echo $estadoTexto; ?>
+                                            </button>
                                         </td>
-                                        <td><?php echo !empty($evento['imagen']) ? htmlspecialchars($evento['imagen']) : '-'; ?>
-                                        </td>
+                                        
+                                        <td><?php echo !empty($evento['imagen']) ? htmlspecialchars($evento['imagen']) : '-'; ?></td>
                                         <td class="action-icons">
-                                            <a href="#" class="btn-editar-evento" data-id="<?= $evento['id_Evento'] ?>"
-                                                data-nombre="<?= htmlspecialchars($evento['nombre']) ?>"
-                                                data-descripcion="<?= htmlspecialchars($evento['descripcion']) ?>"
-                                                data-comunidad="<?= htmlspecialchars($evento['comunidad']) ?>"
-                                                data-fecha="<?= $evento['fecha'] ?>"
-                                                data-modalidad="<?= htmlspecialchars($evento['modalidad']) ?>"
-                                                data-categoria="<?= htmlspecialchars($evento['categoria']) ?>"
-                                                data-lugar="<?= htmlspecialchars($evento['lugar']) ?>"
-                                                data-link="<?= htmlspecialchars($evento['link']) ?>" title="Editar">
+                                            <a href="#" class="btn-editar-evento" 
+                                               data-id="<?= $evento['id_Evento'] ?>"
+                                               data-nombre="<?= htmlspecialchars($evento['nombre']) ?>"
+                                               data-descripcion="<?= htmlspecialchars($evento['descripcion']) ?>"
+                                               data-comunidad="<?= htmlspecialchars($evento['comunidad']) ?>"
+                                               data-fecha="<?= $evento['fecha'] ?>"
+                                               data-modalidad="<?= htmlspecialchars($evento['modalidad']) ?>"
+                                               data-categoria="<?= htmlspecialchars($evento['categoria']) ?>"
+                                               data-lugar="<?= htmlspecialchars($evento['lugar']) ?>"
+                                               data-link="<?= htmlspecialchars($evento['link']) ?>"
+                                               data-estado="<?= htmlspecialchars($evento['estado'] ?? 'activo') ?>"
+                                               title="Editar">
                                                 <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
                                             <a href="#" class="btn-eliminar" data-tipo="evento"
@@ -351,16 +381,16 @@ $noticias = $noticiaModel->getAll();
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="10">No hay eventos disponibles</td>
+                                    <td colspan="11">No hay eventos disponibles</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
-
                     </table>
                 </div>
             </section>
 
-            <!-- SECCIÓN EDUCACIÓN -->
+
+                       <!-- SECCIÓN EDUCACIÓN -->
             <section id="educacion" class="view">
                 <header class="view-header">
                     <h1 class="title-educacion">Educación</h1>
@@ -394,8 +424,7 @@ $noticias = $noticiaModel->getAll();
                                         <td><?php echo htmlspecialchars($educacion['modalidad']); ?></td>
                                         <td><?php echo htmlspecialchars($educacion['fecha']); ?></td>
                                         <td><?php echo htmlspecialchars($educacion['instructor']); ?></td>
-                                        <td><?php echo htmlspecialchars(substr($educacion['descripcion'], 0, 50)) . '...'; ?>
-                                        </td>
+                                        <td><?php echo htmlspecialchars(substr($educacion['descripcion'], 0, 50)) . '...'; ?></td>
                                         <td><?php echo htmlspecialchars($educacion['imagen']); ?></td>
                                         <td class="action-icons">
                                             <a href="#" class="btn-editar-educacion"
@@ -501,7 +530,6 @@ $noticias = $noticiaModel->getAll();
                     <input type="text" name="nombre" id="evento-nombre" required>
                 </div>
 
-                <!-- ✅ VISTA PREVIA DE IMAGEN -->
                 <div class="form-group">
                     <label for="evento-imagen">Imagen</label>
                     <label for="evento-imagen" class="file-upload-label">
@@ -509,8 +537,7 @@ $noticias = $noticiaModel->getAll();
                     </label>
                     <input type="file" name="imagen" id="evento-imagen" class="file-upload-input" accept="image/*">
                     <div class="image-preview" id="preview-evento" style="display: none;">
-                        <img src="" alt="Preview"
-                            style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
                     </div>
                 </div>
 
@@ -518,6 +545,7 @@ $noticias = $noticiaModel->getAll();
                     <label for="evento-fecha">Fecha</label>
                     <input type="date" name="fecha" id="evento-fecha">
                 </div>
+                
                 <div class="form-group">
                     <label for="evento-modalidad">Modalidad</label>
                     <select name="modalidad" id="evento-modalidad" required>
@@ -538,10 +566,12 @@ $noticias = $noticiaModel->getAll();
                         <option value="Student Club UNC">Estudiantil UNC</option>
                     </select>
                 </div>
+                
                 <div class="form-group">
                     <label for="evento-lugar">Lugar</label>
                     <input type="text" name="lugar" id="evento-lugar" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="evento-categoria">Categoría</label>
                     <select name="categoria" id="evento-categoria" required>
@@ -555,7 +585,15 @@ $noticias = $noticiaModel->getAll();
                     </select>
                 </div>
 
-                <!-- ✅ NUEVO CAMPO LINK -->
+                <!-- ✅ CAMPO ESTADO -->
+                <div class="form-group">
+                    <label for="evento-estado">Estado</label>
+                    <select name="estado" id="evento-estado" required>
+                        <option value="activo">Activo</option>
+                        <option value="inactivo">Inactivo</option>
+                    </select>
+                </div>
+
                 <div class="form-group-full">
                     <label for="evento-link">Link del Evento</label>
                     <input type="url" name="link" id="evento-link" placeholder="https://ejemplo.com/evento">
@@ -586,7 +624,6 @@ $noticias = $noticiaModel->getAll();
                     <input type="text" name="curso" id="curso-nombre" required>
                 </div>
 
-                <!-- ✅ VISTA PREVIA DE IMAGEN -->
                 <div class="form-group">
                     <label for="curso-imagen">Imagen</label>
                     <label for="curso-imagen" class="file-upload-label">
@@ -594,8 +631,7 @@ $noticias = $noticiaModel->getAll();
                     </label>
                     <input type="file" name="imagen" id="curso-imagen" class="file-upload-input" accept="image/*">
                     <div class="image-preview" id="preview-educacion" style="display: none;">
-                        <img src="" alt="Preview"
-                            style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
                     </div>
                 </div>
 
@@ -642,7 +678,6 @@ $noticias = $noticiaModel->getAll();
                     <input type="text" name="titulo" id="noticia-titulo" required>
                 </div>
 
-                <!-- ✅ VISTA PREVIA DE IMAGEN -->
                 <div class="form-group-full">
                     <label for="noticia-imagen">Imagen</label>
                     <label for="noticia-imagen" class="file-upload-label">
@@ -650,8 +685,7 @@ $noticias = $noticiaModel->getAll();
                     </label>
                     <input type="file" name="imagen" id="noticia-imagen" class="file-upload-input" accept="image/*">
                     <div class="image-preview" id="preview-noticia" style="display: none;">
-                        <img src="" alt="Preview"
-                            style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
+                        <img src="" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 8px; margin-top: 10px;">
                     </div>
                 </div>
 
@@ -669,12 +703,10 @@ $noticias = $noticiaModel->getAll();
     </div>
 
     <script>
-        // Menú hamburguesa móvil - SOLO en dispositivos móviles
+        // Menú hamburguesa móvil
         document.addEventListener('DOMContentLoaded', function () {
-            // Solo crear elementos si estamos en móvil
             function initMobileMenu() {
                 if (window.innerWidth <= 768) {
-                    // Crear botón hamburguesa si no existe
                     if (!document.querySelector('.mobile-menu-toggle')) {
                         const menuToggle = document.createElement('button');
                         menuToggle.className = 'mobile-menu-toggle';
@@ -682,7 +714,6 @@ $noticias = $noticiaModel->getAll();
                         document.body.insertBefore(menuToggle, document.body.firstChild);
                     }
 
-                    // Crear overlay si no existe
                     if (!document.querySelector('.sidebar-overlay')) {
                         const overlay = document.createElement('div');
                         overlay.className = 'sidebar-overlay';
@@ -691,16 +722,13 @@ $noticias = $noticiaModel->getAll();
 
                     attachMobileEvents();
                 } else {
-                    // Limpiar elementos móviles si estamos en escritorio
                     const menuToggle = document.querySelector('.mobile-menu-toggle');
                     const overlay = document.querySelector('.sidebar-overlay');
                     const sidebar = document.querySelector('.sidebar');
 
                     if (menuToggle) menuToggle.remove();
                     if (overlay) overlay.remove();
-                    if (sidebar) {
-                        sidebar.classList.remove('active');
-                    }
+                    if (sidebar) sidebar.classList.remove('active');
                 }
             }
 
@@ -711,19 +739,16 @@ $noticias = $noticiaModel->getAll();
 
                 if (!menuToggle || !sidebar || !overlay) return;
 
-                // Toggle sidebar
                 menuToggle.addEventListener('click', function () {
                     sidebar.classList.toggle('active');
                     overlay.classList.toggle('active');
                 });
 
-                // Cerrar con overlay
                 overlay.addEventListener('click', function () {
                     sidebar.classList.remove('active');
                     overlay.classList.remove('active');
                 });
 
-                // Cerrar al hacer click en un link
                 const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
                 navLinks.forEach(link => {
                     link.addEventListener('click', function () {
@@ -733,10 +758,8 @@ $noticias = $noticiaModel->getAll();
                 });
             }
 
-            // Inicializar
             initMobileMenu();
 
-            // Re-inicializar al cambiar tamaño de ventana
             let resizeTimer;
             window.addEventListener('resize', function () {
                 clearTimeout(resizeTimer);
@@ -746,8 +769,6 @@ $noticias = $noticiaModel->getAll();
             });
         });
     </script>
-
-
 
     <script src="js/script.js"></script>
 </body>

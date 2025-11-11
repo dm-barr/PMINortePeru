@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('accion-evento').value = 'agregar_evento';
             document.getElementById('evento-id').value = '';
             document.querySelector('.form-evento').reset();
+            document.getElementById('evento-estado').value = 'activo';
             const preview = document.getElementById('preview-evento');
             if (preview) preview.style.display = 'none';
             openModal(modalEvento);
@@ -137,6 +138,45 @@ document.addEventListener('DOMContentLoaded', function() {
     setupImagePreview('noticia-imagen', 'preview-noticia');
 
     // ===============================================
+    // ✅ TOGGLE ESTADO DE EVENTO
+    // ===============================================
+
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.btn-toggle-estado')) {
+            e.preventDefault();
+            const btn = e.target.closest('.btn-toggle-estado');
+            const id = btn.dataset.id;
+            const estadoActual = btn.dataset.estado;
+
+            // Confirmación antes de cambiar
+            const nuevoEstado = estadoActual === 'activo' ? 'inactivo' : 'activo';
+            const mensaje = `¿Cambiar estado del evento a "${nuevoEstado}"?`;
+
+            if (confirm(mensaje)) {
+                // Crear formulario para enviar
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '';
+
+                const inputAccion = document.createElement('input');
+                inputAccion.type = 'hidden';
+                inputAccion.name = 'accion';
+                inputAccion.value = 'toggle_estado_evento';
+
+                const inputId = document.createElement('input');
+                inputId.type = 'hidden';
+                inputId.name = 'id';
+                inputId.value = id;
+
+                form.appendChild(inputAccion);
+                form.appendChild(inputId);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    });
+
+    // ===============================================
     // EDITAR - DELEGACIÓN DE EVENTOS
     // ===============================================
 
@@ -154,9 +194,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('evento-comunidad').value = btn.dataset.comunidad;
             document.getElementById('evento-modalidad').value = btn.dataset.modalidad;
             document.getElementById('evento-categoria').value = btn.dataset.categoria;
-            document.getElementById('evento-fecha').value = btn.dataset.fecha; // ✅ CAMPO FECHA AGREGADO
+            document.getElementById('evento-fecha').value = btn.dataset.fecha;
             document.getElementById('evento-lugar').value = btn.dataset.lugar;
             document.getElementById('evento-link').value = btn.dataset.link || '';
+            document.getElementById('evento-estado').value = btn.dataset.estado || 'activo';
             
             const preview = document.getElementById('preview-evento');
             if (preview) preview.style.display = 'none';
