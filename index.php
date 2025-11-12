@@ -41,7 +41,7 @@ function formatearFechaEspanol($fecha)
 
     return $fecha; // Si no coincide el formato, devuelve la fecha original
 }
- 
+
 // Incluir el modelo de eventos
 require_once __DIR__ . '/php/evento.php';
 
@@ -52,18 +52,11 @@ $eventoModel = new EventoModel_mysqli();
 // ✅ Obtener SOLO eventos activos desde la base de datos
 $eventos = $eventoModel->getAllActivos();
 
-
-
-// Filtrar solo eventos futuros
-$fecha_actual = date('Y-m-d');
-$eventos = array_filter($eventos, function ($evento) use ($fecha_actual) {
-    return $evento['fecha'] >= $fecha_actual;
-});
-
-// Ordenar por fecha
+// Ordenar por fecha (más recientes primero)
 usort($eventos, function ($a, $b) {
-    return strtotime($a['fecha']) - strtotime($b['fecha']);
+    return strtotime($b['fecha']) - strtotime($a['fecha']);
 });
+
 
 ?>
 
