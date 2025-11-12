@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $categoria = $_POST['categoria'];
         $lugar = $_POST['lugar'];
         $link = $_POST['link'] ?? '';
-        $estado = isset($_POST['estado']) ? (int)$_POST['estado'] : 1;
+        $estado = isset($_POST['estado']) ? (int) $_POST['estado'] : 1;
 
         $imagen = '';
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $categoria = $_POST['categoria'];
         $lugar = $_POST['lugar'];
         $link = $_POST['link'] ?? '';
-        $estado = isset($_POST['estado']) ? (int)$_POST['estado'] : 1;
+        $estado = isset($_POST['estado']) ? (int) $_POST['estado'] : 1;
 
         $evento_actual = $eventoModel->getById($id);
         $imagen = $evento_actual['imagen'] ?? null;
@@ -351,7 +351,8 @@ $noticias = $noticiaModel->getAll();
                                         </td>
 
                                         <td><?php echo htmlspecialchars($evento['nombre']); ?></td>
-                                        <td><?php echo htmlspecialchars(substr($evento['descripcion_corta'] ?? '', 0, 50)); ?></td>
+                                        <td><?php echo htmlspecialchars(substr($evento['descripcion_corta'] ?? '', 0, 50)); ?>
+                                        </td>
                                         <td><?php echo htmlspecialchars($evento['comunidad']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['modalidad']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['categoria']); ?></td>
@@ -364,18 +365,18 @@ $noticias = $noticiaModel->getAll();
                                         </td>
 
                                         <td class="action-icons">
-                                            <a href="#" class="btn-editar-evento" data-id="<?= $evento['id_Evento'] ?>"
-                                                data-nombre="<?= htmlspecialchars($evento['nombre']) ?>"
-                                                data-descripcion="<?= htmlspecialchars($evento['descripcion']) ?>"
-                                                data-descripcion-corta="<?= htmlspecialchars($evento['descripcion_corta'] ?? '') ?>"
-                                                data-comunidad="<?= htmlspecialchars($evento['comunidad']) ?>"
-                                                data-fecha-inicio="<?= $evento['fecha_inicio'] ?>"
-                                                data-fecha-fin="<?= $evento['fecha_fin'] ?>"
-                                                data-modalidad="<?= htmlspecialchars($evento['modalidad']) ?>"
-                                                data-categoria="<?= htmlspecialchars($evento['categoria']) ?>"
-                                                data-lugar="<?= htmlspecialchars($evento['lugar']) ?>"
-                                                data-link="<?= htmlspecialchars($evento['link']) ?>"
-                                                data-estado="<?= $estadoNumerico ?>" title="Editar">
+                                            <a href="#" class="btn-editar-evento" data-id="<?php echo $evento['id_Evento']; ?>"
+                                                data-nombre="<?php echo htmlspecialchars($evento['nombre']); ?>"
+                                                data-descripcion="<?php echo htmlspecialchars($evento['descripcion']); ?>"
+                                                data-descripcionCorta="<?php echo htmlspecialchars($evento['descripcion_corta'] ?? ''); ?>"
+                                                data-comunidad="<?php echo htmlspecialchars($evento['comunidad']); ?>"
+                                                data-fechaInicio="<?php echo $evento['fecha_inicio']; ?>"
+                                                data-fechaFin="<?php echo $evento['fecha_fin']; ?>"
+                                                data-modalidad="<?php echo htmlspecialchars($evento['modalidad']); ?>"
+                                                data-categoria="<?php echo htmlspecialchars($evento['categoria']); ?>"
+                                                data-lugar="<?php echo htmlspecialchars($evento['lugar']); ?>"
+                                                data-link="<?php echo htmlspecialchars($evento['link']); ?>"
+                                                data-estado="<?php echo $estadoNumerico; ?>" title="Editar">
                                                 <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
                                             <a href="#" class="btn-eliminar" data-tipo="evento"
@@ -615,7 +616,8 @@ $noticias = $noticiaModel->getAll();
                 <!-- ✅ NUEVO CAMPO: Descripción Corta -->
                 <div class="form-group-full">
                     <label for="evento-descripcion-corta">Descripción Corta (máx. 300 caracteres)</label>
-                    <textarea name="descripcion_corta" id="evento-descripcion-corta" rows="2" maxlength="300"></textarea>
+                    <textarea name="descripcion_corta" id="evento-descripcion-corta" rows="2"
+                        maxlength="300"></textarea>
                 </div>
 
                 <div class="form-group-full">
@@ -787,6 +789,7 @@ $noticias = $noticiaModel->getAll();
                 resizeTimer = setTimeout(function () {
                     initMobileMenu();
                 }, 250);
+
             });
         });
     </script>
