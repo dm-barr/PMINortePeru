@@ -127,8 +127,8 @@ usort($eventos, function ($a, $b) {
         <div class="hero-overlay"></div>
         <div class="container hero-grid">
             <div class="hero-copy">
-                <p class="eyebrow">PMI Norte Perú</p>
-                <h1>Suceden cosas buenas cuando<span class="txt-gradient"> te involucras con PMI</span></h1>
+                <p class="eyebrow">PMI Norte Perú Chapter</p>
+                <h1>¡Maximizando el éxito de los<span class="txt-gradient"> proyectos para elevar nuestro mundo!</span></h1>
                 <p class="lead">Transformamos ideas en <strong>valor real</strong> para Cajamarca, Piura y Trujillo
                     mediante dirección de proyectos.</p>
                 <div class="hero-actions">
