@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Cambiar título del modal
       document.getElementById("titulo-modal-evento").textContent =
         "Editar Evento";
-      document.getElementById("accion-evento").value = "editarevento";
+      document.getElementById("accion-evento").value = "editar_evento";
 
       // Llenar campos del formulario
       document.getElementById("evento-id").value = btn.dataset.id;
@@ -451,7 +451,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const btn = e.target.closest(".btn-eliminar");
       const tipo = btn.dataset.tipo;
       const id = btn.dataset.id;
-
       const tipoTexto =
         tipo === "evento"
           ? "evento"
@@ -460,8 +459,8 @@ document.addEventListener("DOMContentLoaded", function () {
           : "noticia";
 
       showConfirmModal(
-        `Eliminar ${tipoTexto}`,
-        `¿Estás seguro de que deseas eliminar este ${tipoTexto}? Esta acción no se puede deshacer.`,
+        "Eliminar",
+        `¿Estás seguro de eliminar este ${tipoTexto}?`,
         () => {
           const form = document.createElement("form");
           form.method = "POST";
@@ -497,12 +496,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const btn = e.target.closest(".btn-toggle-estado");
       const id = btn.dataset.id;
       const estadoActual = btn.dataset.estado;
-
       const nuevoEstado = estadoActual === "1" ? "inactivo" : "activo";
 
       showConfirmModal(
-        "Cambiar estado",
-        `¿Cambiar el estado del evento a "${nuevoEstado}"?`,
+        "Cambiar Estado",
+        `¿Cambiar estado del evento a "${nuevoEstado}"?`,
         () => {
           const form = document.createElement("form");
           form.method = "POST";
