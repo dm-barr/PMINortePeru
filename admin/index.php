@@ -376,9 +376,11 @@ $noticias = $noticiaModel->getAll();
                                                 data-categoria="<?php echo htmlspecialchars($evento['categoria']); ?>"
                                                 data-lugar="<?php echo htmlspecialchars($evento['lugar']); ?>"
                                                 data-link="<?php echo htmlspecialchars($evento['link']); ?>"
+                                                data-imagen="<?php echo htmlspecialchars($evento['imagen']); ?>"
                                                 data-estado="<?php echo $estadoNumerico; ?>" title="Editar">
                                                 <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
+
                                             <a href="#" class="btn-eliminar" data-tipo="evento"
                                                 data-id="<?php echo htmlspecialchars($evento['id_Evento']); ?>"
                                                 title="Eliminar">

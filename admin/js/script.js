@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // ===============================================
   // VISTA PREVIA DE IMÁGENES
   // ===============================================
-
+  // VISTA PREVIA DE IMÁGENES - MEJORADA
   function setupImagePreview(inputId, previewId) {
     const input = document.getElementById(inputId);
     const preview = document.getElementById(previewId);
@@ -133,6 +133,9 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         reader.readAsDataURL(file);
+      } else if (!file) {
+        // Si no hay archivo, mantener la imagen actual si existe
+        // No ocultar el preview
       } else {
         preview.style.display = "none";
       }
@@ -186,35 +189,49 @@ document.addEventListener("DOMContentLoaded", function () {
   // EDITAR - DELEGACIÓN DE EVENTOS
   // ===============================================
 
-  // ✅ EDITAR EVENTO - ACTUALIZADO CON NUEVOS CAMPOS
+  // EDITAR EVENTO - CON VISTA PREVIA DE IMAGEN
   document.addEventListener("click", function (e) {
     if (e.target.closest(".btn-editar-evento")) {
       e.preventDefault();
       const btn = e.target.closest(".btn-editar-evento");
 
+      // Cambiar título del modal
       document.getElementById("titulo-modal-evento").textContent =
         "Editar Evento";
-      document.getElementById("accion-evento").value = "editar_evento";
+      document.getElementById("accion-evento").value = "editarevento";
+
+      // Llenar campos del formulario
       document.getElementById("evento-id").value = btn.dataset.id;
       document.getElementById("evento-nombre").value = btn.dataset.nombre;
       document.getElementById("evento-descripcion").value =
         btn.dataset.descripcion;
       document.getElementById("evento-descripcion-corta").value =
-        btn.dataset.descripcionCorta || ""; // ✅ NUEVO
+        btn.dataset.descripcioncorta || "";
       document.getElementById("evento-comunidad").value = btn.dataset.comunidad;
       document.getElementById("evento-modalidad").value = btn.dataset.modalidad;
       document.getElementById("evento-categoria").value = btn.dataset.categoria;
       document.getElementById("evento-fecha-inicio").value =
-        btn.dataset.fechaInicio; // ✅ CAMBIADO
-      document.getElementById("evento-fecha-fin").value =
-        btn.dataset.fechaFin || ""; // ✅ NUEVO
+        btn.dataset.fechainicio;
+      document.getElementById("evento-fecha-fin").value = btn.dataset.fechafin;
       document.getElementById("evento-lugar").value = btn.dataset.lugar;
       document.getElementById("evento-link").value = btn.dataset.link || "";
       document.getElementById("evento-estado").value =
-        btn.dataset.estado || "1"; // ✅ CAMBIAR 'activo' por '1'
+        btn.dataset.estado || "1";
 
+      // MOSTRAR VISTA PREVIA DE LA IMAGEN EXISTENTE
       const preview = document.getElementById("preview-evento");
-      if (preview) preview.style.display = "none";
+      const imagenActual = btn.dataset.imagen;
+
+      if (preview && imagenActual && imagenActual !== "-") {
+        const img = preview.querySelector("img");
+        if (img) {
+          // Construir la ruta correcta (asumiendo que las imágenes están en /uploads/)
+          img.src = "../" + imagenActual;
+          preview.style.display = "block";
+        }
+      } else if (preview) {
+        preview.style.display = "none";
+      }
 
       openModal(modalEvento);
     }
