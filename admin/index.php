@@ -44,6 +44,15 @@ function subirImagen($archivo)
         return null;
     }
 
+
+/**
+ * Función helper para sanitizar valores antes de mostrarlos
+ */
+function safe_html($value, $default = '') {
+    return htmlspecialchars($value ?? $default, ENT_QUOTES, 'UTF-8');
+}
+
+
     $extensiones_permitidas = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
     $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
 
@@ -350,36 +359,36 @@ $noticias = $noticiaModel->getAll();
                                             </button>
                                         </td>
 
-                                        <td><?php echo htmlspecialchars($evento['nombre']); ?></td>
-                                        <td><?php echo htmlspecialchars(substr($evento['descripcion_corta'] ?? '', 0, 50)); ?></td>
-                                        <td><?php echo htmlspecialchars($evento['comunidad']); ?></td>
-                                        <td><?php echo htmlspecialchars($evento['modalidad']); ?></td>
-                                        <td><?php echo htmlspecialchars($evento['categoria']); ?></td>
-                                        <td><?php echo htmlspecialchars($evento['fecha_inicio']); ?></td>
-                                        <td><?php echo htmlspecialchars($evento['fecha_fin']); ?></td>
-                                        <td><?php echo htmlspecialchars($evento['lugar']); ?></td>
-                                        <td><?php echo !empty($evento['link']) ? '<a href="' . htmlspecialchars($evento['link']) . '" target="_blank">Ver</a>' : '-'; ?>
+                                        <td><?php echo safe_html($evento['nombre']); ?></td>
+                                        <td><?php echo safe_html(substr($evento['descripcion_corta'] ?? '', 0, 50)); ?></td>
+                                        <td><?php echo safe_html($evento['comunidad']); ?></td>
+                                        <td><?php echo safe_html($evento['modalidad']); ?></td>
+                                        <td><?php echo safe_html($evento['categoria']); ?></td>
+                                        <td><?php echo safe_html($evento['fecha_inicio']); ?></td>
+                                        <td><?php echo safe_html($evento['fecha_fin']); ?></td>
+                                        <td><?php echo safe_html($evento['lugar']); ?></td>
+                                        <td><?php echo !empty($evento['link']) ? '<a href="' . safe_html($evento['link']) . '" target="_blank">Ver</a>' : '-'; ?>
                                         </td>
-                                        <td><?php echo !empty($evento['imagen']) ? htmlspecialchars($evento['imagen']) : '-'; ?>
+                                        <td><?php echo !empty($evento['imagen']) ? safe_html($evento['imagen']) : '-'; ?>
                                         </td>
 
                                         <td class="action-icons">
                                             <a href="#" class="btn-editar-evento" data-id="<?= $evento['id_Evento'] ?>"
-                                                data-nombre="<?= htmlspecialchars($evento['nombre']) ?>"
-                                                data-descripcion="<?= htmlspecialchars($evento['descripcion']) ?>"
+                                                data-nombre="<?= safe_html($evento['nombre']) ?>"
+                                                data-descripcion="<?= safe_html($evento['descripcion']) ?>"
                                                 data-descripcion-corta="<?= htmlspecialchars($evento['descripcion_corta'] ?? '') ?>"
-                                                data-comunidad="<?= htmlspecialchars($evento['comunidad']) ?>"
+                                                data-comunidad="<?= safe_html($evento['comunidad']) ?>"
                                                 data-fecha-inicio="<?= $evento['fecha_inicio'] ?>"
                                                 data-fecha-fin="<?= $evento['fecha_fin'] ?>"
-                                                data-modalidad="<?= htmlspecialchars($evento['modalidad']) ?>"
-                                                data-categoria="<?= htmlspecialchars($evento['categoria']) ?>"
-                                                data-lugar="<?= htmlspecialchars($evento['lugar']) ?>"
-                                                data-link="<?= htmlspecialchars($evento['link']) ?>"
+                                                data-modalidad="<?= safe_html($evento['modalidad']) ?>"
+                                                data-categoria="<?= safe_html($evento['categoria']) ?>"
+                                                data-lugar="<?= safe_html($evento['lugar']) ?>"
+                                                data-link="<?= safe_html($evento['link']) ?>"
                                                 data-estado="<?= $estadoNumerico ?>" title="Editar">
                                                 <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
                                             <a href="#" class="btn-eliminar" data-tipo="evento"
-                                                data-id="<?php echo htmlspecialchars($evento['id_Evento']); ?>"
+                                                data-id="<?php echo safe_html($evento['id_Evento']); ?>"
                                                 title="Eliminar">
                                                 <img src="../img/iconos/eliminar.png" alt="Eliminar">
                                             </a>
@@ -426,21 +435,21 @@ $noticias = $noticiaModel->getAll();
                             <?php if (!empty($educaciones)): ?>
                                 <?php foreach ($educaciones as $educacion): ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($educacion['curso']); ?></td>
-                                        <td><?php echo htmlspecialchars($educacion['modalidad']); ?></td>
-                                        <td><?php echo htmlspecialchars($educacion['fecha']); ?></td>
-                                        <td><?php echo htmlspecialchars($educacion['instructor']); ?></td>
+                                        <td><?php echo safe_html($educacion['curso']); ?></td>
+                                        <td><?php echo safe_html($educacion['modalidad']); ?></td>
+                                        <td><?php echo safe_html($educacion['fecha']); ?></td>
+                                        <td><?php echo safe_html($educacion['instructor']); ?></td>
                                         <td><?php echo htmlspecialchars(substr($educacion['descripcion'], 0, 50)) . '...'; ?>
                                         </td>
-                                        <td><?php echo htmlspecialchars($educacion['imagen']); ?></td>
+                                        <td><?php echo safe_html($educacion['imagen']); ?></td>
                                         <td class="action-icons">
                                             <a href="#" class="btn-editar-educacion"
                                                 data-id="<?php echo $educacion['id_Educacion']; ?>"
-                                                data-curso="<?php echo htmlspecialchars($educacion['curso']); ?>"
-                                                data-modalidad="<?php echo htmlspecialchars($educacion['modalidad']); ?>"
-                                                data-fecha="<?php echo htmlspecialchars($educacion['fecha']); ?>"
-                                                data-instructor="<?php echo htmlspecialchars($educacion['instructor']); ?>"
-                                                data-descripcion="<?php echo htmlspecialchars($educacion['descripcion']); ?>"
+                                                data-curso="<?php echo safe_html($educacion['curso']); ?>"
+                                                data-modalidad="<?php echo safe_html($educacion['modalidad']); ?>"
+                                                data-fecha="<?php echo safe_html($educacion['fecha']); ?>"
+                                                data-instructor="<?php echo safe_html($educacion['instructor']); ?>"
+                                                data-descripcion="<?php echo safe_html($educacion['descripcion']); ?>"
                                                 title="Editar">
                                                 <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
@@ -489,16 +498,16 @@ $noticias = $noticiaModel->getAll();
                             <?php if (!empty($noticias)): ?>
                                 <?php foreach ($noticias as $noticia): ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($noticia['titulo']); ?></td>
+                                        <td><?php echo safe_html($noticia['titulo']); ?></td>
                                         <td><?php echo htmlspecialchars(substr($noticia['descripcion'], 0, 50)) . '...'; ?></td>
-                                        <td><?php echo htmlspecialchars($noticia['imagen']); ?></td>
-                                        <td><?php echo htmlspecialchars($noticia['fecha']); ?></td>
+                                        <td><?php echo safe_html($noticia['imagen']); ?></td>
+                                        <td><?php echo safe_html($noticia['fecha']); ?></td>
                                         <td class="action-icons">
                                             <a href="#" class="btn-editar-noticia"
                                                 data-id="<?php echo $noticia['id_Noticia']; ?>"
-                                                data-titulo="<?php echo htmlspecialchars($noticia['titulo']); ?>"
-                                                data-descripcion="<?php echo htmlspecialchars($noticia['descripcion']); ?>"
-                                                data-imagen="<?php echo htmlspecialchars($noticia['imagen']); ?>"
+                                                data-titulo="<?php echo safe_html($noticia['titulo']); ?>"
+                                                data-descripcion="<?php echo safe_html($noticia['descripcion']); ?>"
+                                                data-imagen="<?php echo safe_html($noticia['imagen']); ?>"
                                                 title="Editar">
                                                 <img src="../img/iconos/editar.png" alt="Editar">
                                             </a>
