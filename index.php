@@ -48,14 +48,14 @@ require_once __DIR__ . '/php/evento.php';
 // Instanciar el modelo
 $eventoModel = new EventoModel_mysqli();
 
-
 // ✅ Obtener SOLO eventos activos desde la base de datos
 $eventos = $eventoModel->getAllActivos();
 
-// Ordenar por fecha (más recientes primero)
+// Ordenar por fecha (más antiguos primero)
 usort($eventos, function ($a, $b) {
-    return strtotime($b['fecha']) - strtotime($a['fecha']);
+    return strtotime($a['fecha']) - strtotime($b['fecha']);
 });
+
 
 
 ?>
