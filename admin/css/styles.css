@@ -58,7 +58,7 @@ min-height: 100vh;
 /* ============================================ */
 
 .sidebar {
-width: 400px;
+width: 380px;
 background: var(--gradient-sidebar);
 color: var(--text-light);
 display: flex;
