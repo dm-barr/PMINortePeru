@@ -51,18 +51,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Abrir modales en modo AGREGAR
-  if(btnAbrirEvento) {
-    btnAbrirEvento.addEventListener('click', () => {
-        document.getElementById('titulo-modal-evento').textContent = 'Agregar Evento';
-        document.getElementById('accion-evento').value = 'agregar_evento';
-        document.getElementById('evento-id').value = '';
-        document.querySelector('.form-evento').reset();
-        document.getElementById('evento-estado').value = '1'; // ✅ Cambiar 'activo' por '1'
-        const preview = document.getElementById('preview-evento');
-        if (preview) preview.style.display = 'none';
-        openModal(modalEvento);
-    });
-}
+    if(btnAbrirEvento) {
+        btnAbrirEvento.addEventListener('click', () => {
+            document.getElementById('titulo-modal-evento').textContent = 'Agregar Evento';
+            document.getElementById('accion-evento').value = 'agregar_evento';
+            document.getElementById('evento-id').value = '';
+            document.querySelector('.form-evento').reset();
+            document.getElementById('evento-estado').value = '1';
+            const preview = document.getElementById('preview-evento');
+            if (preview) preview.style.display = 'none';
+            openModal(modalEvento);
+        });
+    }
+    
     if(btnAbrirEducacion) {
         btnAbrirEducacion.addEventListener('click', () => {
             document.getElementById('titulo-modal-educacion').textContent = 'Agregar Curso';
@@ -74,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
             openModal(modalEducacion);
         });
     }
+    
     if(btnAbrirNoticia) {
         btnAbrirNoticia.addEventListener('click', () => {
             document.getElementById('titulo-modal-noticia').textContent = 'Agregar Noticia';
@@ -149,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const estadoActual = btn.dataset.estado;
 
             // Confirmación antes de cambiar
-            const nuevoEstado = estadoActual === 'activo' ? 'inactivo' : 'activo';
+            const nuevoEstado = estadoActual === '1' ? 'inactivo' : 'activo';
             const mensaje = `¿Cambiar estado del evento a "${nuevoEstado}"?`;
 
             if (confirm(mensaje)) {
@@ -180,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // EDITAR - DELEGACIÓN DE EVENTOS
     // ===============================================
 
-    // EDITAR EVENTO
+    // ✅ EDITAR EVENTO - ACTUALIZADO CON NUEVOS CAMPOS
     document.addEventListener('click', function(e) {
         if (e.target.closest('.btn-editar-evento')) {
             e.preventDefault();
@@ -191,13 +193,15 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('evento-id').value = btn.dataset.id;
             document.getElementById('evento-nombre').value = btn.dataset.nombre;
             document.getElementById('evento-descripcion').value = btn.dataset.descripcion;
+            document.getElementById('evento-descripcion-corta').value = btn.dataset.descripcionCorta || ''; // ✅ NUEVO
             document.getElementById('evento-comunidad').value = btn.dataset.comunidad;
             document.getElementById('evento-modalidad').value = btn.dataset.modalidad;
             document.getElementById('evento-categoria').value = btn.dataset.categoria;
-            document.getElementById('evento-fecha').value = btn.dataset.fecha;
+            document.getElementById('evento-fecha-inicio').value = btn.dataset.fechaInicio; // ✅ CAMBIADO
+            document.getElementById('evento-fecha-fin').value = btn.dataset.fechaFin || ''; // ✅ NUEVO
             document.getElementById('evento-lugar').value = btn.dataset.lugar;
             document.getElementById('evento-link').value = btn.dataset.link || '';
-            document.getElementById('evento-estado').value = btn.dataset.estado || 'activo';
+            document.getElementById('evento-estado').value = btn.dataset.estado || '1'; // ✅ CAMBIAR 'activo' por '1'
             
             const preview = document.getElementById('preview-evento');
             if (preview) preview.style.display = 'none';
