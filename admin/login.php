@@ -481,7 +481,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label for="correo">Correo Electrónico</label>
                         <div class="input-wrapper">
-                            <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com"
+                            <input type="email" id="correo" name="correo" placeholder="ejemplo@pminorteperu.org"
                                 value="<?php echo htmlspecialchars($_POST['correo'] ?? ''); ?>" required>
                             <i class="fas fa-envelope input-icon"></i>
                         </div>
