@@ -5,30 +5,30 @@
     --color-naranja: #FF610F;
     --color-celeste: #3FC0F0;
     --color-morado: #4F17A8;
-    
+
     --color-marron: #993707;
     --color-marron-claro: #c3d1603;
     --color-azul-oscuro: #1a6c8c;
     --color-azul-marino: #0b2e3a;
     --color-morado-oscuro: #2a0c5a;
     --color-negro-morado: #15062b;
-    
+
     /* Colores de fondo y texto */
     --page-bg: #f8f9fa;
     --card-bg: #ffffff;
     --text-dark: #2c3e50;
     --text-light: #ffffff;
     --border-color: #e0e6ed;
-    
+
     /* Degradados */
     --gradient-sidebar: linear-gradient(180deg, var(--color-azul-marino) 0%, var(--color-morado-oscuro) 100%);
     --gradient-button: linear-gradient(90deg, var(--color-celeste) 0%, #54d2f5 100%);
-    
+
     /* Sombras */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
-    
+
     /* Tipografía */
     --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -174,6 +174,7 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -231,6 +232,7 @@ body {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -431,6 +433,7 @@ tbody td:last-child {
         transform: scale(0.9);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
@@ -655,11 +658,11 @@ tbody td:last-child {
     .sidebar {
         width: 240px;
     }
-    
+
     .main-content {
         padding: 30px 25px;
     }
-    
+
     .view-header h1 {
         font-size: 2.2rem;
     }
@@ -669,31 +672,31 @@ tbody td:last-child {
     .admin-container {
         flex-direction: column;
     }
-    
+
     .sidebar {
         width: 100%;
         padding: 20px;
     }
-    
+
     .view-header {
         flex-direction: column;
         gap: 20px;
         align-items: flex-start;
     }
-    
+
     .modal-form.form-evento,
     .modal-form.form-educacion {
         grid-template-columns: 1fr;
     }
-    
+
     table {
         min-width: 600px;
     }
-    
+
     .modal-box {
         padding: 30px 25px;
     }
-    
+
     .image-preview img {
         max-height: 150px;
     }
@@ -778,6 +781,7 @@ tbody td:last-child {
 
 /* Tablets pequeñas y móviles grandes */
 @media (max-width: 768px) {
+
     /* ACTIVAR menú hamburguesa en móvil */
     .mobile-menu-toggle {
         display: block;
@@ -1146,4 +1150,155 @@ tbody td:last-child {
     background: linear-gradient(135deg, #dc2626, #b91c1c);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+
+/* ========================================
+   MODALES - SCROLL Y VISUALIZACIÓN
+======================================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    overflow-y: auto;
+    /* ✅ PERMITE SCROLL VERTICAL */
+    padding: 20px 0;
+    /* ✅ ESPACIADO SUPERIOR/INFERIOR */
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-box {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    /* ✅ ALTURA MÁXIMA */
+    overflow-y: auto;
+    /* ✅ SCROLL INTERNO */
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    margin: auto;
+    /* ✅ CENTRADO VERTICAL */
+}
+
+/* Estilos para el scrollbar del modal */
+.modal-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-box::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.modal-box::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 10px;
+}
+
+.modal-box::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+}
+
+/* Responsive para modales */
+@media (max-width: 768px) {
+    .modal-box {
+        width: 95%;
+        padding: 20px;
+        max-height: 85vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-box {
+        width: 98%;
+        padding: 15px;
+        max-height: 80vh;
+    }
+
+    .modal-form .form-group,
+    .modal-form .form-group-full {
+        margin-bottom: 12px;
+    }
+}
+
+.modal-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-form .form-group-full {
+    grid-column: 1 / -1;
+    /* Ocupa toda la fila */
+}
+
+.modal-form label {
+    display: block;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 5px;
+    font-size: 0.95em;
+}
+
+.modal-form input,
+.modal-form select,
+.modal-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Open Sans', sans-serif;
+    transition: var(--transition-fast);
+    font-size: 0.95em;
+}
+
+.modal-form input:focus,
+.modal-form select:focus,
+.modal-form textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(79, 23, 168, 0.1);
+}
+
+.btn-guardar {
+    grid-column: 1 / -1;
+    background: var(--gradient-naranja);
+    color: white;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-base);
+    box-shadow: var(--shadow-naranja);
+    margin-top: 10px;
+}
+
+.btn-guardar:hover {
+    background: var(--gradient-celeste-suave);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-celeste);
+}
+
+/* Responsive para formularios en modal */
+@media (max-width: 768px) {
+    .modal-form {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
 }
