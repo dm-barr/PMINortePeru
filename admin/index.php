@@ -76,20 +76,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['accion'] == 'agregar_evento') {
         $nombre = $_POST['nombre'];
         $descripcion = $_POST['descripcion'];
+        $descripcion_corta = $_POST['descripcion_corta'] ?? '';
         $comunidad = $_POST['comunidad'];
-        $fecha = $_POST['fecha'];
+        $fecha_inicio = $_POST['fecha_inicio'];
+        $fecha_fin = $_POST['fecha_fin'] ?? $fecha_inicio;
         $modalidad = $_POST['modalidad'];
         $categoria = $_POST['categoria'];
         $lugar = $_POST['lugar'];
         $link = $_POST['link'] ?? '';
-        $estado = $_POST['estado'] ?? 'activo';
+        $estado = isset($_POST['estado']) ? (int)$_POST['estado'] : 1;
 
         $imagen = '';
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $imagen = subirImagen($_FILES['imagen']);
         }
 
-        if ($eventoModel->create($nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado)) {
+        if ($eventoModel->create($nombre, $descripcion, $descripcion_corta, $comunidad, $modalidad, $categoria, $fecha_inicio, $fecha_fin, $lugar, $imagen, $link, $estado)) {
             $mensaje = 'Evento agregado exitosamente';
             $tipo_mensaje = 'success';
         } else {
@@ -102,13 +104,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id'];
         $nombre = $_POST['nombre'];
         $descripcion = $_POST['descripcion'];
+        $descripcion_corta = $_POST['descripcion_corta'] ?? '';
         $comunidad = $_POST['comunidad'];
-        $fecha = $_POST['fecha'];
+        $fecha_inicio = $_POST['fecha_inicio'];
+        $fecha_fin = $_POST['fecha_fin'] ?? $fecha_inicio;
         $modalidad = $_POST['modalidad'];
         $categoria = $_POST['categoria'];
         $lugar = $_POST['lugar'];
         $link = $_POST['link'] ?? '';
-        $estado = $_POST['estado'] ?? 'activo';
+        $estado = isset($_POST['estado']) ? (int)$_POST['estado'] : 1;
 
         $evento_actual = $eventoModel->getById($id);
         $imagen = $evento_actual['imagen'] ?? null;
@@ -123,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        if ($eventoModel->update($id, $nombre, $descripcion, $comunidad, $fecha, $modalidad, $categoria, $lugar, $imagen, $link, $estado)) {
+        if ($eventoModel->update($id, $nombre, $descripcion, $descripcion_corta, $comunidad, $modalidad, $categoria, $fecha_inicio, $fecha_fin, $lugar, $imagen, $link, $estado)) {
             $mensaje = 'Evento actualizado exitosamente';
             $tipo_mensaje = 'success';
         } else {
@@ -316,11 +320,12 @@ $noticias = $noticiaModel->getAll();
                             <tr>
                                 <th>Estado</th>
                                 <th>Nombre</th>
-                                <th>Descripción</th>
+                                <th>Descripción Corta</th>
                                 <th>Comunidad</th>
                                 <th>Modalidad</th>
                                 <th>Categoría</th>
-                                <th>Fecha</th>
+                                <th>Fecha Inicio</th>
+                                <th>Fecha Fin</th>
                                 <th>Lugar</th>
                                 <th>Link</th>
                                 <th>Imagen</th>
@@ -334,7 +339,6 @@ $noticias = $noticiaModel->getAll();
                                         <!-- ✅ COLUMNA ESTADO CON CONVERSIÓN 0/1 → Inactivo/Activo -->
                                         <td>
                                             <?php
-                                            // Convertir 0/1 a activo/inactivo
                                             $estadoNumerico = isset($evento['estado']) ? (int) $evento['estado'] : 0;
                                             $estadoTexto = ($estadoNumerico === 1) ? 'Activo' : 'Inactivo';
                                             $estadoClase = ($estadoNumerico === 1) ? 'toggle-activo' : 'toggle-inactivo';
@@ -347,11 +351,12 @@ $noticias = $noticiaModel->getAll();
                                         </td>
 
                                         <td><?php echo htmlspecialchars($evento['nombre']); ?></td>
-                                        <td><?php echo htmlspecialchars(substr($evento['descripcion'], 0, 50)) . '...'; ?></td>
+                                        <td><?php echo htmlspecialchars(substr($evento['descripcion_corta'] ?? '', 0, 50)); ?></td>
                                         <td><?php echo htmlspecialchars($evento['comunidad']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['modalidad']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['categoria']); ?></td>
-                                        <td><?php echo htmlspecialchars($evento['fecha']); ?></td>
+                                        <td><?php echo htmlspecialchars($evento['fecha_inicio']); ?></td>
+                                        <td><?php echo htmlspecialchars($evento['fecha_fin']); ?></td>
                                         <td><?php echo htmlspecialchars($evento['lugar']); ?></td>
                                         <td><?php echo !empty($evento['link']) ? '<a href="' . htmlspecialchars($evento['link']) . '" target="_blank">Ver</a>' : '-'; ?>
                                         </td>
@@ -362,8 +367,10 @@ $noticias = $noticiaModel->getAll();
                                             <a href="#" class="btn-editar-evento" data-id="<?= $evento['id_Evento'] ?>"
                                                 data-nombre="<?= htmlspecialchars($evento['nombre']) ?>"
                                                 data-descripcion="<?= htmlspecialchars($evento['descripcion']) ?>"
+                                                data-descripcion-corta="<?= htmlspecialchars($evento['descripcion_corta'] ?? '') ?>"
                                                 data-comunidad="<?= htmlspecialchars($evento['comunidad']) ?>"
-                                                data-fecha="<?= $evento['fecha'] ?>"
+                                                data-fecha-inicio="<?= $evento['fecha_inicio'] ?>"
+                                                data-fecha-fin="<?= $evento['fecha_fin'] ?>"
                                                 data-modalidad="<?= htmlspecialchars($evento['modalidad']) ?>"
                                                 data-categoria="<?= htmlspecialchars($evento['categoria']) ?>"
                                                 data-lugar="<?= htmlspecialchars($evento['lugar']) ?>"
@@ -381,14 +388,13 @@ $noticias = $noticiaModel->getAll();
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="11">No hay eventos disponibles</td>
+                                    <td colspan="12">No hay eventos disponibles</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
             </section>
-
 
             <!-- SECCIÓN EDUCACIÓN -->
             <section id="educacion" class="view">
@@ -544,8 +550,13 @@ $noticias = $noticiaModel->getAll();
                 </div>
 
                 <div class="form-group">
-                    <label for="evento-fecha">Fecha</label>
-                    <input type="date" name="fecha" id="evento-fecha">
+                    <label for="evento-fecha-inicio">Fecha Inicio</label>
+                    <input type="date" name="fecha_inicio" id="evento-fecha-inicio" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="evento-fecha-fin">Fecha Fin</label>
+                    <input type="date" name="fecha_fin" id="evento-fecha-fin">
                 </div>
 
                 <div class="form-group">
@@ -596,14 +607,19 @@ $noticias = $noticiaModel->getAll();
                     </select>
                 </div>
 
-
                 <div class="form-group-full">
                     <label for="evento-link">Link del Evento</label>
                     <input type="url" name="link" id="evento-link" placeholder="https://ejemplo.com/evento">
                 </div>
 
+                <!-- ✅ NUEVO CAMPO: Descripción Corta -->
                 <div class="form-group-full">
-                    <label for="evento-descripcion">Descripción</label>
+                    <label for="evento-descripcion-corta">Descripción Corta (máx. 300 caracteres)</label>
+                    <textarea name="descripcion_corta" id="evento-descripcion-corta" rows="2" maxlength="300"></textarea>
+                </div>
+
+                <div class="form-group-full">
+                    <label for="evento-descripcion">Descripción Completa</label>
                     <textarea name="descripcion" id="evento-descripcion" rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn-guardar">Guardar</button>

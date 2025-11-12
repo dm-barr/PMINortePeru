@@ -42,6 +42,18 @@ function formatearFechaEspanol($fecha)
     return $fecha; // Si no coincide el formato, devuelve la fecha original
 }
 
+// ✅ NUEVA FUNCIÓN: Formatear rango de fechas
+function formatearRangoFechas($fecha_inicio, $fecha_fin)
+{
+    // Si las fechas son iguales o fecha_fin está vacía, mostrar solo fecha_inicio
+    if (empty($fecha_fin) || $fecha_inicio === $fecha_fin) {
+        return formatearFechaEspanol($fecha_inicio);
+    }
+
+    // Si son diferentes, mostrar rango
+    return formatearFechaEspanol($fecha_inicio) . " - " . formatearFechaEspanol($fecha_fin);
+}
+
 // Incluir el modelo de eventos
 require_once __DIR__ . '/php/evento.php';
 
@@ -51,15 +63,12 @@ $eventoModel = new EventoModel_mysqli();
 // ✅ Obtener SOLO eventos activos desde la base de datos
 $eventos = $eventoModel->getAllActivos();
 
-// Ordenar por fecha (más antiguos primero)
+// Ordenar por fecha_inicio (más antiguos primero)
 usort($eventos, function ($a, $b) {
-    return strtotime($a['fecha']) - strtotime($b['fecha']);
+    return strtotime($a['fecha_inicio']) - strtotime($b['fecha_inicio']);
 });
 
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -110,7 +119,7 @@ usort($eventos, function ($a, $b) {
                     <li><a href="#cta">Membresía</a></li>
                     <li><a href="#junta-directiva">Junta Directiva</a></li>
                     <li><a href="#voluntariado">Voluntariado</a></li>
-                    <a href="https://www.pmi.org/shop/tbp-chapter-membership/norte-per%c3%ba-chapter/101293"
+                    <a href="https://www.pmi.org/shop/p-/chapter-membership/norte-per%C3%BA-chapter/101293"
                         class="btn-hazte">Hazte miembro</a>
                 </ul>
             </nav>
@@ -128,7 +137,8 @@ usort($eventos, function ($a, $b) {
         <div class="container hero-grid">
             <div class="hero-copy">
                 <p class="eyebrow">PMI Norte Perú Chapter</p>
-                <h1>¡Maximizando el éxito de los<span class="txt-gradient"> proyectos para elevar nuestro mundo!</span></h1>
+                <h1>¡Maximizando el éxito de los<span class="txt-gradient"> proyectos para elevar nuestro mundo!</span>
+                </h1>
                 <p class="lead">Transformamos ideas en <strong>valor real</strong> para Cajamarca, Piura y Trujillo
                     mediante dirección de proyectos.</p>
                 <div class="hero-actions">
@@ -212,40 +222,48 @@ usort($eventos, function ($a, $b) {
 
             <div class="cards-eventos">
                 <?php if (!empty($eventos)): ?>
-                    <?php foreach ($eventos as $evento): ?>
+                        <?php foreach ($eventos as $evento): ?>
                         <div class="card-evento" data-ciudad="<?php echo htmlspecialchars($evento['comunidad']); ?>">
-                            <span class="fecha"><?php echo formatearFechaEspanol(htmlspecialchars($evento['fecha'])); ?></span>
+                            <!-- ✅ FECHA CON RANGO CONDICIONAL -->
+                            <span     class="fecha"><?php echo formatearRangoFechas($evento['fecha_inicio'], $evento['fecha_fin']); ?></span>
 
                             <?php if (!empty($evento['imagen'])): ?>
-                                <img src="<?php echo htmlspecialchars($evento['imagen']); ?>"
-                                    alt="<?php echo htmlspecialchars($evento['nombre']); ?>">
+                                            <img src="<?php echo htmlspecialchars($evento['imagen']); ?>"
+                                alt="
+                    <?php echo htmlspecialchars($evento['nombre']); ?>">
                             <?php else: ?>
                                 <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" alt="Sin imagen">
                             <?php endif; ?>
 
-                            <h3><?php echo htmlspecialchars($evento['nombre']); ?></h3>
-                            <p><?php echo htmlspecialchars($evento['descripcion']); ?></p>
+                                    <h3><?php echo htmlspecialchars($evento['nombre']); ?></h3>
+
+                            <!-- ✅ DESCRIPCIÓN CORTA DEBAJO DEL TÍTULO -->
+                            <?php if (!empty($evento['descripcion_corta'])): ?>
+                                <p>
+                                    <?php echo htmlspecialchars($evento['descripcion_corta']); ?>
+                                </p>
+                            <?php endif; ?>
 
                             <div class="botones-evento">
                                 <button class="btn-evento btn-info"
                                     onclick="mostrarInfoEvento(<?php echo $evento['id_Evento']; ?>)">
                                     Ver información
-                                </button>
+                                    </button>
 
-                                <?php if (!empty($evento['link'])): ?>
-                                    <a href="<?php echo htmlspecialchars($evento['link']); ?>"
+                                    <?php if (!empty($evento['link'])): ?>
+                                            <a href="<?php echo htmlspecialchars($evento['link']); ?>"
                                         class="btn-evento btn-registro">Regístrate</a>
-                                <?php else: ?>
-                                    <a href="#" class="btn-evento btn-registro">Regístrate</a>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p>No hay eventos disponibles en este momento.</p>
-                <?php endif; ?>
-            </div>
-        </div>
+                                    <?php else: ?>
+                                        <a href="#" class="btn-evento btn-registro">Regístrate</a>
+                                    <?php endif; ?>
+                                            </div>
+                                            </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p>No hay eventos disponibles en este momento.</p>
+                            <?php endif; ?>
+                    </div>
+                </div>
     </section>
 
     <!-- MODAL PARA INFORMACIÓN DEL EVENTO -->
@@ -258,7 +276,6 @@ usort($eventos, function ($a, $b) {
         </div>
     </div>
 
-
     <!-- LLAMADO A LA ACCIÓN -->
     <section id="cta" class="cta">
         <div class="cta-fondo"></div>
@@ -268,7 +285,7 @@ usort($eventos, function ($a, $b) {
                 innovación y el liderazgo en la gestión de proyectos. Juntos, hacemos que las ideas se conviertan en
                 resultados que transforman nuestra región.</p>
             <div class="cta-buttons">
-                <a href="https://www.pmi.org/shop/tbp-chapter-membership/norte-per%c3%ba-chapter/101293"
+                <a href="https://www.pmi.org/shop/p-/chapter-membership/norte-per%C3%BA-chapter/101293"
                     class="btn-cta btn-primary">Hazte miembro</a>
                 <a href="#contacto" class="btn-cta btn-secondary">Habla con nosotros</a>
             </div>
@@ -535,6 +552,17 @@ usort($eventos, function ($a, $b) {
         // Datos de eventos en formato JSON para JavaScript
         const eventosData = <?php echo json_encode($eventos); ?>;
 
+        // ✅ FUNCIÓN ACTUALIZADA: Formatear rango de fechas en JavaScript
+        function formatearRangoFechasJS(fecha_inicio, fecha_fin) {
+            // Si las fechas son iguales o fecha_fin está vacía, mostrar solo fecha_inicio
+            if (!fecha_fin || fecha_inicio === fecha_fin) {
+                return formatearFechaJS(fecha_inicio);
+            }
+
+            // Si son diferentes, mostrar rango
+            return formatearFechaJS(fecha_inicio) + " - " + formatearFechaJS(fecha_fin);
+        }
+
         // Función para mostrar información del evento
         function mostrarInfoEvento(idEvento) {
             // Buscar el evento por ID
@@ -545,14 +573,14 @@ usort($eventos, function ($a, $b) {
                 return;
             }
 
-            // Construir el contenido del modal
+            // ✅ CONTENIDO DEL MODAL ACTUALIZADO: descripcion_corta eliminada, descripcion completa incluida
             const contenido = `
         <h2>${evento.nombre}</h2>
         <div class="info-evento-detalle">
             ${evento.imagen ? `<img src="${evento.imagen}" alt="${evento.nombre}" style="width: 100%; max-width: 500px; border-radius: 8px; margin-bottom: 20px;">` : ''}
             
             <div class="detalle-item">
-                <strong>📅 Fecha:</strong> ${formatearFechaJS(evento.fecha)}
+                <strong>📅 Fecha:</strong> ${formatearRangoFechasJS(evento.fecha_inicio, evento.fecha_fin)}
             </div>
             
             <div class="detalle-item">
@@ -608,7 +636,7 @@ usort($eventos, function ($a, $b) {
 
             const partes = fecha.split('-');
             if (partes.length === 3) {
-                return `${parseInt(partes[2])} de ${meses[partes[1]]} de ${partes[0]}`;
+                return `${parseInt(partes[2])} ${meses[partes[1]]}`;
             }
             return fecha;
         }
