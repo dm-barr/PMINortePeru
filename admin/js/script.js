@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
   // ===============================================
   // MANEJO DE VISTAS (TABS)
@@ -268,26 +269,31 @@ document.addEventListener("DOMContentLoaded", function () {
           ? "curso"
           : "noticia";
 
-      if (confirm(`¿Estás seguro de eliminar este ${tipoTexto}?`)) {
-        const form = document.createElement("form");
-        form.method = "POST";
-        form.action = "";
+      showConfirmModal(
+          "Eliminar",
+          `¿Estás seguro de eliminar este ${tipoTexto}?`,
+          () => {
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = "";
 
-        const inputAccion = document.createElement("input");
-        inputAccion.type = "hidden";
-        inputAccion.name = "accion";
-        inputAccion.value = `eliminar_${tipo}`;
+            const inputAccion = document.createElement("input");
+            inputAccion.type = "hidden";
+            inputAccion.name = "accion";
+            inputAccion.value = `eliminar_${tipo}`;
 
-        const inputId = document.createElement("input");
-        inputId.type = "hidden";
-        inputId.name = "id";
-        inputId.value = id;
+            const inputId = document.createElement("input");
+            inputId.type = "hidden";
+            inputId.name = "id";
+            inputId.value = id;
 
-        form.appendChild(inputAccion);
-        form.appendChild(inputId);
-        document.body.appendChild(form);
-        form.submit();
-      }
+            form.appendChild(inputAccion);
+            form.appendChild(inputId);
+            document.body.appendChild(form);
+            form.submit();
+          },
+          "danger"
+      );
     }
   });
 
