@@ -150,40 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // ✅ TOGGLE ESTADO DE EVENTO
   // ===============================================
 
-  document.addEventListener("click", function (e) {
-    if (e.target.closest(".btn-toggle-estado")) {
-      e.preventDefault();
-      const btn = e.target.closest(".btn-toggle-estado");
-      const id = btn.dataset.id;
-      const estadoActual = btn.dataset.estado;
 
-      // Confirmación antes de cambiar
-      const nuevoEstado = estadoActual === "1" ? "inactivo" : "activo";
-      const mensaje = `¿Cambiar estado del evento a "${nuevoEstado}"?`;
-
-      if (confirm(mensaje)) {
-        // Crear formulario para enviar
-        const form = document.createElement("form");
-        form.method = "POST";
-        form.action = "";
-
-        const inputAccion = document.createElement("input");
-        inputAccion.type = "hidden";
-        inputAccion.name = "accion";
-        inputAccion.value = "toggle_estado_evento";
-
-        const inputId = document.createElement("input");
-        inputId.type = "hidden";
-        inputId.name = "id";
-        inputId.value = id;
-
-        form.appendChild(inputAccion);
-        form.appendChild(inputId);
-        document.body.appendChild(form);
-        form.submit();
-      }
-    }
-  });
 
   // ===============================================
   // EDITAR - DELEGACIÓN DE EVENTOS
@@ -445,46 +412,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ACTUALIZAR ELIMINACIÓN CON MODAL
   // ===============================================
 
-  document.addEventListener("click", function (e) {
-    if (e.target.closest(".btn-eliminar")) {
-      e.preventDefault();
-      const btn = e.target.closest(".btn-eliminar");
-      const tipo = btn.dataset.tipo;
-      const id = btn.dataset.id;
-      const tipoTexto =
-        tipo === "evento"
-          ? "evento"
-          : tipo === "educacion"
-          ? "curso"
-          : "noticia";
-
-      showConfirmModal(
-        "Eliminar",
-        `¿Estás seguro de eliminar este ${tipoTexto}?`,
-        () => {
-          const form = document.createElement("form");
-          form.method = "POST";
-          form.action = "";
-
-          const inputAccion = document.createElement("input");
-          inputAccion.type = "hidden";
-          inputAccion.name = "accion";
-          inputAccion.value = `eliminar_${tipo}`;
-
-          const inputId = document.createElement("input");
-          inputId.type = "hidden";
-          inputId.name = "id";
-          inputId.value = id;
-
-          form.appendChild(inputAccion);
-          form.appendChild(inputId);
-          document.body.appendChild(form);
-          form.submit();
-        },
-        "danger"
-      );
-    }
-  });
 
   // ===============================================
   // ACTUALIZAR TOGGLE ESTADO CON MODAL
