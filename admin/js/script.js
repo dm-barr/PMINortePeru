@@ -373,4 +373,158 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => alerta.remove(), 500);
     }, 3000);
   });
+
+  // ===============================================
+  // SISTEMA DE NOTIFICACIONES MEJORADO
+  // ===============================================
+
+  function showToast(message, type = "success") {
+    const toast = document.createElement("div");
+    toast.className = `toast-notification toast-${type}`;
+
+    const icon = type === "success" ? "✓" : type === "error" ? "✕" : "⚠";
+
+    toast.innerHTML = `
+        <span class="toast-icon">${icon}</span>
+        <span>${message}</span>
+    `;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.animation = "slideInRight 0.4s ease reverse";
+      setTimeout(() => toast.remove(), 400);
+    }, 3000);
+  }
+
+  function showConfirmModal(title, message, onConfirm, type = "warning") {
+    const overlay = document.createElement("div");
+    overlay.className = "confirm-modal-overlay active";
+
+    const iconMap = {
+      warning: "⚠️",
+      danger: "🗑️",
+      success: "✓",
+    };
+
+    overlay.innerHTML = `
+        <div class="confirm-modal-box">
+            <div class="confirm-modal-icon ${type}">${
+      iconMap[type] || "⚠️"
+    }</div>
+            <h3 class="confirm-modal-title">${title}</h3>
+            <p class="confirm-modal-message">${message}</p>
+            <div class="confirm-modal-actions">
+                <button class="btn-confirm btn-confirm-secondary" onclick="this.closest('.confirm-modal-overlay').remove()">
+                    Cancelar
+                </button>
+                <button class="btn-confirm btn-confirm-primary" id="btn-confirm-action">
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    document
+      .getElementById("btn-confirm-action")
+      .addEventListener("click", () => {
+        overlay.remove();
+        onConfirm();
+      });
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        overlay.remove();
+      }
+    });
+  }
+
+  // ===============================================
+  // ACTUALIZAR ELIMINACIÓN CON MODAL
+  // ===============================================
+
+  document.addEventListener("click", function (e) {
+    if (e.target.closest(".btn-eliminar")) {
+      e.preventDefault();
+      const btn = e.target.closest(".btn-eliminar");
+      const tipo = btn.dataset.tipo;
+      const id = btn.dataset.id;
+
+      const tipoTexto =
+        tipo === "evento"
+          ? "evento"
+          : tipo === "educacion"
+          ? "curso"
+          : "noticia";
+
+      showConfirmModal(
+        `Eliminar ${tipoTexto}`,
+        `¿Estás seguro de que deseas eliminar este ${tipoTexto}? Esta acción no se puede deshacer.`,
+        () => {
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = "";
+
+          const inputAccion = document.createElement("input");
+          inputAccion.type = "hidden";
+          inputAccion.name = "accion";
+          inputAccion.value = `eliminar_${tipo}`;
+
+          const inputId = document.createElement("input");
+          inputId.type = "hidden";
+          inputId.name = "id";
+          inputId.value = id;
+
+          form.appendChild(inputAccion);
+          form.appendChild(inputId);
+          document.body.appendChild(form);
+          form.submit();
+        },
+        "danger"
+      );
+    }
+  });
+
+  // ===============================================
+  // ACTUALIZAR TOGGLE ESTADO CON MODAL
+  // ===============================================
+
+  document.addEventListener("click", function (e) {
+    if (e.target.closest(".btn-toggle-estado")) {
+      e.preventDefault();
+      const btn = e.target.closest(".btn-toggle-estado");
+      const id = btn.dataset.id;
+      const estadoActual = btn.dataset.estado;
+
+      const nuevoEstado = estadoActual === "1" ? "inactivo" : "activo";
+
+      showConfirmModal(
+        "Cambiar estado",
+        `¿Cambiar el estado del evento a "${nuevoEstado}"?`,
+        () => {
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = "";
+
+          const inputAccion = document.createElement("input");
+          inputAccion.type = "hidden";
+          inputAccion.name = "accion";
+          inputAccion.value = "toggle_estado_evento";
+
+          const inputId = document.createElement("input");
+          inputId.type = "hidden";
+          inputId.name = "id";
+          inputId.value = id;
+
+          form.appendChild(inputAccion);
+          form.appendChild(inputId);
+          document.body.appendChild(form);
+          form.submit();
+        },
+        "warning"
+      );
+    }
+  });
 });
