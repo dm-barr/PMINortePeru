@@ -120,15 +120,17 @@ usort($eventos, function ($a, $b) {
                     <li><a href="#junta-directiva">Junta Directiva</a></li>
                     <li><a href="#voluntariado">Voluntariado</a></li>
 
-                    <!-- NUEVO: Menú desplegable de Comunidades -->
+                    <!-- Dropdown de Comunidades -->
                     <li class="dropdown-comunidades">
-                        <a href="#" class="dropdown-toggle">Comunidades ▼</a>
+                        <a href="#comunidades" class="dropdown-toggle">
+                            Comunidades <span class="arrow">▼</span>
+                        </a>
                         <ul class="submenu-comunidades">
                             <li><a href="#cajamarca">Cajamarca</a></li>
                             <li><a href="#trujillo">Trujillo</a></li>
                             <li><a href="#piura">Piura</a></li>
-                            <li><a href="#chiclayo">Estudiantil</a></li>
-                            <li><a href="https://comunidadunc.pminorteperu.org/">Student Club UNC</a></li>
+                            <li><a href="#estudiantil">Estudiantil</a></li>
+                            <li><a href="#student-club">Student Club UNC</a></li>
                         </ul>
                     </li>
 
@@ -137,7 +139,6 @@ usort($eventos, function ($a, $b) {
                 </ul>
             </nav>
         </div>
-
     </header>
 
     <!-- Hero Principal -->

@@ -2918,3 +2918,152 @@ body > div > iframe[src*="recaptcha/api2/bframe"] {
         font-size: 0.85em;
     }
 }
+
+/* ========================================
+   DROPDOWN COMUNIDADES
+======================================== */
+
+/* Estilos base del dropdown */
+.dropdown-comunidades {
+    position: relative;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dropdown-toggle .arrow {
+    font-size: 0.7em;
+    transition: transform 0.3s ease;
+}
+
+/* Submenu oculto por defecto */
+.submenu-comunidades {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--gradient-primary);
+    list-style: none;
+    padding: 10px 0;
+    margin: 8px 0 0 0;
+    min-width: 200px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.submenu-comunidades li {
+    padding: 0;
+    margin: 0;
+}
+
+.submenu-comunidades a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.submenu-comunidades a:hover {
+    background: rgba(63, 192, 240, 0.15);
+    color: #3FC0F0;
+    border-left-color: #3FC0F0;
+    padding-left: 25px;
+}
+
+/* Mostrar submenu al hacer hover en desktop */
+.dropdown-comunidades:hover .submenu-comunidades {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-comunidades:hover .dropdown-toggle .arrow {
+    transform: rotate(180deg);
+}
+
+/* ========================================
+   RESPONSIVE - MÓVILES (Menú hamburguesa)
+======================================== */
+
+@media (max-width: 900px) {
+    /* Ajustes para el dropdown en menú móvil */
+    .dropdown-comunidades {
+        width: 100%;
+    }
+    
+    .dropdown-toggle {
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px 20px;
+    }
+    
+    /* Submenu se comporta como acordeón en móvil */
+    .submenu-comunidades {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        box-shadow: none;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Cuando el dropdown está activo */
+    .dropdown-comunidades.active .submenu-comunidades {
+        max-height: 400px;
+        padding: 8px 0;
+        margin-top: 5px;
+    }
+    
+    .dropdown-comunidades.active .dropdown-toggle .arrow {
+        transform: rotate(180deg);
+    }
+    
+    .submenu-comunidades a {
+        padding: 10px 20px 10px 40px;
+        font-size: 0.9em;
+        border-left: 3px solid transparent;
+    }
+    
+    .submenu-comunidades a:hover {
+        background: rgba(63, 192, 240, 0.2);
+        padding-left: 45px;
+    }
+}
+
+@media (max-width: 768px) {
+    .submenu-comunidades a {
+        padding: 10px 15px 10px 35px;
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 480px) {
+    .dropdown-toggle {
+        font-size: 1em;
+        padding: 8px 15px;
+    }
+    
+    .submenu-comunidades a {
+        padding: 8px 12px 8px 30px;
+        font-size: 0.8em;
+    }
+}

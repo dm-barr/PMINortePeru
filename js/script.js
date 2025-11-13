@@ -514,15 +514,30 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// DROPDOWN COMUNIDADES EN MÓVILES
+/* ========================================
+   DROPDOWN COMUNIDADES - CLICK EN MÓVILES
+======================================== */
+
 document.addEventListener("DOMContentLoaded", function () {
   const dropdownToggle = document.querySelector(".dropdown-toggle");
   const dropdownComunidades = document.querySelector(".dropdown-comunidades");
 
-  if (dropdownToggle && window.innerWidth <= 768) {
+  if (dropdownToggle && dropdownComunidades) {
     dropdownToggle.addEventListener("click", function (e) {
-      e.preventDefault();
-      dropdownComunidades.classList.toggle("active");
+      // Solo prevenir default y toggle en móviles
+      if (window.innerWidth <= 900) {
+        e.preventDefault();
+        dropdownComunidades.classList.toggle("active");
+      }
+    });
+
+    // Cerrar el dropdown si se hace clic fuera
+    document.addEventListener("click", function (e) {
+      if (window.innerWidth <= 900) {
+        if (!dropdownComunidades.contains(e.target)) {
+          dropdownComunidades.classList.remove("active");
+        }
+      }
     });
   }
 });
