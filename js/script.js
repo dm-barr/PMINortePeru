@@ -66,87 +66,91 @@ if (prefersReduced) {
 // ============================================
 // CONFIGURACIÓN RECAPTCHA V3
 // ============================================
-const RECAPTCHA_SITE_KEY_V3 = '6LdvMAgsAAAAADUpao4CRIs4Irv2zsIbT95UN_mg';
+const RECAPTCHA_SITE_KEY_V3 = "6LdvMAgsAAAAADUpao4CRIs4Irv2zsIbT95UN_mg";
 
 // FORMULARIO DE VOLUNTARIADO
-const formVoluntariado = document.getElementById('voluntarioFormReclutamiento');
+const formVoluntariado = document.getElementById("voluntarioFormReclutamiento");
 if (formVoluntariado) {
-  console.log('Formulario de voluntariado encontrado');
-  formVoluntariado.addEventListener('submit', async (e) => {
+  console.log("Formulario de voluntariado encontrado");
+  formVoluntariado.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-        // Validar campos requeridos
+    // Validar campos requeridos
     if (!formVoluntariado.checkValidity()) {
-        formVoluntariado.reportValidity(); // Muestra mensajes de error nativos
-        return;
+      formVoluntariado.reportValidity(); // Muestra mensajes de error nativos
+      return;
     }
 
-    console.log('Ejecutando reCAPTCHA v3...');
-    
+    console.log("Ejecutando reCAPTCHA v3...");
+
     try {
-      const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY_V3, {action: 'submit_voluntariado'});
-      console.log('Token reCAPTCHA recibido:', token);
-      
-      const formData = new FormData(formVoluntariado);
-      formData.append('formType', 'voluntariado');
-      formData.append('g-recaptcha-response', token);
-      
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbxC-04gzCeK6aiBtxx1S6s36mJ7jEX6J9qkWddDLtCxBpzRN2YoCIeqe-5AJshgjPFJzQ/exec';
-      
-      const response = await fetch(scriptURL, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
+      const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY_V3, {
+        action: "submit_voluntariado",
       });
-      
-      console.log('Formulario enviado exitosamente');
-      alert('Formulario enviado exitosamente');
+      console.log("Token reCAPTCHA recibido:", token);
+
+      const formData = new FormData(formVoluntariado);
+      formData.append("formType", "voluntariado");
+      formData.append("g-recaptcha-response", token);
+
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbxC-04gzCeK6aiBtxx1S6s36mJ7jEX6J9qkWddDLtCxBpzRN2YoCIeqe-5AJshgjPFJzQ/exec";
+
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors",
+      });
+
+      console.log("Formulario enviado exitosamente");
+      alert("Formulario enviado exitosamente");
       formVoluntariado.reset();
-      
-      const formModal = document.getElementById('formModal');
-      if (formModal) formModal.classList.add('oculto');
-      
+
+      const formModal = document.getElementById("formModal");
+      if (formModal) formModal.classList.add("oculto");
     } catch (err) {
-      console.error('Error al enviar:', err);
-      alert('Error al enviar. Inténtalo nuevamente.');
+      console.error("Error al enviar:", err);
+      alert("Error al enviar. Inténtalo nuevamente.");
     }
   });
 }
 
 // FORMULARIO DE CONTACTO
-const formContacto = document.getElementById('contactForm');
+const formContacto = document.getElementById("contactForm");
 if (formContacto) {
-  console.log('Formulario de contacto encontrado');
-  formContacto.addEventListener('submit', async (e) => {
+  console.log("Formulario de contacto encontrado");
+  formContacto.addEventListener("submit", async (e) => {
     e.preventDefault();
-        // Validar campos requeridos
+    // Validar campos requeridos
     if (!formContacto.checkValidity()) {
-        formContacto.reportValidity(); // Muestra mensajes de error nativos
-        return;
+      formContacto.reportValidity(); // Muestra mensajes de error nativos
+      return;
     }
-    console.log('Ejecutando reCAPTCHA v3...');
-    
+    console.log("Ejecutando reCAPTCHA v3...");
+
     try {
-      const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY_V3, {action: 'submit_contacto'});
-      console.log('Token reCAPTCHA recibido:', token);
-      
-      const formData = new FormData(formContacto);
-      formData.append('formType', 'contacto');
-      formData.append('g-recaptcha-response', token);
-      
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbxC-04gzCeK6aiBtxx1S6s36mJ7jEX6J9qkWddDLtCxBpzRN2YoCIeqe-5AJshgjPFJzQ/exec';
-      
-      const response = await fetch(scriptURL, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
+      const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY_V3, {
+        action: "submit_contacto",
       });
-      
-      console.log('Mensaje enviado exitosamente');
+      console.log("Token reCAPTCHA recibido:", token);
+
+      const formData = new FormData(formContacto);
+      formData.append("formType", "contacto");
+      formData.append("g-recaptcha-response", token);
+
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbxC-04gzCeK6aiBtxx1S6s36mJ7jEX6J9qkWddDLtCxBpzRN2YoCIeqe-5AJshgjPFJzQ/exec";
+
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors",
+      });
+
+      console.log("Mensaje enviado exitosamente");
       formContacto.reset();
-      
     } catch (err) {
-      console.error('Error al enviar:', err);
+      console.error("Error al enviar:", err);
     }
   });
 }
@@ -487,26 +491,38 @@ function onSubmitContacto(token) {
     });
 }
 
-
 // MENU HAMBURGUESA - TOGGLE
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('menu-toggle');
-    const menu = document.querySelector('.menu');
-    const menuIcon = document.querySelector('.menu-icon');
-    
-    if (menuToggle && menuIcon) {
-        menuIcon.addEventListener('click', function() {
-            menuToggle.checked = !menuToggle.checked;
-        });
-    }
-    
-    // Cerrar menú al hacer clic en un enlace
-    const menuLinks = document.querySelectorAll('.menu a');
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (menuToggle) {
-                menuToggle.checked = false;
-            }
-        });
+document.addEventListener("DOMContentLoaded", function () {
+  const menuToggle = document.getElementById("menu-toggle");
+  const menu = document.querySelector(".menu");
+  const menuIcon = document.querySelector(".menu-icon");
+
+  if (menuToggle && menuIcon) {
+    menuIcon.addEventListener("click", function () {
+      menuToggle.checked = !menuToggle.checked;
     });
+  }
+
+  // Cerrar menú al hacer clic en un enlace
+  const menuLinks = document.querySelectorAll(".menu a");
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", function () {
+      if (menuToggle) {
+        menuToggle.checked = false;
+      }
+    });
+  });
+});
+
+// DROPDOWN COMUNIDADES EN MÓVILES
+document.addEventListener("DOMContentLoaded", function () {
+  const dropdownToggle = document.querySelector(".dropdown-toggle");
+  const dropdownComunidades = document.querySelector(".dropdown-comunidades");
+
+  if (dropdownToggle && window.innerWidth <= 768) {
+    dropdownToggle.addEventListener("click", function (e) {
+      e.preventDefault();
+      dropdownComunidades.classList.toggle("active");
+    });
+  }
 });

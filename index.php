@@ -119,11 +119,25 @@ usort($eventos, function ($a, $b) {
                     <li><a href="#cta">Membresía</a></li>
                     <li><a href="#junta-directiva">Junta Directiva</a></li>
                     <li><a href="#voluntariado">Voluntariado</a></li>
+
+                    <!-- NUEVO: Menú desplegable de Comunidades -->
+                    <li class="dropdown-comunidades">
+                        <a href="#" class="dropdown-toggle">Comunidades ▼</a>
+                        <ul class="submenu-comunidades">
+                            <li><a href="#cajamarca">Cajamarca</a></li>
+                            <li><a href="#trujillo">Trujillo</a></li>
+                            <li><a href="#piura">Piura</a></li>
+                            <li><a href="#chiclayo">Estudiantil</a></li>
+                            <li><a href="https://comunidadunc.pminorteperu.org/">Student Club UNC</a></li>
+                        </ul>
+                    </li>
+
                     <a href="https://www.pmi.org/shop/p-/chapter-membership/norte-per%C3%BA-chapter/101293"
                         class="btn-hazte">Hazte miembro</a>
                 </ul>
             </nav>
         </div>
+
     </header>
 
     <!-- Hero Principal -->
@@ -222,20 +236,20 @@ usort($eventos, function ($a, $b) {
 
             <div class="cards-eventos">
                 <?php if (!empty($eventos)): ?>
-                        <?php foreach ($eventos as $evento): ?>
+                    <?php foreach ($eventos as $evento): ?>
                         <div class="card-evento" data-ciudad="<?php echo htmlspecialchars($evento['comunidad']); ?>">
                             <!-- ✅ FECHA CON RANGO CONDICIONAL -->
-                            <span     class="fecha"><?php echo formatearRangoFechas($evento['fecha_inicio'], $evento['fecha_fin']); ?></span>
+                            <span
+                                class="fecha"><?php echo formatearRangoFechas($evento['fecha_inicio'], $evento['fecha_fin']); ?></span>
 
                             <?php if (!empty($evento['imagen'])): ?>
-                                            <img src="<?php echo htmlspecialchars($evento['imagen']); ?>"
-                                alt="
+                                <img src="<?php echo htmlspecialchars($evento['imagen']); ?>" alt="
                     <?php echo htmlspecialchars($evento['nombre']); ?>">
                             <?php else: ?>
                                 <img src="https://via.placeholder.com/400x250?text=Sin+Imagen" alt="Sin imagen">
                             <?php endif; ?>
 
-                                    <h3><?php echo htmlspecialchars($evento['nombre']); ?></h3>
+                            <h3><?php echo htmlspecialchars($evento['nombre']); ?></h3>
 
                             <!-- ✅ DESCRIPCIÓN CORTA DEBAJO DEL TÍTULO -->
                             <?php if (!empty($evento['descripcion_corta'])): ?>
@@ -248,22 +262,22 @@ usort($eventos, function ($a, $b) {
                                 <button class="btn-evento btn-info"
                                     onclick="mostrarInfoEvento(<?php echo $evento['id_Evento']; ?>)">
                                     Ver información
-                                    </button>
+                                </button>
 
-                                    <?php if (!empty($evento['link'])): ?>
-                                            <a href="<?php echo htmlspecialchars($evento['link']); ?>"
+                                <?php if (!empty($evento['link'])): ?>
+                                    <a href="<?php echo htmlspecialchars($evento['link']); ?>"
                                         class="btn-evento btn-registro">Regístrate</a>
-                                    <?php else: ?>
-                                        <a href="#" class="btn-evento btn-registro">Regístrate</a>
-                                    <?php endif; ?>
-                                            </div>
-                                            </div>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <p>No hay eventos disponibles en este momento.</p>
-                            <?php endif; ?>
-                    </div>
-                </div>
+                                <?php else: ?>
+                                    <a href="#" class="btn-evento btn-registro">Regístrate</a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>No hay eventos disponibles en este momento.</p>
+                <?php endif; ?>
+            </div>
+        </div>
     </section>
 
     <!-- MODAL PARA INFORMACIÓN DEL EVENTO -->
