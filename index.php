@@ -130,7 +130,7 @@ usort($eventos, function ($a, $b) {
                             <li><a href="#trujillo">Trujillo</a></li>
                             <li><a href="#piura">Piura</a></li>
                             <li><a href="#estudiantil">Estudiantil</a></li>
-                            <li><a href="#student-club">Student Club UNC</a></li>
+                            <li><a href="https://comunidadunc.pminorteperu.org/">Student Club UNC</a></li>
                         </ul>
                     </li>
 
