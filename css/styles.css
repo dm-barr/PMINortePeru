@@ -2825,110 +2825,21 @@ body > div > iframe[src*="recaptcha/api2/bframe"] {
         border-bottom: none;
     }
 }
-
 /* ========================================
-   DROPDOWN COMUNIDADES
+   DROPDOWN UNIFICADO (Comunidad + Membresía + Certificación)
 ======================================== */
 
-.dropdown-comunidades {
+/* Contenedor dropdown */
+.dropdown-comunidades,
+.dropdown-beneficios,
+.dropdown-certificacion {
     position: relative;
 }
 
-.dropdown-toggle {
-    cursor: pointer;
-    user-select: none;
-}
-
-/* Ocultar submenu por defecto */
-.submenu-comunidades {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: var(--gradient-primary);
-    list-style: none;
-    padding: 10px 0;
-    margin: 0;
-    min-width: 180px;
-    border-radius: 8px;
-    box-shadow: var(--shadow-lg);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    z-index: 1000;
-}
-
-/* Mostrar submenu al hacer hover */
-.dropdown-comunidades:hover .submenu-comunidades {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.submenu-comunidades li {
-    padding: 0;
-}
-
-.submenu-comunidades a {
-    display: block;
-    padding: 12px 20px;
-    color: var(--color-white);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9em;
-    transition: var(--transition-fast);
-}
-
-.submenu-comunidades a:hover {
-    background: rgba(63, 192, 240, 0.2);
-    color: #3FC0F0;
-    padding-left: 25px;
-}
-
-/* ========================================
-   RESPONSIVE - MÓVILES
-======================================== */
-
-@media (max-width: 768px) {
-    .submenu-comunidades {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-        box-shadow: none;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 0;
-    }
-    
-    .dropdown-comunidades:hover .submenu-comunidades,
-    .dropdown-comunidades.active .submenu-comunidades {
-        max-height: 300px;
-    }
-    
-    .dropdown-toggle::after {
-        content: " ▼";
-        font-size: 0.8em;
-    }
-    
-    .submenu-comunidades a {
-        padding-left: 40px;
-        font-size: 0.85em;
-    }
-}
-
-/* ========================================
-   DROPDOWN COMUNIDADES
-======================================== */
-
-/* Estilos base del dropdown */
-.dropdown-comunidades {
-    position: relative;
-}
-
-.dropdown-toggle {
+/* Toggle */
+.dropdown-comunidades .dropdown-toggle,
+.dropdown-beneficios .dropdown-toggle,
+.dropdown-certificacion .dropdown-toggle {
     cursor: pointer;
     user-select: none;
     display: flex;
@@ -2936,17 +2847,22 @@ body > div > iframe[src*="recaptcha/api2/bframe"] {
     gap: 5px;
 }
 
-.dropdown-toggle .arrow {
+/* Flecha */
+.dropdown-comunidades .arrow,
+.dropdown-beneficios .arrow,
+.dropdown-certificacion .arrow {
     font-size: 0.7em;
     transition: transform 0.3s ease;
 }
 
-/* Submenu oculto por defecto */
-.submenu-comunidades {
+/* Submenú */
+.submenu-comunidades,
+.submenu-membresia,
+.submenu-certificacion {
     position: absolute;
     top: 100%;
     left: 0;
-    background: var(--gradient-primary);
+    background: var(--color-white);
     list-style: none;
     padding: 10px 0;
     margin: 8px 0 0 0;
@@ -2960,15 +2876,19 @@ body > div > iframe[src*="recaptcha/api2/bframe"] {
     z-index: 1000;
 }
 
-.submenu-comunidades li {
-    padding: 0;
+.submenu-comunidades li,
+.submenu-membresia li,
+.submenu-certificacion li {
     margin: 0;
+    padding: 0;
 }
 
-.submenu-comunidades a {
+.submenu-comunidades a,
+.submenu-membresia a,
+.submenu-certificacion a {
     display: block;
     padding: 12px 20px;
-    color: var(--color-white);
+    color: var(--color-text-dark);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9em;
@@ -2976,42 +2896,55 @@ body > div > iframe[src*="recaptcha/api2/bframe"] {
     border-left: 3px solid transparent;
 }
 
-.submenu-comunidades a:hover {
+.submenu-comunidades a:hover,
+.submenu-membresia a:hover,
+.submenu-certificacion a:hover {
     background: rgba(63, 192, 240, 0.15);
     color: #3FC0F0;
     border-left-color: #3FC0F0;
     padding-left: 25px;
 }
 
-/* Mostrar submenu al hacer hover en desktop */
-.dropdown-comunidades:hover .submenu-comunidades {
+/* Mostrar en desktop */
+.dropdown-comunidades:hover .submenu-comunidades,
+.dropdown-beneficios:hover .submenu-membresia,
+.dropdown-certificacion:hover .submenu-certificacion {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-.dropdown-comunidades:hover .dropdown-toggle .arrow {
+.dropdown-comunidades:hover .arrow,
+.dropdown-beneficios:hover .arrow,
+.dropdown-certificacion:hover .arrow {
     transform: rotate(180deg);
 }
 
+
 /* ========================================
-   RESPONSIVE - MÓVILES (Menú hamburguesa)
+   RESPONSIVE - MÓVIL (Acordeón)
 ======================================== */
 
 @media (max-width: 900px) {
-    /* Ajustes para el dropdown en menú móvil */
-    .dropdown-comunidades {
+
+    .dropdown-comunidades,
+    .dropdown-beneficios,
+    .dropdown-certificacion {
         width: 100%;
     }
-    
-    .dropdown-toggle {
+
+    .dropdown-comunidades .dropdown-toggle,
+    .dropdown-beneficios .dropdown-toggle,
+    .dropdown-certificacion .dropdown-toggle {
         justify-content: space-between;
         width: 100%;
         padding: 10px 20px;
     }
-    
-    /* Submenu se comporta como acordeón en móvil */
-    .submenu-comunidades {
+
+    /* Acordeón */
+    .submenu-comunidades,
+    .submenu-membresia,
+    .submenu-certificacion {
         position: static;
         opacity: 1;
         visibility: visible;
@@ -3019,50 +2952,61 @@ body > div > iframe[src*="recaptcha/api2/bframe"] {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.4s ease, padding 0.4s ease;
-        box-shadow: none;
         background: rgba(255, 255, 255, 0.08);
         border-radius: 0;
         margin: 0;
         padding: 0;
+        box-shadow: none;
     }
-    
-    /* Cuando el dropdown está activo */
-    .dropdown-comunidades.active .submenu-comunidades {
+
+    .dropdown-comunidades.active .submenu-comunidades,
+    .dropdown-beneficios.active .submenu-membresia,
+    .dropdown-certificacion.active .submenu-certificacion {
         max-height: 400px;
         padding: 8px 0;
         margin-top: 5px;
     }
-    
-    .dropdown-comunidades.active .dropdown-toggle .arrow {
+
+    .dropdown-comunidades.active .arrow,
+    .dropdown-beneficios.active .arrow,
+    .dropdown-certificacion.active .arrow {
         transform: rotate(180deg);
     }
-    
-    .submenu-comunidades a {
+
+    .submenu-comunidades a,
+    .submenu-membresia a,
+    .submenu-certificacion a {
         padding: 10px 20px 10px 40px;
         font-size: 0.9em;
-        border-left: 3px solid transparent;
     }
-    
-    .submenu-comunidades a:hover {
-        background: rgba(63, 192, 240, 0.2);
+
+    .submenu-comunidades a:hover,
+    .submenu-membresia a:hover,
+    .submenu-certificacion a:hover {
         padding-left: 45px;
     }
 }
 
 @media (max-width: 768px) {
-    .submenu-comunidades a {
+    .submenu-comunidades a,
+    .submenu-membresia a,
+    .submenu-certificacion a {
         padding: 10px 15px 10px 35px;
         font-size: 0.85em;
     }
 }
 
 @media (max-width: 480px) {
-    .dropdown-toggle {
+    .dropdown-comunidades .dropdown-toggle,
+    .dropdown-beneficios .dropdown-toggle,
+    .dropdown-certificacion .dropdown-toggle {
         font-size: 1em;
         padding: 8px 15px;
     }
-    
-    .submenu-comunidades a {
+
+    .submenu-comunidades a,
+    .submenu-membresia a,
+    .submenu-certificacion a {
         padding: 8px 12px 8px 30px;
         font-size: 0.8em;
     }

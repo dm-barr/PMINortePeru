@@ -1,0 +1,388 @@
+/* ========================================
+   VARIABLES Y CONFIGURACIÓN GLOBAL
+======================================== */
+:root {
+    --color-primary: #4F17A8;
+    --color-secondary: #3FC0F0;
+    --color-accent: #FF610F;
+    --gradient-morado: linear-gradient(135deg, #4F17A8 0%, #2a0c5a 50%, #15062b 100%);
+    --gradient-morado-suave: linear-gradient(135deg, #4F17A8 0%, #2a0c5a 100%);
+    --gradient-celeste: linear-gradient(135deg, #3FC0F0 0%, #1a6c8c 50%, #0b2e3a 100%);
+    --gradient-celeste-suave: linear-gradient(135deg, #3FC0F0 0%, #1a6c8c 100%);
+    --gradient-naranja: linear-gradient(135deg, #FF610F 0%, #993707 50%, #3d1603 100%);
+    --gradient-primary: linear-gradient(45deg, #4F17A8 0%, #2a0c5a 100%);
+    --gradient-accent-highlight: linear-gradient(135deg, #FF610F 0%, #4F17A8 100%);
+    --gradient-dark: linear-gradient(to bottom, #15062b, #2a0c5a);
+    --color-white: #ffffff;
+    --color-light-bg: #f8f9fa;
+    --color-text-dark: #040404;
+    --color-text-medium: #555555;
+    --color-text-light: #d5d5d5;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 12px rgba(79, 23, 168, 0.15);
+    --shadow-lg: 0 10px 25px rgba(79, 23, 168, 0.2);
+    --shadow-xl: 0 15px 35px rgba(79, 23, 168, 0.25);
+    --shadow-celeste: 0 8px 20px rgba(63, 192, 240, 0.3);
+    --shadow-naranja: 0 8px 20px rgba(255, 97, 15, 0.4);
+    --spacing-xs: 8px;
+    --spacing-sm: 15px;
+    --spacing-md: 30px;
+    --spacing-lg: 50px;
+    --spacing-xl: 80px;
+    --spacing-2xl: 100px;
+    --transition-fast: all 0.2s ease;
+    --transition-base: all 0.3s ease;
+    --transition-slow: all 0.4s ease;
+}
+
+/* ========================================
+   ESTILOS GENERALES
+======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--color-text-dark);
+    background-color: var(--color-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   BARRA SUPERIOR
+======================================== */
+.topbar {
+    background: var(--color-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-lg);
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: var(--shadow-sm);
+}
+
+.topbar-left a {
+    color: var(--color-text-dark);
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 1.2em;
+    transition: var(--transition-fast);
+}
+
+.topbar-left a:hover {
+    color: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    font-size: 0.95em;
+}
+
+.topbar-right .separator {
+    margin: 0 var(--spacing-xs);
+    color: #777;
+}
+
+.topbar-right .contact-link {
+    color: #3FC0F0;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.topbar-right .contact-link:hover {
+    color: #1a6c8c;
+    text-decoration: underline;
+}
+
+/* ========================================
+   NAVBAR PRINCIPAL
+======================================== */
+.menu-toggle {
+    display: none;
+}
+
+.navbar {
+    background: var(--gradient-primary);
+    padding: 12px var(--spacing-lg);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    height: 50px;
+    z-index: 1001;
+}
+
+.menu-icon {
+    display: none;
+    font-size: 2em;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1001;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.menu a {
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95em;
+    transition: var(--transition-fast);
+}
+
+.menu a:hover {
+    color: #3FC0F0;
+}
+
+.btn-hazte {
+    background: #3FC0F0;
+    color: var(--color-white);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: var(--transition-base);
+}
+
+.btn-hazte:hover {
+    background: #FF610F;
+    color: var(--color-white);
+    box-shadow: var(--shadow-naranja);
+    transform: translateY(-2px);
+}
+
+/* Submenu  /////////////////////////////////////////////////////////////// *
+
+
+
+
+
+
+/* ========================================
+   HEADER BANNER DE PÁGINA (Barra Morada Superior)
+   ======================================== */
+
+.submenu-comunidades a,
+.submenu-membresia a,
+.submenu-certificacion a {
+    
+    color: var(--color-text-dark);
+    
+}
+
+
+
+
+
+
+/* ========================================
+   ESTRUCTURA Y LAYOUT DE DOS COLUMNAS
+   ======================================== */
+
+/* Barra Morada Superior (header-banner) */
+.header-banner {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 30px 0;
+    margin-bottom: 30px; /* Separación del layout principal */
+}
+
+.header-banner h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Contenedor Flexbox para Sidebar y Contenido */
+.contenedor-principal {
+    display: flex; /* Habilita el diseño de dos columnas */
+    gap: 40px; 
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px var(--spacing-lg); 
+}
+
+/* Columna Izquierda: Sidebar de Navegación */
+.sidebar-navegacion {
+    flex: 0 0 250px; /* Ancho fijo */
+    background-color: var(--color-white); 
+    padding: 25px 0 25px 0;
+    border-radius: 8px; 
+    box-shadow: var(--shadow-sm); 
+    height: fit-content; /* Se ajusta al tamaño del contenido */
+}
+
+.sidebar-navegacion h4 {
+    color: var(--color-text-dark);
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 0 25px 15px 25px; 
+    margin: 0 0 10px 0; 
+    border-bottom: 1px solid #eee; 
+}
+
+.sidebar-navegacion ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilo base de los enlaces del Sidebar */
+.sidebar-navegacion ul li a {
+    display: block;
+    padding: 10px 25px; 
+    font-size: 0.95em;
+    text-decoration: none;
+    color: #555; /* Color intermedio para el texto */
+    font-weight: 400; 
+    transition: var(--transition-fast);
+    border-left: 3px solid transparent; /* Espacio para el indicador */
+}
+
+/* Efecto Hover */
+.sidebar-navegacion ul li a:hover {
+    background-color: #f7f7f7; 
+    color: var(--color-text-dark);
+}
+
+/* INDICADOR DE ENLACE ACTIVO (La línea morada y fondo suave) */
+.sidebar-navegacion ul li a.activo {
+    background-color: var(--color-sidebar-active); /* Fondo morado muy suave */
+    color: var(--color-primary); 
+    font-weight: 700; 
+    border-left: 3px solid var(--color-primary); /* La línea morada distintiva */
+}
+
+/* Columna Derecha: Contenido Principal */
+.contenido-beneficios {
+    flex: 1; 
+    min-width: 0; 
+    padding-top: 5px; /* Pequeño ajuste para alinear con el sidebar */
+}
+
+.contenido-beneficios h2 {
+    color: var(--color-text-dark);
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.introduccion {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--color-text-dark);
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.video-container {
+    margin-bottom: 25px;
+}
+
+.video-container .placeholder-video {
+    /* Estilo del contenedor del video */
+    background: #e0e0e0;
+    height: 350px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+
+/* ========================================
+   ESTILO DE TARJETA DE BENEFICIO (Bacanes)
+   ======================================== */
+
+.contenedor-tarjetas {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr; /* Una columna para el diseño limpio */
+    gap: 20px;
+}
+
+.beneficio-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 25px 30px;
+    background-color: var(--color-white); 
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
+    transition: var(--transition-base);
+    border-left: 6px solid var(--color-primary); 
+}
+
+.beneficio-card:hover {
+    transform: translateY(-5px); /* Efecto 3D de levantamiento */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+}
+
+.icono-beneficio {
+    color: var(--color-primary); 
+    font-size: 2.8rem; /* Iconos más grandes */
+    min-width: 50px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.beneficio-contenido h3 {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: var(--color-primary); /* Título en morado */
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+/* Variante Secundaria (Celeste) */
+.beneficio-card.secundario {
+    border-left-color: var(--color-secondary); 
+}
+
+.beneficio-card.secundario .icono-beneficio,
+.beneficio-card.secundario .beneficio-contenido h3 {
+    color: var(--color-secondary);
+}
+
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 900px) {
+    .contenedor-principal {
+        flex-direction: column; /* Apila las columnas */
+        gap: 20px;
+    }
+    
+    .sidebar-navegacion {
+        flex: 1 1 100%; /* Ocupa todo el ancho */
+    }
+
+    .beneficio-card {
+        padding: 20px; /* Menos padding en móvil */
+    }
+}

@@ -116,7 +116,25 @@ usort($eventos, function ($a, $b) {
                     <li><a href="#hero">Inicio</a></li>
                     <li><a href="#nosotros">Nosotros</a></li>
                     <li><a href="#eventos">Eventos</a></li>
-                    <li><a href="#cta">Membresía</a></li>
+                    <li class="dropdown-beneficios">
+                        <a href="#cta" class="dropdown-toggle">
+                            Membresía <span class="arrow">▼</span></a>
+                             <ul class="submenu-membresia">
+                            <li><a href="beneficios.php">Beneficios</a></li>
+                            <li><a href="#">Tipos de Mebresía</a></li>
+                            <li><a href="manuales.php">Manuales</a></li>
+                            <li><a href="#">Videos</a></li>
+                        </ul> 
+                    </li>
+                    <li class="dropdown-certificacion">
+                        <a href="#" class="dropdown-toggle">
+                            Certificación <span class="arrow">▼</span></a>
+                             <ul class="submenu-certificacion">
+                            <li><a href="certificaciones.php">Principales</a></li>
+                            <li><a href="#">Especializadas</a></li>
+                            <li><a href="#">Recursos</a></li>
+                        </ul> 
+                    </li>
                     <li><a href="#junta-directiva">Junta Directiva</a></li>
                     <li><a href="#voluntariado">Voluntariado</a></li>
 

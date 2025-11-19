@@ -1,0 +1,148 @@
+/* ========================================
+   ESTILOS PÁGINA DE MANUALES 
+======================================== */
+
+/* === ¡ARREGLO 1! === */
+
+body {
+    background-color: var(--color-light-bg, #f8f9fa);
+}
+
+.manuales-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: var(--spacing-lg, 50px) 20px;
+}
+
+/* --- Cabecera de la página --- */
+.header-manuales {
+    text-align: center;
+    margin-bottom: var(--spacing-xl, 80px);
+}
+
+.header-manuales h1 {
+    color: var(--color-primary, #4F17A8);
+    font-size: 2.8em;
+    font-weight: 800;
+    margin-bottom: var(--spacing-xs, 8px);
+}
+
+.header-manuales p {
+    font-size: 1.15em;
+    color: var(--color-text-medium, #555);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* --- Estilo de cada Manual --- */
+.manual-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-lg, 50px);
+    margin-bottom: var(--spacing-lg, 50px);
+    padding: var(--spacing-md, 30px);
+    
+    /* === ¡ARREGLO 2! === */
+    /* Fondo blanco puro y una sombra más fuerte */
+    background: var(--color-white, #fff);
+    border-radius: 20px;
+    box-shadow: var(--shadow-md, 0 4px 12px rgba(79, 23, 168, 0.15));
+    overflow: hidden;
+    transition: var(--transition-base, all 0.3s ease);
+}
+
+/* Efecto hover mejorado */
+.manual-item:hover {
+    box-shadow: var(--shadow-lg, 0 10px 25px rgba(79, 23, 168, 0.2));
+    transform: translateY(-5px);
+}
+
+.manual-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.manual-texto {
+    flex: 2; /* El texto ocupa 2 de 3 */
+    min-width: 300px;
+    text-align: center;
+}
+
+
+.manual-imagen {
+    flex: 1; /* La imagen ocupa 1 de 3 */
+    min-width: 250px;
+}
+
+.manual-imagen a {
+    display: block; 
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra sutil para la imagen */
+    transition: var(--transition-base, all 0.3s ease);
+}
+
+.manual-imagen img {
+    width: 100%;
+    display: block;
+}
+
+.manual-imagen a:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-celeste, 0 8px 20px rgba(63, 192, 240, 0.3));
+}
+
+.manual-texto h2 {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--color-primary, #4F17A8);
+    margin-bottom: var(--spacing-sm, 15px);
+}
+
+.manual-texto p {
+    font-size: 1.05em;
+    line-height: 1.7;
+    color: var(--color-text-medium, #555);
+    margin-bottom: var(--spacing-md, 30px);
+    text-align: justify;
+}
+
+.btn-manual {
+    /* Usamos tu estilo de botón naranja */
+    background: var(--gradient-naranja, #FF610F);
+    color: var(--color-white, #fff);
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1em;
+    box-shadow: var(--shadow-naranja, 0 8px 20px rgba(255, 97, 15, 0.4));
+    transition: var(--transition-base, all 0.3s ease);
+    display: inline-block; /* Importante para que el botón se vea bien */
+}
+
+.btn-manual:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(255, 97, 15, 0.5);
+    /* Se convierte en celeste al pasar el mouse */
+    background: var(--gradient-celeste-suave, #3FC0F0);
+    box-shadow: var(--shadow-celeste, 0 8px 20px rgba(63, 192, 240, 0.3));
+}
+
+/* --- Responsividad --- */
+@media (max-width: 768px) {
+    .manual-item,
+    .manual-item:nth-child(even) {
+        /* En móvil, siempre es vertical (texto primero) */
+        flex-direction: column; 
+    }
+
+    .manual-texto {
+        text-align: center;
+    }
+
+    .manual-imagen {
+        width: 100%;
+        max-width: 300px; /* Evita que la imagen sea gigante */
+    }
+}

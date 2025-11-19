@@ -1,0 +1,446 @@
+/* ========================================
+   SECCIÓN CERTIFICACIONES
+======================================== */
+
+.section-certificaciones {
+    padding: var(--spacing-xl, 50px) 20px;
+    background: var(--color-light-bg, #f8f9fa);
+}
+
+.header-certificaciones {
+    text-align: center;
+    margin-bottom: var(--spacing-lg, 50px);
+}
+
+.header-certificaciones h2 {
+    color: var(--color-primary, #4F17A8);
+    font-size: 2.5em;
+    font-weight: 800;
+    margin-bottom: var(--spacing-xs, 8px);
+}
+
+.header-certificaciones p {
+    font-size: 1.1em;
+    color: var(--color-text-medium, #555555);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.cert-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md, 30px);
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+.cert-card {
+    background: var(--gradient-dark, linear-gradient(to bottom, #15062b, #2a0c5a));
+    color: var(--color-text-light, #d5d5d5);
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-md, 0 4px 12px rgba(79, 23, 168, 0.15));
+    transition: var(--transition-base, all 0.3s ease);
+    overflow: hidden;
+}
+
+.cert-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-celeste, 0 8px 20px rgba(63, 192, 240, 0.3));
+}
+
+.cert-card .cert-contenido-normal {
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+}
+
+.cert-card img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: var(--spacing-sm, 15px);
+    aspect-ratio: 16 / 9;
+    /*con el circulo completo se usa contain*/
+    object-fit: cover;
+}
+
+.cert-card h3 {
+    color: var(--color-secondary, #3FC0F0);
+    font-size: 1.4em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    min-height: 2.8em;
+    text-align: center;
+}
+
+.cert-card .cert-contenido-normal p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-sm, 15px);
+    flex-grow: 1;
+    text-align: justify;
+}
+
+.card-buttons {
+    margin-top: auto;
+}
+
+.btn-requisitos {
+    background: var(--gradient-celeste-suave, linear-gradient(135deg, #3FC0F0 0%, #1a6c8c 100%));
+    color: var(--color-white, #ffffff);
+    border: none;
+    border-radius: 25px;
+    padding: 12px 28px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: var(--shadow-celeste, 0 8px 20px rgba(63, 192, 240, 0.3));
+    transition: var(--transition-base, all 0.3s ease);
+    width: 100%;
+    font-size: 1em;
+}
+
+.btn-requisitos:hover {
+    background: var(--gradient-naranja, linear-gradient(135deg, #FF610F 0%, #993707 50%, #3d1603 100%));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-naranja, 0 8px 20px rgba(255, 97, 15, 0.4));
+}
+
+.cert-details {
+    display: none;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cert-details.visible {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.cert-details h4 {
+    color: var(--color-secondary, #3FC0F0);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.cert-details ul {
+    list-style-position: inside;
+    padding-left: 5px;
+    font-size: 0.9em;
+    color: var(--color-text-light, #d5d5d5);
+}
+
+.cert-details li {
+    margin-bottom: 5px;
+}
+
+.btn-saber-mas {
+    background: var(--gradient-naranja, #FF610F);
+    color: var(--color-white, #fff);
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 15px;
+    text-align: center;
+    box-shadow: var(--shadow-naranja, 0 8px 20px rgba(255, 97, 15, 0.4));
+    transition: var(--transition-base, all 0.3s ease);
+}
+
+.btn-saber-mas:hover {
+    background: var(--gradient-celeste-suave, #3FC0F0);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-celeste, 0 8px 20px rgba(63, 192, 240, 0.3));
+}
+
+.global-discover-wrapper {
+    text-align: center;
+    margin-top: var(--spacing-lg, 50px);
+}
+
+.btn-discover-global {
+    background: var(--gradient-morado-suave, linear-gradient(135deg, #4F17A8 0%, #2a0c5a 100%));
+    color: var(--color-white, #ffffff);
+    font-weight: 600;
+    padding: 16px 36px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: var(--transition-base, all 0.3s ease);
+    font-size: 1.1rem;
+    box-shadow: var(--shadow-lg, 0 10px 25px rgba(79, 23, 168, 0.2));
+    display: inline-block;
+}
+
+.btn-discover-global:hover {
+    background: var(--color-accent, #FF610F);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-naranja, 0 8px 20px rgba(255, 97, 15, 0.4));
+}
+/* ========================================
+   TÍTULOS DE GRUPO
+======================================== */
+.cert-group-header {
+    grid-column: 1 / -1; 
+    text-align: center;
+    font-size: 2.2em;
+    font-weight: 800;
+    color: var(--color-primary, #4F17A8);
+    margin-top: var(--spacing-lg, 50px);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--color-primary, #4F17A8);
+}
+
+.cert-subgroup-header {
+    grid-column: 1 / -1;
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--color-secondary, #3FC0F0);
+    margin-top: var(--spacing-md, 30px);
+    margin-bottom: 0px;
+    border-left: 4px solid var(--color-secondary, #3FC0F0);
+    padding-left: 10px;
+}
+
+/* ========================================
+   EXPANSIÓN DINÁMICA (¡VERSIÓN CORREGIDA!)
+======================================== */
+
+.cert-contenido-expandido {
+    display: none;
+    /* Totalmente oculto al inicio */
+}
+
+/* --- Estado del Contenedor (CUANDO SE ABRE UN DETALLE) --- */
+.cert-container.detalle-abierto .cert-card:not(.expandido) {
+    /* Solo desvanecemos las tarjetas que NO están activas */
+    opacity: 0.2;
+    transform: scale(0.95);
+    pointer-events: none;
+    /* No se puede hacer clic */
+    transition: all 0.4s ease;
+}
+
+/* --- Estilo de la Tarjeta EXPANDIDA (¡Sin position:fixed!) --- */
+.cert-card.expandido {
+    grid-column: 1 / -1;
+    width: 100%;
+
+    background: var(--color-light-bg, #f8f9fa);
+    color: var(--color-text-dark, #040404);
+
+    overflow-y: auto;
+    /* Permite scroll DENTRO de la tarjeta */
+    padding: var(--spacing-md, 30px);
+
+    animation: growIn 0.5s ease;
+    max-height: 90vh;
+    /* 90% del alto de la ventana */
+}
+
+/* Ocultamos el contenido normal de la tarjeta */
+.cert-card.expandido .cert-contenido-normal {
+    display: none;
+}
+
+/* Mostramos el contenido expandido */
+.cert-card.expandido .cert-contenido-expandido {
+    display: block;
+}
+
+/* --- Estilos del Contenido Expandido --- */
+.cert-header-expandido {
+    background: var(--gradient-primary, #4F17A8);
+    color: var(--color-white, #fff);
+    padding: var(--spacing-md, 30px);
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: var(--spacing-md, 30px);
+}
+
+.cert-header-expandido h1 {
+    font-size: 2.2em;
+    margin-bottom: 10px;
+}
+
+.cert-header-expandido p {
+    font-size: 1.1em;
+    color: var(--color-secondary, #3FC0F0);
+}
+
+.cert-info-detallada {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.cert-info-detallada h2 {
+    color: var(--color-primary, #4F17A8);
+    font-size: 1.8em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.cert-info-detallada ul {
+    list-style-position: inside;
+    padding-left: 10px;
+}
+
+.cert-info-detallada li {
+    margin-bottom: 5px;
+}
+
+.cert-info-detallada .btn-cta-global {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: var(--gradient-naranja, #FF610F);
+    color: var(--color-white, #fff);
+    font-weight: 700;
+    padding: 14px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: var(--shadow-naranja);
+}
+
+.cert-info-detallada .btn-cta-global:hover {
+    background: var(--gradient-celeste-suave);
+    box-shadow: var(--shadow-celeste);
+}
+
+/* El botón de "Volver" */
+.btn-volver {
+    background: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: var(--transition-base, all 0.3s ease);
+}
+
+.btn-volver:hover {
+    background: #c0c0c0;
+}
+
+/* ========================================
+   SECCIÓN RECURSOS
+======================================== */
+
+.recursos-section {
+    padding: var(--spacing-xl, 50px) 20px;
+    background-color: var(--color-white, #fff);
+    max-width: 1200px;
+    margin: var(--spacing-lg, 50px) auto;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.1));
+}
+
+.header-recursos {
+    text-align: center;
+    margin-bottom: var(--spacing-lg, 50px);
+}
+
+.header-recursos h2 {
+    color: var(--color-secondary, #3FC0F0);
+    font-size: 2.5em;
+    font-weight: 800;
+    margin-bottom: var(--spacing-xs, 8px);
+}
+
+.header-recursos p {
+    font-size: 1.1em;
+    color: var(--color-text-medium, #555555);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.recursos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md, 30px);
+}
+
+.recurso-item {
+    background: var(--color-light-bg, #f8f9fa);
+    border-radius: 15px;
+    padding: 25px;
+    text-decoration: none;
+    color: var(--color-text-dark, #040404);
+    transition: var(--transition-base, all 0.3s ease);
+    box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.1));
+    border: 1px solid #e0e0e0;
+}
+
+.recurso-item:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-md, 0 4px 12px rgba(79, 23, 168, 0.15));
+    border-left: 5px solid var(--color-primary, #4F17A8);
+}
+
+.recurso-icono {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.recurso-item h3 {
+    color: var(--color-primary, #4F17A8);
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.recurso-item p {
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+/* Animaciones */
+
+@keyframes growIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsivo */
+
+@media (max-width: 768px) {
+    .header-certificaciones h2 {
+        font-size: 2em;
+    }
+
+    .cert-card h3 {
+        min-height: auto;
+    }
+
+    .cert-card .cert-contenido-normal {
+        min-height: auto;
+    }
+}
