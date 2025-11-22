@@ -1,9 +1,10 @@
 /* ========================================
-   ESTILOS PÁGINA DE MANUALES 
+   ESTILOS PÁGINA DE MANUALES (CORREGIDO)
 ======================================== */
 
 /* === ¡ARREGLO 1! === */
-
+/* Damos un color de fondo a la página 
+   para que las tarjetas blancas resalten */
 body {
     background-color: var(--color-light-bg, #f8f9fa);
 }
@@ -128,6 +129,16 @@ body {
     background: var(--gradient-celeste-suave, #3FC0F0);
     box-shadow: var(--shadow-celeste, 0 8px 20px rgba(63, 192, 240, 0.3));
 }
+
+.contenido-manuales {
+    padding-top: 10px;
+}
+
+
+
+
+
+
 
 /* --- Responsividad --- */
 @media (max-width: 768px) {
