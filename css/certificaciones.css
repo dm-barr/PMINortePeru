@@ -66,13 +66,14 @@
 }
 
 /* Efecto Hover */
-.sidebar-navegacion ul li a:hover {
+.sidebar-navegacion ul li a:hover{
     background-color: #f7f7f7; 
     color: var(--color-text-dark);
 }
 
 /* INDICADOR DE ENLACE ACTIVO (La línea morada y fondo suave) */
-.sidebar-navegacion ul li a.activo {
+.sidebar-navegacion ul li a.activo,
+.sidebar-navegacion ul li a.activo:hover {
     background-color: var(--color-sidebar-active); /* Fondo morado muy suave */
     color: var(--color-primary); 
     font-weight: 700; 
@@ -143,8 +144,7 @@
     border-radius: 15px;
     margin-bottom: var(--spacing-sm, 15px);
     aspect-ratio: 16 / 9;
-    /*con el circulo completo se usa contain*/
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .cert-card h3 {
