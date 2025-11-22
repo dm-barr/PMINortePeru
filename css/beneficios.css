@@ -1,4 +1,4 @@
-/* ========================================
+/* ====================================
    VARIABLES Y CONFIGURACIÓN GLOBAL
 ======================================== */
 :root {
@@ -129,7 +129,8 @@
 }
 
 /* INDICADOR DE ENLACE ACTIVO (La línea morada y fondo suave) */
-.sidebar-navegacion ul li a.activo {
+.sidebar-navegacion ul li a.activo,
+.sidebar-navegacion ul li a:hover {
     background-color: var(--color-sidebar-active); /* Fondo morado muy suave */
     color: var(--color-primary); 
     font-weight: 700; 

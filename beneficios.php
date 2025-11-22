@@ -18,7 +18,7 @@
 <body>
     <?php include 'header.php'; ?>
 
-   <div class="header-banner">
+    <div class="header-banner">
         <div class="contenedor">
             <h1>Beneficios</h1> 
         </div>
@@ -29,7 +29,7 @@
         <aside class="sidebar-navegacion">
             <h4>Membresía</h4>
             <ul>
-                <li><a href="beneficios.php" class="activo">Beneficios</a></li> 
+                <li><a href="beneficios.php">Beneficios</a></li> 
                 <li><a href="#">Tipos de Mebresía</a></li>
                 <li><a href="manuales.php">Manuales</a></li>
                 <li><a href="#">Videos</a></li>
@@ -78,4 +78,5 @@
 
     
     </body>
+    <script src="js/submenu.js"></script>
 </html>
