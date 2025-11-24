@@ -1,49 +1,53 @@
-/* === Certificaciones: acordeón y vista expandida === */
-
 document.addEventListener('DOMContentLoaded', () => {
-
     const seccionCert = document.querySelector('.section-certificaciones');
     if (!seccionCert) return;
 
-    /* Acordeón de requisitos */
-    const botonesToggle = seccionCert.querySelectorAll('.btn-requisitos');
-    botonesToggle.forEach(boton => {
-        boton.addEventListener('click', () => {
-            const tarjeta = boton.closest('.cert-card');
-            const detalles = tarjeta.querySelector('.cert-details');
-
-            detalles.classList.toggle('visible');
-            boton.textContent = detalles.classList.contains('visible')
-                ? 'Ocultar Requisitos'
-                : 'Ver Requisitos';
-        });
-    });
-
-    /* Expansión dinámica "Saber más" */
     const contenedorPrincipal = seccionCert.querySelector('.cert-container');
-    const botonesSaberMas = seccionCert.querySelectorAll('.btn-saber-mas');
+    const botonesExpandir = seccionCert.querySelectorAll('.btn-expandir');
     const botonesVolver = seccionCert.querySelectorAll('.btn-volver');
 
-    if (!contenedorPrincipal || botonesSaberMas.length === 0) return;
+    /* EXPANSIÓN */
+    if (contenedorPrincipal && botonesExpandir.length > 0) {
 
-    botonesSaberMas.forEach(boton => {
-        boton.addEventListener('click', (e) => {
-            e.preventDefault();
-            const tarjeta = boton.closest('.cert-card');
+        botonesExpandir.forEach(boton => {
+            boton.addEventListener('click', (e) => {
+                e.preventDefault();
 
-            contenedorPrincipal.classList.add('detalle-abierto');
-            tarjeta.classList.add('expandido');
+                const tarjeta = boton.closest('.cert-card');
+                const containerPadre = tarjeta.closest('.cert-container');
+                containerPadre.classList.add('detalle-abierto');
+                tarjeta.classList.add('expandido');
+                setTimeout(() => {
+                    tarjeta.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            });
         });
-    });
+        botonesVolver.forEach(boton => {
+            boton.addEventListener('click', (e) => {
+                e.preventDefault();
 
-    botonesVolver.forEach(boton => {
-        boton.addEventListener('click', () => {
-            const tarjeta = boton.closest('.cert-card');
+                const tarjeta = boton.closest('.cert-card');
+                const containerPadre = tarjeta.closest('.cert-container');
+                tarjeta.classList.remove('expandido');
+                containerPadre.classList.remove('detalle-abierto');
+                setTimeout(() => {
+                    tarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            });
+        });
+    }
 
-            seccionCert.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    /* FAQ */
+    const faqQuestions = document.querySelectorAll('.faq-question');
 
-            contenedorPrincipal.classList.remove('detalle-abierto');
-            tarjeta.classList.remove('expandido');
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const faqItem = question.parentElement;
+            document.querySelectorAll('.faq-item.active').forEach(item => {
+                if (item !== faqItem) item.classList.remove('active');
+            });
+
+            faqItem.classList.toggle('active');
         });
     });
 

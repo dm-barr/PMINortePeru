@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beneficios PMI Norte Perú</title>
+    <title>PMI Norte Perú</title>
     <!-- Estilos y fuentes -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/beneficios.css">
@@ -36,47 +36,146 @@
                 <li><a href="#">Preguntas Frecuentes</a></li>
             </ul>
         </aside>
-
         <main class="contenido-beneficios">
             
-            <h2>Conoce nuestros beneficios!</h2>
-            
-            <div class="video-container">
-                <div class="placeholder-video">
-                    [Espacio para Video de YouTube / Iframe]
+            <section class="seccion-intro">
+                <h2>¡Transforma ideas en valor real!</h2>
+                <p class="lead">
+                    El Capítulo Norte de Perú conecta a Cajamarca, Piura y Trujillo con los recursos mundiales del PMI. 
+                    Descubre cómo impulsamos tu carrera según tu etapa profesional.
+                </p>
+                <div class="video-container">
+                    <div class="placeholder-video">
+                        <span>[video de bienvenida ]</span>
+                    </div>
                 </div>
-            </div>
-            
-            <p class="introduccion">Forma parte de la Comunidad de profesionales en Gestión de proyectos más grande a nivel mundial!</p>
-            
-            <h2 style="margin-top: 40px;">Beneficios Exclusivos</h2>
-            <p class="subtitulo-seccion">Accede a una red global y a recursos exclusivos que impulsarán tu carrera.</p>
-            
-            <div class="contenedor-tarjetas">
-                <div class="beneficio-card">
-                    <i class="icono-beneficio fas fa-trophy"></i>
-                    <div class="beneficio-contenido">
-                        <h3>Título del Beneficio</h3>
-                        <p>Descripción corta y clara de este beneficio o característica.</p>
+            </section>
+
+            <hr class="divisor">
+
+            <section class="seccion-grupo profesional">
+                <div class="titulo-grupo">
+                    <i class="fas fa-briefcase icono-titulo"></i>
+                    <div>
+                        <h2>Para Profesionales con Experiencia</h2>
+                        <p>Consolida tu carrera, fomenta el liderazgo regional y genera impacto local.</p>
                     </div>
                 </div>
 
-                <div class="beneficio-card secundario">
-                    <i class="icono-beneficio fas fa-book-reader"></i>
-                    <div class="beneficio-contenido">
-                        <h3>Acceso al PMBOK® Guide y Estándares</h3>
-                        <p>Descarga gratuita de la Guía PMBOK (Project Management Body of Knowledge)...</p>
+                <div class="beneficios-grid-detalle">
+                    <div class="beneficio-detalle-card">
+                        <h4><i class="fas fa-crown"></i> Liderazgo y Visibilidad</h4>
+                        <ul>
+                            <li><strong>Voluntariado Estratégico:</strong> Lidera iniciativas y comités, ganando reconocimiento entre stakeholders del norte.</li>
+                            <li><strong>Ponencias Locales:</strong> Participa como expositor en eventos y meetups, posicionándote como experto.</li>
+                        </ul>
+                    </div>
+                    <div class="beneficio-detalle-card">
+                        <h4><i class="fas fa-network-wired"></i> Networking Regional</h4>
+                        <ul>
+                            <li><strong>Conexiones Directas:</strong> Contacta con líderes de agroindustria, minería y construcción en Piura, Trujillo y Cajamarca.</li>
+                            <li><strong>Alianzas Locales:</strong> Acceso a convenios con empresas y cámaras de comercio de la zona.</li>
+                        </ul>
+                    </div>
+                    <div class="beneficio-detalle-card">
+                        <h4><i class="fas fa-chart-line"></i> Desarrollo Avanzado</h4>
+                        <ul>
+                            <li><strong>Descuentos:</strong> Ahorros en certificaciones PMP®, PgMP®, PfMP® que aumentan tu potencial salarial.</li>
+                            <li><strong>Enfoque Local:</strong> Talleres sobre desafíos específicos de proyectos en el norte del Perú.</li>
+                        </ul>
                     </div>
                 </div>
+            </section>
+
+            <section class="seccion-grupo estudiante">
+                <div class="titulo-grupo">
+                    <i class="fas fa-graduation-cap icono-titulo"></i>
+                    <div>
+                        <h2>Para Estudiantes de Pregrado</h2>
+                        <p>Construye una base sólida y facilita tu inserción laboral desde la universidad.</p>
+                    </div>
+                </div>
+
+                <div class="beneficios-grid-detalle">
+                    <div class="beneficio-detalle-card">
+                        <h4><i class="fas fa-percentage"></i> Costos y Certificación</h4>
+                        <ul>
+                            <li><strong>Membresía Asequible:</strong> Tarifas especiales (Global + Capítulo) mucho menores que las de un profesional.</li>
+                            <li><strong>Certificación CAPM®:</strong> Descuentos ideales para validar conocimientos antes de tener experiencia.</li>
+                        </ul>
+                    </div>
+                    <div class="beneficio-detalle-card">
+                        <h4><i class="fas fa-hands-helping"></i> Experiencia Práctica</h4>
+                        <ul>
+                            <li><strong>Voluntariado:</strong> Gana experiencia real en gestión de proyectos para tu CV.</li>
+                            <li><strong>Mentoría:</strong> Conecta con profesionales senior para orientación de carrera y pasantías.</li>
+                        </ul>
+                    </div>
+                    <div class="beneficio-detalle-card">
+                        <h4><i class="fas fa-users"></i> Comunidad Universitaria</h4>
+                        <ul>
+                            <li><strong>Clubes Estudiantiles:</strong> Forma parte de comunidades en universidades del norte.</li>
+                            <li><strong>Talleres Jóvenes:</strong> Eventos adaptados para acumular PDUs desde temprano.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="divisor">
+
+            <section class="seccion-grupo transversal">
+                <h2 style="text-align: center; margin-bottom: 30px;">Beneficios Transversales</h2>
+                <p style="text-align: center; margin-bottom: 40px;">Recursos globales disponibles para todos los miembros del Capítulo Norte Perú.</p>
                 
-            </div>
+                <div class="contenedor-tarjetas-iconos">
+                    <div class="beneficio-card">
+                        <i class="icono-beneficio fas fa-book"></i>
+                        <div class="beneficio-contenido">
+                            <h3>Estándares Globales</h3>
+                            <p>Descarga gratuita de la Guía del PMBOK® y otros estándares.</p>
+                        </div>
+                    </div>
+                    <div class="beneficio-card secundario">
+                        <i class="icono-beneficio fas fa-tools"></i>
+                        <div class="beneficio-contenido">
+                            <h3>Herramientas</h3>
+                            <p>Acceso a +1,000 plantillas y al asistente de IA PMI Infinity.</p>
+                        </div>
+                    </div>
+                    <div class="beneficio-card">
+                        <i class="icono-beneficio fas fa-globe"></i>
+                        <div class="beneficio-contenido">
+                            <h3>Networking Global</h3>
+                            <p>Conexión con la comunidad global de +750,000 profesionales.</p>
+                        </div>
+                    </div>
+                    <div class="beneficio-card secundario">
+                        <i class="icono-beneficio fas fa-briefcase"></i>
+                        <div class="beneficio-contenido">
+                            <h3>Bolsa de Trabajo</h3>
+                            <p>Acceso a ofertas de empleo y pasantías a nivel global y nacional.</p>
+                        </div>
+                    </div>
+                    <div class="beneficio-card">
+                        <i class="icono-beneficio fas fa-newspaper"></i>
+                        <div class="beneficio-contenido">
+                            <h3>Publicaciones</h3>
+                            <p>Suscripción a revistas (PM Network) y recursos de investigación.</p>
+                        </div>
+                    </div>
+                    <div class="beneficio-card secundario">
+                        <i class="icono-beneficio fas fa-id-card"></i>
+                        <div class="beneficio-contenido">
+                            <h3>Diploma</h3>
+                            <p>Recepción de un carnet y diploma digital de afiliación.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </main>
     </div>
 
-
-
-
-    
-    </body>
     <script src="js/submenu.js"></script>
+</body>
 </html>
