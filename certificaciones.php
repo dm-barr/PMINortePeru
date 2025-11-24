@@ -33,10 +33,9 @@
                 <li>
                     <a href="#especializadas">Especializadas</a>
                     <ul class="submenu-sidebar">
-                        <li><a href="#agiles" style="font-size: 0.9em; margin-left: 15px;">• Metodologías Ágiles</a></li>
-                        <li><a href="#dominio" style="font-size: 0.9em; margin-left: 15px;">• Dominio o Habilidad</a></li>
-                        <li><a href="#rol" style="font-size: 0.9em; margin-left: 15px;">• Rol Liderazgo</a></li>
-                        <li><a href="#industria" style="font-size: 0.9em; margin-left: 15px;">• Industria</a></li>
+                        <li><a href="#agiles" style="font-size: 0.9em; margin-left: 15px;">Metodologías Ágiles</a></li>
+                        <li><a href="#dominio" style="font-size: 0.9em; margin-left: 15px;">Dominio o Habilidad</a></li>
+                        <li><a href="#rol" style="font-size: 0.9em; margin-left: 15px;">Rol de Liderazgo</a></li>
                     </ul>
                 </li>
                 <li><a href="#recursos">Recursos</a></li>
@@ -56,21 +55,36 @@
                             <div class="img-container">
                                 <img src="img/certificaciones/pmp.png" alt="Certificación PMP">
                             </div>
-                            <h3>Project Management Professional (PMP)®</h3>
-                            <p>El estándar de oro mundial para la gestión de proyectos. Valida tu experiencia y liderazgo en cualquier metodología.</p>
+                            <h3>Project Management Professional <br> (PMP)®</h3>
+                            <p>Demuestra tu capacidad para liderar proyectos con una certificación a nivel mundial.</p>
                             <div class="card-buttons">
                                 <button class="btn-expandir">Ver Detalles Completos</button>
                             </div>
                         </div>
                         <div class="cert-contenido-expandido">
-                            <button class="btn-volver">← Volver al Catálogo</button>
+                            <button class="btn-volver"><i class="fa-solid fa-arrow-left"></i> Volver</button>
                             <div class="expandido-grid">
+                                <!--ACAAAAAAAAAAAAA-->
                                 <div class="expandido-header">
                                     <img src="img/certificaciones/pmp.png" alt="Logo PMP" class="logo-expandido">
-                                    <div>
+                                    <div class="header-textos">
                                         <h1>PMP®</h1>
                                         <p class="subtitulo-expandido">Project Management Professional</p>
                                     </div>
+                                    <div class="precios-container">
+                                    <div class="precio-box miembro">
+                                        <span class="label">Miembros PMI</span>
+                                        <span class="monto">US$ 324</span>
+                                    </div>
+                                    <div class="precio-box regular">
+                                        <span class="label">No Miembros</span>
+                                        <span class="monto">US$ 575</span>
+                                    </div>
+                                </div>
+
+                                <a href="https://certification.pmi.org/launch/application/PMP" target="_blank" class="btn-aplicar-ahora">
+                                    Aplica Ahora <i class="fas fa-external-link-alt"></i>
+                                </a>
                                 </div>
                                 <div class="cert-info-detallada">
                                     <h2>¿Qué es la PMP®?</h2>
@@ -159,7 +173,7 @@
                             <div class="img-container">
                                 <img src="img/certificaciones/ready.png" alt="Certificación Ready">
                             </div>
-                            <h3>PMI Project Mgmt. Ready™</h3>
+                            <h3>PMI Project Management <br> Ready™</h3>
                             <p>Certificación introductoria para estudiantes de secundaria y educación superior.</p>
                             <div class="card-buttons">
                                 <button class="btn-expandir">Ver Detalles Completos</button>
@@ -205,10 +219,9 @@
                     </article>
                 </div>
 
-
                 <h2 id="especializadas" class="cert-group-header">Certificaciones Especializadas</h2>
                 
-                <h3 id="agiles" class="cert-subgroup-header">Por Metodologías Ágiles</h3>
+                <h3 id="agiles" class="cert-subgroup-header">Metodologías Ágiles</h3>
                 <div class="cert-container">
                     
                     <article class="cert-card" data-cert="pmi-acp">
@@ -216,7 +229,7 @@
                             <div class="img-container">
                                 <img src="img/certificaciones/acp.png" alt="Certificación PMI-ACP">
                             </div>
-                            <h3>PMI Agile Certified Practitioner (PMI-ACP)®</h3>
+                            <h3>PMI Agile Certified Practitioner <br> (PMI-ACP)®</h3>
                             <p>Demuestra tu capacidad para liderar equipos ágiles dominando Scrum, Kanban, Lean, XP y más.</p>
                             <div class="card-buttons">
                                 <button class="btn-expandir">Ver Detalles Completos</button>
@@ -365,7 +378,7 @@
                     </article>
                 </div>
 
-                <h3 id="dominio" class="cert-subgroup-header">Por Dominio o Habilidad</h3>
+                <h3 id="dominio" class="cert-subgroup-header">Dominio o Habilidad</h3>
                 <div class="cert-container">
                     
                     <article class="cert-card" data-cert="pmi-pba">
@@ -424,7 +437,7 @@
                             <div class="img-container">
                                 <img src="img/certificaciones/rmp.png" alt="Certificación PMI-RMP">
                             </div>
-                            <h3>Risk Management Professional (PMI-RMP)®</h3>
+                            <h3>Risk Management Professional <br> (PMI-RMP)®</h3>
                             <p>Identifica y mitiga amenazas antes de que ocurran. Domina la gestión de riesgos.</p>
                             <div class="card-buttons">
                                 <button class="btn-expandir">Ver Detalles Completos</button>
@@ -475,7 +488,7 @@
                             <div class="img-container">
                                 <img src="img/certificaciones/sp.png" alt="Certificación PMI-SP">
                             </div>
-                            <h3>Scheduling Professional (PMI-SP)®</h3>
+                            <h3>Scheduling Professional <br> (PMI-SP)®</h3>
                             <p>Conviértete en un experto en la planificación y gestión de cronogramas de proyecto.</p>
                             <div class="card-buttons">
                                 <button class="btn-expandir">Ver Detalles Completos</button>
@@ -522,7 +535,7 @@
                     </article>
                 </div>
 
-                <h3 id="rol" class="cert-subgroup-header">Por Rol (Liderazgo Senior)</h3>
+                <h3 id="rol" class="cert-subgroup-header">Rol de Liderazgo</h3>
                 <div class="cert-container">
                     
                     <article class="cert-card" data-cert="pgmp">
@@ -582,7 +595,7 @@
                                 <img src="img/certificaciones/pfmp.png" alt="Certificación PfMP">
                             </div>
                             <h3>Portfolio Management Professional (PfMP)®</h3>
-                            <p>Nivel Ejecutivo. Gestiona portafolios para asegurar que la organización haga el trabajo correcto.</p>
+                            <p>Gestiona portafolios para asegurar que la organización haga el trabajo correcto.</p>
                             <div class="card-buttons">
                                 <button class="btn-expandir">Ver Detalles Completos</button>
                             </div>
@@ -626,17 +639,13 @@
                             </div>
                         </div>
                     </article>
-                </div>
 
-                <h3 id="industria" class="cert-subgroup-header">Por Industria</h3>
-                <div class="cert-container">
-                    
                     <article class="cert-card" data-cert="pmi-cp">
                         <div class="cert-contenido-normal">
                             <div class="img-container">
                                 <img src="img/certificaciones/cp.png" alt="Certificación PMI-CP">
                             </div>
-                            <h3>Construction Professional (PMI-CP)™</h3>
+                            <h3>Construction Professional <br> (PMI-CP)™</h3>
                             <p>La certificación definitiva para la gestión de proyectos en la industria de la construcción.</p>
                             <div class="card-buttons">
                                 <button class="btn-expandir">Ver Detalles Completos</button>
@@ -682,11 +691,11 @@
                     </article>
                 </div>
 
-            </section> <section id="recursos" class="recursos-section">
-                <div class="header-recursos">
-                    <h2>Recursos para Certificados</h2>
+            </section> 
+            
+            <section id="recursos" class="recursos-section">
+                    <h2 class="cert-group-header">Recursos para Certificados</h2>
                     <p>Maximiza el valor de tu certificación con estas herramientas.</p>
-                </div>
                 <div class="recursos-grid">
                     <a href="https://www.pmi.org/certifications/certification-resources/digital-badges" target="_blank" class="recurso-item premium-card">
                         <div class="recurso-icon-wrapper badge-icon">
@@ -722,9 +731,7 @@
             </section>
 
             <section id="faq" class="preguntas-section">
-                <div class="header-preguntas">
-                    <h2>Preguntas Frecuentes</h2>
-                </div>
+                    <h2 class="cert-group-header">Preguntas Frecuentes</h2>
                 <div class="faq-container">
                     <div class="faq-item">
                         <button class="faq-question">
@@ -767,7 +774,9 @@
 
         </div>
 </div> 
-
+<footer class="footer">
+        <p>© 2025 PMI Norte Perú</p>
+    </footer>
     <script src="js/certificaciones.js"></script>
     <script src="js/submenu.js"></script>
 </body>

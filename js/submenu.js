@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (href.startsWith("#")) {
                 if (href === "#especializadas") {
-                    e.preventDefault();
+                    //e.preventDefault();
                     const submenu = document.querySelector(".submenu-sidebar");
                     if (submenu) submenu.classList.toggle("abierto");
                     this.classList.add("activo");
