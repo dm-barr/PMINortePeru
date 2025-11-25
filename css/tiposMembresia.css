@@ -1,0 +1,287 @@
+
+:root {
+    
+    --color-editorial-blue: #005691; 
+    --color-editorial-light: #00a3e0;
+}
+
+/* ========================================
+   1. LAYOUT COMPARTIDO 
+   ======================================== */
+
+.header-banner {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 40px 0;
+    margin-bottom: 30px;
+}
+
+.header-banner h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* CONTENEDOR PRINCIPAL (2 Columnas) */
+.contenedor-principal {
+    display: flex;
+    gap: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px var(--spacing-lg);
+    align-items: flex-start; 
+}
+.sidebar-navegacion {
+    flex: 0 0 250px;
+    background-color: var(--color-white);
+    padding: 25px 0;
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 100px; 
+    z-index: 10;
+}
+
+.sidebar-navegacion h4 {
+    color: var(--color-text-dark);
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 0 25px 15px 25px;
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar-navegacion ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-navegacion ul li a {
+    display: block;
+    padding: 12px 25px;
+    font-size: 0.95em;
+    text-decoration: none;
+    color: #555;
+    font-weight: 600;
+    transition: var(--transition-fast);
+    border-left: 4px solid transparent;
+}
+
+.sidebar-navegacion ul li a:hover,
+.sidebar-navegacion ul li a.activo {
+    background-color: #f7f7f7;
+    color: var(--color-primary);
+    border-left-color: var(--color-primary);
+}
+
+/* ========================================
+   2.  CONTENIDO 
+======================================== */
+
+.contenido-beneficios {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
+.pmi-membresia-card {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 50px;
+    padding-top: 20px;   
+    padding-bottom: 20px;
+}
+
+/* NÚMEROS DE FONDO */
+.profesional-card::before {
+    content: "01";
+    position: absolute;
+    font-size: 10rem;
+    font-weight: 900;
+    color: var(--color-editorial-blue);
+    opacity: 0.06; 
+    z-index: -1;
+    top: -60px;
+    left: -20px;
+    line-height: 1;
+}
+
+.estudiantil-card::before {
+    content: "02";
+    position: absolute;
+    font-size: 10rem;
+    font-weight: 900;
+    color: var(--color-editorial-light);
+    opacity: 0.08;
+    z-index: -1;
+    top: -60px;
+    right: -20px;
+    line-height: 1;
+}
+
+/* IMÁGENES Sombras  */
+.pmi-card-image {
+    flex: 1;
+    position: relative;
+}
+
+.pmi-card-image img, .estudiantil-card .pmi-card-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 20px 20px 0px var(--color-editorial-blue); 
+    transition: transform 0.4s ease;
+    filter: saturate(0.9);
+}
+
+
+.pmi-card-image:hover img {
+    transform: translate(-5px, -5px);
+    filter: saturate(1.1);
+    box-shadow: 25px 25px 0px #00406b;
+}
+
+
+
+
+.pmi-card-content {
+    flex: 1.2;
+}
+
+.pmi-card-content h2 {
+    font-size: 2.5rem;
+    color: var(--color-primary); 
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.pmi-card-content h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--color-editorial-blue); 
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+.pmi-card-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--color-text-medium);
+}
+
+/* CAJA DE PRECIOS */
+.pmi-cost-details {
+    background: var(--color-white);
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px dashed #ccc; 
+    margin: 30px 0;
+   
+}
+
+.pmi-cost-details h3 {
+    margin: 0 0 15px 0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--color-editorial-blue); 
+    font-weight: 800;
+}
+
+.pmi-cost-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pmi-cost-details li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.pmi-cost-details p {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #888;
+    margin-top: 10px;
+}
+
+.pmi-btn {
+    padding: 15px 40px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+    transition: var(--transition-base);
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    box-shadow: var(--shadow-md);
+}
+
+.primary-btn, .secondary-btn {
+    background: transparent;
+    color: var(--color-editorial-blue);
+    border: 2px solid var(--color-editorial-blue);
+    box-shadow: none;
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+    background: var(--color-editorial-blue);
+    color: var(--color-white);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+
+@media (max-width: 900px) {
+    .contenedor-principal {
+        grid-template-columns: 1fr; 
+    }
+    
+    .sidebar-navegacion {
+        position: static;
+        margin-bottom: 20px;
+    }
+
+    .pmi-membresia-card {
+        flex-direction: column !important;
+        gap: 30px;
+    }
+
+    .profesional-card {
+        flex-direction: column-reverse !important;
+    }
+    
+    .profesional-card::before, 
+    .estudiantil-card::before {
+        display: none; 
+    }
+
+    .pmi-card-image img {
+        box-shadow: 10px 10px 0px var(--color-editorial-blue); 
+    }
+    
+    .estudiantil-card .pmi-card-image img {
+        box-shadow: -10px 10px 0px var(--color-editorial-light);
+    }
+    
+    .pmi-btn {
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+}

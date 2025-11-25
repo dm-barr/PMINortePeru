@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PMI Norte Perú</title>
-    <!-- Estilos y fuentes -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/beneficios.css">
+ 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" href="img/logo/icono.png" type="image/x-icon">
@@ -30,10 +30,8 @@
             <h4>Membresía</h4>
             <ul>
                 <li><a href="beneficios.php">Beneficios</a></li> 
-                <li><a href="#">Tipos de Mebresía</a></li>
-                <li><a href="manuales.php">Manuales</a></li>
-                <li><a href="#">Videos</a></li>
-                <li><a href="#">Preguntas Frecuentes</a></li>
+                <li><a href="tiposMembresia.php">Tipos de Mebresía</a></li>            
+                <li><a href="preguntas.php">Preguntas Frecuentes</a></li>
             </ul>
         </aside>
         <main class="contenido-beneficios">
@@ -60,6 +58,8 @@
                         <h2>Para Profesionales con Experiencia</h2>
                         <p>Consolida tu carrera, fomenta el liderazgo regional y genera impacto local.</p>
                     </div>
+                    <!-- BOTÓN PARA CARGAR MANUALES -->
+                    <button class="manual-btn" id="btn-profesional">Ver Manual Profesional</button>
                 </div>
 
                 <div class="beneficios-grid-detalle">
@@ -86,6 +86,10 @@
                     </div>
                 </div>
             </section>
+ 
+
+                <!-- CAJA DONDE SE CARGA EL MANUAL PROFESIONAL -->
+                <section class="manual-box" id="box-profesional"></section>
 
             <section class="seccion-grupo estudiante">
                 <div class="titulo-grupo">
@@ -94,6 +98,7 @@
                         <h2>Para Estudiantes de Pregrado</h2>
                         <p>Construye una base sólida y facilita tu inserción laboral desde la universidad.</p>
                     </div>
+                    <button class="manual-btn" id="btn-estudiante">Ver Manual Estudiante</button>
                 </div>
 
                 <div class="beneficios-grid-detalle">
@@ -121,11 +126,14 @@
                 </div>
             </section>
 
+                <!-- CAJA DONDE SE CARGA EL MANUAL ESTUDIANTE -->
+                <section class="manual-box" id="box-estudiante"></section>
+
             <hr class="divisor">
 
             <section class="seccion-grupo transversal">
-                <h2 style="text-align: center; margin-bottom: 30px;">Beneficios Transversales</h2>
-                <p style="text-align: center; margin-bottom: 40px;">Recursos globales disponibles para todos los miembros del Capítulo Norte Perú.</p>
+                <h2>Beneficios Transversales</h2>
+                <p>Recursos globales disponibles para todos los miembros del Capítulo Norte Perú.</p>
                 
                 <div class="contenedor-tarjetas-iconos">
                     <div class="beneficio-card">
@@ -176,6 +184,14 @@
         </main>
     </div>
 
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2025 PMI Norte Perú</p>
+    </footer>
+
     <script src="js/submenu.js"></script>
+    <script src="js/beneficios.js"></script>
+
+
 </body>
 </html>

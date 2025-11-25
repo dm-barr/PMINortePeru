@@ -32,9 +32,8 @@
                             Membresía <span class="arrow">▼</span></a>
                             <ul class="submenu-membresia">
                             <li><a href="beneficios.php">Beneficios</a></li>
-                            <li><a href="#">Tipos de Mebresía</a></li>
-                            <li><a href="manuales.php">Manuales</a></li>
-                            <li><a href="#">Videos</a></li>
+                            <li><a href="tiposMembresia.php">Tipos de Mebresía</a></li>                        
+                            <li><a href="preguntas.php">Preguntas</a></li>
                         </ul> 
                     </li>
                     <li class="dropdown-certificacion">
@@ -42,8 +41,9 @@
                             Certificación <span class="arrow">▼</span></a>
                              <ul class="submenu-certificacion">
                             <li><a href="certificaciones.php">Principales</a></li>
-                            <li><a href="#">Especializadas</a></li>
-                            <li><a href="#">Recursos</a></li>
+                            <li><a href="certificaciones.php#especializadas">Especializadas</a></li>
+                            <li><a href="certificaciones.php#recursos">Recursos</a></li>
+                            <li><a href="certificaciones.php#instituciones">Contáctate con una Institución</a></li>
                         </ul> 
                     </li>
                     <li><a href="index.php#junta-directiva">Junta Directiva</a></li>

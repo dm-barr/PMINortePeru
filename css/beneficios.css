@@ -1,14 +1,13 @@
 /* ========================================
-   CSS BENEFICIOS
-======================================== */
+   1. LAYOUT COMPARTIDO 
+   ======================================== */
 
-/* HEADER BANNER (La franja morada) */
+/* HEADER BANNER */
 .header-banner {
     background-color: var(--color-primary);
     color: var(--color-white);
     padding: 40px 0;
     margin-bottom: 30px;
-
 }
 
 .header-banner h1 {
@@ -20,17 +19,15 @@
     padding: 0 20px;
 }
 
-/* LAYOUT PRINCIPAL (Sidebar + Contenido) */
+/* CONTENEDOR PRINCIPAL (2 Columnas) */
 .contenedor-principal {
     display: flex;
     gap: 40px;
     max-width: 1300px;
     margin: 0 auto;
     padding: 0 20px var(--spacing-lg);
-    align-items: flex-start;
+    align-items: flex-start; 
 }
-
-/* SIDEBAR (Estilo consistente con otras páginas) */
 .sidebar-navegacion {
     flex: 0 0 250px;
     background-color: var(--color-white);
@@ -38,17 +35,17 @@
     border-radius: 10px;
     box-shadow: var(--shadow-sm);
     position: sticky;
-    top: 100px;
-    /* Ajusta si tienes navbar fijo */
+    top: 100px; 
+    z-index: 10;
 }
 
 .sidebar-navegacion h4 {
-    color: var(--color-primary);
-    font-size: 1.2em;
-    font-weight: 700;
-    padding: 0 25px 15px;
-    margin: 0 0 10px;
-    border-bottom: 2px solid #eee;
+    color: var(--color-text-dark);
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 0 25px 15px 25px;
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid #eee;
 }
 
 .sidebar-navegacion ul {
@@ -75,24 +72,24 @@
     border-left-color: var(--color-primary);
 }
 
-/* CONTENIDO DERECHO */
 .contenido-beneficios {
     flex: 1;
-    min-width: 0;
+    min-width: 0; 
 }
 
-/* INTRODUCCIÓN */
+
+/* ========================================
+   2. ESTILOS ESPECÍFICOS: BENEFICIOS
+   ======================================== */
 .seccion-intro {
     margin-bottom: 40px;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .seccion-intro h2 {
     color: var(--color-primary);
     font-size: 2em;
-    margin-bottom: 13px;
+    margin-bottom: 15px;
 }
 
 .seccion-intro .lead {
@@ -102,27 +99,19 @@
     margin-bottom: 25px;
     max-width: 100%;
     text-align: justify;
-    margin-left: 0 auto;
-    margin-right: 0 auto;
 }
-
-
-/* VIDEO */
 .video-container {
     position: relative;
-    padding-bottom: 50%;
+    padding-bottom: 56.25%; 
     height: 0;
     overflow: hidden;
     border-radius: 12px;
     box-shadow: var(--shadow-md);
+    margin-bottom: 30px;
 }
-
 .placeholder-video {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background: #e0e0e0;
     display: flex;
     align-items: center;
@@ -130,17 +119,10 @@
     color: #777;
     font-weight: bold;
 }
-
-/* DIVISOR */
 .divisor {
     border: 0;
     border-top: 1px solid #eee;
     margin: 50px 0;
-}
-
-/* GRUPOS (Profesional / Estudiante) */
-.seccion-grupo {
-    margin-bottom: 30px;
 }
 
 .titulo-grupo {
@@ -156,6 +138,7 @@
     background: rgba(63, 192, 240, 0.1);
     padding: 15px;
     border-radius: 50%;
+    line-height: 1;
 }
 
 .titulo-grupo h2 {
@@ -163,30 +146,22 @@
     margin: 0 0 5px 0;
     font-size: 1.8em;
 }
-
-.titulo-grupo p {
-    color: #666;
-    margin: 0;
-    font-size: 1.05em;
-}
-
-/* GRID DE DETALLES (Tarjetas Blancas con borde superior) */
 .beneficios-grid-detalle {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
+    margin-bottom: 40px;
 }
 
 .beneficio-detalle-card {
-    background: #fff;
+    background: var(--color-white);
     padding: 25px;
     border-radius: 15px;
     box-shadow: var(--shadow-sm);
     border-top: 5px solid var(--color-primary);
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
 }
 
-/* Color específico para estudiantes */
 .estudiante .beneficio-detalle-card {
     border-top-color: var(--color-secondary);
 }
@@ -220,13 +195,6 @@
     color: #555;
     line-height: 1.5;
 }
-
-.beneficio-detalle-card li strong {
-    color: var(--color-primary);
-}
-
-
-/* GRID TRANSVERSAL (Tarjetas con iconos a la izquierda) */
 .contenedor-tarjetas-iconos {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -252,12 +220,6 @@
 
 .beneficio-card.secundario {
     border-left-color: var(--color-secondary);
-}
-
-.icono-beneficio,
-.beneficio-contenido {
-    position: relative;
-    z-index: 1;
 }
 
 .icono-beneficio {
@@ -295,8 +257,133 @@
     margin: 0;
     line-height: 1.4;
 }
+.seccion-grupo.transversal h2{
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+.seccion-grupo.transversal p{
+    
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.1em;
+    
+}
 
-/* RESPONSIVE */
+/* ========================================
+   3. ESTILOS ESPECÍFICOS: MANUALES
+   ======================================== */
+
+.manual-item {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 50px;
+    padding: 30px;
+    background: var(--color-white);
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(79, 23, 168, 0.15); 
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.manual-item:hover {
+    box-shadow: 0 10px 25px rgba(79, 23, 168, 0.25);
+    transform: translateY(-5px);
+}
+.manual-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.manual-imagen {
+    flex: 1;
+    min-width: 260px;
+}
+
+.manual-imagen a {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.manual-imagen img {
+    width: 100%;
+    display: block;
+    height: auto;
+}
+
+.manual-imagen a:hover {
+    transform: scale(1.03);
+}
+
+.manual-texto {
+    flex: 2;
+}
+
+.manual-texto h2 {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 15px;
+}
+
+.manual-texto p {
+    font-size: 1.05em;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    text-align: justify;
+}
+
+/* ========================================
+   4. BOTONES Agrupados 
+   ======================================== */
+.manual-btn,
+.btn-manual {
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.manual-btn {
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 10px 22px;
+    border-radius: 8px;
+    margin-left: auto; 
+}
+
+.manual-btn:hover {
+    background: var(--color-secondary);
+    transform: translateY(-2px);
+}
+
+
+.btn-manual {
+    background: var(--gradient-naranja); 
+    color: var(--color-white);
+    padding: 12px 28px;
+    border-radius: 25px;
+    box-shadow: var(--shadow-naranja);
+}
+
+.btn-manual:hover {
+    transform: translateY(-3px);
+    background: var(--gradient-celeste-suave); 
+    box-shadow: var(--shadow-celeste);
+}
+/* Scroll Margin para anclajes */
+#box-profesional,
+#box-estudiante {
+    scroll-margin-top: 120px;
+}
+
 @media (max-width: 900px) {
     .contenedor-principal {
         flex-direction: column;
@@ -304,11 +391,32 @@
 
     .sidebar-navegacion {
         width: 100%;
-        position: static;
+        position: static; 
+        margin-bottom: 30px;
     }
-
     .titulo-grupo {
         flex-direction: column;
         text-align: center;
+    }
+}
+@media (max-width: 768px) {
+    .manual-item,
+    .manual-item:nth-child(even) {
+        flex-direction: column;
+        text-align: center;
+    }
+    .manual-imagen {
+        max-width: 100%;
+        margin: 0 auto 20px;
+    }
+    .manual-texto h2 {
+        font-size: 1.8em;
+    }
+    .manual-texto p {
+        text-align: center; 
+    }
+
+    .header-banner h1 {
+        font-size: 1.8em;
     }
 }
