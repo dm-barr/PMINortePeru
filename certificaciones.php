@@ -40,6 +40,7 @@
                 </li>
                 <li><a href="#recursos">Recursos</a></li>
                 <li><a href="#instituciones">Instituciones</a></li>
+                <li><a href="preguntas.php#faq-certificaciones">Preguntas Frecuentes</a></li>
             </ul>
         </aside>
         <div class="columna-derecha">

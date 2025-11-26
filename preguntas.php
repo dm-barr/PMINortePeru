@@ -100,7 +100,7 @@
                     </summary>
                     <div class="faq-answer">
                         <p>No, PMI no cobra los años que usted no ha renovado su membresía. Pero debe considerar lo siguiente: De renovar su membresía después de varios años debe tener en cuenta su fecha de expiración (es decir el mes en que venció su membresía inicialmente), ya que PMI al renovar utilizando su PMI ID el mes de vencimiento original se mantiene. Ej.: Si su membresía venció el 30 de Abril 2011,
-                             y usted no ha renovado desde entonces y desea hacerlo ahora (Febrero 2018), su membresía si o si vence en Abril 2018.</p>
+                            y usted no ha renovado desde entonces y desea hacerlo ahora (Febrero 2018), su membresía si o si vence en Abril 2018.</p>
                     </div>
                 </details>
 
@@ -111,8 +111,8 @@
                     </summary>
                     <div class="faq-answer">
                         <p>Si, el pago puede hacerlo vía WireTransfer(transferencia de Cta. A Cta.), pero para ello usted debe comunicarse con PMI global a través de customercare@pmi.org, en máximo 3 días hábiles le envían un email con la información bancaria de PMI.
-                             (Para este proceso, se cobra una comisión adicional que proviene de los bancos que sean intermediarios y esta comisión varía entre US$ 16 a US$ 31 dólares).
-                             Luego de realizado el pago usted debe enviar vía fax el formato de pago e indicar su nombre en el mismo formato para que pueda ser identificado.</p>
+                            (Para este proceso, se cobra una comisión adicional que proviene de los bancos que sean intermediarios y esta comisión varía entre US$ 16 a US$ 31 dólares).
+                            Luego de realizado el pago usted debe enviar vía fax el formato de pago e indicar su nombre en el mismo formato para que pueda ser identificado.</p>
                     </div>
                 </details>
                 <details class="faq-item">
@@ -152,33 +152,85 @@
                         Para grupos estas deben renovarse con 3 meses de anticipación y enviar el formato donde se indica la información de a quienes se renueva</p>
                     </div>
                 </details>
-                <h2>Sobre las Certificaciones</h2>
+                <h2 id="faq-certificaciones">Sobre las Certificaciones</h2>
+                
+                <details class="faq-item">
+                    <summary>
+                        <span class="faq-question">¿Qué son los PDUs y por qué los necesito?</span>
+                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Los PDUs (Professional Development Units) son unidades que miden tu desarrollo profesional continuo. Son necesarios para renovar tus certificaciones cada 3 años (por ejemplo, el PMP requiere 60 PDUs por ciclo).</p>
+                    </div>
+                </details>
+
                 <details class="faq-item">
                     <summary>
                         <span class="faq-question">¿Cómo obtengo una certificación PMI?</span>
                         <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
                     </summary>
                     <div class="faq-answer">
-                        <p>Para aplicar a alguna de las certificaciones PMI, usted debe cumplir requisitos mínimos dependiendo de la certificación, 
-                            los requisitos usted las encuentra en los respectivos Handbooks en www.pmi.org, y finalmente rendir el examen y aprobarlo.</p>
+                        <p>Para aplicar a alguna de las certificaciones PMI, usted debe cumplir requisitos mínimos dependiendo de la certificación. Los requisitos los encuentra en los respectivos Handbooks en www.pmi.org, luego debe enviar su solicitud y finalmente rendir el examen y aprobarlo.</p>
                     </div>
                 </details>
+
                 <details class="faq-item">
                     <summary>
                         <span class="faq-question">¿Si no cuento con experiencia gestionando proyectos con que certificación debo comenzar?</span>
                         <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
                     </summary>
                     <div class="faq-answer">
-                        <p>Si no cuenta con experiencia gestionando proyectos, usted puede iniciar con la Certificación CAPM.</p>
+                        <p>Si no cuenta con experiencia gestionando proyectos, usted puede iniciar con la Certificación CAPM® (Certified Associate in Project Management), que valida conocimientos fundamentales.</p>
                     </div>
                 </details>
-                 <details class="faq-item">
+            
+                <details class="faq-item">
                     <summary>
                         <span class="faq-question">¿Dónde puedo encontrar los requisitos para aplicar a la Certificación PMP?</span>
                         <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
                     </summary>
                     <div class="faq-answer">
-                        <p>Los requisitos de cada certificación lo pueden encontrar en los handbooks de cada certificación en www.pmi.org – CERTIFICATION.</p>
+                        <p>Los requisitos se encuentran en el Handbook del PMP en pmi.org. Básicamente son: Título universitario + 36 meses de experiencia + 35 horas de educación; O diploma de secundaria + 60 meses de experiencia + 35 horas de educación.</p>
+                    </div>
+                </details>
+            
+                <details class="faq-item">
+                    <summary>
+                        <span class="faq-question">¿El examen es en inglés o en español?</span>
+                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>La gran mayoría de los exámenes, incluidos el PMP®, CAPM® y PMI-ACP®, están disponibles traducidos al español. Puede seleccionar el idioma de ayuda al momento de agendar su examen.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        <span class="faq-question">¿Es obligatorio ser miembro del PMI para certificarme?</span>
+                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>No, la membresía es opcional. Sin embargo, se recomienda adquirirla antes de pagar el examen, ya que el descuento en el examen suele cubrir el costo de la membresía y obtiene acceso a recursos gratuitos.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        <span class="faq-question">¿Qué sucede si mi solicitud cae en auditoría?</span>
+                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Es un proceso aleatorio estándar. Si es seleccionado, tendrá 90 días para enviar copias digitales de sus certificados de estudios y firmas de validación de experiencia. El PMI revisa estos documentos en aproximadamente una semana.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        <span class="faq-question">¿Puedo rendir el examen desde mi casa?</span>
+                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Sí. A través de la modalidad Online Proctored de Pearson VUE, puede rendir el examen desde su casa u oficina con supervisión remota, cámara web y micrófono.</p>
                     </div>
                 </details>
 
