@@ -473,7 +473,7 @@ SECCIÓN DE CERTIFICACIONES
 }
 
 /* ========================================
-   SECCIÓN DE RECURSOS Y FAQ
+   SECCIÓN DE RECURSOS Y instituciones
    ======================================== */
 
 .recursos-section,
@@ -541,14 +541,13 @@ SECCIÓN DE CERTIFICACIONES
 }
 
 #recursos .cert-group-header,
-#faq .cert-group-header {
+#instituciones .cert-group-header {
     margin-top: 0 !important;
 }
 
 .recursos-section,
 .preguntas-section {
     margin-top: 0;
-    /* Aseguramos que la sección tampoco empuje hacia abajo */
 }
 
 html {
@@ -556,55 +555,28 @@ html {
 }
 
 #recursos,
-#faq,
+#instituciones,
 #principales,
 #especializadas,
-#agiles,
-#dominio,
+#clasicas,
+#innovacion,
 #rol {
     scroll-margin-top: 120px;
 }
 
-/* FAQ */
+/* instituciones */
 
-.faq-item {
+.instituciones-item {
     border-bottom: 1px solid #eee;
 }
 
-.faq-question {
-    width: 100%;
-    text-align: left;
-    background: none;
-    border: none;
-    padding: 20px 0;
-    font-size: 1.2em;
-    font-weight: 700;
-    color: var(--color-primary);
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.faq-question:hover {
+.instituciones-item.active  {
     color: var(--color-secondary);
 }
 
-.faq-item.active .faq-question {
-    color: var(--color-secondary);
-}
 
-.faq-item.active .faq-question i {
-    transform: rotate(180deg);
-}
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-}
-
-.faq-item.active .faq-answer {
+.instituciones-item.active {
     max-height: 300px;
     padding-bottom: 20px;
 }
@@ -647,7 +619,7 @@ html {
     }
 
     .recursos-section,
-    .preguntas-section {
+    .instituciones-section {
         padding: 30px 10px;
     }
 

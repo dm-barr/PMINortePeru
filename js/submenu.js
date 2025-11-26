@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const subEspecializadas = ["#agiles", "#dominio", "#rol", "#industria"];
+    const subEspecializadas = ["#clasicas", "#innovacion", "#rol"];
     const sidebarLinks = document.querySelectorAll(".sidebar-navegacion a");
     const navbarLinks = document.querySelectorAll(".navbar a");
     const submenuLinks = document.querySelectorAll(".submenu-membresia a, .submenu-certificacion a");
@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (href.startsWith("#")) {
                 if (href === "#especializadas") {
-                    //e.preventDefault();
                     const submenu = document.querySelector(".submenu-sidebar");
                     if (submenu) submenu.classList.toggle("abierto");
                     this.classList.add("activo");
