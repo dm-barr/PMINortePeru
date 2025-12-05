@@ -413,6 +413,7 @@ SECCIÓN DE CERTIFICACIONES
 
 .cert-info-detallada {
     padding-bottom: 30px;
+    text-align: justify;
 }
 
 .cert-info-detallada h2 {
@@ -473,7 +474,7 @@ SECCIÓN DE CERTIFICACIONES
 }
 
 /* ========================================
-   SECCIÓN DE RECURSOS Y instituciones
+   SECCIÓN DE RECURSOS
    ======================================== */
 
 .recursos-section,
@@ -540,8 +541,7 @@ SECCIÓN DE CERTIFICACIONES
     font-weight: 700;
 }
 
-#recursos .cert-group-header,
-#instituciones .cert-group-header {
+#recursos .cert-group-header{
     margin-top: 0 !important;
 }
 
@@ -555,7 +555,6 @@ html {
 }
 
 #recursos,
-#instituciones,
 #principales,
 #especializadas,
 #clasicas,
@@ -564,22 +563,6 @@ html {
     scroll-margin-top: 120px;
 }
 
-/* instituciones */
-
-.instituciones-item {
-    border-bottom: 1px solid #eee;
-}
-
-
-.instituciones-item.active  {
-    color: var(--color-secondary);
-}
-
-
-.instituciones-item.active {
-    max-height: 300px;
-    padding-bottom: 20px;
-}
 
 /* ANIMACIONES */
 @keyframes fadeIn {
@@ -618,8 +601,7 @@ html {
         z-index: 1;
     }
 
-    .recursos-section,
-    .instituciones-section {
+    .recursos-section{
         padding: 30px 10px;
     }
 

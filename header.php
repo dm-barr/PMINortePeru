@@ -39,11 +39,11 @@
                     <li class="dropdown-certificacion">
                         <a href="#" class="dropdown-toggle">
                             Certificación <span class="arrow">▼</span></a>
-                             <ul class="submenu-certificacion">
+                            <ul class="submenu-certificacion">
                             <li><a href="certificaciones.php">Principales</a></li>
                             <li><a href="certificaciones.php#especializadas">Especializadas</a></li>
                             <li><a href="certificaciones.php#recursos">Recursos</a></li>
-                            <li><a href="certificaciones.php#instituciones">Contáctate con una Institución</a></li>
+                            <li><a href="preguntas.php#faq-certificaciones">Preguntas Frecuentes</a></li>
                         </ul> 
                     </li>
                     <li><a href="index.php#junta-directiva">Junta Directiva</a></li>

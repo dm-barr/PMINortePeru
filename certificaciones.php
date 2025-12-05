@@ -39,7 +39,6 @@
                     </ul>
                 </li>
                 <li><a href="#recursos">Recursos</a></li>
-                <li><a href="#instituciones">Instituciones</a></li>
                 <li><a href="preguntas.php#faq-certificaciones">Preguntas Frecuentes</a></li>
             </ul>
         </aside>
@@ -92,7 +91,7 @@
                                 <div class="cert-info-detallada">
                                     <h2>La Certificación PMP®: El Estándar de Oro</h2>
                                     <p>La certificación Project Management Professional (PMP)® es la certificación líder mundial en gestión de proyectos. Ahora incluye enfoques predictivos, ágiles e híbridos, superando así a otras certificaciones. El PMP® demuestra que tienes las habilidades de liderazgo de proyectos que los empleadores buscan y valida que posees un conocimiento específico y una experiencia real para dirigir proyectos.</p>
-                                    
+                                    <br>
                                     <h3>Impacto en tu Carrera</h3>
                                     <p>El PMP ofrece un valor significativo tanto para tu carrera como para tu potencial de ingresos:</p>
                                     <ul>
@@ -153,10 +152,10 @@
                                         </li>
                                     </ul>
                                     
-                                    <!-- Botón movido aquí, contexto relevante -->
+                                    
                                     <div style="margin-top: 15px; margin-bottom: 15px;">
-                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/pmp-examination-content-outline.pdf" target="_blank" class="btn-cta-global" style="font-size: 0.9rem; padding: 8px 15px;">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/pmp-examination-content-outline.pdf?rev=fb0ee7dd92a148528edd32e9bbf1746b&la=es-419" target="_blank" class="btn-cta-global" style="font-size: 0.9rem; padding: 8px 15px;">
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -213,11 +212,11 @@
                                     <div class="precios-container">
                                         <div class="precio-box miembro">
                                             <span class="label">Miembros PMI</span>
-                                            <span class="monto">US$ 225</span>
+                                            <span class="monto">US$ 180</span>
                                         </div>
                                         <div class="precio-box regular">
                                             <span class="label">No Miembros</span>
-                                            <span class="monto">US$ 300</span>
+                                            <span class="monto">US$ 240</span>
                                         </div>
                                     </div>
 
@@ -229,7 +228,7 @@
                                 <div class="cert-info-detallada">
                                     <h2>Impulsa tu carrera con CAPM®</h2>
                                     <p>La certificación CAPM® es un activo esencial para los nuevos participantes en el mercado laboral y directores de proyectos. A diferencia del PMP, el CAPM valida tu conocimiento sobre <strong>los fundamentos</strong> de la gestión de proyectos, permitiéndote hablar el mismo idioma que los profesionales experimentados.</p>
-                                    
+                                    <br>
                                     <h3>Impacto Profesional</h3>
                                     <p>Obtener el CAPM demuestra compromiso y conocimiento técnico:</p>
                                     <ul>
@@ -280,8 +279,8 @@
                                     </ul>
                                     
                                     <div style="margin-top: 15px; margin-bottom: 15px;">
-                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/capm-examination-content-outline.pdf" target="_blank" class="btn-cta-global" style="font-size: 0.9rem; padding: 8px 15px;">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/capm-exam-content-outline-english.pdf?rev=6c2004c131f9477fafc8cfcfb6c9ad0c&la=es-419" target="_blank" class="btn-cta-global" style="font-size: 0.9rem; padding: 8px 15px;">
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -327,11 +326,11 @@
                                     <div class="precios-container">
                                         <div class="precio-box miembro">
                                             <span class="label">Miembros PMI</span>
-                                            <span class="monto">US$ 435</span>
+                                            <span class="monto">US$ 348</span>
                                         </div>
                                         <div class="precio-box regular">
                                             <span class="label">No Miembros</span>
-                                            <span class="monto">US$ 495</span>
+                                            <span class="monto">US$ 396</span>
                                         </div>
                                     </div>
 
@@ -343,7 +342,7 @@
                                 <div class="cert-info-detallada">
                                     <h2>Domina la Agilidad con PMI-ACP®</h2>
                                     <p>La certificación PMI-ACP® es la de más rápido crecimiento del PMI. No se limita a un solo método; valida tu capacidad para entender y aplicar principios ágiles y prácticas de <strong>Scrum, Kanban, Lean, Extreme Programming (XP) y Test-Driven Development (TDD)</strong>.</p>
-                                    
+                                    <br>
                                     <h3>¿Por qué elegir PMI-ACP?</h3>
                                     <ul>
                                         <li><strong>Cobertura Amplia:</strong> A diferencia de certificaciones específicas de Scrum, el ACP demuestra que conoces el panorama completo de la agilidad.</li>
@@ -399,8 +398,8 @@
                                     </ul>
                                     
                                     <div style="margin-top: 15px; margin-bottom: 15px;">
-                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/agile-certified-practitioner-exam-outline.pdf" target="_blank" class="btn-cta-global" style="font-size: 0.9rem; padding: 8px 15px;">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/agile-certified-exam-outline.pdf?rev=1fe02c6fa26b4fc98f1d6e545bf1f27f&la=es-419" target="_blank" class="btn-cta-global" style="font-size: 0.9rem; padding: 8px 15px;">
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -453,7 +452,7 @@
                                     <div class="precios-container">
                                         <div class="precio-box miembro">
                                             <span class="label">Miembros PMI</span>
-                                            <span class="monto">US$ 405</span>
+                                            <span class="monto">US$ 324</span>
                                         </div>
                                         <div class="precio-box regular">
                                             <span class="label">No Miembros</span>
@@ -470,7 +469,7 @@
                                     <h2>¿Por qué el PMI-PBA® es crítico hoy?</h2>
                                     <p>La investigación del PMI (Pulse of the Profession®) indica que la recolección inexacta de requisitos es una causa principal de fracaso en los proyectos. El <strong>PMI-PBA®</strong> certifica que tienes la capacidad de cerrar la brecha entre las necesidades del negocio y los resultados del proyecto.</p>
                                     <p>Esta certificación no es solo para "Analistas de Negocio" puros; está diseñada para cualquier profesional que trabaje en la definición de alcances, requisitos, salida de productos o evaluación de soluciones.</p>
-
+                                    <br>
                                     <h3>Perfil del Candidato Ideal</h3>
                                     <p>Esta certificación es adecuada para ti si trabajas con equipos de proyecto y gestionas requisitos o desarrollo de productos, o si eres un Director de Proyectos o de Programas que realiza análisis de negocios en su rol. Títulos comunes incluyen:</p>
                                     <ul>
@@ -559,10 +558,10 @@
                                         </ul>
                                     </div>
                                     
-                                    <!-- Botón ECO -->
+                                    
                                     <div>
-                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/professional-business-analysis-exam-outline.pdf" target="_blank" class="btn-cta-global">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/professional-business-analysis-handbook.pdf?rev=ed93ee2568224a7096b22225697631f8" target="_blank" class="btn-cta-global">
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -627,7 +626,7 @@
                                     <div class="precios-container">
                                         <div class="precio-box miembro">
                                             <span class="label">Miembros PMI</span>
-                                            <span class="monto">US$ 520</span>
+                                            <span class="monto">US$ 416</span>
                                         </div>
                                         <div class="precio-box regular">
                                             <span class="label">No Miembros</span>
@@ -635,7 +634,7 @@
                                         </div>
                                     </div>
 
-                                    <a href="https://certification.pmi.org/launch/application/RMP" target="_blank" class="btn-aplicar-ahora">
+                                    <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/risk-management-exam-outline2.pdf?rev=80d0944c955d49348cc12366172fa6c9" target="_blank" class="btn-aplicar-ahora">
                                         Aplica al Examen <i class="fas fa-external-link-alt"></i>
                                     </a>
                                 </div>
@@ -644,7 +643,7 @@
                                     <h2>Domina la Incertidumbre</h2>
                                     <p>La certificación <strong>PMI-RMP®</strong> reconoce tu experiencia y competencia especializada en la evaluación e identificación de riesgos de proyectos, la mitigación de amenazas y la capitalización de oportunidades.</p>
                                     <p>En un entorno global volátil, la capacidad de gestionar riesgos no es opcional. Esta certificación te distingue como un especialista que puede proteger las necesidades de la organización y asegurar el éxito del proyecto ante la incertidumbre.</p>
-
+                                    <br>
                                     <h3>¿Por qué elegir PMI-RMP?</h3>
                                     <ul>
                                         <li><strong>Especialización Valorada:</strong> Mientras que un Project Manager generalista gestiona riesgos, el RMP profundiza en técnicas avanzadas de análisis cuantitativo y cualitativo.</li>
@@ -719,7 +718,7 @@
                                     
                                     <div>
                                         <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/risk-management-professional-exam-outline.pdf" target="_blank" class="btn-cta-global">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -774,7 +773,7 @@
                                     <div class="precios-container">
                                         <div class="precio-box miembro">
                                             <span class="label">Miembros PMI</span>
-                                            <span class="monto">US$ 520</span>
+                                            <span class="monto">US$ 416</span>
                                         </div>
                                         <div class="precio-box regular">
                                             <span class="label">No Miembros</span>
@@ -791,7 +790,7 @@
                                     <h2>El Maestro del Tiempo</h2>
                                     <p>La certificación <strong>PMI-SP®</strong> valida tu capacidad para crear y gestionar cronogramas de proyectos complejos. En un mundo donde "el tiempo es dinero", las organizaciones necesitan especialistas que vayan más allá de los fundamentos y dominen la estrategia de tiempos.</p>
                                     <p>Esta certificación demuestra que tienes la competencia especializada para desarrollar, monitorear y mantener cronogramas de proyectos, asegurando que los plazos se cumplan sin sacrificar la calidad.</p>
-
+                                    <br>
                                     <h3>¿Por qué elegir PMI-SP?</h3>
                                     <ul>
                                         <li><strong>Impacto Crítico:</strong> El retraso en el cronograma es una de las causas más frecuentes de fracaso y sobrecostos. Tu rol es vital para prevenir esto.</li>
@@ -866,8 +865,8 @@
                                     </div>
                                     
                                     <div>
-                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/scheduling-professional-exam-outline.pdf" target="_blank" class="btn-cta-global">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/scheduling-professional-exam-outline.pdf?rev=2fd133454e8d490696e95cd20ef13a76" target="_blank" class="btn-cta-global">
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -926,11 +925,11 @@
                                     <div class="precios-container">
                                         <div class="precio-box miembro">
                                             <span class="label">Miembros PMI</span>
-                                            <span class="monto">US$ 475</span>
+                                            <span class="monto">US$ 380</span>
                                         </div>
                                         <div class="precio-box regular">
                                             <span class="label">No Miembros</span>
-                                            <span class="monto">US$ 655</span>
+                                            <span class="monto">US$ 524</span>
                                         </div>
                                     </div>
 
@@ -943,7 +942,7 @@
                                     <h2>La Evolución de la PMO</h2>
                                     <p>La certificación <strong>PMI-PMOCP™</strong> posiciona a los profesionales como expertos en la creación y gestión de Oficinas de Gestión de Proyectos (PMO). A diferencia de enfoques antiguos centrados solo en el control y la metodología, esta certificación se basa en el marco de la <strong>PMO orientada al valor (Value Ring)</strong>.</p>
                                     <p>Valida tu capacidad para alinear la PMO con la estrategia organizacional, demostrando el ROI de la oficina y gestionando servicios que realmente importan a los interesados.</p>
-
+                                    <br>
                                     <h3>¿Para quién es esta certificación?</h3>
                                     <ul>
                                         <li>Líderes y Directores de PMO (actuales o aspirantes).</li>
@@ -1024,8 +1023,8 @@
                                     </div>
                                     
                                     <div class="boton-eco-container">
-                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/pmi-pmocp-exam-content-outline.pdf" target="_blank" class="btn-cta-global">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/pmi-pmocp-exam-content-outline_2025-1.pdf?rev=feb4d8a387c44e29877dffb8cf34c3ae&la=es-419" target="_blank" class="btn-cta-global">
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -1070,11 +1069,11 @@
                                     <div class="precios-container">
                                         <div class="precio-box miembro">
                                             <span class="label">Miembros PMI (Bundle)</span>
-                                            <span class="monto">US$ 699</span>
+                                            <span class="monto">US$ 559</span>
                                         </div>
                                         <div class="precio-box regular">
                                             <span class="label">No Miembros (Bundle)</span>
-                                            <span class="monto">US$ 899</span>
+                                            <span class="monto">US$ 697</span>
                                         </div>
                                     </div>
                                     <div class="nota-costos">
@@ -1090,7 +1089,7 @@
                                     <h2>Lidera la Revolución de la IA</h2>
                                     <p>La certificación <strong>PMI-CPMAI™</strong> es la primera certificación agnóstica de proveedores diseñada específicamente para gerentes de proyectos de IA y ML. No se trata de aprender a codificar ("coding"), sino de aprender a <strong>gestionar</strong>.</p>
                                     <p>Se basa en la metodología <strong>CPMAI</strong> (Cognitive Project Management for AI), un marco de mejores prácticas iterativo que aborda las razones principales por las que fallan los proyectos de IA: falta de comprensión del negocio y problemas de datos.</p>
-
+                                    <br>
                                     <h3>¿Por qué esta certificación es única?</h3>
                                     <ul>
                                         <li><strong>Sin barreras de entrada:</strong> No requiere experiencia técnica previa ni horas de gestión de proyectos reportadas.</li>
@@ -1170,8 +1169,8 @@
                                     </div>
                                     
                                     <div class="boton-eco-container">
-                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/pmicpmai-exam-content-outline2025-updated.pdf" target="_blank" class="btn-cta-global">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/pmicpmai-exam-content-outline2025-updated.pdf?rev=a88ceeb705ca45e4abb89b26c3a3cb1d" target="_blank" class="btn-cta-global">
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -1217,11 +1216,11 @@
                                     <div class="precios-container">
                                         <div class="precio-box miembro">
                                             <span class="label">Miembros PMI (Bundle)</span>
-                                            <span class="monto">US$ 399</span>
+                                            <span class="monto">US$ 319</span>
                                         </div>
                                         <div class="precio-box regular">
                                             <span class="label">No Miembros (Bundle)</span>
-                                            <span class="monto">US$ 525</span>
+                                            <span class="monto">US$ 420</span>
                                         </div>
                                     </div>
                                     <div class="nota-costos">
@@ -1237,7 +1236,7 @@
                                     <h2>Gestión de Proyectos Sostenibles</h2>
                                     <p>La certificación <strong>GPM-b™</strong> es el estándar mundial para la gestión de proyectos sostenibles. No se trata solo de ser "eco-amigable", sino de aplicar el estándar <strong>P5™</strong> (Personas, Planeta, Prosperidad, Procesos y Productos) para asegurar que tus proyectos entreguen valor a largo plazo sin comprometer el futuro.</p>
                                     <p>Esta certificación valida tu capacidad para reducir riesgos ambientales, mejorar la eficiencia social y aumentar la rentabilidad a través de prácticas regenerativas.</p>
-
+                                    <br>
                                     <h3>¿Por qué obtener la GPM-b?</h3>
                                     <ul>
                                         <li><strong>Diferenciación de Mercado:</strong> Las empresas buscan desesperadamente profesionales que entiendan de ESG (Environmental, Social, and Governance).</li>
@@ -1293,8 +1292,8 @@
                                     </div>
                                     
                                     <div class="boton-eco-container">
-                                        <a href="https://www.gpmglobal.org/images/certifications/GPM-b_Exam_Content_Outline.pdf" target="_blank" class="btn-cta-global">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/gpmb-exam-content-outline2025-3-updated.pdf?rev=c0a0b4508a0e458d979b5c7ff517b8e3" target="_blank" class="btn-cta-global">
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -1346,11 +1345,11 @@
                                     <div class="precios-container">
                                         <div class="precio-box miembro">
                                             <span class="label">Miembros PMI</span>
-                                            <span class="monto">US$ 800</span>
+                                            <span class="monto">US$ 640</span>
                                         </div>
                                         <div class="precio-box regular">
                                             <span class="label">No Miembros</span>
-                                            <span class="monto">US$ 1,000</span>
+                                            <span class="monto">US$ 800</span>
                                         </div>
                                     </div>
 
@@ -1431,8 +1430,8 @@
                                     </div>
                                     
                                     <div class="boton-eco-container">
-                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/program-management-professional-examination-content-outline.pdf" target="_blank" class="btn-cta-global">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/pgmp-exam-content-outline-english.pdf?rev=74f6af64c47f40e183f13743603851d5" target="_blank" class="btn-cta-global">
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -1477,11 +1476,11 @@
                                     <div class="precios-container">
                                         <div class="precio-box miembro">
                                             <span class="label">Miembros PMI</span>
-                                            <span class="monto">US$ 800</span>
+                                            <span class="monto">US$ 640</span>
                                         </div>
                                         <div class="precio-box regular">
                                             <span class="label">No Miembros</span>
-                                            <span class="monto">US$ 1,000</span>
+                                            <span class="monto">US$ 800</span>
                                         </div>
                                     </div>
 
@@ -1583,8 +1582,8 @@
                                     </div>
                                     
                                     <div class="boton-eco-container">
-                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/portfolio-management-professional-exam-outline.pdf" target="_blank" class="btn-cta-global">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/portfolio-management-professional-exam-outline.pdf?rev=7996f265d5a14f2e8154ef61d29ab3ec" target="_blank" class="btn-cta-global">
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -1631,11 +1630,11 @@
                                     <div class="precios-container">
                                         <div class="precio-box miembro">
                                             <span class="label">Examen (Miembro)</span>
-                                            <span class="monto">US$ 399</span>
+                                            <span class="monto">US$ 319</span>
                                         </div>
                                         <div class="precio-box regular">
                                             <span class="label">Examen (No Miembro)</span>
-                                            <span class="monto">US$ 499</span>
+                                            <span class="monto">US$ 399</span>
                                         </div>
                                     </div>
                                     <div class="nota-costos">
@@ -1733,8 +1732,8 @@
                                     </div>
                                     
                                     <div class="boton-container">
-                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/pmicp-exam-content-outline.pdf" target="_blank" class="btn-cta-global">
-                                            <i class="fas fa-file-pdf"></i> Descargar Esquema de Contenido (ECO)
+                                        <a href="https://www.pmi.org/-/media/pmi/documents/public/pdf/certifications/pmicp-exam-content-outline.pdf?rev=2fc7825632cf4352ba7c13f8eb83b402&la=es-419" target="_blank" class="btn-cta-global">
+                                            <i class="fas fa-download"></i> Descargar Esquema de Contenido (ECO)
                                         </a>
                                     </div>
 
@@ -1793,12 +1792,7 @@
         </div>
     </section>
 
-    <section id="instituciones" class="instituciones-section">
-        <h2 class="cert-group-header">Contáctate con Instituciones</h2>
-        <div class="instituciones-container">
-            
-        </div>
-    </section>
+    
 
 </div>
 </div> 

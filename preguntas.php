@@ -202,17 +202,7 @@
                     <div class="faq-answer">
                         <p>La gran mayoría de los exámenes, incluidos el PMP®, CAPM® y PMI-ACP®, están disponibles traducidos al español. Puede seleccionar el idioma de ayuda al momento de agendar su examen.</p>
                     </div>
-                </details>
-
-                <details class="faq-item">
-                    <summary>
-                        <span class="faq-question">¿Es obligatorio ser miembro del PMI para certificarme?</span>
-                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-                    </summary>
-                    <div class="faq-answer">
-                        <p>No, la membresía es opcional. Sin embargo, se recomienda adquirirla antes de pagar el examen, ya que el descuento en el examen suele cubrir el costo de la membresía y obtiene acceso a recursos gratuitos.</p>
-                    </div>
-                </details>
+                </details> 
 
                 <details class="faq-item">
                     <summary>
