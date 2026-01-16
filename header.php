@@ -1,3 +1,9 @@
+<?php
+$pagina_actual = basename($_SERVER['PHP_SELF']);
+$active_membresia = in_array($pagina_actual, ['beneficios.php', 'tiposMembresia.php', 'preguntas.php']) ? 'active' : '';
+$active_certificacion = in_array($pagina_actual, ['certificaciones.php']) ? 'active' : '';
+$active_inicio = ($pagina_actual == 'index.php') ? 'active' : '';
+?>
 <!-- BARRA SUPERIOR -->
     <div class="topbar">
         <div class="topbar-left">

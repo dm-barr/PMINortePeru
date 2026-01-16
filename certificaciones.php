@@ -1799,7 +1799,7 @@
 <footer class="footer">
         <p>© 2025 PMI Norte Perú</p>
     </footer>
+    <script src="js/navbar.js"></script>
     <script src="js/certificaciones.js"></script>
-    <script src="js/submenu.js"></script>
 </body>
 </html>

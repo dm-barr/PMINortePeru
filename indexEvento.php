@@ -122,7 +122,7 @@ if (isset($_GET['edit'])) {
     </style>
 </head>
 <body class="bg-light">
-
+    <?php include 'header.php'; ?>
 <div class="container py-5">
     <h1 class="mb-4 text-center text-primary">📅 Eventos - PMI Norte Perú</h1>
 
@@ -255,6 +255,6 @@ imagenInput.addEventListener('change', function () {
     }
 });
 </script>
-
+    <script src="js/navbar.js"></script>
 </body>
 </html>

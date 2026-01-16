@@ -612,19 +612,7 @@ usort($eventos, function ($a, $b) {
             }
         });
     </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const menuLinks = document.querySelectorAll('.menu a');
-
-            menuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    menuToggle.checked = false;
-                });
-            });
-        });
-    </script>
+    <script src="js/navbar.js"></script>
     <script src="js/script.js?v=<?php echo time(); ?>"></script>
 </body>
 
