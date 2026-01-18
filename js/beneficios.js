@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const htmlProfesional = `
          <section class="manual-item">
                 <div class="manual-imagen">
-                    <a href="../pdfs/manual_profesional.pdf" target="_blank">
-                        <img src="../img/certificaciones/capm.png" alt="Portada Manual Profesional">
+                    <a href="pdfs/manual_profesional.pdf" target="_blank">
+                        <img src="img/certificaciones/capm.png" alt="Portada Manual Profesional">
                     </a>
                 </div>
 
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         Este manual detalla todos los beneficios, responsabilidades y oportunidades disponibles para nuestros miembros profesionales. Descubre cómo maximizar tu membresía, conectar con otros expertos y acceder a recursos exclusivos para impulsar tu carrera.
                     </p>
 
-                    <a href="../pdfs/manual_profesional.pdf" target="_blank" class="btn-manual">
+                    <a href="pdfs/manual_profesional.pdf" target="_blank" class="btn-manual">
                         Ver (PDF)
                     </a>
                 </div>
@@ -32,8 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const htmlEstudiante = `
          <section class="manual-item">
                 <div class="manual-imagen">
-                    <a href="../pdfs/manual_estudiante.pdf" target="_blank">
-                        <img src="../img/certificaciones/acp.png" alt="Portada Manual Estudiante">
+                    <a href="pdfs/manual_estudiante.pdf" target="_blank">
+                        <img src="img/certificaciones/acp.png" alt="Portada Manual Estudiante">
                     </a>
                 </div>
 
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         Esta guía está diseñada para estudiantes y te muestra cómo aprovechar al máximo tu membresía, obtener descuentos en certificaciones como la CAPM® y participar en eventos de networking.
                     </p>
 
-                    <a href="../pdfs/manual_estudiante.pdf" target="_blank" class="btn-manual">
+                    <a href="pdfs/manual_estudiante.pdf" target="_blank" class="btn-manual">
                         Ver (PDF)
                     </a>
                 </div>

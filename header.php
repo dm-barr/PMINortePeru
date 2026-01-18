@@ -30,11 +30,11 @@ $active_inicio = ($pagina_actual == 'index.php') ? 'active' : '';
             <label for="menu-toggle" class="menu-icon"></label>
             <nav id="navmenu">
                 <ul class="menu">
-                    <li><a href="index.php#hero">Inicio</a></li>
+                    <li><a href="index.php">Inicio</a></li>
                     <li><a href="index.php#nosotros">Nosotros</a></li>
                     <li><a href="index.php#eventos">Eventos</a></li>
                     <li class="dropdown-beneficios">
-                        <a href="#cta" class="dropdown-toggle">
+                        <a href="beneficios.php" class="dropdown-toggle">
                             Membresía <span class="arrow">▼</span></a>
                             <ul class="submenu-membresia">
                             <li><a href="beneficios.php">Beneficios</a></li>
@@ -57,9 +57,12 @@ $active_inicio = ($pagina_actual == 'index.php') ? 'active' : '';
 
                     <!-- Dropdown de Comunidades -->
                     <li class="dropdown-comunidades">
-                        <a href="#comunidades" class="dropdown-toggle">
-                            Comunidades <span class="arrow">▼</span>
+                    <a href="javascript:void(0);" class="dropdown-toggle">
+                    Comunidades <span class="arrow">▼</span>
                         </a>
+                        <ul class="submenu-comunidades">
+                            </ul>
+                        </li>
                         <ul class="submenu-comunidades">
                             <li><a href="#cajamarca">Cajamarca</a></li>
                             <li><a href="#trujillo">Trujillo</a></li>

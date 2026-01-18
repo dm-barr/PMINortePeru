@@ -43,9 +43,16 @@
                     Descubre cómo impulsamos tu carrera según tu etapa profesional.
                 </p>
                 <div class="video-container">
-                    <div class="placeholder-video">
-                        <span>[video de bienvenida ]</span>
-                    </div>
+                   <iframe 
+                        src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FPMInstitute%2Fvideos%2Fa-pmi-membership-means-youll-get-to-connect-and-collaborate-with-expert-project-%2F3499569360315187%2F&show_text=false&t=0"
+                        width="100%" 
+                        height="450" 
+                        style="border:none; overflow:hidden;" 
+                        scrolling="no" 
+                        frameborder="0" 
+                        allowfullscreen="true" 
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                    </iframe>
                 </div>
             </section>
 
