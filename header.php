@@ -58,9 +58,6 @@ $active_inicio = ($pagina_actual == 'index.php') ? 'active' : '';
                     Comunidades <span class="arrow">▼</span>
                         </a>
                         <ul class="submenu-comunidades">
-                            </ul>
-                        </li>
-                        <ul class="submenu-comunidades">
                             <li><a href="#cajamarca">Cajamarca</a></li>
                             <li><a href="#trujillo">Trujillo</a></li>
                             <li><a href="#piura">Piura</a></li>
