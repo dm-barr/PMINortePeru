@@ -128,8 +128,11 @@ body {
     height: 50px;
     z-index: 1001;
 }
+
 .a-img-nav {
     padding: 0;
+    margin: 0;
+    align-items: center;
 }
 
 .menu-icon {
