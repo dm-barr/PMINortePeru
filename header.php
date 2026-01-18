@@ -54,7 +54,7 @@ $active_inicio = ($pagina_actual == 'index.php') ? 'active' : '';
 
                     <!-- Dropdown de Comunidades -->
                     <li class="dropdown-comunidades">
-                    <a href="javascript:void(0);" class="dropdown-toggle">
+                    <a href="#" class="dropdown-toggle">
                     Comunidades <span class="arrow">▼</span>
                         </a>
                         <ul class="submenu-comunidades">
