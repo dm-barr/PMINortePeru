@@ -125,18 +125,15 @@ body {
 }
 
 .logo {
-    height: 50px;
-    display: block;
+    vertical-align: middle;
 }
 
 
 .a-img-nav {
-    display: flex;
-    align-items: center;
     padding: 0;
     margin: 0;
+    align-items: center;
 }
-
 
 .menu-icon {
     display: none;
