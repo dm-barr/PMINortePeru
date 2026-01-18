@@ -51,7 +51,7 @@
                 <a href="https://idp.pmi.org/Account/Login?ReturnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fclient_id%3Dsitecore_cf8efcba0e5248029eb69720959ad9f5%26redirect_uri%3Dhttps%253A%252F%252Fwww.pmi.org%252Fsignin-identityserver%26response_type%3Dcode%26scope%3Dopenid%2520profile%2520email%2520MYPMIAPPAPI%2520NAVAPPAPI%2520offline_access%2520WWWAPI%2520CERTSVC%26state%3DOpenIdConnect.AuthenticationProperties%253DE8vX-m0lnhROFy6v_o1GyqKpjy24v4x_FzSSM4BSQ12fgsr4fCQ5AeJdcDj0j8pkSLX3srMHuc388eWV-ngWq_XvX8MUE9yoOJXBsSLwpidhXoN3PBOBOud6FBtC3bjr6MmUP-hJuqtqodNXGk3zs5_n-pe1CkU38_COSygONqMpkHWT5WW-W6N7mNgYSvnDdkak0VSJiDtfuSB_9JIXBYdghxN3XxbaKtR2seCtzTnj3O94J7uBoLy04zzD8frSoR1Cirl7g5WY0IuCoTHQPytp5vIjzCjoSm8PP5ycxiwN_ZYflDOvPAsPf4knIvJN5Bvz1nKodFsuxKc2_DP95YOUEHrcarZk3ZVyHw%26response_mode%3Dform_post%26x-client-SKU%3DID_NET461%26x-client-ver%3D5.3.0.0" class="pmi-btn primary-btn">INFÓRMATE Y ÚNETE</a>
             </div>
             <div class="pmi-card-image">
-                <img src="img/recursos/profesionales.jpg" alt="Grupo de profesionales celebrando el éxito de un proyecto.">
+                <img src="img/recursos/profesional.jpg" alt="Grupo de profesionales celebrando el éxito de un proyecto.">
             </div>
         </section>
 

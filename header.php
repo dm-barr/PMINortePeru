@@ -31,7 +31,6 @@ $active_inicio = ($pagina_actual == 'index.php') ? 'active' : '';
             <nav id="navmenu">
                 <ul class="menu">
                     <li><a href="index.php">Inicio</a></li>
-                    <li><a href="index.php#nosotros">Nosotros</a></li>
                     <li><a href="index.php#eventos">Eventos</a></li>
                     <li class="dropdown-beneficios">
                         <a href="beneficios.php" class="dropdown-toggle">
@@ -52,8 +51,6 @@ $active_inicio = ($pagina_actual == 'index.php') ? 'active' : '';
                             <li><a href="preguntas.php#faq-certificaciones">Preguntas Frecuentes</a></li>
                         </ul> 
                     </li>
-                    <li><a href="index.php#junta-directiva">Junta Directiva</a></li>
-                    <li><a href="index.php#voluntariado">Voluntariado</a></li>
 
                     <!-- Dropdown de Comunidades -->
                     <li class="dropdown-comunidades">
