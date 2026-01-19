@@ -3011,25 +3011,26 @@ body>div>iframe[src*="recaptcha/api2/bframe"] {
     .submenu-comunidades,
     .submenu-membresia,
     .submenu-certificacion {
+        display: block !important;     
         position: static;
-        opacity: 1;
-        visibility: visible;
+        max-height: 0;                
+        overflow: hidden;              
+        opacity: 1 !important;         
+        visibility: visible !important;
         transform: none;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease, padding 0.4s ease;
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 0;
+        transition: max-height 0.5s ease-in-out, padding 0.3s ease; 
+        background: rgba(255, 255, 255, 0.05);
         margin: 0;
         padding: 0;
         box-shadow: none;
+        border-radius: 0;
     }
 
     .dropdown-comunidades.active .submenu-comunidades,
     .dropdown-beneficios.active .submenu-membresia,
     .dropdown-certificacion.active .submenu-certificacion {
-        max-height: 400px;
-        padding: 8px 0;
+        max-height: 800px !important; 
+        padding: 10px 0;               
         margin-top: 5px;
     }
 
@@ -3042,8 +3043,9 @@ body>div>iframe[src*="recaptcha/api2/bframe"] {
     .submenu-comunidades a,
     .submenu-membresia a,
     .submenu-certificacion a {
-        padding: 10px 20px 10px 40px;
-        font-size: 0.9em;
+        color: #ffffff !important;    
+        font-weight: normal;
+        border-left: 3px solid transparent;
     }
 
     .submenu-comunidades a:hover,

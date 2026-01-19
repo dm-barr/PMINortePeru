@@ -12,10 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
   
-  dropdownToggles.forEach(toggle => {
+    dropdownToggles.forEach(toggle => {
       toggle.addEventListener("click", function(e) {
           if (window.innerWidth <= 900) { 
-              e.preventDefault(); 
+              console.log("Clic detectado en menú móvil"); 
+              e.preventDefault();
               const parentLi = this.closest('li');
               if (parentLi) {
                   const allDropdowns = document.querySelectorAll('.dropdown-beneficios, .dropdown-certificacion, .dropdown-comunidades');
