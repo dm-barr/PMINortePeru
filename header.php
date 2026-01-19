@@ -42,7 +42,7 @@ $active_inicio = ($pagina_actual == 'index.php') ? 'active' : '';
                         </ul> 
                     </li>
                     <li class="dropdown-certificacion">
-                        <a href="#" class="dropdown-toggle">
+                        <a href="certificaciones.php" class="dropdown-toggle">
                             Certificación <span class="arrow">▼</span></a>
                             <ul class="submenu-certificacion">
                             <li><a href="certificaciones.php">Principales</a></li>
