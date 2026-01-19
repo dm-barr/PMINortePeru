@@ -1749,6 +1749,7 @@ body {
 
     .menu-toggle:checked~nav .menu {
         display: flex;
+        flex-direction: column
     }
 
     .topbar-right .email,
