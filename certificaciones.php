@@ -1797,7 +1797,7 @@
 </div>
 </div> 
 <footer class="footer">
-        <p>© 2025 PMI Norte Perú</p>
+        <p>© 2026 PMI Norte Perú</p>
     </footer>
     <script src="js/navbar.js"></script>
     <script src="js/certificaciones.js"></script>
