@@ -127,7 +127,7 @@ SECCIÓN DE CERTIFICACIONES
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
-    align-items: start;
+    align-items: stretch;
     margin-bottom: 0;
     transition: all 0.3s ease;
 }
@@ -179,16 +179,16 @@ SECCIÓN DE CERTIFICACIONES
 
 .cert-card h3 {
     color: var(--color-secondary);
-    font-size: 1.4em;
+    font-size: 2.5rem; 
     font-weight: 700;
     margin-bottom: 15px;
     text-align: center;
-    line-height: 1.3;
+    line-height: 1.2;
 }
 
 .cert-card .cert-contenido-normal p {
-    font-size: 0.95em;
-    line-height: 1.6;
+    font-size: 1.1rem; 
+    line-height: 1.8;  
     margin-bottom: var(--spacing-sm, 15px);
     text-align: justify;
     color: #ddd;
@@ -600,7 +600,7 @@ html {
         margin-bottom: 40px;
         z-index: 1;
     }
-
+    
     .recursos-section{
         padding: 30px 10px;
     }
@@ -608,6 +608,14 @@ html {
     .cert-card.expandido {
         padding: 10px;
         align-items: flex-end;
+    }
+
+    .cert-card h3 {
+        font-size: 1.8rem; 
+    }
+
+    .cert-card .cert-contenido-normal p {
+        font-size: 1rem;
     }
 
     .cert-card.expandido .cert-contenido-expandido {

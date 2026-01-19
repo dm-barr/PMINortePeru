@@ -211,6 +211,48 @@
     }
 }
 
+@media (max-width: 900px) {
+    .contenedor-principal {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .sidebar-navegacion {
+        width: 100%;
+        position: static;
+        margin-bottom: 20px;
+    }
+    
+    .sidebar-navegacion ul li a {
+        padding: 12px 20px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .contenido-beneficios {
+        width: 100%;
+    }
+
+    .contenido-beneficios h2 {
+        font-size: 1.5em; 
+    }
+
+    .faq-item summary {
+        padding: 15px 20px;
+    }
+
+    .faq-question {
+        font-size: 0.95em;
+        line-height: 1.4;
+        padding-right: 10px;
+    }
+
+    .faq-icon {
+        width: 32px;
+        height: 32px;
+        margin-left: 10px;
+    }
+}
+
 @media (max-width: 600px) {
     .faq-item summary {
         padding: 18px 20px;

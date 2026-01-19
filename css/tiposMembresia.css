@@ -249,10 +249,12 @@
 
 @media (max-width: 900px) {
     .contenedor-principal {
-        grid-template-columns: 1fr; 
+        flex-direction: column; 
+        gap: 30px;
     }
     
     .sidebar-navegacion {
+        width: 100%;
         position: static;
         margin-bottom: 20px;
     }
@@ -283,5 +285,12 @@
         display: block;
         text-align: center;
         width: 100%;
+    }
+
+    .pmi-card-content h2 {
+        font-size: 1.6rem;
+    }
+    .pmi-card-content p, .pmi-cost-details li {
+        font-size: 0.95rem;
     }
 }

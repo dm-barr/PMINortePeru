@@ -27,7 +27,7 @@ $active_inicio = ($pagina_actual == 'index.php') ? 'active' : '';
         <div class="nav-container">
             <a class="a-img-nav" href="index.php"><img src="img/logo/logo_PMI.png" alt="Logo PMI Norte Perú" class="logo"></a>
             <input type="checkbox" id="menu-toggle" class="menu-toggle">
-            <label for="menu-toggle" class="menu-icon"></label>
+            <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
             <nav id="navmenu">
                 <ul class="menu">
                     <li><a href="index.php">Inicio</a></li>

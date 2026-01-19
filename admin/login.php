@@ -507,7 +507,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="login-footer">
-                    <p>&copy; 2025 PMI Norte Perú. Todos los derechos reservados.</p>
+                    <p>&copy; <?php echo date('Y'); ?> PMI Norte Perú. Todos los derechos reservados.</p>
                 </div>
             </div>
         </div>

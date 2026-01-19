@@ -508,7 +508,7 @@ usort($eventos, function ($a, $b) {
 
     <!-- FOOTER -->
     <footer class="footer">
-        <p>© 2025 PMI Norte Perú</p>
+        <p>© <?php echo date('Y'); ?> PMI Norte Perú</p>
     </footer>
 
     <script>
