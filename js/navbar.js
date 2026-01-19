@@ -1,30 +1,42 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('menu-toggle'); 
-    const menuLinks = document.querySelectorAll('.menu a:not(.dropdown-toggle)');
-    const dropdowns = document.querySelectorAll('.dropdown-beneficios, .dropdown-certificacion, .dropdown-comunidades');
-    menuLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if(menuToggle) menuToggle.checked = false;
-        });
+document.addEventListener("DOMContentLoaded", function () {
+  const menuToggle = document.getElementById("menu-toggle");
+  const menuLinks = document.querySelectorAll(".menu a:not(.dropdown-toggle)");
+  
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", function () {
+      if (menuToggle) {
+        menuToggle.checked = false; 
+      }
     });
+  });
 
-    dropdowns.forEach(dropdown => {
-        const toggleBtn = dropdown.querySelector('.dropdown-toggle');
-        
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', (e) => {
-                if (window.innerWidth <= 968) { 
-                    e.preventDefault(); 
-                    dropdown.classList.toggle('active');
-                }
+  const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+  
+  dropdownToggles.forEach(toggle => {
+      toggle.addEventListener("click", function(e) {
+          if (window.innerWidth <= 900) { 
+              e.preventDefault(); 
+              const parentLi = this.closest('li');
+              if (parentLi) {
+                  const allDropdowns = document.querySelectorAll('.dropdown-beneficios, .dropdown-certificacion, .dropdown-comunidades');
+                  allDropdowns.forEach(d => {
+                      if (d !== parentLi) d.classList.remove('active');
+                  });
+                  parentLi.classList.toggle('active');
+              }
+          }
+      });
+  });
+
+  document.addEventListener("click", function (e) {
+      if (window.innerWidth <= 900) {
+        const navContainer = document.querySelector('.nav-container');
+        if (navContainer && !navContainer.contains(e.target)) {
+            document.querySelectorAll('.dropdown-beneficios, .dropdown-certificacion, .dropdown-comunidades').forEach(d => {
+                d.classList.remove('active');
             });
-        }
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.nav-container')) {
-            dropdowns.forEach(d => d.classList.remove('active'));
             if(menuToggle) menuToggle.checked = false;
         }
-    });
+      }
+  });
 });

@@ -494,23 +494,42 @@ function onSubmitContacto(token) {
 // MENU HAMBURGUESA - TOGGLE
 document.addEventListener("DOMContentLoaded", function () {
   const menuToggle = document.getElementById("menu-toggle");
-  const menu = document.querySelector(".menu");
-  const menuIcon = document.querySelector(".menu-icon");
-
-  if (menuToggle && menuIcon) {
-    menuIcon.addEventListener("click", function () {
-      menuToggle.checked = !menuToggle.checked;
-    });
-  }
-
-  // Cerrar menú al hacer clic en un enlace
-  const menuLinks = document.querySelectorAll(".menu a");
+  const menuLinks = document.querySelectorAll(".menu a:not(.dropdown-toggle)");
   menuLinks.forEach((link) => {
     link.addEventListener("click", function () {
       if (menuToggle) {
         menuToggle.checked = false;
       }
     });
+  })
+  const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+  
+  dropdownToggles.forEach(toggle => {
+      toggle.addEventListener("click", function(e) {
+          if (window.innerWidth <= 900) { 
+              e.preventDefault();
+              const parentLi = this.closest('li');
+              if (parentLi) {
+                  const allDropdowns = document.querySelectorAll('.dropdown-beneficios, .dropdown-certificacion, .dropdown-comunidades');
+                  allDropdowns.forEach(d => {
+                      if (d !== parentLi) d.classList.remove('active');
+                  });
+                  parentLi.classList.toggle('active');
+              }
+          }
+      });
+  });
+
+  document.addEventListener("click", function (e) {
+      if (window.innerWidth <= 900) {
+        const navContainer = document.querySelector('.nav-container');
+        if (navContainer && !navContainer.contains(e.target)) {
+            document.querySelectorAll('.dropdown-beneficios, .dropdown-certificacion, .dropdown-comunidades').forEach(d => {
+                d.classList.remove('active');
+            });
+            if(menuToggle) menuToggle.checked = false;
+        }
+      }
   });
 });
 
