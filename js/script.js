@@ -492,7 +492,7 @@ function onSubmitContacto(token) {
 }
 
 // MENU HAMBURGUESA - TOGGLE
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {
   const menuToggle = document.getElementById("menu-toggle");
   const menuLinks = document.querySelectorAll(".menu a:not(.dropdown-toggle)");
   menuLinks.forEach((link) => {
@@ -531,7 +531,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
   });
-});
+});/*
 
 /* ========================================
    DROPDOWN COMUNIDADES - CLICK EN MÓVILES
